@@ -1,0 +1,163 @@
+.hero {
+	width: 100vw;
+	height: 94vh;
+	position: relative;
+}
+
+.hero .hero_image {
+	width: 100vw;
+	position: relative;
+}
+
+.hero .hero_image img {
+	width: 100%;
+}
+
+.hero .content {
+	position: absolute;
+	top: 44%;
+	left: 50%;
+	transform: translate3D(-50%,-50%,0);
+	text-align: center;
+}
+
+.hero .content h1 {
+	font-size: 6.4vw;
+	letter-spacing: -0.5vw;
+	color: #fff;
+	text-shadow: 0 1px 10px rgba(0,0,0,.4);
+	margin-bottom: 10px;
+}
+
+.hero .content h2 {
+	font-size: 27px;
+	color: #fff;
+	text-shadow: 0 1px 4px rgba(0,0,0,.4);
+}
+
+.first {
+	position: relative;
+	padding: 19vh 0;
+}
+
+.second,
+.third {
+	position: relative;
+	padding: 13vh 0;
+}
+
+.first {
+	text-align: center;
+	transform: skewY(7deg);
+	background: $dark_blue;
+}
+
+.first .content {
+	transform: skewY(-7deg);
+}
+
+.second {
+	transform: skewY(7deg);
+	background: $med_blue;
+	overflow: hidden;
+}
+
+.second .content {
+	transform: skewY(-7deg);
+}
+
+.second .skew_block.one {
+	width: 15vw;
+  transform: skewX(-10deg);
+  height: 150%;
+  position: absolute;
+  top: -50px;
+  left: -25%;
+  background: $med_blue;
+  z-index: 1;
+}
+
+.image_container.top {
+	width: 50%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	&.top {
+    width: 50%;
+    overflow: hidden;
+    transform: skewY(-7deg);
+    top: -6%;
+		img {
+			width: 118%;
+		}
+	}
+}
+
+.second .skew_block.two {
+	width: 15vw;
+  transform: skewX(10deg);
+  height: 150%;
+  position: absolute;
+  top: -50px;
+  left: -25%;
+  background: $med_blue;
+  z-index: 1;
+}
+
+.image_container.bottom {
+	width: 50%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	&.top {
+    width: 50%;
+    overflow: hidden;
+    transform: skewY(7deg);
+    top: -6%;
+		img {
+			width: 118%;
+		}
+	}
+}
+
+.info.left,
+.info.right {
+	width: 50%;
+	float: left;
+}
+
+.second .group {
+	height: 50vh;
+}
+
+section.first h1:after,
+section.second h1:after,
+section.third h1:after {
+	width: 66px;
+	height: 2px;
+	background: rgba($grey, .34);
+	display: block;
+	content: "";
+}
+
+section.first h1:after {
+	margin: 28px auto 0;
+}
+
+section.second h1:after,
+section.third h1:after {
+	margin: 28px 0 0 0;
+}
+
+.button .arrow {
+	display: inline-block;
+	margin: 0 0 0 10px;
+	position: relative;
+  top: -1px;
+}
+
+.button .arrow svg {
+	fill: #fff;
+	width: 15px;
+	vertical-align: middle;
+}

@@ -1,3 +1,16 @@
+/* ===================
+   Import SASS Files (defaults to _SASS directory)
+   ================= */
+
+@import
+    "../_sass/mixins",
+    "../_sass/animate.min",
+    "../_sass/reset",
+    "../_sass/fonts",
+    "../_sass/jeff-styles",
+    "../_sass/buttons"
+;
+
 /* ==========================================================================
    Base Styles
    ========================================================================== */
@@ -13,7 +26,12 @@ textarea {
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
+    font-family: $aller;
+    color: $grey;
+    background: $dark_blue;
 }
+
+.ranger { font-family: $ranger; }
 
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
@@ -22,14 +40,14 @@ body {
  */
 
 ::-moz-selection {
-    background: #000;
+    background: $red;
     color: #FFF;
     text-shadow: none;
 }
 
 ::selection {
     color: #FFF;
-    background: #000;
+    background: $red;
     text-shadow: none;
 }
 
@@ -42,6 +60,19 @@ body {
     visibility: hidden;
 }
 
+.wrapper {
+  width: 100%;
+  max-width: 1024px;
+}
+
+/* ==========================================================================
+   Largest Size Viewports
+   ========================================================================== */
+
+@import "../_sass/header";
+@import "../_sass/home";
+@import "../_sass/footer";
+
 /* ==========================================================================
    Mobile and Small Viewports
    ========================================================================== */
@@ -50,7 +81,7 @@ body {
 /* Mobile-first styles FTW */
 
 @media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
-@import "mobile";
+@import "../_sass/mobile";
 }
 
 /* ==========================================================================
@@ -59,19 +90,5 @@ body {
    ========================================================================== */
 
 @media print {
-@import "print";
+@import "../_sass/print";
 }
-
-/* ===================
-   Import SASS Files (defaults to _SASS directory)
-   ================= */
-
-@import
-    "compass",
-    "animate.min",
-    "mixins",
-    "reset",
-    "fonts",
-    "jeff-styles",
-    "buttons",
-;

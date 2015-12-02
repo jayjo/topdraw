@@ -1,10 +1,16 @@
-	<footer></footer>
+	<footer>
+		<div class="wrapper">
+			<div class="social">
+				<a href="#" class="facebook">
 
-	<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
-  <script src="assets/js/jquery-2.1.1.min.js" type="text/javascript" defer="defer"></script>
+				</a>
+				<a href="#" class="youtube">
 
-  <script src="assets/js/plugins.js" type="text/javascript" defer="defer"></script>
-  <script src="assets/js/global.js" type="text/javascript" defer="defer"></script>
+				</a>
+			</div>
+			<p class="copyright">Copyright © 2015 Top Draw Consulting, LLC.</p>
+		</div>
+	</footer>
 
 </body>
 </html>

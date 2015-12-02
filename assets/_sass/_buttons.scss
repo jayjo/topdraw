@@ -1,52 +1,58 @@
 .button {
-	border-radius: 50em;
+	border-radius: 2px;
 	text-align: center;
-	text-transform: capitalize;
 	display: inline-block;
 	margin: 0 auto;
+	font-family: $aller;
+	font-weight: 500;
+	text-decoration: none;
+	transition: all 200ms;
 
 	&.large {
-		font-size: 17px;
-		padding: .9em 1.5em;
+		font-size: 16px;
+		padding: 1.15em 2em;
 	}
 
 	&.med {
 		font-size: 14px;
-		padding: .75em 1.15em;
+		padding: .85em 1.5em;
 	}
 
 	&.small {
-		font-size: 11px;
-		padding: .5em .85em;
+		font-size: 12px;
+		padding: .65em 1em;
 	}
 
 	&.outline {
 		border: 2px solid;
 		background: transparent;
 
-		&.primary {
-				border-color: $primary;
-				color: $primary;
+		&.red {
+				border-color: $red;
+				color: $red;
 			&:hover {
-				background: $primary;
+				background: rgb(198,66,71);
+				border-color: rgb(198,66,71);
 				color: #fff;
 			}
 		}
 
-		&.secondary {
-				border-color: $secondary;
-				color: $secondary;
+		&.blue {
+				border-color: $dark_blue;
+				color: $dark_blue;
 			&:hover {
-				background: $secondary;
+				background: rgb(45,51,67);
+				border-color: rgb(45,51,67);
 				color: #fff;
 			}
 		}
 
-		&.tertiary {
-				border-color: $tertiary;
-				color: $tertiary;
+		&.orange {
+				border-color: $orange;
+				color: $orange;
 			&:hover {
-				background: $tertiary;
+				background: rgb(229,167,80);
+				border-color: rgb(229,167,80);
 				color: #fff;
 			}
 		}
@@ -56,8 +62,11 @@
 			border-color: #fff;
 
 			&:hover {
-				background: rgba(255,255,255, .25);
+				background: rgba(255,255,255, 1);
 			}
+		}
+		&:hover {
+			box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
 		}
 	}
 
@@ -65,38 +74,44 @@
 		border: 2px solid transparent;
 		color: #fff;
 
-		&.primary {
-			background: $primary;
+		&.red {
+			background: $red;
 			&:hover {
-				border-color: $primary;
+				background: rgb(198,66,71);
 				color: #fff;
 			}
 		}
 
-		&.secondary {
-			background: $secondary;
+		&.blue {
+			background: $dark_blue;
 			&:hover {
-				border-color: $secondary;
+				background: rgb(45,51,67);
 				color: #fff;
 			}
 		}
 
-		&.tertiary {
-			background: $tertiary;
+		&.orange {
+			background: $orange;
 			&:hover {
-				border-color: $tertiary;
+				background: rgb(229,167,80);
 				color: #fff;
 			}
 		}
 
 		&.white {
-			background: #fff;
-			color: #555;
+			background: rgba(255,255,255,.9);
+			color: $dark_blue;
 
 			&:hover {
-				background: rgba(255,255,255, .25);
-				border: 2px solid #fff;
+				background: rgba(255,255,255, 1);
 			}
 		}
+
+		&:hover {
+			box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
+		}
+	}
+	&:hover {
+		transition: all 200ms;
 	}
 }

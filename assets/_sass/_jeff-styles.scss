@@ -9,28 +9,21 @@ html { box-sizing: border-box }
    ========================================================================== */
 
 h1, h2, h3, h4, h5, h6 {
-
+  color: $orange;
+  font-weight: 300;
+  margin: 0 0 28px 0;
 }
 
-h1 { font-size: 32px; }
-h2 { font-size: 28px; }
+h1 { font-size: 28px; }
+h2 { font-size: 38px; }
 h3 { font-size: 24px; }
 h4 { font-size: 20px; }
 h5 { font-size: 16px; }
 
 p {
 	font-size: 17px;
-	line-height: 24px;
-}
-
-h2 {
-	line-height: 34px;
-	margin: 1em 0 15px 0;
-}
-
-h3 {
 	line-height: 28px;
-	margin: 1em 0 15px;
+  margin: 0 0 28px 0;
 }
 
 .lefty {
@@ -106,6 +99,8 @@ h3 {
   margin: 0 auto;
 }
 
-.clearfloat {
+.cf:after {
+  content: "";
+  display: table;
   clear: both;
 }

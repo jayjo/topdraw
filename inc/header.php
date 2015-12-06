@@ -41,10 +41,10 @@
         <a href="#" class="login">Log In</a>
         <a href="#" class="button med solid blue">Join Now</a>
       </nav>
-      <a href="#" class="logo">Top Draw Consulting</a>
+      <a href="index.php" class="logo">Top Draw Consulting</a>
       <nav class="nav">
         <ul>
-          <li><a href="#">What We Do</a></li>
+          <li><a href="state.php">What We Do</a></li>
           <li><a href="#">Who We Are</a></li>
           <li><a href="#">Forum</a></li>
           <li><a href="#">Contact Us</a></li>

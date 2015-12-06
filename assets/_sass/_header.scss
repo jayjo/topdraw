@@ -1,7 +1,7 @@
 header {
 	position: fixed;
 	width: 100%;
-	height: 75px;
+	height: 80px;
 	top: 0;
 	z-index: 1;
 	padding: 15px 0 0 0;
@@ -49,4 +49,30 @@ header {
 header a {
 	text-decoration: none;
 	color: $dark_blue;
+}
+
+.nothome header {
+	background: $dark_blue;
+}
+
+.nothome .nav ul li a {
+	color: rgba($grey,.5);
+	&:hover {
+		color: rgba($grey,1);
+		transition: all 200ms;
+	}
+}
+
+.nothome header a {
+	text-decoration: none;
+	color: rgba($grey,.5);
+	&:hover {
+		color: rgba($grey,1);
+		transition: all 200ms;
+	}
+}
+
+.nothome header .button {
+	background: rgb(45,51,67);
+	border-color: rgb(45,51,67);
 }

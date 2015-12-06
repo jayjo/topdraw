@@ -1,0 +1,112 @@
+table {
+	font-size: 14px;
+	width: 100%;
+	text-align: left;
+}
+
+th {
+	padding: 14px 18px;
+	color: rgba($light_blue, .65);
+	font-size: 11px;
+	text-transform: uppercase;
+	border: 1px solid #252C38;
+	border-bottom: 5px solid #252C38;
+}
+
+th:last-child {
+
+}
+
+td {
+	border-left: 1px solid #252C38;
+	border-bottom: 1px solid #252C38;
+	padding: 20px 18px;
+	height: 56px;
+	position: relative;
+}
+
+td:last-child {
+	border-right: 1px solid #252C38;
+}
+
+tr:nth-child(odd) {
+	background: rgba($med_blue,1);
+}
+
+tr:nth-child(1) {
+	background: rgba($med_blue,1);
+}
+
+.tooltip {
+  position: absolute;
+  background: $orange;
+  border-radius: 3px;
+  padding: 10px;
+  color: $dark_blue;
+  width: 236px;
+  font-size: 12px;
+  left: -80px;
+  top: -50px;
+  box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
+}
+
+table .orange {
+	color: $orange;
+}
+
+table .orange:hover .tooltip {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 150ms 200ms, transform 150ms 200ms;
+	transform: translateY(0);
+}
+
+.table_toggle {
+	text-align: center;
+}
+
+.table_toggle h3 {
+	display: inline-block;
+	text-align: center;
+	margin: 0 10px 20px;
+	color: rgba($grey, .35);
+	cursor: pointer;
+	transition: all 150ms;
+	&.current {
+		color: $orange;
+		&:hover {
+			color: $orange;
+		}
+	}
+	&:hover {
+		color: rgba($grey, 1);
+		transition: all 150ms;
+	}
+}
+
+.table_toggle p {
+	width: 80%;
+	margin: 0 auto 28px;
+}
+
+// Table Sorter Stuff
+
+table.tablesorter thead tr .header {
+	background-image: url(../images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	vertical-align: top;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/desc.gif);
+}

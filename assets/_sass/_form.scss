@@ -1,0 +1,18 @@
+.input {
+	display: block;
+	margin-bottom: 20px;
+	&:first-child {
+		margin-bottom: 10px;
+	}
+}
+
+label {
+	background: $med_blue;
+	padding: 15px 20px;
+	font-size: 12px;
+}
+
+input[type=text],
+input[type=email] {
+
+}

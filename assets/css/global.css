@@ -3833,6 +3833,20 @@ td {
   position: relative;
 }
 
+.table_container {
+  width: 100%;
+  overflow: scroll;
+}
+
+.over {
+  overflow: scroll;
+  display: table;
+}
+
+.over td, .over th {
+  min-width: 140px;
+}
+
 td:last-child {
   border-right: 1px solid #252C38;
 }
@@ -3959,6 +3973,7 @@ section.chart {
   width: 100%;
   border-radius: 3px;
   margin-bottom: 15px;
+  z-index: 500;
 }
 
 .button_group {
@@ -3975,25 +3990,28 @@ section.chart {
 }
 
 .button_group ul li {
+  display: inline-block;
+  margin: 0 auto;
+}
+.button_group ul li a {
   background: #1e222c;
   font-size: 13px;
   color: rgba(187, 188, 189, 0.65);
   padding: 15px 20px;
   transition: all 150ms;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 auto;
+  text-decoration: none;
 }
-.button_group ul li:hover, .button_group ul li.current {
+.button_group ul li a:hover {
   color: #fff;
   transition: all 150ms;
 }
-.button_group ul li.current {
-  border-bottom: 3px solid #639bab;
-}
-.button_group ul li:hover {
+.button_group ul li a:hover {
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   background: #2d3343;
+}
+.button_group ul li.current a {
+  border-bottom: 3px solid #639bab;
+  color: #fff;
 }
 
 .species_info {
@@ -4016,10 +4034,24 @@ section.chart {
   color: rgba(99, 155, 171, 0.75);
 }
 
+.species_info .record.single p {
+  text-align: center;
+  width: 100%;
+  padding: 0 15px;
+}
+.species_info .record.single p:last-child {
+  border-left: none;
+}
+.species_info .record.single p span {
+  display: block;
+  color: rgba(99, 155, 171, 0.65);
+}
+
 .species_info p {
   text-align: center;
   width: 50%;
   float: left;
+  padding: 0 15px;
 }
 .species_info p:last-child {
   border-left: 1px solid #252C38;
@@ -4032,7 +4064,7 @@ section.chart {
 .sep {
   width: 70px;
   height: 5px;
-  margin: 0 auto;
+  margin: 50px auto;
   background: rgba(99, 155, 171, 0.15);
 }
 
@@ -4151,16 +4183,44 @@ div.fancy-select ul.options li.hover {
 
 .input {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  position: relative;
 }
 .input:first-child {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 label {
   background: #1e222c;
   padding: 15px 20px;
   font-size: 12px;
+  width: 140px;
+  height: 43px;
+  display: inline-block;
+  border-radius: 2px 0 0 2px;
+}
+
+input[type=text],
+input[type=email] {
+  width: 240px;
+  background: #15181d;
+  border: 1px solid transparent;
+  outline: none;
+  padding: 13px;
+  line-height: 14px;
+  margin: 0 0 0 -2px;
+  color: #fff;
+  font: 13px "aller", Helvetica, sans-serif;
+  border-radius: 0 2px 2px 0;
+  position: relative;
+  top: 1px;
+  transition: all 150ms;
+}
+input[type=text]:focus,
+input[type=email]:focus {
+  border-color: rgba(99, 155, 171, 0.5);
+  color: rgba(99, 155, 171, 0.65);
+  transition: all 150ms;
 }
 
 /* ==========================================================================
@@ -4218,6 +4278,7 @@ header {
   top: 0;
   z-index: 1;
   padding: 15px 0 0 0;
+  transition: background 150ms 300ms;
 }
 
 .loggroup {
@@ -4288,6 +4349,25 @@ header a {
 }
 
 .nothome header .button {
+  background: #2d3343;
+  border-color: #2d3343;
+}
+
+header.shown {
+  background: #191e25;
+  transition: background 150ms;
+}
+
+header.shown a {
+  text-decoration: none;
+  color: rgba(187, 188, 189, 0.5);
+}
+header.shown a:hover {
+  color: #bbbcbd;
+  transition: all 200ms;
+}
+
+header.shown .button {
   background: #2d3343;
   border-color: #2d3343;
 }

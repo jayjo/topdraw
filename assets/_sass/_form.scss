@@ -1,8 +1,9 @@
 .input {
 	display: block;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
+	position: relative;
 	&:first-child {
-		margin-bottom: 10px;
+		margin-bottom: 12px;
 	}
 }
 
@@ -10,9 +11,30 @@ label {
 	background: $med_blue;
 	padding: 15px 20px;
 	font-size: 12px;
+	width: 140px;
+	height: 43px;
+	display: inline-block;
+	border-radius: 2px 0 0 2px;
 }
 
 input[type=text],
 input[type=email] {
-
+  width: 240px;
+  background: rgb(21,24,29);
+  border: 1px solid transparent;
+  outline: none;
+  padding: 13px;
+  line-height: 14px;
+  margin: 0 0 0 -2px;
+  color: #fff;
+  font: 13px $aller;
+  border-radius: 0 2px 2px 0;
+  position: relative;
+  top: 1px;
+  transition: all 150ms;
+  &:focus {
+		border-color: rgba($light_blue, .5);
+		color: rgba($light_blue, .65);
+		transition: all 150ms;
+  }
 }

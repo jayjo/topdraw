@@ -5,6 +5,7 @@ header {
 	top: 0;
 	z-index: 1;
 	padding: 15px 0 0 0;
+	transition: background 150ms 300ms;
 }
 
 .loggroup {
@@ -73,6 +74,25 @@ header a {
 }
 
 .nothome header .button {
+	background: rgb(45,51,67);
+	border-color: rgb(45,51,67);
+}
+
+header.shown {
+	background: $dark_blue;
+	transition: background 150ms;
+}
+
+header.shown a {
+	text-decoration: none;
+	color: rgba($grey,.5);
+	&:hover {
+		color: rgba($grey,1);
+		transition: all 200ms;
+	}
+}
+
+header.shown .button {
 	background: rgb(45,51,67);
 	border-color: rgb(45,51,67);
 }

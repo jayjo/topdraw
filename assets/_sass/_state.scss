@@ -37,6 +37,7 @@ section.chart {
 	width: 100%;
 	border-radius: 3px;
 	margin-bottom: 15px;
+	z-index: 500;
 }
 
 .button_group {
@@ -54,25 +55,27 @@ section.chart {
 }
 
 .button_group ul li {
-	background: $med_blue;
-	font-size: 13px;
-	color: rgba($grey,.65);
-  padding: 15px 20px;
-  transition: all 150ms;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 auto;
-  &:hover,
-  &.current {
-		color: #fff;
-		transition: all 150ms;
-  }
-  &.current {
+	display: inline-block;
+	margin: 0 auto;
+	a {
+		background: $med_blue;
+		font-size: 13px;
+		color: rgba($grey,.65);
+	  padding: 15px 20px;
+	  transition: all 150ms;
+	  text-decoration: none;
+	  &:hover {
+			color: #fff;
+			transition: all 150ms;
+	  }
+	  &:hover {
+	  	box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
+	  	background: rgb(45,51,67);
+	  }
+	}
+	&.current a {
   	border-bottom: 3px solid rgba($light_blue, 1);
-  }
-  &:hover {
-  	box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
-  	background: rgb(45,51,67);
+  	color: #fff;
   }
 }
 
@@ -96,10 +99,24 @@ section.chart {
 	color: rgba($light_blue, .75);
 }
 
+.species_info .record.single p {
+	text-align: center;
+	width: 100%;
+	padding: 0 15px;
+	&:last-child {
+		border-left: none;
+	}
+	span {
+		display: block;
+		color: rgba($light_blue, .65);
+	}
+}
+
 .species_info p {
 	text-align: center;
 	width: 50%;
 	float: left;
+	padding: 0 15px;
 	&:last-child {
 		border-left: 1px solid #252C38;
 	}
@@ -112,6 +129,6 @@ section.chart {
 .sep {
 	width: 70px;
 	height: 5px;
-	margin: 0 auto;
+	margin: 50px auto;
 	background: rgba($light_blue, .15);
 }

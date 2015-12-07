@@ -25,6 +25,20 @@ td {
 	position: relative;
 }
 
+.table_container {
+	width: 100%;
+	overflow: scroll;
+}
+
+.over {
+	overflow: scroll;
+	display: table;
+}
+
+.over td, .over th {
+	min-width: 140px;
+}
+
 td:last-child {
 	border-right: 1px solid #252C38;
 }

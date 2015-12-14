@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 	$('header').scrollupbar();
 
 	//Sticky header
-	$(window).scroll(function(){
+	$(window).scroll(function(e){
 		var y = $(this).scrollTop();
 		if (y >= '250'){
 			$('.home header').addClass('shown');
@@ -23,13 +23,53 @@ jQuery(document).ready(function($) {
 		}
 	});
 
+	var unitTable   = $('.unittable'),
+			trophyTable = $('.trophytable'),
+			pUnit 		  = $('p.unit'),
+			pTrophy		 	= $('p.trophy');
+
+	$(document).on('click', 'h3.unit', function(e){
+		$(this).addClass('current').siblings().removeClass('current');
+		unitTable.addClass('shown').removeClass('hiding');
+		trophyTable.addClass('hiding').removeClass('shown');
+		pUnit.addClass('showing').removeClass('hiding');
+		pTrophy.addClass('hiding').removeClass('showing');
+		return false;
+	});
+
+	$(document).on('click', 'h3.trophy', function(e){
+		$(this).addClass('current').siblings().removeClass('current');
+		unitTable.addClass('hiding').removeClass('shown');
+		trophyTable.addClass('shown').removeClass('hiding');
+		pTrophy.addClass('showing').removeClass('hiding');
+		pUnit.addClass('hiding').removeClass('showing');
+		return false;
+	});
+
 	// $(".navvy").sticky({
 	// 	topSpacing: 90,
 	// 	getWidthFrom: '.wrapper'
 	// });
 
-	//Top form submission
-	$(function(){
+	// $('.table.over').draggable({
+	// 	scroll: true,
+	// 	scrollSenstivity: 500,
+	// 	scrollSpeed: 500
+	// });
+
+	// var calc    = $('.calc'),
+	// 		odds    = $('.drawOdds');
+
+	// $(document).on('keyup keydown', '.calc', function(e){
+	// 	var curVal = calc.val();
+	// 	$(document).find('.drawOdds').each(function(){
+	// 		var oddsVal = ($(this).html() / curVal);
+	// 		$(this).text(oddsVal);
+	// 	});
+	// });
+
+	//Form submission
+	$(function(e){
 		var form = $('#mainForm');
 		var messages = $('.form-messages');
 		var email = $('.email-field');

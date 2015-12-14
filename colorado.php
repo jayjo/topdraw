@@ -54,6 +54,8 @@ include 'inc/header.php';
 			<?php include 'inc/pronghorn.php'; ?>
 			<?php include 'inc/rocky_mountain_bighorn.php'; ?>
 			<?php include 'inc/desert_bighorn.php'; ?>
+			<?php include 'inc/rocky_mountain_goat.php'; ?>
+			<?php include 'inc/moose.php'; ?>
 		</div>
 	</div>
 </section>

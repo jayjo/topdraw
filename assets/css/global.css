@@ -3823,19 +3823,31 @@ th {
   text-transform: uppercase;
   border: 1px solid #252C38;
   border-bottom: 5px solid #252C38;
+  vertical-align: middle;
+}
+th span {
+  display: block;
+  margin-bottom: 2px;
+  color: #639bab;
 }
 
 td {
   border-left: 1px solid #252C38;
   border-bottom: 1px solid #252C38;
-  padding: 20px 18px;
-  height: 56px;
+  padding: 11px 18px;
+  height: 32px;
   position: relative;
+  vertical-align: middle;
+  line-height: 19px;
 }
 
 .table_container {
   width: 100%;
   overflow: scroll;
+}
+
+.bottom {
+  margin-top: 25px;
 }
 
 .over {
@@ -3844,7 +3856,7 @@ td {
 }
 
 .over td, .over th {
-  min-width: 140px;
+  min-width: 160px;
 }
 
 td:last-child {
@@ -3868,7 +3880,7 @@ tr:nth-child(1) {
   width: 236px;
   font-size: 12px;
   left: -80px;
-  top: -50px;
+  top: -30px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
@@ -3909,10 +3921,54 @@ table .orange:hover .tooltip {
   color: #bbbcbd;
   transition: all 150ms;
 }
+.table_toggle h3 a {
+  text-decoration: none;
+  color: inherit;
+}
 
 .table_toggle p {
   width: 80%;
   margin: 0 auto 28px;
+}
+
+h6.goattype {
+  color: rgba(99, 155, 171, 0.65);
+  text-align: center;
+  padding: 15px 0;
+  margin: 15px 0 0 0;
+  background: #1e222c;
+  border: 1px solid #252C38;
+}
+
+.showing {
+  display: block;
+}
+
+.hiding {
+  display: none;
+}
+
+.drawOdds {
+  position: relative;
+}
+
+.drawOdds input[type=text] {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  line-height: inherit;
+  margin: 0;
+  color: #bbbcbd;
+  border-radius: 0;
+  position: relative;
+  pointer-events: none;
+  width: auto;
+}
+
+.drawOdds input.hider.none {
+  opacity: 0;
+  position: absolute;
 }
 
 table.tablesorter thead tr .header {
@@ -4022,22 +4078,35 @@ section.chart {
 
 .species_info div {
   border: 1px solid #252C38;
-  margin-bottom: 28px;
+  margin: -1px 0 0 0;
+  width: 50%;
+  float: left;
+  height: 218px;
+}
+.species_info div p {
+  font-size: 14px;
+  line-height: 23px;
 }
 .species_info div:last-child {
   margin-bottom: 0;
 }
 
 .species_info div h5 {
-  padding: 15px 0;
+  padding: 15px;
+  height: 64px;
+  font-size: 15px;
+  line-height: 20px;
   background: #1e222c;
   color: rgba(99, 155, 171, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .species_info .record.single p {
   text-align: center;
   width: 100%;
-  padding: 0 15px;
+  padding: 0 25px;
 }
 .species_info .record.single p:last-child {
   border-left: none;
@@ -4051,7 +4120,8 @@ section.chart {
   text-align: center;
   width: 50%;
   float: left;
-  padding: 0 15px;
+  padding: 0 25px;
+  margin: 0;
 }
 .species_info p:last-child {
   border-left: 1px solid #252C38;

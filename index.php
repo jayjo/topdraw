@@ -28,7 +28,7 @@ include 'inc/header.php';
 		<div class="wrapper">
 			<h1>What We Do</h1>
 			<p>We provide state-by-state research and analysis of the best types of hunts, seasons, and areas to draw tags Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-			<a href="state.php" class="button red solid large">Learn More<span class="arrow"><?php include 'inc/arrow.php'; ?></span></a>
+			<a href="colorado.php" class="button red solid large">Learn More<span class="arrow"><?php include 'inc/arrow.php'; ?></span></a>
 		</div>
 	</div>
 </section>

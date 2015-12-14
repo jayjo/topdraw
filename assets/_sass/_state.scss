@@ -87,22 +87,35 @@ section.chart {
 
 .species_info div {
 	border: 1px solid #252C38;
-	margin-bottom: 28px;
+	margin: -1px 0 0 0;
+	width: 50%;
+	float: left;
+	height: 218px;
+	p{
+		font-size: 14px;
+		line-height: 23px;
+	}
 	&:last-child {
 		margin-bottom: 0;
 	}
 }
 
 .species_info div h5 {
-	padding: 15px 0;
+	padding: 15px;
+	height: 64px;
+	font-size: 15px;
+	line-height: 20px;
 	background: rgba($med_blue,1);
 	color: rgba($light_blue, .75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .species_info .record.single p {
 	text-align: center;
 	width: 100%;
-	padding: 0 15px;
+	padding: 0 25px;
 	&:last-child {
 		border-left: none;
 	}
@@ -116,7 +129,8 @@ section.chart {
 	text-align: center;
 	width: 50%;
 	float: left;
-	padding: 0 15px;
+	padding: 0 25px;
+	margin: 0;
 	&:last-child {
 		border-left: 1px solid #252C38;
 	}

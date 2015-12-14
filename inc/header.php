@@ -38,13 +38,13 @@
    <header>
     <div class="wrapper">
       <nav class="loggroup">
-        <a href="#" class="login">Log In</a>
+        <a href="#" class="login hidden">Log In</a>
         <a href="#" class="button med solid blue">Join Now</a>
       </nav>
       <a href="index.php" class="logo">Top Draw Consulting</a>
       <nav class="nav">
         <ul>
-          <li><a href="state.php">What We Do</a></li>
+          <li><a href="colorado.php">What We Do</a></li>
           <li><a href="#">Who We Are</a></li>
           <!-- <li><a href="#">Forum</a></li> -->
           <li><a href="#">Contact Us</a></li>

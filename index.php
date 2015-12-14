@@ -67,24 +67,5 @@ include 'inc/header.php';
 	</div>
 </section>
 
-<section class="third">
-	<div class="wrapper">
-		<div class="content">
-			<h2>Receive your free consultation</h2>
-			<p>To get started planning your next hunt, use the form below to send us a message! Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-			<form action="" name="homePage" id="homeform">
-				<div class="input">
-					<label for="Full Name">Full Name</label>
-					<input type="text" name="Full Name">
-				</div>
-				<div class="input">
-					<label for="Email Address">Email Address</label>
-					<input type="email" name="Email Address">
-				</div>
-				<input type="submit" class="button med red solid">
-			</form>
-		</div>
-	</div>
-</section>
-
+<?php include 'inc/form.php'; ?>
 <?php include 'inc/footer.php'; ?>

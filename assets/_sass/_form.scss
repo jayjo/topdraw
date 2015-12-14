@@ -1,9 +1,9 @@
 .input {
 	display: block;
-	margin-bottom: 30px;
+	margin-bottom: 12px;
 	position: relative;
-	&:first-child {
-		margin-bottom: 12px;
+	&.last {
+		margin-bottom: 30px;
 	}
 }
 
@@ -36,5 +36,43 @@ input[type=email] {
 		border-color: rgba($light_blue, .5);
 		color: rgba($light_blue, .65);
 		transition: all 150ms;
+  }
+}
+
+.form-messages {
+  width: 300px;
+  border-radius: 5px;
+  padding: 10px 10px 12px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  left: 50%;
+  margin-left: -150px;
+  transform: translateY(-350%);
+  box-shadow: 0 1px 5px rgba(0,0,0,.25);
+  transition: transform 200ms, opacity 350ms, visibility 25ms;
+  color: #fff;
+  font: 13px $aller;
+  font-weight: bold;
+
+  p {
+  }
+
+  &.error {
+    background: $red;
+  }
+
+  &.success {
+    background: $green;
+  }
+
+  &.active {
+    transform: translateY(125%);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 200ms, opacity 350ms, visibility 25ms;
   }
 }

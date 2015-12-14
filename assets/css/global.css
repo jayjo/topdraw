@@ -4017,7 +4017,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 section.chart {
-  padding: 75px 0;
+  padding: 75px 0 0;
 }
 
 .top_info {
@@ -4144,7 +4144,9 @@ div.fancy-select {
   text-transform: uppercase;
   font-size: 13px;
   color: rgba(99, 155, 171, 0.65);
-  width: 300px;
+  width: 380px;
+  margin: 0 auto;
+  text-align: left;
 }
 
 div.fancy-select.disabled {
@@ -4161,7 +4163,7 @@ div.fancy-select div.trigger {
   position: relative;
   background: #1e222c;
   color: rgba(99, 155, 171, 0.65);
-  width: 200px;
+  width: 380px;
   transition: all 150ms ease-out;
 }
 div.fancy-select div.trigger:hover {
@@ -4209,6 +4211,7 @@ div.fancy-select ul.options {
   border-radius: 2px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   min-width: 200px;
+  width: 100%;
   transition: opacity 150ms ease-out, top 150ms ease-out, visibility 150ms ease-out;
 }
 
@@ -4251,13 +4254,58 @@ div.fancy-select ul.options li.hover {
   color: #fff;
 }
 
+.flexselect_dropdown {
+  display: none;
+  position: absolute;
+  z-index: 999999;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #191e25;
+  color: #bbbcbd;
+  text-align: left;
+  box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.flexselect_dropdown ul {
+  width: 100%;
+  list-style-position: outside;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flexselect_dropdown li {
+  font-size: 13px;
+  color: rgba(99, 155, 171, 0.65);
+  margin: 0px;
+  padding: 12px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  font: "aller", Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.flexselect_dropdown li.disabled {
+  cursor: not-allowed;
+  color: #1e222c;
+}
+
+.flexselect_selected {
+  background-color: #1e222c;
+  color: #fff !important;
+}
+
 .input {
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 12px;
   position: relative;
 }
-.input:first-child {
-  margin-bottom: 12px;
+.input.last {
+  margin-bottom: 30px;
 }
 
 label {
@@ -4291,6 +4339,38 @@ input[type=email]:focus {
   border-color: rgba(99, 155, 171, 0.5);
   color: rgba(99, 155, 171, 0.65);
   transition: all 150ms;
+}
+
+.form-messages {
+  width: 300px;
+  border-radius: 5px;
+  padding: 10px 10px 12px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  left: 50%;
+  margin-left: -150px;
+  transform: translateY(-350%);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  transition: transform 200ms, opacity 350ms, visibility 25ms;
+  color: #fff;
+  font: 13px "aller", Helvetica, sans-serif;
+  font-weight: bold;
+}
+.form-messages.error {
+  background: #b63f44;
+}
+.form-messages.success {
+  background: #0ad774;
+}
+.form-messages.active {
+  transform: translateY(125%);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 200ms, opacity 350ms, visibility 25ms;
 }
 
 /* ==========================================================================

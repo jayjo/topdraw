@@ -12,5 +12,7 @@
 		</div>
 	</footer>
 
+	<div class="form-messages"><p></p></div>
+
 </body>
 </html>

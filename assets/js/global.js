@@ -5,6 +5,9 @@ jQuery(document).ready(function($) {
 		sortList: [[0,0], [1,0]]
 	});
 
+	$('#state').flexselect();
+	$('#state').val("");
+
 	$('.tabscontent').tabbedContent({
 		links: '.animal_chooser li a',
 		currentClass : 'current',
@@ -68,7 +71,7 @@ jQuery(document).ready(function($) {
 	// 	});
 	// });
 
-	//Form submission
+	//Form submissionß
 	$(function(e){
 		var form = $('#mainForm');
 		var messages = $('.form-messages');

@@ -41,15 +41,12 @@
    <header>
     <div class="wrapper">
       <nav class="loggroup">
-        <a href="#" class="login hidden">Log In</a>
-        <a href="#" class="button med solid blue">Join Now</a>
+        <a href="#" class="button med solid blue join">Join Now</a>
       </nav>
       <nav class="nav">
         <ul>
           <li><a href="colorado.php">What We Do</a></li>
           <li><a href="#">Who We Are</a></li>
-          <!-- <li><a href="#">Forum</a></li> -->
-          <li><a href="#">Contact Us</a></li>
         </ul>
       </nav>
     </div>

@@ -11,7 +11,7 @@ include 'inc/header.php';
 ?>
 
 <section class="internal_hero">
-	<img src="assets/images/13'ram.png" alt="" class="inside_hero"/>
+	<img src="assets/images/eric_glassing.png" alt="" class="inside_hero"/>
 	<div class="content">
 		<div class="wrapper">
 			<h1 class="ranger">What We Do</h1>
@@ -21,12 +21,43 @@ include 'inc/header.php';
 
 <section class="internal_content">
 	<div class="wrapper">
-		<div class="top_info">
-			<h1>About Eric Bachofner</h1>
-			<p>Hello everyone, welcome to the site.  I’d like to introduce myself to those that don’t know me.  My name is Eric Bachofner and I founded Top Draw Consulting to help DIY bow hunters like yourself apply for and draw the best hunts available in the Rocky Mountain states.  Born and raised in northwest Montana, I grew up outdoors, eventually falling hard for chasing bugling elk with a bow.  The more of it I did, the more I realized I couldn’t get enough of it.  So I began applying for hunts as a non-resident in as many western states as I could afford.  Each year, countless hours were spent calculating true draw odds, harvest rates and trophy entries.  Though difficult at first I began to enjoy the process of compiling and crunching the numbers almost as much as drawing and going on the hunts themselves.  Eventually the work began to pay off and I started pulling the permits I had analyzed during application season.  Fast forward a few years later and I had drawn out on all of Montana’s trophy species with a mountain goat permit, eventually harvesting what would be the second biggest billy taken with a bow in Montana.  </p>
-
-			<p>Further yet, I had become the only hunter to take a moose, bighorn sheep and mountain goat from my home state that each met the Pope & Young minimum.  This included a 47” moose as well as a Boone & Crockett bighorn.   The point here is not to brag.  Sure some luck is involved in pulling tags like these, but it’s not all luck.  By combining trophy harvest statistics with reasonable true draw odds, it is possible to put more quality archery tags in your pocket.  Put Top Draw to work for you and see the draw results you’ve spent years waiting for!</p>
-			<a href="#" class="button large solid red">Check out Colorado</a>
+		<h1>We'll help you get that trophy</h1>
+		<div class="col layout cf">
+			<div class="two_col left cf">
+				<p>Tired of seeing giants killed every year across the west only to find out it was a guided hunt that cost anywhere between five and ten thousand dollars?  Maybe more.  If forking out that kind of money is not an option for you, there is still a way to hunt the same units that produce trophy after trophy every year.  Through the draw!  It may take a few years, but if you start now and stick with it, you too will eventually be hunting the best units in the world, and at only a fraction of the cost of buying landowner or governor tags.</p>
+				<p>With 8 states offering up to 80 hunting units per species for the non-resident hunter, where do you start in choosing the best unit to apply for?   </p>
+			</div>
+			<div class="two_col right cf">
+				<img src="assets/images/sheep.png" alt="" />
+			</div>
+		</div>
+		<div class="col layout cf">
+			<div class="single_col">
+				<p>Full Draw Consulting is a company dedicated to providing accurate, up to date information for archery hunting the west.  We cater to the non-resident, DIY  hunter by providing unit by unit research and analysis.  State by state, species by species, all is done from an archery-only hunting perspective.  We break down licensing deadlines, application fee structures, draw odds, success rates and hunt dates for each available unit in Arizona, New Mexico, Nevada, Utah, Colorado, Idaho, Wyoming and Montana.</p>
+			</div>
+		</div>
+			<div class="two_col left">
+				<img src="assets/images/clints_bull.png" alt="" />
+			</div>
+			<div class="two_col right">
+				<p>We also look at trending trophy information by tracking quantity and quality of Pope and Young record entries for Elk, Mule Deer, Pronghorn, Bighorn Sheep, Desert Sheep, Shiras Moose, Mountain Goat and Bison.  Our objective is to put the best tags in your pocket specific to your individual goals as a hunter.  We do not work with outfitters, assuring you that our unit analysis is not being driven by business behind the scenes.  It comes directly from harvest reports, P&Y records and conversations with local biologists.  This formula ensures no biased or misleading information.   For the hard-core DIY bow hunter, there simply isn’t a better resource. </p>
+			</div>
+		</div>
+		<p class="centery"><a href="#" class="button large solid red">Check out our resources</a></p>
+		<div class="col layout cf">
+			<div class="two_col left cf">
+				<p>The key to your success in the field begins during the application season.  First, determine the quality units specific to your goals as a hunter.  If it’s to draw a hunt with high harvest success, apply for those units with the best drawing odds that also offer a high return on harvest.  Maybe only a giant will do and you’re willing to take on steeper draw odds.  Either way, our tables will arm you with the necessary information to apply for the hunt that is right for you.  Each application season is a highly detailed process using only up to date harvest report information, record book entries, as well as input from local biologists.  From there we sort out our chances for each permit using true drawing odds rather than simple drawing odds.  This is a very important step as there is a big difference between your true odds, and simple odds.  Simple odds don’t tell the whole story.  They just tell you how many people applied for a hunt.  They don’t account for your bonus point total or the point totals of everyone else applying in the same unit.  For example, in states like Montana and Nevada, determining true odds means squaring EVERY applicant’s point totals in each unit before dividing them by your point total(also squared).  It is a time consuming process but it is the only accurate way to know which units give you the best chance to draw the hunt you’re after. </p>
+			</div>
+			<div class="two_col right cf">
+				<img src="assets/images/placeholder.png" alt="" />
+			</div>
+			<div class="two_col left cf">
+				<img src="assets/images/placeholder.png" alt="" />
+			</div>
+			<div class="two_col right cf">
+				<p>Bottom line, we love what we do and enjoy helping avid archery hunters by passing that information along.  We don't want to be the biggest. Just the best.  So much so, that we are considering putting a cap on the number of clients we have.  Our take is this, the more folks that are getting 'the information', the less valuable that information becomes.   In other words, a hidden top unit, isn't so hidden anymore when 40 thousand people lay eyes on it.  STOP applying for all the permits that everyone else is applying from and START drawing hunts that are just as good!  Begin investing in your hunting future today!
+</p>
+			</div>
 		</div>
 	</div>
 </section>

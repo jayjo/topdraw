@@ -1,0 +1,99 @@
+/* ===================
+   Import SASS Files (defaults to _SASS directory)
+   ================= */
+
+@import
+    "_sass/mixins",
+    "_sass/animate.min",
+    "_sass/reset",
+    "_sass/fonts",
+    "_sass/jeff-styles",
+    "_sass/buttons",
+    "_sass/table_stuff",
+    "_sass/state",
+    "_sass/select",
+    "_sass/form",
+    "_sass/internal_content"
+;
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: $aller;
+    color: $grey;
+    background: $dark_blue;
+}
+
+.ranger { font-family: $ranger; }
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection declarations have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: $red;
+    color: #FFF;
+    text-shadow: none;
+}
+
+::selection {
+    color: #FFF;
+    background: $red;
+    text-shadow: none;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1024px;
+}
+
+/* ==========================================================================
+   Largest Size Viewports
+   ========================================================================== */
+
+@import "_sass/header";
+@import "_sass/home";
+@import "_sass/footer";
+
+/* ==========================================================================
+   Mobile and Small Viewports
+   ========================================================================== */
+
+
+/* Mobile-first styles FTW */
+
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
+@import "_sass/mobile";
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+@import "_sass/print";
+}

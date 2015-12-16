@@ -1,18 +1,17 @@
 <?php
+/**
+ * Front to the WordPress application. This file doesn't do anything, but loads
+ * wp-blog-header.php which does and tells WordPress to load the theme.
+ *
+ * @package WordPress
+ */
 
-$body_class = 'home';
-$page_title = 'home';
+/**
+ * Tells WordPress to load the WordPress theme and output it.
+ *
+ * @var bool
+ */
+define('WP_USE_THEMES', true);
 
-$jquery_plugins = array(
-	'something.js'
-	);
-
-include 'inc/header.php';
-
-?>
-
-<section id="content">
-
-</section>
-
-<?php include 'inc/footer.php'; ?>
+/** Loads the WordPress Environment and Template */
+require( dirname( __FILE__ ) . '/wp-blog-header.php' );

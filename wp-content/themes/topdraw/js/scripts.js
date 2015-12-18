@@ -65,6 +65,4 @@
 
 	});
 
-//// MIXPANEL STUFF
-
 })(jQuery, this);

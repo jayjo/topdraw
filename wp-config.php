@@ -20,13 +20,13 @@
 
 // ** LOCAL MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'topdraw');
+define('DB_NAME', 'db158684_topdraw_dev');
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', 'db158684_jayjo');
 /** MySQL database password */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', 'iron eagle passion.300');
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'internal-db.s158684.gridserver.com');
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */

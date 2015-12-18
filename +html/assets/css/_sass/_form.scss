@@ -1,0 +1,78 @@
+.input {
+	display: block;
+	margin-bottom: 12px;
+	position: relative;
+	&.last {
+		margin-bottom: 30px;
+	}
+}
+
+label {
+	background: $med_blue;
+	padding: 15px 20px;
+	font-size: 12px;
+	width: 140px;
+	height: 43px;
+	display: inline-block;
+	border-radius: 2px 0 0 2px;
+}
+
+input[type=text],
+input[type=email] {
+  width: 240px;
+  background: rgb(21,24,29);
+  border: 1px solid transparent;
+  outline: none;
+  padding: 13px;
+  line-height: 14px;
+  margin: 0 0 0 -2px;
+  color: #fff;
+  font: 13px $aller;
+  border-radius: 0 2px 2px 0;
+  position: relative;
+  top: 1px;
+  transition: all 150ms;
+  &:focus {
+		border-color: rgba($light_blue, .5);
+		color: rgba($light_blue, .65);
+		transition: all 150ms;
+  }
+}
+
+.form-messages {
+  width: 300px;
+  border-radius: 5px;
+  padding: 10px 10px 12px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  left: 50%;
+  margin-left: -150px;
+  transform: translateY(-350%);
+  box-shadow: 0 1px 5px rgba(0,0,0,.25);
+  transition: transform 200ms, opacity 350ms, visibility 25ms;
+  color: #fff;
+  font: 13px $aller;
+  font-weight: bold;
+
+  p {
+  }
+
+  &.error {
+    background: $red;
+  }
+
+  &.success {
+    background: $green;
+  }
+
+  &.active {
+    transform: translateY(125%);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 200ms, opacity 350ms, visibility 25ms;
+  }
+}

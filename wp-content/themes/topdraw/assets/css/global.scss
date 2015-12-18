@@ -3,17 +3,17 @@
    ================= */
 
 @import
-    "assets/css/_sass/mixins",
-    "assets/css/_sass/animate.min",
-    "assets/css/_sass/reset",
-    "assets/css/_sass/fonts",
-    "assets/css/_sass/jeff-styles",
-    "assets/css/_sass/buttons",
-    "assets/css/_sass/table_stuff",
-    "assets/css/_sass/state",
-    "assets/css/_sass/select",
-    "assets/css/_sass/form",
-    "assets/css/_sass/internal_content"
+    "_sass/mixins",
+    "_sass/animate.min",
+    "_sass/reset",
+    "_sass/fonts",
+    "_sass/jeff-styles",
+    "_sass/buttons",
+    "_sass/table_stuff",
+    "_sass/state",
+    "_sass/select",
+    "_sass/form",
+    "_sass/internal_content"
 ;
 
 /* ==========================================================================
@@ -74,9 +74,9 @@ body {
    Largest Size Viewports
    ========================================================================== */
 
-@import "assets/css/_sass/header";
-@import "assets/css/_sass/home";
-@import "assets/css/_sass/footer";
+@import "_sass/header";
+@import "_sass/home";
+@import "_sass/footer";
 
 /* ==========================================================================
    Mobile and Small Viewports
@@ -86,7 +86,7 @@ body {
 /* Mobile-first styles FTW */
 
 @media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
-@import "assets/css/_sass/mobile";
+@import "_sass/mobile";
 }
 
 /* ==========================================================================
@@ -95,5 +95,5 @@ body {
    ========================================================================== */
 
 @media print {
-@import "assets/css/_sass/print";
+@import "_sass/print";
 }

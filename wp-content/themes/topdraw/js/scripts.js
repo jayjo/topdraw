@@ -22,9 +22,9 @@
 		$(window).scroll(function(e){
 			var y = $(this).scrollTop();
 			if (y >= '250'){
-				$('.home header').addClass('shown');
+				$('header').addClass('shown');
 			} else {
-				$('.home header').removeClass('shown');
+				$('header').removeClass('shown');
 			}
 		});
 
@@ -64,5 +64,7 @@
 		});
 
 	});
+
+//// MIXPANEL STUFF
 
 })(jQuery, this);

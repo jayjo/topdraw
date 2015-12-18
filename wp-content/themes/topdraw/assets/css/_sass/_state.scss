@@ -1,28 +1,3 @@
-.internal_hero {
-	width: 100vw;
-	height: auto;
-	position: relative;
-	padding-top: 80px;
-}
-
-.internal_hero img {
-	width: 100%;
-}
-
-.internal_hero .content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate3D(-50%, -50%, 0);
-}
-
-.internal_hero .content h1 {
-	font-size: 6.4vw;
-	letter-spacing: -0.5vw;
-	color: #fff;
-	text-shadow: 0 1px 10px rgba(0,0,0,.4);
-	margin: 50px 0 0 0;
-}
 
 section.chart {
 	padding: 75px 0 0;

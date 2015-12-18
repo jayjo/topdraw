@@ -4351,7 +4351,7 @@ input[type=email]:focus {
   width: 100vw;
   height: 100vh;
   position: relative;
-  padding-top: 80px;
+  padding-top: 0;
   overflow: hidden;
 }
 
@@ -4486,8 +4486,7 @@ header {
 .nav ul {
   padding: 0;
   list-style: none;
-  margin-left: 0;
-  display: inline-block;
+  margin-left: 20px;
 }
 
 .nav ul li {
@@ -4510,44 +4509,28 @@ header a {
   color: #191e25;
 }
 
-header .logo {
-  float: left;
-}
-
-header .logo svg {
-  width: 200px;
-  fill: #fff;
-  margin: 5px 20px 0 0;
-}
-
-.page-id-9 header,
-.page-id-7 header {
+.nothome header {
   background: #191e25;
 }
 
-.page-id-9 .nav ul li a,
-.page-id-7 .nav ul li a {
+.nothome .nav ul li a {
   color: rgba(187, 188, 189, 0.5);
 }
-.page-id-9 .nav ul li a:hover,
-.page-id-7 .nav ul li a:hover {
+.nothome .nav ul li a:hover {
   color: #bbbcbd;
   transition: all 200ms;
 }
 
-.page-id-9 header a,
-.page-id-7 header a {
+.nothome header a {
   text-decoration: none;
   color: rgba(187, 188, 189, 0.5);
 }
-.page-id-9 header a:hover,
-.page-id-7 header a:hover {
+.nothome header a:hover {
   color: #bbbcbd;
   transition: all 200ms;
 }
 
-.page-id-9 header .button,
-.page-id-7 header .button {
+.nothome header .button {
   background: #2d3343;
   border-color: #2d3343;
 }
@@ -4721,7 +4704,6 @@ footer {
 
 footer p {
   font-size: 14px;
-  margin: 0;
 }
 
 /* ==========================================================================

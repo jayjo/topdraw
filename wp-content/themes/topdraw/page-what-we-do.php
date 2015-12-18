@@ -1,17 +1,11 @@
 <?php
-
-$body_class = 'home';
-$page_title = 'home';
-
-$jquery_plugins = array(
-	'something.js'
-	);
-
-include 'inc/header.php';
+/* Template Name: What We Do */
+get_header();
+setup_postdata($post);
 ?>
 
 <section class="internal_hero">
-	<img src="assets/images/eric_glassing.png" alt="" class="inside_hero"/>
+	<img src="<?php bloginfo('template_directory'); ?>/assets/img/eric_glassing.png" alt="" class="inside_hero"/>
 	<div class="content">
 		<div class="wrapper">
 			<h1 class="ranger">What We Do</h1>
@@ -28,7 +22,7 @@ include 'inc/header.php';
 				<p>With 8 states offering up to 80 hunting units per species for the non-resident hunter, where do you start in choosing the best unit to apply for?   </p>
 			</div>
 			<div class="two_col right cf">
-				<img src="assets/images/sheep.png" alt="" />
+				<img src="<?php bloginfo('template_directory'); ?>/assets/img/sheep.png" alt="" />
 			</div>
 		</div>
 		<div class="col layout cf">
@@ -37,19 +31,19 @@ include 'inc/header.php';
 			</div>
 		</div>
 			<div class="two_col left">
-				<img src="assets/images/clints_bull.png" alt="" />
+				<img src="<?php bloginfo('template_directory'); ?>/assets/img/clints_bull.png" alt="" />
 			</div>
 			<div class="two_col right">
 				<p>We also look at trending trophy information by tracking quantity and quality of Pope and Young record entries for Elk, Mule Deer, Pronghorn, Bighorn Sheep, Desert Sheep, Shiras Moose, Mountain Goat and Bison.  Our objective is to put the best tags in your pocket specific to your individual goals as a hunter.  We do not work with outfitters, assuring you that our unit analysis is not being driven by business behind the scenes.  It comes directly from harvest reports, P&Y records and conversations with local biologists.  This formula ensures no biased or misleading information.   For the hard-core DIY bow hunter, there simply isn’t a better resource. </p>
 			</div>
 		</div>
-		<p class="centery"><a href="#" class="button large solid red">Check out our resources</a></p>
+		<!-- <p class="centery"><a href="#" class="button large solid red">Check out our resources</a></p> -->
 		<div class="col layout cf">
 			<div class="two_col left cf">
 				<p>The key to your success in the field begins during the application season.  First, determine the quality units specific to your goals as a hunter.  If it’s to draw a hunt with high harvest success, apply for those units with the best drawing odds that also offer a high return on harvest.  Maybe only a giant will do and you’re willing to take on steeper draw odds.  Either way, our tables will arm you with the necessary information to apply for the hunt that is right for you.  Each application season is a highly detailed process using only up to date harvest report information, record book entries, as well as input from local biologists.  From there we sort out our chances for each permit using true drawing odds rather than simple drawing odds.  This is a very important step as there is a big difference between your true odds, and simple odds.  Simple odds don’t tell the whole story.  They just tell you how many people applied for a hunt.  They don’t account for your bonus point total or the point totals of everyone else applying in the same unit.  For example, in states like Montana and Nevada, determining true odds means squaring EVERY applicant’s point totals in each unit before dividing them by your point total(also squared).  It is a time consuming process but it is the only accurate way to know which units give you the best chance to draw the hunt you’re after. </p>
 			</div>
 			<div class="two_col right cf">
-				<img src="assets/images/big_buck.png" alt="" />
+				<img src="<?php bloginfo('template_directory'); ?>/assets/img/big_buck.png" alt="" />
 			</div>
 		</div>
 		<div class="col layout cf">
@@ -61,4 +55,5 @@ include 'inc/header.php';
 </section>
 
 <?php include 'inc/form.php'; ?>
-<?php include 'inc/footer.php'; ?>
+
+<?php get_footer(); ?>

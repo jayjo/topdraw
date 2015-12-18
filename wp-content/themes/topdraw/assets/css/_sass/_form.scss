@@ -1,20 +1,20 @@
 .input {
-	display: block;
-	margin-bottom: 12px;
-	position: relative;
-	&.last {
-		margin-bottom: 30px;
-	}
+  display: block;
+  margin-bottom: 12px;
+  position: relative;
+  &.last {
+    margin-bottom: 30px;
+  }
 }
 
 label {
-	background: $med_blue;
-	padding: 15px 20px;
-	font-size: 12px;
-	width: 140px;
-	height: 43px;
-	display: inline-block;
-	border-radius: 2px 0 0 2px;
+  background: $med_blue;
+  padding: 15px 20px;
+  font-size: 12px;
+  width: 140px;
+  height: 43px;
+  display: inline-block;
+  border-radius: 2px 0 0 2px;
 }
 
 input[type=text],
@@ -33,9 +33,9 @@ input[type=email] {
   top: 1px;
   transition: all 150ms;
   &:focus {
-		border-color: rgba($light_blue, .5);
-		color: rgba($light_blue, .65);
-		transition: all 150ms;
+    border-color: rgba($light_blue, .5);
+    color: rgba($light_blue, .65);
+    transition: all 150ms;
   }
 }
 

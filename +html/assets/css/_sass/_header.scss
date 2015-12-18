@@ -29,7 +29,8 @@ header {
 .nav ul {
 	padding: 0;
 	list-style: none;
-	margin-left: 20px;
+	margin-left: 0;
+	display: inline-block;
 }
 
 .nav ul li {
@@ -52,11 +53,23 @@ header a {
 	color: $dark_blue;
 }
 
-.nothome header {
+header .logo {
+	float: left;
+}
+
+header .logo svg {
+  width: 200px;
+  fill: #fff;
+  margin: 5px 20px 0 0;
+}
+
+.page-id-9 header,
+.page-id-7 header {
 	background: $dark_blue;
 }
 
-.nothome .nav ul li a {
+.page-id-9 .nav ul li a,
+.page-id-7 .nav ul li a {
 	color: rgba($grey,.5);
 	&:hover {
 		color: rgba($grey,1);
@@ -64,7 +77,8 @@ header a {
 	}
 }
 
-.nothome header a {
+.page-id-9 header a,
+.page-id-7 header a {
 	text-decoration: none;
 	color: rgba($grey,.5);
 	&:hover {
@@ -73,7 +87,8 @@ header a {
 	}
 }
 
-.nothome header .button {
+.page-id-9 header .button,
+.page-id-7 header .button {
 	background: rgb(45,51,67);
 	border-color: rgb(45,51,67);
 }

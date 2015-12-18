@@ -15,8 +15,8 @@
 	  ga('send', 'pageview');
 	  </script>
 
-    <link href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon.ico" rel="shortcut icon">
-    <link href="<?php echo get_template_directory_uri(); ?>/img/icons/touch.png" rel="apple-touch-icon-precomposed">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/favicon.ico" rel="shortcut icon">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/touch.png" rel="apple-touch-icon-precomposed">
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,12 +41,13 @@
    <header>
     <div class="wrapper">
       <nav class="loggroup">
-        <a href="#" class="button med solid blue join">Join Now</a>
+        <a href="#sign-up" class="button med solid blue join">Join Now</a>
       </nav>
       <nav class="nav">
+      	<a href="<?php echo get_permalink(2); ?>" class="logo"><?php include 'inc/logo.php'; ?></a>
         <ul>
-          <li><a href="colorado.php">What We Do</a></li>
-          <li><a href="#">Who We Are</a></li>
+          <li><a href="<?php echo get_permalink(7); ?>">What We Do</a></li>
+          <li><a href="<?php echo get_permalink(9); ?>">Who We Are</a></li>
         </ul>
       </nav>
     </div>

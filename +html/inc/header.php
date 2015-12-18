@@ -42,9 +42,10 @@
     <div class="wrapper">
       <nav class="loggroup">
         <a href="#" class="login hidden">Log In</a>
-        <a href="#" class="button med solid blue join">Join Now</a>
+        <a href="#sign-up" class="button med solid blue join">Join Now</a>
       </nav>
       <nav class="nav">
+        <a href="#" class="logo"><?php include 'inc/logo.php'; ?></a>
         <ul>
           <li><a href="#">What We Do</a></li>
           <li><a href="#">Who We Are</a></li>

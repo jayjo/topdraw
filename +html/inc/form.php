@@ -15,7 +15,7 @@
 				<div class="input last">
 					<label for="state">State</label>
 					<select name="state" id="state" class="flexselect">
-						<option value="Select">Which state interests you?</option>
+						<option value=""></option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
 						<option value="AZ">Arizona</option>

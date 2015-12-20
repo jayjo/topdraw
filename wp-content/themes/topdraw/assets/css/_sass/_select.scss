@@ -106,7 +106,6 @@ div.fancy-select ul.options li {
 	color: rgba($light_blue, .65);
 	cursor: pointer;
 	white-space: nowrap;
-
 	transition: all 150ms ease-out;
 }
 
@@ -148,12 +147,14 @@ div.fancy-select ul.options li.hover {
 	font-size: 13px;
 	color: rgba($light_blue, .65);
 	margin: 0px;
-	padding: 12px;
+	padding: 0;
+	text-indent: 12px;
 	cursor: pointer;
 	display: block;
 	width: 100%;
 	font: $aller;
 	overflow: hidden;
+	line-height: 40px;
 }
 
 .flexselect_dropdown li.disabled {

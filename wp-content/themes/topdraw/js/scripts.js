@@ -2,13 +2,32 @@
 
 	$(function () {
 
+		$('input[type="text"], input[type="email"]').each(function(){
+
+			var default_value = this.value;
+
+				$(this).focus(function(){
+					if(this.value === default_value) {
+						this.value = '';
+					}
+				});
+
+				$(this).blur(function(){
+					if(this.value === '') {
+						this.value = default_value;
+					}
+				});
+		});
+
 		$('.animal_selector').fancySelect();
 		$(".table").tablesorter({
 			sortList: [[0,0], [1,0]]
 		});
 
 		$('#state').flexselect();
-		$('#state').val("");
+		$('#state_flexselect').on('focus', function(){
+			$(this).input.select();
+		});
 
 		$('.tabscontent').tabbedContent({
 			links: '.animal_chooser li a',
@@ -67,6 +86,10 @@
 			$(this).toggleClass('active');
 			$('nav.nav').toggleClass('active');
 			e.preventDefault();
+		});
+
+		$('.join').on('click', function(){
+			$('.nav').removeClass('active');
 		});
 
 	});

@@ -1,0 +1,27 @@
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
+	.internal_hero {
+		padding-top: 50px;
+		height: auto;
+	}
+
+	.internal_content {
+		padding: 50px 0 0;
+	}
+
+	.two_col.left, .two_col.right {
+		padding: 0px;
+		width: 100%;
+		float: none;
+		img {
+			margin-bottom: 15px;
+		}
+	}
+
+	.spacer {
+		display: none;
+	}
+
+	.single_col {
+		width: 100%;
+	}
+}

@@ -8,4 +8,11 @@ footer {
 
 footer p {
 	font-size: 14px;
+	margin: 0;
+}
+
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
+	footer p {
+		margin: 0;
+	}
 }

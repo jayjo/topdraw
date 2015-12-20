@@ -21,7 +21,7 @@ setup_postdata($post);
 		<div class="wrapper">
 			<h1>What We Do</h1>
 			<p>Tired of seeing giants killed every year across the west only to find out it was a guided hunt that cost anywhere between five and ten thousand dollars?  Maybe more.  If forking out that kind of money is not an option for you, there is still a way to hunt the same units that produce trophy after trophy every year.  Through the draw!  It may take a few years, but if you start now and stick with it, you too will eventually be hunting the best units in the world, and at only a fraction of the cost of buying landowner or governor tags.</p>
-			<a href="<?php echo get_permalink(7); ?>" class="button red solid large">Learn More<span class="arrow"><?php include 'inc/arrow.php'; ?></span></a>
+			<a href="<?php echo get_permalink(7); ?>" class="button red solid large">More about what we do<span class="arrow"><?php include 'inc/arrow.php'; ?></span></a>
 		</div>
 	</div>
 </section>

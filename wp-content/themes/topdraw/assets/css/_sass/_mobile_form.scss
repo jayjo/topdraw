@@ -1,0 +1,14 @@
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
+	label {
+		width: 95px;
+	}
+	input[type=text],
+	input[type=email],
+	input[type=password] {
+		width: 195px;
+	}
+	form .button.med {
+		font-size: 14px;
+		padding: 1em 2em;
+	}
+}

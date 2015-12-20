@@ -45,14 +45,16 @@
    <header>
     <div class="wrapper">
       <nav class="loggroup">
-        <a href="#sign-up" class="button med solid blue join">Join Now</a>
+        <a href="<?php echo get_permalink(2); ?>" class="logo"><?php include 'inc/logo.php'; ?></a>
       </nav>
       <nav class="nav">
-      	<a href="<?php echo get_permalink(2); ?>" class="logo"><?php include 'inc/logo.php'; ?></a>
         <ul>
+          <li class="home"><a href="<?php echo get_permalink(2); ?>" class="logo">Home</a></li>
           <li><a href="<?php echo get_permalink(7); ?>">What We Do</a></li>
           <li><a href="<?php echo get_permalink(9); ?>">Who We Are</a></li>
+          <li class="right"><a href="#sign-up" class="button med solid blue join">Join Now</a></li>
         </ul>
       </nav>
+      <div class="hamburger"></div>
     </div>
    </header>

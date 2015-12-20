@@ -9,8 +9,10 @@ header {
 }
 
 .loggroup {
-	float: right;
-	margin-top: 4px;
+	float: left;
+	margin-top: 0;
+	outline: none;
+	border: none;
 }
 
 .loggroup .login {
@@ -24,23 +26,38 @@ header {
 	}
 }
 
-.nav { display: inline-block; }
+.nav {
+	display: inline-block;
+	float: right;
+	margin: 4px 0 0 0;
+}
+
+.hamburger {
+	display: none;
+}
 
 .nav ul {
 	padding: 0;
 	list-style: none;
-	margin-left: 20px;
+	margin: 0;
+	display: inline-block;
 }
 
 .nav ul li {
 	display: inline-block;
 	margin-left: 25px;
+	&.home {
+		display: none;
+	}
 }
 
 .nav ul li a {
 	padding: 8px 0;
 	transition: all 200ms;
 	border-bottom: 3px solid transparent;
+	&.join:hover {
+		border-bottom: 2px solid transparent;
+	}
 	&:hover {
 		border-bottom: 3px solid $red;
 		transition: all 200ms;
@@ -52,11 +69,23 @@ header a {
 	color: $dark_blue;
 }
 
-.nothome header {
+header .logo {
+	float: left;
+}
+
+header .logo svg {
+  width: 200px;
+  fill: #fff;
+  margin: 5px 20px 0 0;
+}
+
+.page-id-9 header,
+.page-id-7 header {
 	background: $dark_blue;
 }
 
-.nothome .nav ul li a {
+.page-id-9 .nav ul li a,
+.page-id-7 .nav ul li a {
 	color: rgba($grey,.5);
 	&:hover {
 		color: rgba($grey,1);
@@ -64,7 +93,8 @@ header a {
 	}
 }
 
-.nothome header a {
+.page-id-9 header a,
+.page-id-7 header a {
 	text-decoration: none;
 	color: rgba($grey,.5);
 	&:hover {
@@ -73,7 +103,8 @@ header a {
 	}
 }
 
-.nothome header .button {
+.page-id-9 header .button,
+.page-id-7 header .button {
 	background: rgb(45,51,67);
 	border-color: rgb(45,51,67);
 }
@@ -96,3 +127,5 @@ header.shown .button {
 	background: rgb(45,51,67);
 	border-color: rgb(45,51,67);
 }
+
+@import "mobile_header";

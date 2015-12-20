@@ -63,6 +63,14 @@
 			});
 		});
 
+		$('.hamburger').on('click', function(e){
+			$(this).toggleClass('active');
+			$('nav.nav').toggleClass('active');
+			e.preventDefault();
+		});
+
 	});
+
+	// MIXPANEL STUFF
 
 })(jQuery, this);

@@ -1,0 +1,54 @@
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
+	.hero {
+		height: auto;
+	}
+
+	.hero .content {
+		top: 85%;
+		width: 100%;
+	}
+
+	.hero .content h1 {
+		font-size: 9.6vw;
+		margin-bottom: 0;
+	}
+
+	.hero .content h2 {
+		font-size: 16px;
+	}
+
+	.first {
+		transform: skewY(0deg);
+		padding: 50px 0;
+		.content {
+			transform: skewY(0);
+		}
+	}
+
+	section.first h1:after,
+	section.second h1:after,
+	section.third h1:after {
+		margin: 20px auto 0;
+	}
+
+	.image_container.top {
+		width: 100%;
+		img {
+			width: 100%;
+			margin-bottom: 50px;
+		}
+	}
+
+	.group .content {
+		padding: 50px 0;
+	}
+
+	.info.left {
+		width: 100%;
+		text-align: center;
+	}
+
+	.third {
+		padding: 50px 0;
+	}
+}

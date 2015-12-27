@@ -1,6 +1,6 @@
 <section class="third form">
 	<div class="wrapper">
-		<div class="content">
+		<div class="content" id="sign-up">
 			<h2>Receive your free consultation</h2>
 			<p>To get started planning your next hunt, use the form below to send us a message! Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
 			<form action="" name="bottomForm" id="homeform" title="bottomForm">
@@ -15,7 +15,7 @@
 				<div class="input last">
 					<label for="state">State</label>
 					<select name="state" id="state" class="flexselect">
-						<option value="Select">Which state interests you?</option>
+						<option value=""></option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
 						<option value="AZ">Arizona</option>

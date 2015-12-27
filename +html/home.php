@@ -18,7 +18,7 @@ include 'inc/header.php';
 	<div class="content">
 		<div class="wrapper">
 			<h1 class="ranger">We Help You Hunt</h1>
-			<h2>Let us help plan and book the best hunt of your life.</h2>
+			<h2>Trophies don't have to be bought.</h2>
 		</div>
 	</div>
 </section>
@@ -47,23 +47,6 @@ include 'inc/header.php';
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="group bottom cf">
-		<div class="image_container bottom">
-			<img src="assets/images/map.png" alt="" />
-		</div>
-		<div class="content two cf">
-			<div class="wrapper">
-				<div class="info right">
-					<h1>Who We Are</h1>
-					<p>We provide state-by-state research and analysis of the best types of hunts, seasons, and areas to draw tags Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-					<a href="#" class="button red solid large">Learn More<span class="arrow"><?php include 'inc/arrow.php'; ?></span></a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="bullseye">
-		<img src="assets/images/icon_bullseye.png" alt= "" />
 	</div>
 </section>
 

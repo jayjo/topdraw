@@ -1,0 +1,62 @@
+.internal_hero {
+	width: 100vw;
+	height: 90vh;
+	position: relative;
+	padding-top: 90px;
+	overflow: hidden;
+}
+
+.internal_hero img {
+	width: 100%;
+}
+
+.internal_hero .content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate3D(-50%, -50%, 0);
+}
+
+.internal_hero .content h1 {
+	font-size: 6.4vw;
+	letter-spacing: -0.5vw;
+	color: #fff;
+	text-shadow: 0 1px 10px rgba(0,0,0,.4);
+	margin: 50px 0 0 0;
+}
+
+.internal_content {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 90px 0 0;
+}
+
+.single_col {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.two_col.left,
+.two_col.right {
+	float: left;
+	width: 50%;
+	display: inline-block;
+	img {
+		width: 100%;
+	}
+}
+
+.two_col.left {
+	padding: 50px 50px 50px 0;
+}
+
+.two_col.right {
+	padding: 50px 0 50px 50px;
+}
+
+.two_col img {
+
+}
+
+@import "mobile_internal_content";

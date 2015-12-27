@@ -1,0 +1,131 @@
+header {
+	position: fixed;
+	width: 100%;
+	height: 80px;
+	top: 0;
+	z-index: 1;
+	padding: 15px 0 0 0;
+	transition: background 150ms 300ms;
+}
+
+.loggroup {
+	float: left;
+	margin-top: 0;
+	outline: none;
+	border: none;
+}
+
+.loggroup .login {
+	margin-right: 25px;
+	padding: 8px 0;
+	transition: all 200ms;
+	border-bottom: 3px solid transparent;
+	&:hover {
+		border-bottom: 3px solid $red;
+		transition: all 200ms;
+	}
+}
+
+.nav {
+	display: inline-block;
+	float: right;
+	margin: 4px 0 0 0;
+}
+
+.hamburger {
+	display: none;
+}
+
+.nav ul {
+	padding: 0;
+	list-style: none;
+	margin: 0;
+	display: inline-block;
+}
+
+.nav ul li {
+	display: inline-block;
+	margin-left: 25px;
+	&.home {
+		display: none;
+	}
+}
+
+.nav ul li a {
+	padding: 8px 0;
+	transition: all 200ms;
+	border-bottom: 3px solid transparent;
+	&.join:hover {
+		border-bottom: 2px solid transparent;
+	}
+	&:hover {
+		border-bottom: 3px solid $red;
+		transition: all 200ms;
+	}
+}
+
+header a {
+	text-decoration: none;
+	color: $dark_blue;
+}
+
+header .logo {
+	float: left;
+}
+
+header .logo svg {
+  width: 200px;
+  fill: #fff;
+  margin: 5px 20px 0 0;
+}
+
+.page-id-9 header,
+.page-id-7 header {
+	background: $dark_blue;
+}
+
+.page-id-9 .nav ul li a,
+.page-id-7 .nav ul li a {
+	color: rgba($grey,.5);
+	&:hover {
+		color: rgba($grey,1);
+		transition: all 200ms;
+	}
+}
+
+.page-id-9 header a,
+.page-id-7 header a {
+	text-decoration: none;
+	color: rgba($grey,.5);
+	&:hover {
+		color: rgba($grey,1);
+		transition: all 200ms;
+	}
+}
+
+.page-id-9 header .button,
+.page-id-7 header .button {
+	background: rgb(45,51,67);
+	border-color: rgb(45,51,67);
+}
+
+header.shown {
+	background: $dark_blue;
+	transition: background 150ms;
+}
+
+header.shown a {
+	text-decoration: none;
+	color: rgba($grey,.5);
+	&:hover {
+		color: rgba($grey,1);
+		transition: all 200ms;
+	}
+}
+
+header.shown .button {
+	background: rgb(45,51,67);
+	border-color: rgb(45,51,67);
+}
+
+@import "mobile_header";

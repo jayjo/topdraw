@@ -12,8 +12,6 @@
 			</div>
 		</footer>
 
-		<div class="form-messages"><p></p></div>
-
 		<?php wp_footer(); ?>
 
 	</body>

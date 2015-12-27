@@ -41,7 +41,7 @@ include 'inc/header.php';
 				<p>Fast forward a few years later and I had drawn out on all of Montana’s trophy species with a mountain goat permit, eventually harvesting what would be the second biggest billy taken with a bow in Montana.</p>
 				<p>Further yet, I had become the only hunter to take a moose, bighorn sheep and mountain goat from my home state that each met the Pope & Young minimum.  This included a 47” moose as well as a Boone & Crockett bighorn.   The point here is not to brag.  Sure some luck is involved in pulling tags like these, but it’s not all luck.  By combining trophy harvest statistics with reasonable true draw odds, it is possible to put more quality archery tags in your pocket.  Put Top Draw to work for you and see the draw results you’ve spent years waiting for!</p>
 				<p class="spacer">&nbsp;</p>
-				<p class="centery"><a href="#" class="button large solid red">Learn more about what we do</a></p>
+				<p class="centery"><a href="what-we-do.php" class="button large solid red">Learn more about what we do</a></p>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,10 @@
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med) {
+
+	.button {
+		&.med {
+			font-size: 12px;
+			padding: .85em 1.0em;
+		}
+	}
+
+}

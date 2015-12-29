@@ -21,7 +21,7 @@ $parent_title = get_the_title($post->post_parent);
 	<div class="wrapper">
 		<div class="top_info">
 			<h1><?php echo $parent_title; ?> - <?php the_title(); ?></h1>
-			<p class="intro"><?php the_content(); ?>Colorado is a state that most hunters should be building points in.  Averaging around 135 total P&Y entries annually, it trails only WY in recent entries. Colorado’s game management program is focused mostly on hunter opportunity and leads the way in elk, bighorn sheep & mountain goat entries year in and year out.  Despite catering heavily towards hunting opportunity, it turns out bigger archery mule deer and moose than any other state.</p>
+			<?php include 'inc/colorado_explanation.php'; ?>
 		</div>
 		<?php include 'inc/analysis_type.php'; ?>
 		<div class="sector species cf">

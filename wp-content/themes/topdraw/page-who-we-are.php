@@ -23,7 +23,7 @@ setup_postdata($post);
 				<p>Though difficult at first I began to enjoy the process of compiling and crunching the numbers almost as much as drawing and going on the hunts themselves.  </p>
 			</div>
 			<div class="two_col right cf">
-				<img src="<?php bloginfo('template_directory'); ?>/assets/img/eric_bachofner_elk.png" alt="" class="col_image"/>
+				<img src="<?php bloginfo('template_directory'); ?>/assets/img/eric-moose.png" alt="" class="col_image"/>
 			</div>
 		</div>
 		<div class="col layout cf">

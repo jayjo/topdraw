@@ -10,8 +10,8 @@ setup_postdata($post);
 	</div>
 	<div class="content">
 		<div class="wrapper">
-			<h1 class="ranger">We Help You Hunt</h1>
-			<h2>Trophies don't have to be bought.</h2>
+			<h1 class="ranger">Hunt the Rockies</h1>
+			<h2>We can help.</h2>
 		</div>
 	</div>
 </section>

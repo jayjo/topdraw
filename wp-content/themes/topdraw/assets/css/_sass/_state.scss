@@ -119,8 +119,8 @@ section.chart {
 }
 
 .intro {
-  font-size: 18px;
-  line-height: 35px;
+  font-size: 17px;
+  line-height: 33px;
 }
 
 #sticky-wrapper {
@@ -169,7 +169,8 @@ section.chart {
 	font-weight: lighter;
 }
 
-.tabscontent a {
+.tabscontent a,
+.intro a {
 	color: $red;
 	text-shadow: 0 2px 0 $dark_blue;
 	text-decoration: none;

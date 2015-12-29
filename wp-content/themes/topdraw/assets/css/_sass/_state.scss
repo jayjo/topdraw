@@ -5,14 +5,58 @@ section.chart {
 
 .top_info {
 	margin-top: 0;
-	padding: 40px 0;
+	padding: 40px 0 15px;
+}
+
+.analysis_type {
+	width: 100%;
+	text-align: center;
+}
+
+.analysis_type ul {
+	margin: 0 auto 50px;
+	padding: 0;
+	list-style: none;
+	display: flex;
+}
+
+.analysis_type ul li {
+	flex: 1;
+	margin: 0 2px;
+	&:first-child {
+		margin: 0 2px 0 0;
+	}
+	&:last-child {
+		margin: 0 0 0 2px;
+	}
+	&.current_page_item a {
+		border-bottom: 3px solid rgba($light_blue, 1);
+  	color: #fff;
+	}
+}
+
+.analysis_type ul li a {
+	display: block;
+	width: 100%;
+	background: $med_blue;
+	text-decoration: none;
+	color: rgba($grey, .65);
+	padding: 15px 0 17px;
+	transition: all 200ms;
+	&:hover {
+		color: #fff;
+		background: rgb(45,51,67);
+		box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
+		transition: all 200ms;
+	}
 }
 
 .navvy {
-	width: 100%;
+	width: 220px;
 	border-radius: 3px;
 	margin-bottom: 15px;
 	z-index: 500;
+	float: left;
 }
 
 .button_group {
@@ -25,18 +69,21 @@ section.chart {
 	padding: 0;
 	margin: 0;
 	border-radius: 2px;
-	text-align: center;
+	text-align: left;
 	margin-bottom: 55px;
 }
 
 .button_group ul li {
-	display: inline-block;
-	margin: 0 auto;
+	width: 100%;
+	display: block;
+	margin: 0 0 4px 0;
 	a {
+		display: block;
+		width: 100%;
 		background: $med_blue;
 		font-size: 13px;
 		color: rgba($grey,.65);
-	  padding: 15px 20px;
+	  padding: 15px;
 	  transition: all 150ms;
 	  text-decoration: none;
 	  &:hover {
@@ -49,9 +96,88 @@ section.chart {
 	  }
 	}
 	&.current a {
-  	border-bottom: 3px solid rgba($light_blue, 1);
+  	border-left: 3px solid rgba($light_blue, 1);
   	color: #fff;
   }
+}
+
+.tabscontent.species_information,
+.tabscontent.unit_information {
+  width: 774px;
+  float: left;
+  margin-left: 30px;
+}
+
+.tabscontent.species_chart {
+  width: 100%;
+  float: none;
+  margin-left: 0;
+}
+
+.charts {
+
+}
+
+.intro {
+  font-size: 18px;
+  line-height: 35px;
+}
+
+#sticky-wrapper {
+	width: 220px;
+	float: left;
+}
+
+// .tabscontent .content {
+// 	height: 58vh;
+// 	overflow: scroll;
+// }
+
+.sector {
+	margin-bottom: 35px;
+}
+
+.sector.species {
+	margin-bottom: 0;
+	p:last-child {
+		margin: 0;
+	}
+}
+
+.sector.species.trophy {
+	margin-bottom: 40px;
+}
+
+.tabscontent ul,
+.tabscontent ol {
+	margin: 0 0 25px 0;
+	padding: 0 0 0 30px;
+}
+
+.tabscontent ul {
+	list-style: disc;
+}
+
+.tabscontent ol {
+	list-style: decimal;
+}
+.tabscontent ul li,
+.tabscontent ol li {
+	margin-bottom: 15px;
+	font-size: 15px;
+	line-height: 28px;
+	font-weight: lighter;
+}
+
+.tabscontent a {
+	color: $red;
+	text-shadow: 0 2px 0 $dark_blue;
+	text-decoration: none;
+	border-bottom: 1px solid $red;
+}
+
+.tabscontent b {
+	font-weight: bolder;
 }
 
 .species_info {
@@ -61,11 +187,9 @@ section.chart {
 }
 
 .species_info div {
-	border: 1px solid #252C38;
-	margin: -1px 0 0 0;
-	width: 50%;
-	float: left;
-	height: 218px;
+	margin: 0 0 10px 0;
+	width: 100%;
+	height: auto;
 	p{
 		font-size: 14px;
 		line-height: 23px;
@@ -75,43 +199,46 @@ section.chart {
 	}
 }
 
-.species_info div h5 {
-	padding: 15px;
-	height: 64px;
-	font-size: 15px;
+.species_info h4 {
+	text-align: left;
+}
+
+.species_info div h5,
+.app_deadline_info h5 {
+	padding: 8px 15px;
+	height: 35px;
+	font-size: 14px;
 	line-height: 20px;
 	background: rgba($med_blue,1);
-	color: rgba($light_blue, .75);
+	color: rgba($light_blue, .65);
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
+  margin: 0;
+  text-align: left;
 }
 
 .species_info .record.single p {
-	text-align: center;
+	text-align: left;
 	width: 100%;
-	padding: 0 25px;
+	padding: 10px 15px 5px;
+	&:last-child {
+		border-left: none;
+	}
+}
+
+.species_info p {
+	text-align: left;
+	width: 50%;
+	float: left;
+	padding: 10px 15px 5px;
+	margin: 0;
 	&:last-child {
 		border-left: none;
 	}
 	span {
 		display: block;
-		color: rgba($light_blue, .65);
-	}
-}
-
-.species_info p {
-	text-align: center;
-	width: 50%;
-	float: left;
-	padding: 0 25px;
-	margin: 0;
-	&:last-child {
-		border-left: 1px solid #252C38;
-	}
-	span {
-		display: block;
-		color: rgba($light_blue, .65);
+		color: rgba($grey, .35);
 	}
 }
 
@@ -120,4 +247,41 @@ section.chart {
 	height: 5px;
 	margin: 50px auto;
 	background: rgba($light_blue, .15);
+}
+
+.app_deadline_info {
+	margin-bottom: 30px;
+	.animal {
+		width: 60%;
+		float: left;
+	}
+	.cost {
+		float: left;
+		width: 10%;
+		p {
+			text-align: right;
+		}
+	}
+	.date {
+		float: left;
+		width: 30%;
+		p {
+			text-align: right;
+		}
+	}
+}
+
+.app_deadline_info h5 {
+	margin-bottom: 5px;
+}
+
+.app_deadline_info p {
+	text-align: left;
+	padding: 2px 15px;
+	margin: 0;
+	span {
+		display: block;
+		color: rgba($grey, .35);
+		margin-bottom: 4px;
+	}
 }

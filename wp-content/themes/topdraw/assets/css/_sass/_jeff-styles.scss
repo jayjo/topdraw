@@ -1,8 +1,9 @@
 /* Apply a box-sizing technique to make padding and
 margins add up to actual values in the box total */
 
-html { box-sizing: border-box }
+html { box-sizing: border-box; font-weight: lighter; }
 *, *:before, *:after { box-sizing: inherit;}
+li:focus, a:focus, button:focus, input[type=submit]:focus { outline: none; }
 
 /* ==========================================================================
    COLORS & FONTS

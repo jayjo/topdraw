@@ -3,15 +3,12 @@
 	$(function () {
 
 		$('input[type="text"], input[type="email"]').each(function(){
-
 			var default_value = this.value;
-
 				$(this).focus(function(){
 					if(this.value === default_value) {
 						this.value = '';
 					}
 				});
-
 				$(this).blur(function(){
 					if(this.value === '') {
 						this.value = default_value;
@@ -29,15 +26,21 @@
 			$(this).input.select();
 		});
 
-		$('.tabscontent').tabbedContent({
+		$('.species_information, .species_chart').tabbedContent({
 			links: '.animal_chooser li a',
 			currentClass : 'current',
 			loop: false
 		});
 
+		$('.unit_information').tabbedContent({
+			links: '.info_chooser li a',
+			currentClass: 'current',
+			loop: false
+		});
+
 		$('header').scrollupbar();
 
-		//Sticky header
+		//Sticky Stuff
 		$(window).scroll(function(e){
 			var y = $(this).scrollTop();
 			if (y >= '250'){
@@ -47,40 +50,8 @@
 			}
 		});
 
-		var unitTable   = $('.unittable'),
-				trophyTable = $('.trophytable'),
-				pUnit 		  = $('p.unit'),
-				pTrophy		 	= $('p.trophy');
-
-		$(document).on('click', 'h3.unit', function(e){
-			$(this).addClass('current').siblings().removeClass('current');
-			unitTable.addClass('shown').removeClass('hiding');
-			trophyTable.addClass('hiding').removeClass('shown');
-			pUnit.addClass('showing').removeClass('hiding');
-			pTrophy.addClass('hiding').removeClass('showing');
-			return false;
-		});
-
-		$(document).on('click', 'h3.trophy', function(e){
-			$(this).addClass('current').siblings().removeClass('current');
-			unitTable.addClass('hiding').removeClass('shown');
-			trophyTable.addClass('shown').removeClass('hiding');
-			pTrophy.addClass('showing').removeClass('hiding');
-			pUnit.addClass('hiding').removeClass('showing');
-			return false;
-		});
-
 		var calc    = $('.calc'),
 				odds    = $('.drawOdds');
-
-		$(document).on('keyup keydown', '.calc', function(e){
-			var curVal = calc.val();
-
-			$(document).find('.drawOdds').each(function(){
-				var oddsVal = ($(this).text() / curVal);
-				console.log(oddsVal);
-			});
-		});
 
 		$('.hamburger').on('click', function(e){
 			$(this).toggleClass('active');
@@ -90,6 +61,54 @@
 
 		$('.join').on('click', function(){
 			$('.nav').removeClass('active');
+		});
+
+		// True Odds Calculator
+
+		var originalValues = getoriginalValues();
+
+		function getoriginalValues(){
+	    var values = [];
+	    $('.drawOdds').each(function(index){
+	    	values[index] = $(this).text();
+	  	});
+		  return values;
+		}
+
+		function setDrawOddValues(){
+			var curVal = calc.val();
+			$(document).find('.drawOdds').each(function(index){
+        var oddsVal = (originalValues[index] / curVal);
+        var origVal = (originalValues[index] / 1);
+        if(!$('.calc').val() || $('.calc').val() === "0" || $('.calc').val() === "1") {
+        	$(this).text(origVal);
+        	$('.draw').text("2014 Draw Odds");
+        	$('.draw, .drawOdds').removeClass('highlight');
+        } else {
+        	$(this).text(oddsVal);
+        	$('.draw').text("True Draw Odds");
+        	$('.draw, .drawOdds').addClass('highlight');
+        }
+	    });
+		}
+
+		$(document).on('keyup', '.calc', function(e){
+	    // if (!calc.val()) return;
+	    setDrawOddValues();
+		});
+
+		$('.animal_chooser li a').on('click', function(){
+			$('.calc').val("");
+			setDrawOddValues();
+		});
+
+		$(document).on('click ready', function(e){
+			if($('.elk, .mule-deer, .pronghorn, .desert-bighorn').hasClass('current')) {
+				$('.calculating').hide();
+			} else {
+				$('.calculating').show();
+			}
+			ePreventDefault();
 		});
 
 	});

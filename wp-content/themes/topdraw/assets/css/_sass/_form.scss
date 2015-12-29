@@ -75,4 +75,8 @@ div.wpcf7-validation-errors {
   color: $dark_blue;
 }
 
+form:last-child p {
+  margin: 0;
+}
+
 @import "mobile_form";

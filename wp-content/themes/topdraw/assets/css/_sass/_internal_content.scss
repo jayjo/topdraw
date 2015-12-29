@@ -1,8 +1,8 @@
 .internal_hero {
 	width: 100vw;
-	height: 90vh;
+	height: 100%;
 	position: relative;
-	padding-top: 90px;
+	padding-top: 80px;
 	overflow: hidden;
 }
 
@@ -22,7 +22,14 @@
 	letter-spacing: -0.5vw;
 	color: #fff;
 	text-shadow: 0 1px 10px rgba(0,0,0,.4);
-	margin: 50px 0 0 0;
+	margin: 50px 0 10px 0;
+}
+
+.internal_hero .content h2 {
+	font-size: 27px;
+	color: $orange;
+	text-align: center;
+	text-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
 
 .internal_content {

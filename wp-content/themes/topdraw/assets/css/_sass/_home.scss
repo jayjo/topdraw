@@ -61,9 +61,18 @@
 	overflow: hidden;
 }
 
+.home .third {
+	padding: 100px 0;
+	text-align: center;
+}
+
 .third {
 	padding: 100px 0;
 	text-align: center;
+}
+
+.third .content h1:after {
+	margin: 28px auto 0;
 }
 
 .group .content {
@@ -99,12 +108,18 @@
 
 section.first h1:after,
 section.second h1:after,
-section.third h1:after {
-	width: 66px;
-	height: 2px;
-	background: rgba($grey, .34);
+section.third h1:after,
+.top_info h1:after {
+	width: 70px;
+	height: 5px;
+	margin: 50px auto;
+	background: rgba($light_blue, .15);
 	display: block;
 	content: "";
+}
+
+.top_info h1:after {
+	margin: 28px 0;
 }
 
 section.first h1:after {

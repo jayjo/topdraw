@@ -214,6 +214,8 @@ $parent_title = get_the_title($post->post_parent);
 			<?php include 'inc/rocky_mountain_goat_unit_chart.php'; ?>
 			<?php include 'inc/moose_unit_chart.php'; ?>
 		</div>
+		<p class="footnote">Information provided above to be superseded by Colorado hunting regulations.  Refer to 2015 Big Game brochure when applying or hunting.  <a href="http://cpw.state.co.us/thingstodo/Pages/BigGame.aspx" target="_blank">http://cpw.state.co.us/thingstodo/Pages/BigGame.aspx</a>
+</p>
 	</div>
 </section>
 

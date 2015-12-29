@@ -2937,6 +2937,16 @@ section.chart {
   margin-bottom: 4px;
 }
 
+.footnote {
+  font-size: 11px;
+  text-align: center;
+  margin: 20px auto 0;
+  color: #696D70;
+}
+.footnote a {
+  color: #696D70;
+}
+
 div.fancy-select {
   position: relative;
   font-weight: bold;

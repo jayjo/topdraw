@@ -4,16 +4,16 @@
 
 		$('input[type="text"], input[type="email"]').each(function(){
 			var default_value = this.value;
-				$(this).focus(function(){
-					if(this.value === default_value) {
-						this.value = '';
-					}
-				});
-				$(this).blur(function(){
-					if(this.value === '') {
-						this.value = default_value;
-					}
-				});
+			$(this).focus(function(){
+				if(this.value === default_value) {
+					this.value = '';
+				}
+			});
+			$(this).blur(function(){
+				if(this.value === '') {
+					this.value = default_value;
+				}
+			});
 		});
 
 		$('.animal_selector').fancySelect();
@@ -108,11 +108,12 @@
 			} else {
 				$('.calculating').show();
 			}
-			ePreventDefault();
 		});
 
 	});
 
 	// MIXPANEL STUFF
+
+
 
 })(jQuery, this);

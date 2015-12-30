@@ -8,23 +8,23 @@
 		</div>
 		<div class="record cf">
 			<h5>Number of P&Y Entries (145” Typical, 170” Non-typical) (includes velvet entries)</h5>
-			<p><span>Short Term</span>(2011-2013) - 72</p>
-			<p><span>Long Term</span>(2008-2013) - 199</p>
+			<p><span>Short Term</span>(2011-2013) - 81</p>
+			<p><span>Long Term</span>(2008-2013) - 196</p>
 		</div>
 		<div class="record cf">
 			<h5>Average P&Y Buck</h5>
-			<p><span>Short Term</span>(2011-2013) - 169 1/8"</p>
-			<p><span>Long Term</span>(2008-2013) - (2008-2013)- 171 2/8"</p>
+			<p><span>Short Term</span>(2011-2013) - 167 7/8"</p>
+			<p><span>Long Term</span>(2008-2013) - 169 1/8"</p>
 		</div>
 		<div class="record cf">
 			<h5>Number of Trophy P&Y Entries (180” Typical, 215” Non-typical)</h5>
-			<p><span>Short Term</span>(2011-2013) - 11</p>
-			<p><span>Long Term</span>(2008-2013) - 34</p>
+			<p><span>Short Term</span>(2011-2013) - 12</p>
+			<p><span>Long Term</span>(2008-2013) - 27</p>
 		</div>
 		<div class="record cf">
 			<h5>Biggest P&Y Buck</h5>
 			<p><span>Short Term</span>(2011-2013) - 236 0/8 Non-typical (Garfield County, 2012)</p>
-			<p><span>Long Term</span>(2008-2013)- (2008-2013)- 238 2/8 Non-typical (Cheyenne County, 2011)</p>
+			<p><span>Long Term</span>(2008-2013)- 238 2/8 Non-typical (Cheyenne County, 2011)</p>
 		</div>
 	</div>
 </div>

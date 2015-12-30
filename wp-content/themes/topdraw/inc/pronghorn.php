@@ -8,17 +8,17 @@
 		<div class="record cf">
 			<h5>Number of P&Y Entries (67”)</h5>
 			<p><span>Short Term</span>(2011-2013) - 32</p>
-			<p><span>Long Term</span>(2008-2013) - 118</p>
+			<p><span>Long Term</span>(2008-2013) - 106</p>
 		</div>
 		<div class="record cf">
 			<h5>Average P&Y Buck</h5>
 			<p><span>Short Term</span>(2011-2013) - 73 2/8"</p>
-			<p><span>Long Term</span>(2008-2013) - 72 4/8"</p>
+			<p><span>Long Term</span>(2008-2013) - 72 0/8"</p>
 		</div>
 		<div class="record cf">
 			<h5>Number of Trophy P&Y Entries (80”)</h5>
 			<p><span>Short Term</span>(2011-2013) - 2</p>
-			<p><span>Long Term</span>(2008-2013) - 5</p>
+			<p><span>Long Term</span>(2008-2013) - 3</p>
 		</div>
 		<div class="record cf">
 			<h5>Biggest P&Y Buck</h5>

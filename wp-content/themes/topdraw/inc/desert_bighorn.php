@@ -25,10 +25,5 @@
 			<p><span>Short Term</span>(2011-2013) - 146 2/8 (San Miguel County, 2013)</p>
 			<p><span>Long Term</span>(2008-2013)- 146 2/8 (San Miguel County, 2013)</p>
 		</div>
-		<div class="record cf">
-			<h5>Number of B&C Entries (175”)</h5>
-			<p><span>Short Term</span>(2011-2013) - 2</p>
-			<p><span>Long Term</span>(2008-2013)- 4</p>
-		</div>
 	</div>
 </div>

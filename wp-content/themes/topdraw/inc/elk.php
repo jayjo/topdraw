@@ -8,12 +8,12 @@
 		</div>
 		<div class="record cf">
 			<h5>Number of P&Y Entries (260” Typical, 300” Non-typical)</h5>
-			<p><span>Short Term</span>(2011-2013) - 173</p>
-			<p><span>Long Term</span>(2008-2013) - 429</p>
+			<p><span>Short Term</span>(2011-2013) - 178</p>
+			<p><span>Long Term</span>(2008-2013) - 434</p>
 		</div>
 		<div class="record cf">
 			<h5>Average P&Y Bull</h5>
-			<p><span>Short Term</span>(2011-2013) - 306 6/8"</p>
+			<p><span>Short Term</span>(2011-2013) - 306 1/8"</p>
 			<p><span>Long Term</span>(2008-2013) - 306 0/8"</p>
 		</div>
 		<div class="record cf">

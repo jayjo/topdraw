@@ -24,12 +24,13 @@ $parent_title = get_the_title($post->post_parent);
 			<?php include 'inc/colorado_explanation.php'; ?>
 		</div>
 		<?php include 'inc/analysis_type.php'; ?>
-		<div class="sector unit cf">
+		<div class="sector rules cf">
 			<div class="navvy unit_info cf">
 				<h4>Legend</h4>
 				<div class="button_group cf">
 					<ul class="info_chooser">
-						<li class="current"><a href="#application-info">Application Info</a></li>
+						<li class="current"><a href="#fees-deadlines">Fees & Deadlines</a></li>
+						<li><a href="#application-info">Application Info</a></li>
 						<li><a href="#apply-online">Apply Online</a></li>
 						<li><a href="#apply-by-mail">Apply by Mail</a></li>
 						<li><a href="#preference-points">Prefernce Points</a></li>
@@ -41,6 +42,45 @@ $parent_title = get_the_title($post->post_parent);
 				</div>
 			</div>
 			<div class="tabscontent unit_information cf">
+				<div class="app_deadline_info cf" id="fees-deadlines">
+					<h4>Fees & Deadlines</h4>
+					<h5>2015 Colorado Application Fees & Deadlines</h5>
+					<div class="boxes">
+						<div class="animal">
+							<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
+							<p>Elk – Bull or Either Sex</p>
+							<p>Elk – Cow</p>
+							<p>Mule Deer</p>
+							<p>Pronghorn</p>
+							<p>Rocky Mountain Bighorn Sheep</p>
+							<p>Desert Bighorn Sheep</p>
+							<p>Mountain Goat </p>
+							<p>Moose</p>
+						</div>
+						<div class="cost">
+							<p><span>Cost:</span> $10</p>
+							<p>$619</p>
+							<p>$464</p>
+							<p>$374</p>
+							<p>$374 </p>
+							<p>$2064</p>
+							<p>$1,379</p>
+							<p>$2,064 </p>
+							<p>$2,064 </p>
+						</div>
+						<div class="date">
+							<p><span>Deadline:</span> April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+							<p>April 7, Midnight</p>
+						</div>
+					</div>
+				</div>
 				<div id="application-info">
 					<h4>Application Information</h4>
 					<ul>

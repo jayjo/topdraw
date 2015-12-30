@@ -46,7 +46,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Elk – Bull or Either Sex</p>
 								<p>Elk – Cow</p>
 							</div>
@@ -70,7 +70,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Mule Deer</p>
 							</div>
 							<div class="cost">
@@ -91,7 +91,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Pronghorn</p>
 							</div>
 							<div class="cost">
@@ -112,7 +112,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Rocky Mountain Bighorn Sheep</p>
 							</div>
 							<div class="cost">
@@ -135,7 +135,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Desert Bighorn Sheep</p>
 							</div>
 							<div class="cost">
@@ -156,7 +156,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Mountain Goat </p>
 							</div>
 							<div class="cost">
@@ -178,7 +178,7 @@ $parent_title = get_the_title($post->post_parent);
 						<h5>2015 Colorado Application Fees & Deadlines</h5>
 						<div class="boxes">
 							<div class="animal">
-								<p><span>Application: </span>Habitat Stamp (Required to apply, covers all species)</p>
+								<p><span>Application: </span>Habitat Stamp (Valid for all species, required to apply)</p>
 								<p>Moose</p>
 							</div>
 							<div class="cost">

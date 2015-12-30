@@ -20,7 +20,7 @@
 					<td>Alamosa</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>381 4/8</td>
+					<td>275 4/8</td>
 					<td>282</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -42,7 +42,7 @@
 					<td>Archuletta</td>
 					<td>11</td>
 					<td>&nbsp;</td>
-					<td>367 6/8</td>
+					<td>291 3/8</td>
 					<td>331 1/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -53,7 +53,7 @@
 					<td>Boulder</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>358 7/8</td>
+					<td>299 2/8</td>
 					<td>318 1/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
@@ -64,7 +64,7 @@
 					<td>Chaffee</td>
 					<td>6</td>
 					<td>&nbsp;</td>
-					<td>355 4/8</td>
+					<td>305 7/8</td>
 					<td>351 1/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -86,7 +86,7 @@
 					<td>Conejos</td>
 					<td>4</td>
 					<td>&nbsp;</td>
-					<td>352 6/8</td>
+					<td>294 4/8</td>
 					<td>336 5/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -97,7 +97,7 @@
 					<td>Costilla</td>
 					<td>5</td>
 					<td>&nbsp;</td>
-					<td>350 6/8</td>
+					<td>305 6/8</td>
 					<td>327 1/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
@@ -108,7 +108,7 @@
 					<td>Custer</td>
 					<td>4</td>
 					<td>1</td>
-					<td>350 2/8</td>
+					<td>332 7/8</td>
 					<td>380 5/8</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -119,7 +119,7 @@
 					<td>Delta</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>349 1/8</td>
+					<td>299 5/8</td>
 					<td>305 4/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -130,7 +130,7 @@
 					<td>Dolores</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>347 4/8</td>
+					<td>293 5/8</td>
 					<td>308 5/8</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -141,7 +141,7 @@
 					<td>Douglas</td>
 					<td>4</td>
 					<td>&nbsp;</td>
-					<td>346 3/8</td>
+					<td>296</td>
 					<td>324 3/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -152,7 +152,7 @@
 					<td>Eagle</td>
 					<td>20</td>
 					<td>2</td>
-					<td>342 1/8</td>
+					<td>305 1/8</td>
 					<td>364</td>
 					<td>9</td>
 					<td>2</td>
@@ -163,7 +163,7 @@
 					<td>El Paso</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>337 7/8</td>
+					<td>321 5/8</td>
 					<td>353 6/8</td>
 					<td>3</td>
 					<td>&nbsp;</td>
@@ -174,7 +174,7 @@
 					<td>Fremont</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>336 1/8</td>
+					<td>290 7/8</td>
 					<td>292 4/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -185,7 +185,7 @@
 					<td>Garfield</td>
 					<td>28</td>
 					<td>&nbsp;</td>
-					<td>331 3/8</td>
+					<td>298 3/8</td>
 					<td>343 2/8</td>
 					<td>10</td>
 					<td>&nbsp;</td>
@@ -196,7 +196,7 @@
 					<td>Gilpin</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>325 7/8</td>
+					<td>324</td>
 					<td>352</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -207,7 +207,7 @@
 					<td>Grand</td>
 					<td>21</td>
 					<td>&nbsp;</td>
-					<td>321 7/8</td>
+					<td>303 2/8</td>
 					<td>351 1/8</td>
 					<td>7</td>
 					<td>&nbsp;</td>
@@ -218,7 +218,7 @@
 					<td>Gunnison</td>
 					<td>17</td>
 					<td>&nbsp;</td>
-					<td>317 4/8</td>
+					<td>300 2/8</td>
 					<td>332 5/8</td>
 					<td>9</td>
 					<td>&nbsp;</td>
@@ -229,7 +229,7 @@
 					<td>Hinsdale</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>315 6/8</td>
+					<td>310 5/8</td>
 					<td>344</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -240,7 +240,7 @@
 					<td>Huerfano</td>
 					<td>5</td>
 					<td>&nbsp;</td>
-					<td>315 1/8</td>
+					<td>306 6/8</td>
 					<td>341 6/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
@@ -251,7 +251,7 @@
 					<td>Jackson</td>
 					<td>16</td>
 					<td>&nbsp;</td>
-					<td>313 1/8</td>
+					<td>299 3/8</td>
 					<td>356 2/8</td>
 					<td>5</td>
 					<td>&nbsp;</td>
@@ -262,7 +262,7 @@
 					<td>Jefferson</td>
 					<td>9</td>
 					<td>1</td>
-					<td>311 3/8</td>
+					<td>309 5/8</td>
 					<td>378 2/8</td>
 					<td>3</td>
 					<td>1</td>
@@ -273,7 +273,7 @@
 					<td>La Plata</td>
 					<td>14</td>
 					<td>&nbsp;</td>
-					<td>309 7/8</td>
+					<td>288 6/8</td>
 					<td>350 2/8</td>
 					<td>5</td>
 					<td>&nbsp;</td>
@@ -284,7 +284,7 @@
 					<td>Lake</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>308 4/8</td>
+					<td>309 7/8</td>
 					<td>350 4/8</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -295,7 +295,7 @@
 					<td>Larimer</td>
 					<td>21</td>
 					<td>1</td>
-					<td>306 6/8</td>
+					<td>321 7/8</td>
 					<td>365 6/8</td>
 					<td>11</td>
 					<td>&nbsp;</td>
@@ -306,7 +306,7 @@
 					<td>Las Animas</td>
 					<td>22</td>
 					<td>&nbsp;</td>
-					<td>302 5/8</td>
+					<td>296 6/8</td>
 					<td>333 3/8</td>
 					<td>10</td>
 					<td>&nbsp;</td>
@@ -317,7 +317,7 @@
 					<td>Mesa</td>
 					<td>38</td>
 					<td>2</td>
-					<td>297 2/8</td>
+					<td>318</td>
 					<td>379 3/8</td>
 					<td>13</td>
 					<td>1</td>
@@ -328,7 +328,7 @@
 					<td>Mineral</td>
 					<td>13</td>
 					<td>&nbsp;</td>
-					<td>291 1/8</td>
+					<td>303 5/8</td>
 					<td>344 3/8</td>
 					<td>6</td>
 					<td>&nbsp;</td>
@@ -339,7 +339,7 @@
 					<td>Moffat</td>
 					<td>22</td>
 					<td>&nbsp;</td>
-					<td>289</td>
+					<td>313 2/8</td>
 					<td>355 1/8</td>
 					<td>10</td>
 					<td>&nbsp;</td>
@@ -350,7 +350,7 @@
 					<td>Montezuma</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>287 5/8</td>
+					<td>292 6/8</td>
 					<td>311 3/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
@@ -361,7 +361,7 @@
 					<td>Montrose</td>
 					<td>22</td>
 					<td>&nbsp;</td>
-					<td>285 3/8</td>
+					<td>313 4/8</td>
 					<td>357 1/8</td>
 					<td>8</td>
 					<td>&nbsp;</td>
@@ -372,7 +372,7 @@
 					<td>Ouray</td>
 					<td>3</td>
 					<td>&nbsp;</td>
-					<td>283 5/8</td>
+					<td>295</td>
 					<td>304 5/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -383,7 +383,7 @@
 					<td>Park</td>
 					<td>14</td>
 					<td>1</td>
-					<td>282 3/8</td>
+					<td>323 3/8</td>
 					<td>363 2/8</td>
 					<td>9</td>
 					<td>1</td>
@@ -394,7 +394,7 @@
 					<td>Pitkin</td>
 					<td>7</td>
 					<td>&nbsp;</td>
-					<td>280</td>
+					<td>292 4/8</td>
 					<td>305 4/8</td>
 					<td>3</td>
 					<td>&nbsp;</td>
@@ -405,7 +405,7 @@
 					<td>Pueblo</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>279 1/8</td>
+					<td>353 6/8</td>
 					<td>372 3/8</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -416,7 +416,7 @@
 					<td>Rio Blanco</td>
 					<td>18</td>
 					<td>&nbsp;</td>
-					<td>277 2/8</td>
+					<td>298 5/8</td>
 					<td>360 6/8</td>
 					<td>11</td>
 					<td>&nbsp;</td>
@@ -438,7 +438,7 @@
 					<td>Routt</td>
 					<td>30</td>
 					<td>2</td>
-					<td>272 1/8</td>
+					<td>297 5/8</td>
 					<td>365 4/8</td>
 					<td>18</td>
 					<td>2</td>
@@ -449,7 +449,7 @@
 					<td>Saguache</td>
 					<td>5</td>
 					<td>&nbsp;</td>
-					<td>268 4/8</td>
+					<td>322 7/8</td>
 					<td>347 6/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -460,7 +460,7 @@
 					<td>San Juan</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>266 6/8</td>
+					<td>293 1/8</td>
 					<td>311 2/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
@@ -471,7 +471,7 @@
 					<td>San Miguel</td>
 					<td>8</td>
 					<td>&nbsp;</td>
-					<td>265</td>
+					<td>303 4/8</td>
 					<td>350 2/8</td>
 					<td>4</td>
 					<td>&nbsp;</td>
@@ -482,7 +482,7 @@
 					<td>Summit</td>
 					<td>5</td>
 					<td>&nbsp;</td>
-					<td>262 2/8</td>
+					<td>316 3/8</td>
 					<td>325 5/8</td>
 					<td>1</td>
 					<td>&nbsp;</td>
@@ -493,7 +493,7 @@
 					<td>Teller</td>
 					<td>8</td>
 					<td>2</td>
-					<td>260 4/8</td>
+					<td>329 5/8</td>
 					<td>382 2/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
@@ -503,7 +503,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td></td>
+					<td>&nbsp;</td>
 					<td>Total: 434</td>
 					<td>Total Trophy Entries: 12</td>
 					<td>Avg. Score: 306</td>

@@ -123,7 +123,7 @@
 					<td>78</td>
 					<td>7</td>
 					<td>&nbsp;</td>
-					<td>76</td>
+					<td>70 7/8</td>
 					<td>76</td>
 				</tr>
 				<tr>
@@ -134,7 +134,7 @@
 					<td>73 4/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>73 4/8</td>
+					<td>71 5/8</td>
 					<td>73 4/8</td>
 				</tr>
 				<tr>
@@ -145,7 +145,7 @@
 					<td>77 4/8</td>
 					<td>2</td>
 					<td>&nbsp;</td>
-					<td>73 4/8</td>
+					<td>71 6/8</td>
 					<td>73 4/8</td>
 				</tr>
 				<tr>
@@ -200,7 +200,7 @@
 					<td>74 2/8</td>
 					<td>4</td>
 					<td>&nbsp;</td>
-					<td>74</td>
+					<td>72 3/8</td>
 					<td>74</td>
 				</tr>
 				<tr>

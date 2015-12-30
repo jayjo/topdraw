@@ -27,7 +27,7 @@ setup_postdata($post);
 		</div>
 		<div class="col layout cf">
 			<div class="single_col">
-				<p>Full Draw Consulting is a company dedicated to providing accurate, up to date information for archery hunting the west.  We cater to the non-resident, DIY  hunter by providing unit by unit research and analysis.  State by state, species by species, all is done from an archery-only hunting perspective.  We break down licensing deadlines, application fee structures, draw odds, success rates and hunt dates for each available unit in Arizona, New Mexico, Nevada, Utah, Colorado, Idaho, Wyoming and Montana. If no archery only hunts are offered for a certain species in any state, we present all available any weapons hunt information for that species.</p>
+				<p>Top Draw Consulting is a company dedicated to providing accurate, up to date information for archery hunting the west.  We cater to the non-resident, DIY  hunter by providing unit by unit research and analysis.  State by state, species by species, all is done from an archery-only hunting perspective.  We break down licensing deadlines, application fee structures, draw odds, success rates and hunt dates for each available unit in Arizona, New Mexico, Nevada, Utah, Colorado, Idaho, Wyoming and Montana. If no archery only hunts are offered for a certain species in any state, we present all available any weapons hunt information for that species.</p>
 			</div>
 		</div>
 			<div class="two_col left">

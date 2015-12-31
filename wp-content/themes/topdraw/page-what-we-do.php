@@ -49,7 +49,7 @@ setup_postdata($post);
 		</div>
 		<div class="col layout cf">
 			<div class="single_col">
-				<p>Bottom line, we love what we do and enjoy helping avid archery hunters by passing that information along.  We don't want to be the biggest. Just the best.  So much so, that we are considering putting a cap on the number of clients we have.  Our take is this, the more folks that are getting 'the information', the less valuable that information becomes.   In other words, a hidden top unit, isn't so hidden anymore when 40 thousand people lay eyes on it.  STOP applying for all the permits that everyone else is applying from and START drawing hunts that are just as good!  Begin investing in your hunting future today!</p>
+				<p>Bottom line, we love what we do and enjoy helping avid archery hunters by passing that information along.  We don't want to be the biggest. Just the best.  So much so, that we are considering putting a cap on the number of clients we have.  Our take is this, the more folks that are getting 'the information', the less valuable that information becomes.   In other words, a hidden top unit isn't so hidden anymore when 40 thousand people lay eyes on it.  STOP applying for all the permits that everyone else is applying for and START drawing hunts that are just as good!  Begin investing in your hunting future today!</p>
 			</div>
 		</div>
 	</div>

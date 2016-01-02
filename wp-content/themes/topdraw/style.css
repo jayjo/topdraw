@@ -2482,7 +2482,7 @@ td {
 
 .table_container {
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .bottom {
@@ -2490,7 +2490,7 @@ td {
 }
 
 .over {
-  overflow: scroll;
+  overflow: auto;
   display: table;
 }
 
@@ -2518,16 +2518,28 @@ tr:nth-child(1) {
   color: #191e25;
   width: 236px;
   font-size: 12px;
-  left: -80px;
-  top: -30px;
+  left: -230px;
+  top: -17px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  -webkit-transform: translateY(20px);
-          transform: translateY(20px);
+  -webkit-transform: translateX(18px);
+          transform: translateX(18px);
   transition: opacity 150ms, visibility 0ms 150ms, -webkit-transform 150ms;
   transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
   transition: opacity 150ms, visibility 0ms 150ms, transform 150ms, -webkit-transform 150ms;
+}
+.tooltip:after {
+  width: 12px;
+  height: 12px;
+  background: #d49a49;
+  display: block;
+  content: "";
+  position: absolute;
+  right: -3px;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+  top: 32px;
 }
 
 table .orange {
@@ -2540,8 +2552,8 @@ table .orange:hover .tooltip {
   transition: opacity 150ms 200ms, -webkit-transform 150ms 200ms;
   transition: opacity 150ms 200ms, transform 150ms 200ms;
   transition: opacity 150ms 200ms, transform 150ms 200ms, -webkit-transform 150ms 200ms;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
 }
 
 .table_toggle {

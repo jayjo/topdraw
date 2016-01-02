@@ -35,9 +35,16 @@ td {
 	border-right: 1px solid #252C38;
 }
 
+// table.tablesorter thead tr .header {
+// 	z-index: 999 !important;
+// 	background-color: inherit;
+// 	border-bottom: 5px solid #252C38;
+// }
+
 .table_container {
 	width: 100%;
-	overflow: scroll;
+	overflow: auto;
+	// height: 500px;
 }
 
 .bottom {
@@ -45,9 +52,8 @@ td {
 }
 
 .over {
-	overflow: scroll;
+	overflow: auto;
 	display: table;
-	// cursor: move;
 }
 
 .over td, .over th {
@@ -74,13 +80,24 @@ tr:nth-child(1) {
   color: $dark_blue;
   width: 236px;
   font-size: 12px;
-  left: -80px;
-  top: -30px;
+  left: -230px;
+  top: -17px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
+  transform: translateX(18px);
   transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
+  &:after {
+  	width: 12px;
+  	height: 12px;
+  	background: $orange;
+  	display: block;
+  	content: "";
+  	position: absolute;
+  	right: -3px;
+  	transform: rotateZ(45deg);
+  	top: 32px;
+  }
 }
 
 table .orange {
@@ -91,7 +108,7 @@ table .orange:hover .tooltip {
 	opacity: 1;
 	visibility: visible;
 	transition: opacity 150ms 200ms, transform 150ms 200ms;
-	transform: translateY(0);
+	transform: translateX(0px);
 }
 
 .table_toggle {

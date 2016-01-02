@@ -114,6 +114,4 @@
 
 	// MIXPANEL STUFF
 
-
-
 })(jQuery, this);

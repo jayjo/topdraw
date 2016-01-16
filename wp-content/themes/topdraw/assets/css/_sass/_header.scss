@@ -81,6 +81,9 @@ header {
 .home header ul li a {
 	text-decoration: none;
 	color: $dark_blue;
+	&.mainlogin {
+		color: $dark_blue;
+	}
 	&:hover {
 		color: $dark_blue;
 	}
@@ -103,11 +106,19 @@ header {
 .nav ul li a {
 	color: rgba($grey,.5);
 	padding: 8px 0;
+	&.mainlogin {
+		color: rgba($grey, 1);
+		margin-left: 35px;
+	}
 	&:hover {
 		color: rgba($grey,1);
 		transition: all 200ms;
 		border-bottom: 3px solid $red;
 	}
+}
+
+.ms-member .nav {
+	margin: 17px 0 0 0;
 }
 
 header a {

@@ -7,8 +7,9 @@
   }
 }
 
-label {
+label, body .wpmui-field-label {
   background: $med_blue;
+  color: $grey;
   padding: 15px 20px;
   font-size: 12px;
   width: 140px;
@@ -18,7 +19,8 @@ label {
 }
 
 input[type=text],
-input[type=email] {
+input[type=email],
+input[type=password] {
   width: 240px;
   background: rgb(21,24,29);
   border: 1px solid transparent;

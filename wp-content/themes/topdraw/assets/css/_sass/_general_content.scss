@@ -1,0 +1,228 @@
+.content .wrapper a {
+	color: $red;
+	text-decoration: none;
+	border-bottom: 1px solid $red;
+	text-shadow: 0 2px 0 $dark_blue;
+}
+
+.sub_page {
+	width: 600px;
+	margin: 0 auto;
+	padding: 140px 0 80px;
+	text-align: center;
+}
+
+//// REGISTRATION STUFF
+
+.ms-alert-box {
+	width: 100%;
+  border-radius: 0;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+  top: 80px;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  left: 50%;
+  transform: translate3D(-50%, 0, 0);
+  // box-shadow: 0 2px 40px rgba(0,0,0,.3);
+  transition: transform 200ms, opacity 350ms, visibility 25ms;
+  font: 12px "Helvetica", sans-serif;
+  font-weight: bold;
+  border: none;
+  text-shadow: none;
+  margin: 0;
+  p {
+  	margin: 0;
+  }
+  &.ms-alert-success {
+  	background: $green;
+  	color: $dark_blue;
+  }
+  &.ms-alert-error {
+  	background: rgba($red, .15);
+  	color: rgba(255,255,255,.4);
+  	border: none;
+  	display: none;
+  }
+}
+
+.ms-membership-details-wrapper {
+	background: transparent;
+	width: 100%;
+	margin: 10px 0;
+	border: none;
+}
+
+.ms-top-bar, .ms-bottom-bar, .ms-price-details {
+	background: transparent;
+	padding: 10px 0;
+}
+
+.ms-membership-form-wrapper {
+	width: 478px;
+	border: 4px solid $med_blue;
+	padding: 30px;
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+	h4 {
+		margin-bottom: 0px;
+		text-align: center;
+	}
+}
+
+.ms-price-details {
+	padding: 5px 0;
+}
+
+.ms-price-details .ms-description p {
+	font-size: 14px;
+	line-height: 22px;
+	margin-bottom: 8px;
+}
+
+.ms-price.price {
+	font-size: 76px;
+  letter-spacing: -2px;
+  margin-bottom: 15px;
+  span {
+    font-size: 30px;
+    top: -22px;
+    position: relative;
+  }
+}
+
+.ms-signup-button, .button.wpmui-submit, .button-primary {
+	border-radius: 2px;
+	text-align: center;
+	display: inline-block;
+	margin: 15px auto 30px;
+	font-family: $aller;
+	font-weight: 500;
+	text-decoration: none;
+	transition: all 200ms;
+	font-size: 14px;
+	padding: .85em 1.5em;
+	border: 2px solid transparent;
+	color: #fff;
+	background: $red;
+	float: none;
+	&:hover {
+		background: rgb(198,66,71);
+		color: #fff;
+	}
+}
+
+.button.wpmui-submit.ms-signup-button, #wp-submit {
+	margin: 0 auto;
+}
+
+p.login-submit #wp-submit {
+	margin-bottom: 30px;
+}
+
+.ms-membership-form-wrapper legend {
+	font-size: 20px;
+	color: $orange;
+	font-weight: 300;
+	border: none;
+	margin: 20px 0 25px 0;
+}
+
+a.wpmui-link {
+	margin-bottom: 20px;
+	display: inline-block;
+}
+
+//// MEMBERSHIP FORM STUFF HACKS THAT AREN'T IN THE FORMS.SCSS FILE
+
+input[type="checkbox"], input[type="radio"] {
+	float: left;
+}
+
+.ms-form-element .wpmui-field-label {
+  color: $grey;
+  vertical-align: middle;
+}
+
+p.ms-field input[type=text],
+p.ms-field input[type=password] {
+	width: 100%;
+}
+
+p.ms-field {
+	margin: 0px 0 19px 0;
+}
+
+a[title~="Cancel"] {
+	display: none;
+}
+
+a.lost {
+  position: absolute;
+  right: 65px;
+  bottom: 214px;
+  font-size: 11px;
+  border-bottom: none !important;
+}
+
+a.login {
+	position: absolute;
+  top: 15px;
+  right: 25px;
+}
+
+p.login-remember {
+	padding: 0 0 0 10px;
+}
+
+.login-remember label {
+  float: left;
+  background: none;
+  padding: 0;
+  height: auto;
+  line-height: 12px;
+  width: auto;
+  margin: 0 0 0 8px;
+  font-size: 11px;
+}
+
+.registerhere {
+	opacity: .75;
+	font-size: 12px;
+	margin: 20px 0;
+}
+
+.status {
+	width: auto;
+	padding: 40px;
+	position: fixed;
+	top: 18%;
+	left: 50%;
+	background: $med_blue;
+	border-radius: 6px;
+	box-shadow: 0 2px 40px rgba(0,0,0,.3);
+	transform: translate3D(-50%, -60%, 0);
+	z-index: 10;
+	line-height: 22px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.hentry hr {
+	display: none;
+}
+
+p.lostpassword-username {
+	margin: 0 auto 28px !important;
+}
+
+p.submit .button.wpmui-submit.ms-signup-button, #wp-submit {
+	margin: 0 auto 28px;
+}
+
+.ms-form-element.ms-form-element-submit .wpmui-submit {
+	margin: 10px auto 0;
+}

@@ -1,45 +1,53 @@
 <?php get_header(); ?>
+<!-- Content -->
+<div class="content">
+	<!-- wrapper -->
+	<div class="wrapper">
+		<!-- Page -->
+		<div class="sub_page">
+			<main role="main">
+				<!-- section -->
+				<section>
+					<h1><?php the_title(); ?></h1>
 
-	<main role="main">
-		<!-- section -->
-		<section>
+				<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
-			<h1><?php the_title(); ?></h1>
+					<!-- article -->
+					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-		<?php if (have_posts()): while (have_posts()) : the_post(); ?>
+						<?php the_content(); ?>
 
-			<!-- article -->
-			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+						<?php comments_template( '', true ); // Remove if you don't want comments ?>
 
-				<?php the_content(); ?>
+						<br class="clear">
 
-				<?php comments_template( '', true ); // Remove if you don't want comments ?>
+						<?php edit_post_link(); ?>
 
-				<br class="clear">
+					</article>
+					<!-- /article -->
 
-				<?php edit_post_link(); ?>
+				<?php endwhile; ?>
 
-			</article>
-			<!-- /article -->
+				<?php else: ?>
 
-		<?php endwhile; ?>
+					<!-- article -->
+					<article>
 
-		<?php else: ?>
+						<h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
 
-			<!-- article -->
-			<article>
+					</article>
+					<!-- /article -->
 
-				<h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
+				<?php endif; ?>
 
-			</article>
-			<!-- /article -->
-
-		<?php endif; ?>
-
-		</section>
-		<!-- /section -->
-	</main>
-
-<?php get_sidebar(); ?>
-
+				</section>
+				<!-- /section -->
+			</main>
+		<?php // get_sidebar(); ?>
+		</div>
+	<!-- /Page -->
+	</div>
+	<!-- /wrapper -->
+</div>
+<!-- /content -->
 <?php get_footer(); ?>

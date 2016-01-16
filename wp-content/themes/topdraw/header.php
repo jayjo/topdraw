@@ -53,7 +53,14 @@
           <li><a href="<?php echo get_permalink(7); ?>">What We Do</a></li>
           <li><a href="<?php echo get_permalink(9); ?>">Who We Are</a></li>
           <li><a href="<?php echo get_permalink(14); ?>">Colorado</a></li>
-          <li class="right"><a href="#sign-up" class="button med solid blue join">Join Now</a></li>
+          <?php
+            $loggedIn = get_body_class();
+            if(in_array('ms-member', $loggedIn)) {
+
+            } else { ?>
+            <li><a href="<?php echo home_url('/register/?step=register&do-login=1/'); ?>" class="mainlogin">Login</a></li>
+            <li class="right"><a href="<?php echo get_permalink(get_page_by_path('register')); ?>" class="button med solid blue join">Join Now</a></li>
+          <?php } ?>
         </ul>
       </nav>
       <div class="hamburger"></div>

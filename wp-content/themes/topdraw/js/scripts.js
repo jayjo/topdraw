@@ -110,8 +110,17 @@
 			}
 		});
 
-	});
+		// MEMBERSHIP STUFF
 
-	// MIXPANEL STUFF
+		$('.ms-price.price').html('<span class="dollar">$</span>99');
+		$(document).ready(function(e){
+			var alertBox = $('.ms-alert-box').clone();
+			$('.ms-account-wrapper .ms-alert-box').remove();
+			$('body').prepend(alertBox);
+		});
+
+		// MIXPANEL STUFF
+
+	});
 
 })(jQuery, this);

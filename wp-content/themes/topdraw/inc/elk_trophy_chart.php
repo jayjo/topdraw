@@ -5,15 +5,17 @@
 	<div class="table_container">
 		<table class="table over tablesorter trophytable">
 			<thead>
-				<th class="header">County</th>
-				<th class="header"><span>2008-2013</span>Number of Entries (+260 Typ. & +300 Non-Typ.)</th>
-				<th class="header"><span>2008-2013</span>Number of Trophy Entries (+360 Typ. & +375 Non-Typ.)</th>
-				<th class="header"><span>2008-2013</span>Average P&Y Score</th>
-				<th class="header"><span>2008-2013</span>Best P&Y Bull</th>
-				<th class="header"><span>2011-2013</span>Number of Entries (+260 Typ. & +300 Non-Typ.)</th>
-				<th class="header"><span>2011-2013</span>Number of Trophy Entries (+360 Typ. & +375 Non-Typ.)</th>
-				<th class="header"><span>2011-2013</span>Average P&Y Score</th>
-				<th class="header"><span>2011-2013</span>Best P&Y Bull</th>
+				<tr>
+					<th>County</th>
+					<th><span>2008-2013</span>Number of Entries (+260 Typ. & +300 Non-Typ.)</th>
+					<th><span>2008-2013</span>Number of Trophy Entries (+360 Typ. & +375 Non-Typ.)</th>
+					<th><span>2008-2013</span>Average P&Y Score</th>
+					<th><span>2008-2013</span>Best P&Y Bull</th>
+					<th><span>2011-2013</span>Number of Entries (+260 Typ. & +300 Non-Typ.)</th>
+					<th><span>2011-2013</span>Number of Trophy Entries (+360 Typ. & +375 Non-Typ.)</th>
+					<th><span>2011-2013</span>Average P&Y Score</th>
+					<th><span>2011-2013</span>Best P&Y Bull</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr>

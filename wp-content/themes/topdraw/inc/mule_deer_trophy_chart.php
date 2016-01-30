@@ -6,15 +6,15 @@
 		<table class="table over tablesorter trophytable">
 			<thead>
 				<tr>
-					<th class="header">County</th>
-					<th class="header"><span>2008-2013</span>Number of Entries (+145 Typ. & +175 Non-Typ)</th>
-					<th class="header"><span>2008-2013</span>Number of Trophy Entries (+180 Typ. & +215 Non-Typ.)</th>
-					<th class="header"><span>2008-2013</span>Average P&Y Score</th>
-					<th class="header"><span>2008-2013</span>Best P&Y Buck</th>
-					<th class="header"><span>2011-2013</span>Number of Entries (+145 Typ. & +175 Non-Typ)</th>
-					<th class="header"><span>2011-2013</span>Number of Trophy Entries (+180 Typ. & +215 Non-Typ.)</th>
-					<th class="header"><span>2011-2013</span>Average P&Y Score</th>
-					<th class="header"><span>2011-2013</span>Best P&Y Buck</th>
+					<th>County</th>
+					<th><span>2008-2013</span>Number of Entries (+145 Typ. & +175 Non-Typ)</th>
+					<th><span>2008-2013</span>Number of Trophy Entries (+180 Typ. & +215 Non-Typ.)</th>
+					<th><span>2008-2013</span>Average P&Y Score</th>
+					<th><span>2008-2013</span>Best P&Y Buck</th>
+					<th><span>2011-2013</span>Number of Entries (+145 Typ. & +175 Non-Typ)</th>
+					<th><span>2011-2013</span>Number of Trophy Entries (+180 Typ. & +215 Non-Typ.)</th>
+					<th><span>2011-2013</span>Average P&Y Score</th>
+					<th><span>2011-2013</span>Best P&Y Buck</th>
 				</tr>
 			</thead>
 			<tbody>

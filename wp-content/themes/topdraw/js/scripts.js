@@ -2,6 +2,9 @@
 
 	$(function () {
 
+		var $document = $(document),
+				$window = $(window);
+
 		$('input[type="text"], input[type="email"]').each(function(){
 			var default_value = this.value;
 			$(this).focus(function(){
@@ -38,10 +41,10 @@
 			loop: false
 		});
 
-		$('header').scrollupbar();
+		// $('header').scrollupbar();
 
 		//Sticky Stuff
-		$(window).scroll(function(e){
+		$window.scroll(function(e){
 			var y = $(this).scrollTop();
 			if (y >= '250'){
 				$('header').addClass('shown');
@@ -49,9 +52,6 @@
 				$('header').removeClass('shown');
 			}
 		});
-
-		var calc    = $('.calc'),
-				odds    = $('.drawOdds');
 
 		$('.hamburger').on('click', function(e){
 			$(this).toggleClass('active');
@@ -65,7 +65,9 @@
 
 		// True Odds Calculator
 
-		var originalValues = getoriginalValues();
+		var calc    = $('.calc'),
+				odds    = $('.drawOdds'),
+				originalValues = getoriginalValues();
 
 		function getoriginalValues(){
 	    var values = [];
@@ -77,7 +79,7 @@
 
 		function setDrawOddValues(){
 			var curVal = calc.val();
-			$(document).find('.drawOdds').each(function(index){
+			$document.find('.drawOdds').each(function(index){
         var oddsVal = (originalValues[index] / curVal);
         var origVal = (originalValues[index] / 1);
         if(!$('.calc').val() || $('.calc').val() === "0" || $('.calc').val() === "1") {
@@ -92,7 +94,7 @@
 	    });
 		}
 
-		$(document).on('keyup', '.calc', function(e){
+		$document.on('keyup', '.calc', function(e){
 	    // if (!calc.val()) return;
 	    setDrawOddValues();
 		});
@@ -102,8 +104,11 @@
 			setDrawOddValues();
 		});
 
-		$(document).on('click ready', function(e){
-			if($('.elk, .mule-deer, .pronghorn, .desert-bighorn').hasClass('current')) {
+		var calcValues = $('.calculatorValues').text(),
+				calcValStr = calcValues.substring(0, calcValues.length-1);
+
+		$document.on('click ready', function(e){
+			if($(calcValStr).hasClass('current')) {
 				$('.calculating').hide();
 			} else {
 				$('.calculating').show();
@@ -113,13 +118,26 @@
 		// MEMBERSHIP STUFF
 
 		$('.ms-price.price').html('<span class="dollar">$</span>99');
-		$(document).ready(function(e){
+		$document.ready(function(e){
 			var alertBox = $('.ms-alert-box').clone();
 			$('.ms-account-wrapper .ms-alert-box').remove();
 			$('body').prepend(alertBox);
 		});
 
 		// MIXPANEL STUFF
+
+		var page = window.location.pathname,
+	  		urlPart = page.split('/'),
+	  		state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
+	  		// linkText = $(this).text();
+
+	  // Track page views
+	  $(".nav ul li a").on('click', function(e){
+	  	linkText = $(this).text();
+	  	mixpanel.track("Clicked Link", {
+	  		"Page": linkText
+	  	});
+	  });
 
 	});
 

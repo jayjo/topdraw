@@ -69,6 +69,7 @@
 .third {
 	padding: 100px 0;
 	text-align: center;
+	background: rgba(21,24,29,.4)
 }
 
 .third .content h1:after {
@@ -151,6 +152,11 @@ section.third h1:after {
 	top: 50%;
 	left: 50%;
 	transform: translate3D(-50%,-50%,0);
+}
+
+.content .wrapper a.button {
+	color: #fff;
+	text-shadow: none;
 }
 
 @import 'mobile_home';

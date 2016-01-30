@@ -4,7 +4,7 @@
 	</div>
 	<div class="table_container">
 		<table class="table tablesorter trophytable">
-			<thead>
+			<thead><tr>
 				<th class="header">County</th>
 				<th class="header"><span>2008-2013</span>Number of Entries (+140)</th>
 				<th class="header"><span>2008-2013</span>Number of Trophy Entries (+175)</th>
@@ -14,6 +14,7 @@
 				<th class="header"><span>2011-2013</span>Number of Trophy Entries (+175)</th>
 				<th class="header"><span>2011-2013</span>Average P&Y Score</th>
 				<th class="header"><span>2011-2013</span>Best P&Y Ram</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr>

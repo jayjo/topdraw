@@ -3,15 +3,17 @@
 get_header();
 setup_postdata($post);
 
-$parent_title = get_the_title($post->post_parent);
+$parent_id = $post->post_parent;
+$parentContent = get_page($parent_id);
+$heroImage = get_field('heroImage', $parent_id);
 
 ?>
 
 <section class="internal_hero">
-	<img src="<?php bloginfo('template_directory'); ?>/assets/img/colorado.png" alt="" class="inside_hero"/>
+	<img src ="<?php echo $heroImage['url']; ?>" alt="<?php echo $heroImage['alt']; ?>" class="inside_hero" />
 	<div class="content">
 		<div class="wrapper">
-			<h1 class="ranger"><?php echo $parent_title; ?></h1>
+			<h1 class="ranger"><?php echo get_the_title($parent_id); ?></h1>
 			<h2><?php the_title(); ?></h2>
 		</div>
 	</div>
@@ -20,44 +22,63 @@ $parent_title = get_the_title($post->post_parent);
 <section class="chart cf">
 	<div class="wrapper">
 		<div class="top_info">
-			<h1><?php echo $parent_title; ?> - <?php the_title(); ?></h1>
-			<?php include 'inc/colorado_explanation.php'; ?>
+			<h1><?php echo get_the_title($parent_id); ?> - <?php the_title(); ?></h1>
+			<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
 		</div>
-		<?php include 'inc/analysis_type.php'; ?>
+		<div class="analysis_type">
+			<?php
+			  if($post->post_parent)
+			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
+			  else
+			  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
+			  if ($children) { ?>
+			  <ul>
+			  	<?php echo $children; ?>
+			  </ul>
+		  <?php } ?>
+		</div>
 		<div class="sector species trophy cf">
 			<div class="navvy species cf">
 				<h4>Species</h4>
 				<div class="button_group cf">
+					<!-- Set up the Species repeater to generate links for each Species -->
+					<?php if(have_rows('species', $parent_id)): ?>
 					<ul class="animal_chooser">
-						<li class="current"><a href="#elk">Elk</a></li>
-						<li><a href="#mule-deer">Mule Deer</a></li>
-						<li><a href="#pronghorn">Pronghorn</a></li>
-						<li><a href="#rocky-mountain-bighorn">Rocky Mountain Bighorn</a></li>
-						<li><a href="#desert-bighorn">Desert Bighorn</a></li>
-						<li><a href="#rocky-mountain-goat">Rocky Mountain Goat</a></li>
-						<li><a href="#moose">Moose</a></li>
+						<?php while(have_rows('species', $parent_id)): the_row();
+							$species_name = get_sub_field('species_name', $parent_id);
+						?>
+						<li>
+							<a href="#<?php echo str_replace(' ', '-', $species_name); ?>"><?php echo $species_name; ?></a>
+						</li>
+						<? endwhile; ?>
 					</ul>
+					<?php endif; ?>
 				</div>
 			</div>
+			<!-- Set up the Trophy Information repeater to generate all of the info for all of the species -->
+			<?php if(have_rows('trophy_info')): ?>
 			<div class="tabscontent species_information cf">
-				<?php include 'inc/elk.php'; ?>
-				<?php include 'inc/mule_deer.php'; ?>
-				<?php include 'inc/pronghorn.php'; ?>
-				<?php include 'inc/rocky_mountain_bighorn.php'; ?>
-				<?php include 'inc/desert_bighorn.php'; ?>
-				<?php include 'inc/rocky_mountain_goat.php'; ?>
-				<?php include 'inc/moose.php'; ?>
+				<?php while(have_rows('trophy_info')): the_row();
+					$trophy_species_name = get_sub_field('trophy_species_name');
+					$species_info = get_sub_field('species_info', false, false);
+				?>
+				<div id="<?php echo str_replace(' ', '-', $trophy_species_name); ?>">
+					<?php echo $species_info; ?>
+				</div>
+				<?php endwhile; ?>
 			</div>
 		</div>
 		<div class="tabscontent species_chart cf">
-			<?php include 'inc/elk_trophy_chart.php'; ?>
-			<?php include 'inc/mule_deer_trophy_chart.php'; ?>
-			<?php include 'inc/pronghorn_trophy_chart.php'; ?>
-			<?php include 'inc/rocky_mountain_bighorn_trophy_chart.php'; ?>
-			<?php include 'inc/desert_bighorn_trophy_chart.php'; ?>
-			<?php include 'inc/rocky_mountain_goat_trophy_chart.php'; ?>
-			<?php include 'inc/moose_trophy_chart.php'; ?>
+		<?php while(have_rows('trophy_info')): the_row();
+			$trophy_species_name = get_sub_field('trophy_species_name');
+			$species_table = get_sub_field('species_table');
+		?>
+		<div id="<?php echo str_replace(' ', '-', $trophy_species_name); ?>">
+			<?php echo $species_table; ?>
 		</div>
+		<?php endwhile; ?>
+		</div>
+	<?php endif; ?>
 	</div>
 </section>
 

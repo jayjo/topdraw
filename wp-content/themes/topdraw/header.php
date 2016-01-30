@@ -48,20 +48,22 @@
         <a href="<?php echo get_permalink(2); ?>" class="logo"><?php include 'inc/logo.php'; ?></a>
       </nav>
       <nav class="nav">
-        <ul>
-          <li class="home"><a href="<?php echo get_permalink(2); ?>" class="logo">Home</a></li>
-          <li><a href="<?php echo get_permalink(7); ?>">What We Do</a></li>
-          <li><a href="<?php echo get_permalink(9); ?>">Who We Are</a></li>
-          <li><a href="<?php echo get_permalink(14); ?>">Colorado</a></li>
-          <?php
-            $loggedIn = get_body_class();
-            if(in_array('ms-member', $loggedIn)) {
+        <!-- <li class="home"><a href="<?php echo get_permalink(2); ?>" class="logo">Home</a></li> -->
+        <?php
+          wp_nav_menu(array(
+            'theme_location' => 'header-menu'
+          ));
+        ?>
+        <?php
+          $loggedIn = get_body_class();
+          if(in_array('ms-member', $loggedIn)) {
 
-            } else { ?>
+          } else { ?>
+          <ul>
             <li><a href="<?php echo home_url('/register/?step=register&do-login=1/'); ?>" class="mainlogin">Login</a></li>
             <li class="right"><a href="<?php echo get_permalink(get_page_by_path('register')); ?>" class="button med solid blue join">Join Now</a></li>
-          <?php } ?>
-        </ul>
+          </ul>
+        <?php } ?>
       </nav>
       <div class="hamburger"></div>
     </div>

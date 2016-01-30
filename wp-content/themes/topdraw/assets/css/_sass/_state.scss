@@ -1,6 +1,6 @@
 
 section.chart {
-	padding: 75px 0 0;
+	padding: 75px 0;
 }
 
 .top_info {
@@ -106,6 +106,7 @@ section.chart {
   width: 774px;
   float: left;
   margin-left: 30px;
+  margin-bottom: 35px;
 }
 
 .tabscontent.species_chart {
@@ -118,7 +119,7 @@ section.chart {
 
 }
 
-.intro {
+.intro p {
   font-size: 17px;
   line-height: 33px;
 }
@@ -209,6 +210,7 @@ section.chart {
 }
 
 .species_info div h5,
+#Fees-and-Deadlines h5,
 .app_deadline_info h5 {
 	padding: 8px 15px;
 	height: 35px;
@@ -254,32 +256,51 @@ section.chart {
 	background: rgba($light_blue, .15);
 }
 
+#Fees-and-Deadlines,
 .app_deadline_info {
 	margin-bottom: 30px;
 	.animal {
 		width: 60%;
 		float: left;
+		&.two {
+			width: 30%;
+		}
 	}
 	.cost {
 		float: left;
-		width: 10%;
+		width: 12%;
 		p {
 			text-align: right;
+		}
+		&.two {
+			width: 19%;
 		}
 	}
 	.date {
 		float: left;
-		width: 30%;
+		width: 28%;
+		p {
+			text-align: right;
+		}
+		&.two {
+			width: 32%;
+		}
+	}
+	.avail {
+		width: 19%;
+		float: left;
 		p {
 			text-align: right;
 		}
 	}
 }
 
+#Fees-and-Deadlines h5,
 .app_deadline_info h5 {
 	margin-bottom: 5px;
 }
 
+#Fees-and-Deadlines p,
 .app_deadline_info p {
 	text-align: left;
 	padding: 2px 15px;

@@ -7140,7 +7140,7 @@ msgstr ""
 
 #: app/view/shortcode/class-ms-view-shortcode-registeruser.php:50
 #: app_old/membershipincludes/includes/registration.form.php:75
-msgid "Already have an account??"
+msgid "Already have an account?"
 msgstr ""
 
 #: app/widget/class-ms-widget-login.php:14

@@ -37,8 +37,8 @@
   	margin: 0;
   }
   &.ms-alert-success {
-  	background: $green;
-  	color: $dark_blue;
+    background: rgba($green,0.15);
+    color: #FFF;
   }
   &.ms-alert-error {
   	background: rgba($red, .15);
@@ -71,16 +71,19 @@
 		margin-bottom: 0px;
 		text-align: center;
 	}
+	table {
+		width: 100%;
+		margin: 0 auto;
+		display: table;
+		td {
+			vertical-align: top;
+			line-height: 29px;
+		}
+	}
 }
 
 .ms-price-details {
 	padding: 5px 0;
-}
-
-.ms-price-details .ms-description p {
-	font-size: 14px;
-	line-height: 22px;
-	margin-bottom: 8px;
 }
 
 .ms-price.price {
@@ -172,6 +175,7 @@ a.login {
 	position: absolute;
   top: 15px;
   right: 25px;
+  line-height: 14px;
 }
 
 p.login-remember {
@@ -225,4 +229,83 @@ p.submit .button.wpmui-submit.ms-signup-button, #wp-submit {
 
 .ms-form-element.ms-form-element-submit .wpmui-submit {
 	margin: 10px auto 0;
+}
+
+#account-membership,
+#account-profile,
+#account-invoices,
+#account-activity {
+	margin-bottom: 45px;
+	h2 {
+		font-size: 18px;
+    text-align: left;
+    a {
+    	font-size: 14px;
+    }
+	}
+}
+
+.ms-account-wrapper table th,
+.ms-account-wrapper table td {
+	border-bottom: 1px solid #252C38;
+}
+
+.page-id-31 h1 {
+	display: none;
+}
+
+#post-31 p {
+  width: 100%;
+  margin: 0 auto 30px;
+}
+
+#post-31 .ms-price-details .ms-description p {
+	width: 100%;
+	font-size: 14px;
+	line-height: 22px;
+	margin-bottom: 8px;
+}
+
+#post-31 .ms-alert-box.ms-alert-success,
+#post-32 .ms-alert-box.ms-alert-success {
+	display: none;
+}
+
+#post-31 .ms-purchase-table p {
+	width: 100%;
+}
+
+.headerLogout {
+	font-size: 13px;
+	opacity: .75;
+}
+
+tr.gateway_stripe {
+	background: none;
+}
+
+.stripe-button-el {
+	border-radius: 2px !important;
+	text-align: center !important;
+	display: block !important;
+	margin: 0 auto !important;
+	font-family: $aller !important;
+	font-weight: 500 !important;
+	text-decoration: none !important;
+	transition: all 200ms !important;
+	font-size: 14px !important;
+	padding: .85em 1.5em !important;
+	border: 2px solid transparent !important;
+	color: #fff !important;
+	background: $red !important;
+	span {
+		background: none !important;
+		background-image: !important;
+		text-shadow: none !important;
+		box-shadow: none !important;
+	}
+	&:hover {
+		background: rgb(198,66,71);
+		color: #fff;
+	}
 }

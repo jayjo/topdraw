@@ -85,11 +85,18 @@ table .orange {
 	color: $orange;
 }
 
-table .orange:hover .tooltip {
+table .orange:hover .tooltip.left {
 	opacity: 1;
 	visibility: visible;
 	transition: opacity 150ms 200ms, transform 150ms 200ms;
 	transform: translateY(0);
+}
+
+table .orange:hover .tooltip.right {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 150ms 200ms, transform 150ms 200ms;
+	transform: translateY(160px);
 }
 
 .table_toggle {

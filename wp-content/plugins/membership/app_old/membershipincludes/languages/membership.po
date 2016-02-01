@@ -4077,7 +4077,7 @@ msgid "Hint: The password should be at least 5 characters long. To make it stron
 msgstr ""
 
 #: membership/membershipincludes/includes/registration.form.php:75
-msgid "Already have an account??"
+msgid "Already have an account?"
 msgstr ""
 
 #: membership/membershipincludes/includes/renew.form.php:9

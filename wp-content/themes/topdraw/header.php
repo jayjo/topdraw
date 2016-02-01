@@ -56,9 +56,9 @@
         ?>
         <?php
           $loggedIn = get_body_class();
-          if(in_array('ms-member', $loggedIn)) {
-
-          } else { ?>
+          if(in_array('ms-member', $loggedIn)) { ?>
+          <ul><li><a href="https://topdrawconsulting.com/wp-login.php?action=logout&_wpnonce=c4c5e15504" class="headerLogout">Logout</a></li></ul>
+          <?php } else { ?>
           <ul>
             <li><a href="<?php echo home_url('/register/?step=register&do-login=1/'); ?>" class="mainlogin">Login</a></li>
             <li class="right"><a href="<?php echo get_permalink(get_page_by_path('register')); ?>" class="button med solid blue join">Join Now</a></li>

@@ -12,10 +12,14 @@ th {
 	border-right: 1px solid #252C38;
 	border-bottom: 5px solid #252C38;
 	vertical-align: middle;
+	position: relative;
 	span {
 		display: block;
 		margin-bottom: 2px;
 		color: rgba($light_blue, 1);
+	}
+	span.tooltip {
+		text-transform: none;
 	}
 	&:last-child {
 		border-right: none;
@@ -78,26 +82,41 @@ tr:nth-child(1) {
   border-radius: 3px;
   padding: 10px;
   color: $dark_blue;
-  width: 236px;
+  max-width: 236px;
   font-size: 12px;
-  left: -230px;
   top: -17px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transform: translateX(18px);
   transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
-  &:after {
-  	width: 12px;
-  	height: 12px;
-  	background: $orange;
-  	display: block;
-  	content: "";
-  	position: absolute;
-  	right: -3px;
-  	transform: rotateZ(45deg);
-  	top: 32px;
+  z-index: 10;
+  &.left {
+  	left: -230px;
+  	transform: translateX(18px);
   }
+  &.right {
+  	left: 45px;
+  	transform: translateX(-18px);
+  }
+  &.bottom {
+  	left: 0;
+  	transform: translateY(20px);
+  }
+  &.top {
+  	left: 0;
+  	transform: translateY(-20px);
+  }
+  // &:after {
+  // 	width: 12px;
+  // 	height: 12px;
+  // 	background: $orange;
+  // 	display: block;
+  // 	content: "";
+  // 	position: absolute;
+  // 	right: -3px;
+  // 	transform: rotateZ(45deg);
+  // 	top: 32px;
+  // }
 }
 
 table .orange {
@@ -108,7 +127,18 @@ table .orange:hover .tooltip {
 	opacity: 1;
 	visibility: visible;
 	transition: opacity 150ms 200ms, transform 150ms 200ms;
-	transform: translateX(0px);
+	&.right {
+		transform: translateX(0px);
+	}
+	&.left {
+		transform: translateX(0px);
+	}
+	&.bottom {
+		transform: translateY(40px);
+	}
+	&.top {
+		transform: translateY(-40px);
+	}
 }
 
 .table_toggle {

@@ -8,7 +8,7 @@
 
 					</a>
 				</div>
-				<p class="copyright">Copyright © 2015 Top Draw Consulting, LLC.</p>
+				<p class="copyright">Copyright © <?php echo date('Y'); ?> Top Draw Consulting, LLC.</p>
 			</div>
 		</footer>
 

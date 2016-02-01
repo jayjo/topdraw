@@ -3835,11 +3835,15 @@ th {
   border-right: 1px solid #252C38;
   border-bottom: 5px solid #252C38;
   vertical-align: middle;
+  position: relative;
 }
 th span {
   display: block;
   margin-bottom: 2px;
   color: #639bab;
+}
+th span.tooltip {
+  text-transform: none;
 }
 th:last-child {
   border-right: none;
@@ -3890,26 +3894,30 @@ tr:nth-child(1) {
   border-radius: 3px;
   padding: 10px;
   color: #191e25;
-  width: 236px;
+  max-width: 236px;
   font-size: 12px;
-  left: -230px;
   top: -17px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transform: translateX(18px);
   transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
+  z-index: 10;
 }
-.tooltip:after {
-  width: 12px;
-  height: 12px;
-  background: #d49a49;
-  display: block;
-  content: "";
-  position: absolute;
-  right: -3px;
-  transform: rotateZ(45deg);
-  top: 32px;
+.tooltip.left {
+  left: -230px;
+  transform: translateX(18px);
+}
+.tooltip.right {
+  left: 45px;
+  transform: translateX(-18px);
+}
+.tooltip.bottom {
+  left: 0;
+  transform: translateY(20px);
+}
+.tooltip.top {
+  left: 0;
+  transform: translateY(-20px);
 }
 
 table .orange {
@@ -3920,7 +3928,18 @@ table .orange:hover .tooltip {
   opacity: 1;
   visibility: visible;
   transition: opacity 150ms 200ms, transform 150ms 200ms;
+}
+table .orange:hover .tooltip.right {
   transform: translateX(0px);
+}
+table .orange:hover .tooltip.left {
+  transform: translateX(0px);
+}
+table .orange:hover .tooltip.bottom {
+  transform: translateY(40px);
+}
+table .orange:hover .tooltip.top {
+  transform: translateY(-40px);
 }
 
 .table_toggle {
@@ -4747,8 +4766,8 @@ form:last-child p {
   margin: 0;
 }
 .ms-alert-box.ms-alert-success {
-  background: #0ad774;
-  color: #191e25;
+  background: rgba(10, 215, 116, 0.15);
+  color: #FFF;
 }
 .ms-alert-box.ms-alert-error {
   background: rgba(182, 63, 68, 0.15);
@@ -4781,15 +4800,18 @@ form:last-child p {
   margin-bottom: 0px;
   text-align: center;
 }
+.ms-membership-form-wrapper table {
+  width: 100%;
+  margin: 0 auto;
+  display: table;
+}
+.ms-membership-form-wrapper table td {
+  vertical-align: top;
+  line-height: 29px;
+}
 
 .ms-price-details {
   padding: 5px 0;
-}
-
-.ms-price-details .ms-description p {
-  font-size: 14px;
-  line-height: 22px;
-  margin-bottom: 8px;
 }
 
 .ms-price.price {
@@ -4879,6 +4901,7 @@ a.login {
   position: absolute;
   top: 15px;
   right: 25px;
+  line-height: 14px;
 }
 
 p.login-remember {
@@ -4932,6 +4955,91 @@ p.submit .button.wpmui-submit.ms-signup-button, #wp-submit {
 
 .ms-form-element.ms-form-element-submit .wpmui-submit {
   margin: 10px auto 0;
+}
+
+#account-membership,
+#account-profile,
+#account-invoices,
+#account-activity {
+  margin-bottom: 45px;
+}
+#account-membership h2,
+#account-profile h2,
+#account-invoices h2,
+#account-activity h2 {
+  font-size: 18px;
+  text-align: left;
+}
+#account-membership h2 a,
+#account-profile h2 a,
+#account-invoices h2 a,
+#account-activity h2 a {
+  font-size: 14px;
+}
+
+.ms-account-wrapper table th,
+.ms-account-wrapper table td {
+  border-bottom: 1px solid #252C38;
+}
+
+.page-id-31 h1 {
+  display: none;
+}
+
+#post-31 p {
+  width: 100%;
+  margin: 0 auto 30px;
+}
+
+#post-31 .ms-price-details .ms-description p {
+  width: 100%;
+  font-size: 14px;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+
+#post-31 .ms-alert-box.ms-alert-success,
+#post-32 .ms-alert-box.ms-alert-success {
+  display: none;
+}
+
+#post-31 .ms-purchase-table p {
+  width: 100%;
+}
+
+.headerLogout {
+  font-size: 13px;
+  opacity: .75;
+}
+
+tr.gateway_stripe {
+  background: none;
+}
+
+.stripe-button-el {
+  border-radius: 2px !important;
+  text-align: center !important;
+  display: block !important;
+  margin: 0 auto !important;
+  font-family: "aller", Helvetica, sans-serif !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 200ms !important;
+  font-size: 14px !important;
+  padding: .85em 1.5em !important;
+  border: 2px solid transparent !important;
+  color: #fff !important;
+  background: #b63f44 !important;
+}
+.stripe-button-el span {
+  background: none !important;
+  background-image: !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+.stripe-button-el:hover {
+  background: #c64247;
+  color: #fff;
 }
 
 /* ==========================================================================

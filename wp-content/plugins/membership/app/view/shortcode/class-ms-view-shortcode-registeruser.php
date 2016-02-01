@@ -47,7 +47,7 @@ class MS_View_Shortcode_RegisterUser extends MS_View {
 			'title' => __( 'Login', 'membership2' ),
 			'url' => $login_url,
 			'class' => 'alignleft',
-			'value' => __( 'Already have an account??', 'membership2' ),
+			'value' => __( 'Already have an account?', 'membership2' ),
 		);
 
 		$register_button = array(

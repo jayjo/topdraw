@@ -8,6 +8,10 @@ header {
 	transition: background 150ms 300ms;
 }
 
+.home header {
+	background: none;
+}
+
 .loggroup {
 	float: left;
 	margin-top: 0;
@@ -51,10 +55,11 @@ header {
 	}
 }
 
-.nav ul li a {
+.home .nav ul li a {
 	padding: 8px 0;
 	transition: all 200ms;
 	border-bottom: 3px solid transparent;
+	color: $dark_blue;
 	&.join:hover {
 		border-bottom: 2px solid transparent;
 	}
@@ -64,9 +69,24 @@ header {
 	}
 }
 
-header a {
+.home .nav ul li a.button {
+	color: #fff;
+	font-size: 14px;
+	padding: .85em 1.5em;
+	&:hover {
+		border-bottom: 3px solid transparent;
+	}
+}
+
+.home header ul li a {
 	text-decoration: none;
 	color: $dark_blue;
+	&.mainlogin {
+		color: $dark_blue;
+	}
+	&:hover {
+		color: $dark_blue;
+	}
 }
 
 header .logo {
@@ -79,22 +99,29 @@ header .logo svg {
   margin: 5px 20px 0 0;
 }
 
-.page-id-9 header,
-.page-id-7 header {
+header {
 	background: $dark_blue;
 }
 
-.page-id-9 .nav ul li a,
-.page-id-7 .nav ul li a {
+.nav ul li a {
 	color: rgba($grey,.5);
+	padding: 8px 0;
+	&.mainlogin {
+		color: rgba($grey, 1);
+		margin-left: 35px;
+	}
 	&:hover {
 		color: rgba($grey,1);
 		transition: all 200ms;
+		border-bottom: 3px solid $red;
 	}
 }
 
-.page-id-9 header a,
-.page-id-7 header a {
+.ms-member .nav {
+	margin: 17px 0 0 0;
+}
+
+header a {
 	text-decoration: none;
 	color: rgba($grey,.5);
 	&:hover {
@@ -103,18 +130,19 @@ header .logo svg {
 	}
 }
 
-.page-id-9 header .button,
-.page-id-7 header .button {
+header .button {
 	background: rgb(45,51,67);
-	border-color: rgb(45,51,67);
+	border-color: rgb(45,51,67) !important;
 }
 
-header.shown {
+header.shown,
+.home header.shown {
 	background: $dark_blue;
 	transition: background 150ms;
 }
 
-header.shown a {
+header.shown a,
+.home header.shown ul li a {
 	text-decoration: none;
 	color: rgba($grey,.5);
 	&:hover {
@@ -123,7 +151,8 @@ header.shown a {
 	}
 }
 
-header.shown .button {
+header.shown .button,
+.home header.shown .button {
 	background: rgb(45,51,67);
 	border-color: rgb(45,51,67);
 }

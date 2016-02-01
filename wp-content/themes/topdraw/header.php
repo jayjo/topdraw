@@ -28,13 +28,13 @@
 
 		<?php wp_head(); ?>
 		<script>
-        // conditionizr.com
-        // configure environment tests
-        conditionizr.config({
-            assets: '<?php echo get_template_directory_uri(); ?>',
-            tests: {}
-        });
-        </script>
+      // conditionizr.com
+      // configure environment tests
+      conditionizr.config({
+          assets: '<?php echo get_template_directory_uri(); ?>',
+          tests: {}
+      });
+    </script>
 
 	<!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -48,12 +48,22 @@
         <a href="<?php echo get_permalink(2); ?>" class="logo"><?php include 'inc/logo.php'; ?></a>
       </nav>
       <nav class="nav">
-        <ul>
-          <li class="home"><a href="<?php echo get_permalink(2); ?>" class="logo">Home</a></li>
-          <li><a href="<?php echo get_permalink(7); ?>">What We Do</a></li>
-          <li><a href="<?php echo get_permalink(9); ?>">Who We Are</a></li>
-          <li class="right"><a href="#sign-up" class="button med solid blue join">Join Now</a></li>
-        </ul>
+        <!-- <li class="home"><a href="<?php echo get_permalink(2); ?>" class="logo">Home</a></li> -->
+        <?php
+          wp_nav_menu(array(
+            'theme_location' => 'header-menu'
+          ));
+        ?>
+        <?php
+          $loggedIn = get_body_class();
+          if(in_array('ms-member', $loggedIn)) { ?>
+          <ul><li><a href="https://topdrawconsulting.com/wp-login.php?action=logout&_wpnonce=c4c5e15504" class="headerLogout">Logout</a></li></ul>
+          <?php } else { ?>
+          <ul>
+            <li><a href="<?php echo home_url('/register/?step=register&do-login=1/'); ?>" class="mainlogin">Login</a></li>
+            <li class="right"><a href="<?php echo get_permalink(get_page_by_path('register')); ?>" class="button med solid blue join">Join Now</a></li>
+          </ul>
+        <?php } ?>
       </nav>
       <div class="hamburger"></div>
     </div>

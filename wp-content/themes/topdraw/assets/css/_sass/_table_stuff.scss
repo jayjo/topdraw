@@ -6,16 +6,23 @@ table {
 
 th {
 	padding: 14px 18px;
-	color: rgba($light_blue, .65);
+	color: rgba($light_blue, .8);
 	font-size: 11px;
 	text-transform: uppercase;
-	border: 1px solid #252C38;
+	border-right: 1px solid #252C38;
 	border-bottom: 5px solid #252C38;
 	vertical-align: middle;
+	position: relative;
 	span {
 		display: block;
 		margin-bottom: 2px;
 		color: rgba($light_blue, 1);
+	}
+	span.tooltip {
+		text-transform: none;
+	}
+	&:last-child {
+		border-right: none;
 	}
 }
 
@@ -24,18 +31,24 @@ th:last-child {
 }
 
 td {
-	border-left: 1px solid #252C38;
-	border-bottom: 1px solid #252C38;
 	padding: 11px 18px;
 	height: 32px;
 	position: relative;
 	vertical-align: middle;
 	line-height: 19px;
+	border-right: 1px solid #252C38;
 }
+
+// table.tablesorter thead tr .header {
+// 	z-index: 999 !important;
+// 	background-color: inherit;
+// 	border-bottom: 5px solid #252C38;
+// }
 
 .table_container {
 	width: 100%;
-	overflow: scroll;
+	overflow: auto;
+	// height: 500px;
 }
 
 .bottom {
@@ -43,9 +56,8 @@ td {
 }
 
 .over {
-	overflow: scroll;
+	overflow: auto;
 	display: table;
-	// cursor: move;
 }
 
 .over td, .over th {
@@ -53,7 +65,7 @@ td {
 }
 
 td:last-child {
-	border-right: 1px solid #252C38;
+	border-right: none;
 }
 
 tr:nth-child(odd) {
@@ -70,15 +82,41 @@ tr:nth-child(1) {
   border-radius: 3px;
   padding: 10px;
   color: $dark_blue;
-  width: 236px;
+  max-width: 236px;
   font-size: 12px;
-  left: -80px;
-  top: -30px;
+  top: -17px;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
   transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
+  z-index: 10;
+  &.left {
+  	left: -230px;
+  	transform: translateX(18px);
+  }
+  &.right {
+  	left: 45px;
+  	transform: translateX(-18px);
+  }
+  &.bottom {
+  	left: 0;
+  	transform: translateY(20px);
+  }
+  &.top {
+  	left: 0;
+  	transform: translateY(-20px);
+  }
+  // &:after {
+  // 	width: 12px;
+  // 	height: 12px;
+  // 	background: $orange;
+  // 	display: block;
+  // 	content: "";
+  // 	position: absolute;
+  // 	right: -3px;
+  // 	transform: rotateZ(45deg);
+  // 	top: 32px;
+  // }
 }
 
 table .orange {
@@ -89,7 +127,18 @@ table .orange:hover .tooltip {
 	opacity: 1;
 	visibility: visible;
 	transition: opacity 150ms 200ms, transform 150ms 200ms;
-	transform: translateY(0);
+	&.right {
+		transform: translateX(0px);
+	}
+	&.left {
+		transform: translateX(0px);
+	}
+	&.bottom {
+		transform: translateY(40px);
+	}
+	&.top {
+		transform: translateY(-40px);
+	}
 }
 
 .table_toggle {
@@ -120,8 +169,10 @@ table .orange:hover .tooltip {
 }
 
 .table_toggle p {
-	width: 80%;
+	width: 90%;
 	margin: 0 auto 28px;
+  font-size: 13px;
+  line-height: 23px;
 }
 
 h6.goattype {
@@ -129,8 +180,8 @@ h6.goattype {
 	text-align: center;
 	padding: 15px 0;
 	margin: 15px 0 0 0;
-	background: rgba($med_blue, 1);
-	border: 1px solid #252C38;
+	background: rgba(0,0,0, .2);
+	border-bottom: 1px solid #252C38;
 }
 
 .showing {
@@ -139,6 +190,10 @@ h6.goattype {
 
 .hiding {
 	display: none;
+}
+
+tfoot {
+	border-top: 5px solid #252C38;
 }
 
 .drawOdds {
@@ -164,9 +219,19 @@ h6.goattype {
 	position: absolute;
 }
 
+.draw, .drawOdds {
+	transition: all 150ms;
+}
+
+.highlight {
+	color: $orange;
+	background-color: rgba(0,0,0, .1);
+	transition: all 150ms;
+}
+
 // Table Sorter Stuff
 
-table.tablesorter thead tr .header {
+table.tablesorter thead tr th {
 	background-image: url(../images/bg.gif);
 	background-repeat: no-repeat;
 	background-position: center right;

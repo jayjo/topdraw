@@ -67,8 +67,7 @@
 
 		var calc    = $('.calc'),
 				odds    = $('.drawOdds'),
-				originalValues = getoriginalValues(),
-				headVal = $('.draw').first().text();
+				originalValues = getoriginalValues();
 
 		function getoriginalValues(){
 	    var values = [];
@@ -83,14 +82,15 @@
 			$document.find('.drawOdds').each(function(index){
         var oddsVal = (originalValues[index] / curVal);
         var origVal = (originalValues[index] / 1);
-        if(!$('.calc').val() || $('.calc').val() === "0" || $('.calc').val() === "1") {
+        if(!calc.val() || calc.val() === "0" || calc.val() === "1") {
         	$(this).text(origVal);
-        	$('.draw').text(headVal);
+        	// $('.draw').text(headVal);
         	$('.draw, .drawOdds').removeClass('highlight');
         } else {
         	$(this).text(oddsVal);
-        	$('.draw').text("True Draw Odds");
-        	$('.draw, .drawOdds').addClass('highlight');
+        	$('.drawOdds').addClass('highlight');
+        	// $('.draw').text("True Draw Odds");
+        	// $('.draw, .drawOdds').addClass('highlight');
         }
 	    });
 		}

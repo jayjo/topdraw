@@ -67,11 +67,12 @@
 
 		var calc    = $('.calc'),
 				odds    = $('.drawOdds'),
-				originalValues = getoriginalValues();
+				originalValues = getoriginalValues(),
+				headVal = $('.draw').first().text();
 
 		function getoriginalValues(){
 	    var values = [];
-	    $('.drawOdds').each(function(index){
+	    odds.each(function(index){
 	    	values[index] = $(this).text();
 	  	});
 		  return values;
@@ -84,7 +85,7 @@
         var origVal = (originalValues[index] / 1);
         if(!$('.calc').val() || $('.calc').val() === "0" || $('.calc').val() === "1") {
         	$(this).text(origVal);
-        	$('.draw').text("2014 Draw Odds");
+        	$('.draw').text(headVal);
         	$('.draw, .drawOdds').removeClass('highlight');
         } else {
         	$(this).text(oddsVal);
@@ -95,7 +96,6 @@
 		}
 
 		$document.on('keyup', '.calc', function(e){
-	    // if (!calc.val()) return;
 	    setDrawOddValues();
 		});
 

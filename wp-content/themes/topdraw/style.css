@@ -4302,7 +4302,7 @@ section.chart {
 }
 #Fees-and-Deadlines .animal,
 .app_deadline_info .animal {
-  width: 60%;
+  width: 51%;
   float: left;
 }
 #Fees-and-Deadlines .animal.two,
@@ -4325,7 +4325,7 @@ section.chart {
 #Fees-and-Deadlines .date,
 .app_deadline_info .date {
   float: left;
-  width: 28%;
+  width: 37%;
 }
 #Fees-and-Deadlines .date p,
 .app_deadline_info .date p {

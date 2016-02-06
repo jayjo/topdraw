@@ -63,7 +63,9 @@ $heroImage = get_field('heroImage', $parent_id);
 					$species_info = get_sub_field('species_info', false, false);
 				?>
 				<div id="<?php echo str_replace(' ', '-', $trophy_species_name); ?>">
-					<?php echo $species_info; ?>
+					<div class="species_info cf">
+						<?php echo $species_info; ?>
+					</div>
 				</div>
 				<?php endwhile; ?>
 			</div>

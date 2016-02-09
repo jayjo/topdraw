@@ -139,6 +139,17 @@
 	  	});
 	  });
 
+	  	// Mixpanel Variables
+	  var page = window.location.pathname;
+	  		// urlPart = page.split('/'),
+	  		// plan = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
+
+	  // Track pages, galleries, and floorplans viewed
+	  $document.ready(function(){
+	  		mixpanel.track("Viewed Page",{"Page": page});
+	  	}
+	  });
+
 	});
 
 })(jQuery, this);

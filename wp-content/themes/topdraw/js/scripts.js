@@ -147,7 +147,6 @@
 	  // Track pages, galleries, and floorplans viewed
 	  $document.ready(function(){
 	  		mixpanel.track("Viewed Page",{"Page": page});
-	  	}
 	  });
 
 	});

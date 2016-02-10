@@ -151,22 +151,22 @@
 	  		mixpanel.track("Viewed Page",{"Page": page});
 	  });
 
-	  // Track animals viewed
-	  $document.on('click', '.animal_chooser li a', function(e){
-	  	var species = $(this).text();
-	  	mixpanel.track("Viewed Species", {
-	  		"Page": page,
-	  		"Species": species
-	  	});
-	  });
+	  // // Track animals viewed
+	  // $document.on('click', '.animal_chooser li a', function(e){
+	  // 	var species = $(this).text();
+	  // 	mixpanel.track("Viewed Species", {
+	  // 		"Page": page,
+	  // 		"Species": species
+	  // 	});
+	  // });
 
-	  $document.on('click', '.info_chooser li a', function(e){
-	  	var species = $(this).text();
-	  	mixpanel.track("Viewed Rule", {
-	  		"Page": page,
-	  		"Rule": rule
-	  	});
-	  });
+	  // $document.on('click', '.info_chooser li a', function(e){
+	  // 	var species = $(this).text();
+	  // 	mixpanel.track("Viewed Rule", {
+	  // 		"Page": page,
+	  // 		"Rule": rule
+	  // 	});
+	  // });
 
 	});
 

@@ -140,13 +140,32 @@
 	  });
 
 	  	// Mixpanel Variables
-	  var page = window.location.pathname;
+	  var page = window.location.pathname,
+	  		animal = $('.animal_chooser li a'),
+	  		rule = $('.info_chooser li a');
 	  		// urlPart = page.split('/'),
 	  		// plan = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
 	  // Track pages, galleries, and floorplans viewed
 	  $document.ready(function(){
 	  		mixpanel.track("Viewed Page",{"Page": page});
+	  });
+
+	  // Track animals viewed
+	  $document.on('click', animal, function(e){
+	  	var species = $(this).text();
+	  	mixpanel.track("Viewed Species", {
+	  		"Page": page,
+	  		"Species": species;
+	  	});
+	  });
+
+	  $document.on('click', rule, function(e){
+	  	var species = $(this).text();
+	  	mixpanel.track("Viewed Rule", {
+	  		"Page": page,
+	  		"Rule": rule;
+	  	});
 	  });
 
 	});

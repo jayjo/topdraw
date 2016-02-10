@@ -156,7 +156,7 @@
 	  	var species = $(this).text();
 	  	mixpanel.track("Viewed Species", {
 	  		"Page": page,
-	  		"Species": species;
+	  		"Species": species
 	  	});
 	  });
 
@@ -164,7 +164,7 @@
 	  	var species = $(this).text();
 	  	mixpanel.track("Viewed Rule", {
 	  		"Page": page,
-	  		"Rule": rule;
+	  		"Rule": rule
 	  	});
 	  });
 

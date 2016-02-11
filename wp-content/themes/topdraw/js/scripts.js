@@ -70,11 +70,11 @@
 				originalValues = getoriginalValues();
 
 		function getoriginalValues(){
-	    var values = [];
-	    odds.each(function(index){
-	    	values[index] = $(this).text();
-	  	});
-		  return values;
+			var values = [];
+			odds.each(function(index){
+				values[index] = $(this).text();
+			});
+			return values;
 		}
 
 		function setDrawOddValues(){
@@ -83,20 +83,20 @@
         var oddsVal = (originalValues[index] / curVal);
         var origVal = (originalValues[index] / 1);
         if(!calc.val() || calc.val() === "0" || calc.val() === "1") {
-        	$(this).text(origVal);
-        	// $('.draw').text(headVal);
-        	$('.draw, .drawOdds').removeClass('highlight');
+					$(this).text(origVal);
+					// $('.draw').text(headVal);
+					$('.draw, .drawOdds').removeClass('highlight');
         } else {
-        	$(this).text(oddsVal);
-        	$('.drawOdds').addClass('highlight');
-        	// $('.draw').text("True Draw Odds");
-        	// $('.draw, .drawOdds').addClass('highlight');
+					$(this).text(oddsVal);
+					$('.drawOdds').addClass('highlight');
+					// $('.draw').text("True Draw Odds");
+					// $('.draw, .drawOdds').addClass('highlight');
         }
-	    });
+			});
 		}
 
 		$document.on('keyup', '.calc', function(e){
-	    setDrawOddValues();
+			setDrawOddValues();
 		});
 
 		$('.animal_chooser li a').on('click', function(){
@@ -126,47 +126,54 @@
 
 		// MIXPANEL STUFF
 
+		// Mixpanel Variables
 		var page = window.location.pathname,
-	  		urlPart = page.split('/'),
-	  		state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
-	  		// linkText = $(this).text();
+				hash = window.location.hash,
+				animal = $('.animal_chooser li a'),
+				rule = $('.info_chooser li a');
+				// urlPart = page.split('/'),
+				// state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
-	  // Track page views
-	  $(".nav ul li a").on('click', function(e){
-	  	linkText = $(this).text();
-	  	mixpanel.track("Clicked Link", {
-	  		"Page": linkText
-	  	});
-	  });
+		// Track page views
+		$(".nav ul li a").on('click', function(e){
+			linkText = $(this).text();
+			mixpanel.track("Clicked Link", {
+				"Page": linkText
+			});
+		});
 
-	  	// Mixpanel Variables
-	  var page = window.location.pathname,
-	  		animal = $('.animal_chooser li a'),
-	  		rule = $('.info_chooser li a');
-	  		// urlPart = page.split('/'),
-	  		// plan = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
+		// Track pages viewed
+		$document.ready(function(){
+			mixpanel.track("Viewed Page",{"Page": page});
+		});
 
-	  // Track pages, galleries, and floorplans viewed
-	  $document.ready(function(){
-	  		mixpanel.track("Viewed Page",{"Page": page});
-	  });
+		// Track animals viewed
+		$document.on('click', '.animal_chooser li a', function(e){
+			var species = $(this).text();
+			mixpanel.track("Viewed Species", {
+				"Page": page,
+				"Species": species
+			});
+		});
 
-	  // // Track animals viewed
-	  // $document.on('click', '.animal_chooser li a', function(e){
-	  // 	var species = $(this).text();
-	  // 	mixpanel.track("Viewed Species", {
-	  // 		"Page": page,
-	  // 		"Species": species
-	  // 	});
-	  // });
+		// Track rules viewed
+		$document.on('click', '.info_chooser li a', function(e){
+			var species = $(this).text();
+			mixpanel.track("Viewed Rule", {
+				"Page": page,
+				"Rule": rule
+			});
+		});
 
-	  // $document.on('click', '.info_chooser li a', function(e){
-	  // 	var species = $(this).text();
-	  // 	mixpanel.track("Viewed Rule", {
-	  // 		"Page": page,
-	  // 		"Rule": rule
-	  // 	});
-	  // });
+		// Track Tables Interacted with
+		$('table th').on('click', function(e){
+			var header = $(this).text();
+			mixpanel.track("Sorted Table", {
+				"Page": page,
+				"Column": header,
+				"Species": hash
+			});
+		});
 
 	});
 

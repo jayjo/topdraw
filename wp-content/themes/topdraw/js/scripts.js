@@ -158,7 +158,7 @@
 
 		// Track rules viewed
 		$document.on('click', '.info_chooser li a', function(e){
-			var species = $(this).text();
+			var rule = $(this).text();
 			mixpanel.track("Viewed Rule", {
 				"Page": page,
 				"Rule": rule

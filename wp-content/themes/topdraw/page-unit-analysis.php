@@ -76,6 +76,8 @@ $heroImage = get_field('heroImage', $parent_id);
 				</div>
 			</p>
 		</div>
+		<!-- <button class="button red outline small expand">Open</button>
+		<button class="button red outline small shrink">Close</button> -->
 		<div class="tabscontent species_chart cf">
 		<?php while(have_rows('unit_info')): the_row();
 			$unit_species_name = get_sub_field('unit_species_name');

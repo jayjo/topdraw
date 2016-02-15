@@ -124,6 +124,17 @@
 			$('body').prepend(alertBox);
 		});
 
+		// //// Expand the table to full screen
+		// $document.on('click', '.expand', function(e){
+		//  $(this).siblings('.tabscontent').find('div:visible').addClass('fullScreen');
+		//  $('.shrink').addClass('visible');
+		// });
+
+		// $document.on('click', '.shrink', function(e){
+		//  $(this).removeClass('visible');
+		//  $('div').removeClass('fullScreen');
+		// });
+
 		// MIXPANEL STUFF
 
 		// Mixpanel Variables

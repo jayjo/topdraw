@@ -50,6 +50,7 @@ header {
 .nav ul li {
 	display: inline-block;
 	margin-left: 25px;
+	position: relative;
 	&.home {
 		display: none;
 	}
@@ -124,6 +125,7 @@ header {
 header a {
 	text-decoration: none;
 	color: rgba($grey,.5);
+	position: relative;
 	&:hover {
 		color: rgba($grey,1);
 		transition: all 200ms;
@@ -155,6 +157,65 @@ header.shown .button,
 .home header.shown .button {
 	background: rgb(45,51,67);
 	border-color: rgb(45,51,67);
+}
+
+.menu-item-has-children > a:before,
+.menu-item-has-children > a:after {
+	float: right;
+	display: inline-block;
+	width: 7px;
+	height: 3px;
+	background: #696D70;
+	position: relative;
+	margin: 6px 0 0 8px;
+	content: "";
+}
+
+.menu-item-has-children > a:before {
+	transform: rotateZ(-45deg);
+	left: -12px;
+}
+
+.menu-item-has-children > a:after {
+	transform: rotateZ(45deg);
+}
+
+.menu-item-has-children:hover a:before,
+.menu-item-has-children:hover a:after {
+	background: #BBBCBD;
+}
+
+.menu-item-has-children:hover ul {
+	display: block;
+}
+
+.menu-item-has-children > ul {
+	position: absolute;
+  top: 25px;
+  left: -17px;
+  background: $dark_blue;
+  border-radius: 0 0 4px 4px;
+  padding: 5px;
+	display: none;
+	&:hover {
+		display: block;
+	}
+	li {
+		margin: 0;
+		line-height: 15px;
+		padding: 6px 0;
+		width: 100%;
+		&:hover {
+			border: none;
+		}
+		a {
+			display: block;
+			padding: 2px 12px;
+			&:hover {
+				border: none;
+			}
+		}
+	}
 }
 
 @import "mobile_header";

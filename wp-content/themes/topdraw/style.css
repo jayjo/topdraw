@@ -5337,6 +5337,16 @@ header.shown .button,
   border: none;
 }
 
+.home .menu-item-has-children > ul li a {
+  color: #fff;
+  padding: 2px 12px;
+  border: none;
+}
+.home .menu-item-has-children > ul li a:hover {
+  border: none;
+  color: #fff;
+}
+
 @media only screen and (min-width: 20em) and (max-width: 35.3em) {
   .loggroup {
     float: none;

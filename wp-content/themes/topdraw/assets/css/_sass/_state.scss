@@ -251,6 +251,14 @@ section.chart {
   text-align: left;
 }
 
+.species_info .record {
+	b, strong {
+		display: block;
+		font-weight: lighter;
+		color: rgba($grey, .35);
+	}
+}
+
 .species_info .record.single p {
 	text-align: left;
 	width: 100%;
@@ -271,6 +279,7 @@ section.chart {
 	}
 	span {
 		display: block;
+		font-weight: normal;
 		color: rgba($grey, .35);
 	}
 }
@@ -285,6 +294,13 @@ section.chart {
 #Fees-and-Deadlines,
 .app_deadline_info {
 	margin-bottom: 30px;
+	.boxes {
+		b, strong {
+			display: block;
+			font-weight: lighter;
+			color: rgba($grey, .35);
+		}
+	}
 	.animal {
 		width: 48%;
 		float: left;

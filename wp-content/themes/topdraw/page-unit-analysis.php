@@ -61,9 +61,40 @@ $heroImage = get_field('heroImage', $parent_id);
 				<?php while(have_rows('unit_info')): the_row();
 					$unit_species_name = get_sub_field('unit_species_name');
 					$species_info = get_sub_field('species_info');
+					$animals = get_sub_field('animals');
+					$deadline = get_sub_field('deadline');
+					$cost = get_sub_field('cost');
+					$results = get_sub_field('results');
+					$species_unit_desc = get_sub_field('species_unit_description');
 				?>
 				<div id="<?php echo str_replace(' ', '-', $unit_species_name); ?>">
-					<?php echo $species_info; ?>
+					<!-- <?php echo $species_info; ?> -->
+					<h4><?php echo $unit_species_name; ?></h4>
+					<div class="app_deadline_info cf">
+						<h5><?php the_field('info_headline'); ?></h5>
+						<div class="boxes cf">
+								<!-- if the species table has results we add the class two to add another column -->
+								<div class="animal<?php if($results){ ?> two<?php } ?>">
+									<?php echo $animals; ?>
+								</div>
+								<!-- if the species table has results we add the class two to add another column -->
+								<div class="cost<?php if($results){ ?> two<?php } ?>">
+									<?php echo $cost; ?>
+								</div>
+								<!-- if the species table has results we add the class two to add another column -->
+								<div class="date<?php if($results){ ?> two<?php } ?>">
+									<?php echo $deadline; ?>
+								</div>
+								<?php if($results){ ?>
+								<!-- if the species table has results we add the class two to add another column -->
+								<div class="avail<?php if($results){ ?> two<?php } ?>">
+									<?php echo $results; ?>
+								</div>
+								<?php } ?>
+						</div>
+						<p class="footnote"><?php the_field('species_info_footnote'); ?></p>
+					</div>
+					<?php echo $species_unit_desc; ?>
 				</div>
 				<?php endwhile; ?>
 			</div>
@@ -89,7 +120,7 @@ $heroImage = get_field('heroImage', $parent_id);
 		<?php endwhile; ?>
 		</div>
 		<?php endif; ?>
-		<p class="footnote"><?php the_field('footnote', $parent_id); ?></p>
+		<p class="footnote"><?php the_field('table_footnote', $parent_id); ?></p>
 	</div>
 </section>
 
@@ -101,9 +132,9 @@ $heroImage = get_field('heroImage', $parent_id);
 		$calculator = get_sub_field('calculator');
 	?>
 	<?php if($calculator){ ?>
-	<?php } else { ?>
-	<span class="calculatorValues" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
-	<?php } ?>
+		<?php } else { ?>
+			<span class="calculatorValues" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
+		<?php } ?>
 	<?php endwhile; ?>
 <?php endif; ?>
 

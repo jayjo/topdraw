@@ -60,11 +60,21 @@ $heroImage = get_field('heroImage', $parent_id);
 			<div class="tabscontent species_information cf">
 				<?php while(have_rows('trophy_info')): the_row();
 					$trophy_species_name = get_sub_field('trophy_species_name');
-					$species_info = get_sub_field('species_info', false, false);
 				?>
 				<div id="<?php echo str_replace(' ', '-', $trophy_species_name); ?>">
 					<div class="species_info cf">
-						<?php echo $species_info; ?>
+						<h4><?php echo $trophy_species_name; ?></h4>
+						<?php if(have_rows('records')): ?>
+							<?php while(have_rows('records')): the_row();
+								$title = get_sub_field('title');
+								$record = get_sub_field('record');
+							?>
+							<div class="record cf">
+								<h5><?php echo $title; ?></h5>
+								<?php echo $record; ?>
+							</div>
+							<?php endwhile; ?>
+						<?php endif; ?>
 					</div>
 				</div>
 				<?php endwhile; ?>
@@ -73,9 +83,11 @@ $heroImage = get_field('heroImage', $parent_id);
 		<div class="tabscontent species_chart cf">
 		<?php while(have_rows('trophy_info')): the_row();
 			$trophy_species_name = get_sub_field('trophy_species_name');
+			$species_desc = get_sub_field('species_description');
 			$species_table = get_sub_field('species_table');
 		?>
 		<div id="<?php echo str_replace(' ', '-', $trophy_species_name); ?>">
+			<?php echo $species_desc; ?>
 			<?php echo $species_table; ?>
 		</div>
 		<?php endwhile; ?>

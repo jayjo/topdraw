@@ -4291,6 +4291,12 @@ section.chart {
   text-align: left;
 }
 
+.species_info .record b, .species_info .record strong {
+  display: block;
+  font-weight: lighter;
+  color: rgba(187, 188, 189, 0.35);
+}
+
 .species_info .record.single p {
   text-align: left;
   width: 100%;
@@ -4312,6 +4318,7 @@ section.chart {
 }
 .species_info p span {
   display: block;
+  font-weight: normal;
   color: rgba(187, 188, 189, 0.35);
 }
 
@@ -4325,6 +4332,13 @@ section.chart {
 #Fees-and-Deadlines,
 .app_deadline_info {
   margin-bottom: 30px;
+}
+#Fees-and-Deadlines .boxes b, #Fees-and-Deadlines .boxes strong,
+.app_deadline_info .boxes b,
+.app_deadline_info .boxes strong {
+  display: block;
+  font-weight: lighter;
+  color: rgba(187, 188, 189, 0.35);
 }
 #Fees-and-Deadlines .animal,
 .app_deadline_info .animal {
@@ -4688,6 +4702,7 @@ form:last-child p {
   color: #fff;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
   margin: 50px 0 10px 0;
+  text-align: center;
 }
 
 .internal_hero .content h2 {
@@ -5335,6 +5350,16 @@ header.shown .button,
 }
 .menu-item-has-children > ul li a:hover {
   border: none;
+}
+
+.home .menu-item-has-children > ul li a {
+  color: #fff;
+  padding: 2px 12px;
+  border: none;
+}
+.home .menu-item-has-children > ul li a:hover {
+  border: none;
+  color: #fff;
 }
 
 @media only screen and (min-width: 20em) and (max-width: 35.3em) {

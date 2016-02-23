@@ -218,4 +218,14 @@ header.shown .button,
 	}
 }
 
+.home .menu-item-has-children > ul li a {
+	color: #fff;
+	padding: 2px 12px;
+	border: none;
+	&:hover {
+		border: none;
+		color: #fff;
+	}
+}
+
 @import "mobile_header";

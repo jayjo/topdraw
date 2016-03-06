@@ -5330,6 +5330,7 @@ header.shown .button,
   background: #191e25;
   border-radius: 0 0 4px 4px;
   padding: 5px;
+  width: 130px;
   display: none;
 }
 .menu-item-has-children > ul:hover {

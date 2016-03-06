@@ -141,7 +141,8 @@
 		var page = window.location.pathname,
 				hash = window.location.hash,
 				animal = $('.animal_chooser li a'),
-				rule = $('.info_chooser li a');
+				rule = $('.info_chooser li a'),
+				distinctID = mixpanel.get_distinct_id();
 				// urlPart = page.split('/'),
 				// state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
@@ -156,6 +157,7 @@
 		// Track pages viewed
 		$document.ready(function(){
 			mixpanel.track("Viewed Page",{"Page": page});
+			// console.log(distinctID);
 		});
 
 		// Track animals viewed

@@ -196,15 +196,18 @@ header.shown .button,
   background: $dark_blue;
   border-radius: 0 0 4px 4px;
   padding: 5px;
+  width: 130px;
 	display: none;
 	&:hover {
 		display: block;
+		white-space: nowrap;
 	}
 	li {
 		margin: 0;
 		line-height: 15px;
 		padding: 6px 0;
 		width: 100%;
+		display: block;
 		&:hover {
 			border: none;
 		}

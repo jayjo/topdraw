@@ -200,12 +200,14 @@ header.shown .button,
 	display: none;
 	&:hover {
 		display: block;
+		white-space: nowrap;
 	}
 	li {
 		margin: 0;
 		line-height: 15px;
 		padding: 6px 0;
 		width: 100%;
+		display: block;
 		&:hover {
 			border: none;
 		}

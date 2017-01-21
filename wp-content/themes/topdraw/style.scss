@@ -39,6 +39,14 @@ body {
 
 .ranger { font-family: $ranger; }
 
+p a {
+  color: $red;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection declarations have to be separate.

@@ -4626,7 +4626,8 @@ input[type=password]:focus {
 }
 
 div.wpcf7-mail-sent-ok,
-div.wpcf7-validation-errors {
+div.wpcf7-validation-errors,
+.error-thing {
   width: 300px;
   border-radius: 5px;
   padding: 10px 10px 12px;
@@ -4663,6 +4664,13 @@ form:last-child p {
 
 .email-us {
   margin: 25px 0 0 0;
+}
+
+.error-thing {
+  display: none;
+}
+.error-thing.visible {
+  display: block;
 }
 
 @media only screen and (min-width: 20em) and (max-width: 35.3em) {

@@ -1,3 +1,7 @@
+		<div class="error-thing">
+			<p>It looks like that email address is already in use.</p>
+		</div>
+
 		<footer>
 			<div class="wrapper">
 				<div class="social">

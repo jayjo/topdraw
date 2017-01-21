@@ -1,5 +1,5 @@
-		<div class="error-thing">
-			<p>It looks like that email address is already in use.</p>
+		<div class="error-thing wpcf7-validation-errors">
+			That email address is already in use.
 		</div>
 
 		<footer>

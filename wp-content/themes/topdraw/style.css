@@ -4667,6 +4667,7 @@ form:last-child p {
 }
 
 .error-thing {
+  top: 40px;
   display: none;
 }
 .error-thing.visible {

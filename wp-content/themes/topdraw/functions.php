@@ -95,11 +95,17 @@ function html5blank_header_scripts()
     	wp_register_script('conditionizr', get_template_directory_uri() . '/js/lib/conditionizr-4.3.0.min.js', array(), '4.3.0'); // Conditionizr
         wp_enqueue_script('conditionizr'); // Enqueue it!
 
-        wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array(), '2.7.1'); // Modernizr
+        wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array('jquery'), '2.7.1'); // Modernizr
         wp_enqueue_script('modernizr'); // Enqueue it!
 
         wp_register_script('pluginscripts', get_template_directory_uri() . '/js/plugins.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_enqueue_script('pluginscripts'); // Enqueue it!
+
+        wp_register_script('tablesorter', get_template_directory_uri() . '/js/lib/bootstrap-table.js', array('jquery'), '1.0.0'); // Custom scripts
+        wp_enqueue_script('tablesorter'); // Enqueue it!
+
+        wp_register_script('fixedcolumn', get_template_directory_uri() . '/js/lib/bootstrap-table-fixed-columns.js', array('jquery'), '1.0.0'); // Custom scripts
+        wp_enqueue_script('fixedcolumn'); // Enqueue it!
 
         wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_enqueue_script('html5blankscripts'); // Enqueue it!

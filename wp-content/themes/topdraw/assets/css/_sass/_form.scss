@@ -46,7 +46,8 @@ input[type=password] {
 }
 
 div.wpcf7-mail-sent-ok,
-div.wpcf7-validation-errors {
+div.wpcf7-validation-errors,
+.error-thing {
   width: 300px;
   border-radius: 5px;
   padding: 10px 10px 12px;
@@ -82,5 +83,11 @@ form:last-child p {
 }
 
 .email-us { margin: 25px 0 0 0; }
+.error-thing {
+  display: none;
+  &.visible {
+    display: block;
+  }
+}
 
 @import "mobile_form";

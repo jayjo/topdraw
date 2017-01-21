@@ -405,14 +405,14 @@
 			});
 		});
 
-	});
+		// If the email address already exists, let them know
+		$document.ready(function(){
+			if(window.location.href.indexOf ("?action=register_user") > -1) {
+				$('.error-thing').addClass('visible');
+				console.log("this is an error yo");
+			}
+		});
 
-	// If the email address already exists, let them know
-	$document.ready(function(){
-		if(window.location === "https://topdrawconsulting.com/register/?action=register_user") {
-			$('.error-thing').addClass('visible');
-			console.log("this is an error yo");
-		}
 	});
 
 })(jQuery, this);

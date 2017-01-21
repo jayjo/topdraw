@@ -4367,7 +4367,6 @@ div.fixed-table-scroll-outer {
   box-sizing: border-box;
   overflow: hidden;
   z-index: 100;
-  background: #1e222c;
 }
 
 .fixed-table-header-columns .table,

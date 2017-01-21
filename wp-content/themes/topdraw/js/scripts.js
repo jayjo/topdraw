@@ -359,7 +359,7 @@
 				hash = window.location.hash,
 				animal = $('.animal_chooser li a'),
 				rule = $('.info_chooser li a'),
-				distinctID = mixpanel.get_distinct_id();
+				// distinctID = mixpanel.get_distinct_id();
 				// urlPart = page.split('/'),
 				// state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 

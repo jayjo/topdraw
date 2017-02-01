@@ -3,6 +3,7 @@
 		</div>
 
 		<footer>
+			<div class="toolbar"></div>
 			<div class="wrapper">
 				<div class="social">
 					<a href="#" class="facebook">

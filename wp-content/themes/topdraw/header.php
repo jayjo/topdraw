@@ -12,6 +12,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 		<meta name="description" content="<?php bloginfo('description'); ?>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="/min/?g=js"></script>
+    <link rel='stylesheet' href='/min/?g=css' />
 
 		<?php wp_head(); ?>
 		<script>
@@ -23,7 +27,7 @@
       });
     </script>
 
-	<!--[if lt IE 7]>
+	  <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 

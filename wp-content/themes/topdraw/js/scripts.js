@@ -413,24 +413,6 @@
 			}
 		});
 
-		// // Bootstrap table stuff
-		// $('table').bootstrapTable({
-		// 	striped: true,
-		// 	height: 620,
-		// 	sortable: true,
-		// 	fixedColumns: true,
-		// 	fixedNumber: 1,
-		// 	search: true,
-		// 	showColumns: true,
-		// 	// showRefresh: true,
-		// 	minimumCountColumns: 1,
-		// 	switchable: false
-		// });
-
-		// $('.dropdown-toggle').on('click', function(){
-		// 	$('.dropdown-menu').toggleClass('open');
-		// });
-
 	});
 
 })(jQuery, this);

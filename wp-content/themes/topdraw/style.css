@@ -3860,6 +3860,7 @@ td {
 
 .table_container {
   width: 100%;
+  overflow: auto;
 }
 
 .bottom {

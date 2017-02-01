@@ -82,7 +82,7 @@ section.chart {
 		width: 100%;
 		background: $med_blue;
 		font-size: 13px;
-		color: rgba($grey,.65);
+		color: rgba($grey,1);
 	  padding: 15px;
 	  transition: all 150ms;
 	  text-decoration: none;
@@ -298,7 +298,7 @@ section.chart {
 		b, strong {
 			display: block;
 			font-weight: lighter;
-			color: rgba($grey, .35);
+			color: rgba($orange, 1);
 		}
 	}
 	.animal {

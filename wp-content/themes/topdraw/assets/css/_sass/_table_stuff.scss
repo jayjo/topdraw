@@ -41,7 +41,7 @@ td {
 
 .table_container {
 	width: 100%;
-	overflow: auto;
+	overflow: auto; // This needs removed if using Bootstrap table
 }
 
 .bottom {

@@ -129,30 +129,30 @@
 				$document.find('.drawOdds').each(function(index){
 
 					var oddsVal		     = (originalValues[index] / curVal).toFixed(0);
-					var oneP			     = (originalValues[index] * 1).toFixed(0);
-					var twoP			     = (originalValues[index] * 2).toFixed(0);
-					var threeP		     = (originalValues[index] * 5).toFixed(0);
-					var fourP			     = (originalValues[index] * 10).toFixed(0);
-					var fiveP			     = (originalValues[index] * 17).toFixed(0);
-					var sixP			     = (originalValues[index] * 26).toFixed(0);
-					var sevenP		     = (originalValues[index] * 37).toFixed(0);
-					var eightP		     = (originalValues[index] * 50).toFixed(0);
-					var nineP			     = (originalValues[index] * 65).toFixed(0);
-					var tenP			     = (originalValues[index] * 82).toFixed(0);
-					var elevenP		     = (originalValues[index] * 101).toFixed(0);
-					var twelveP		     = (originalValues[index] * 122).toFixed(0);
-					var thirteenP	     = (originalValues[index] * 145).toFixed(0);
-					var fourteenP	     = (originalValues[index] * 170).toFixed(0);
-					var fifteenP	     = (originalValues[index] * 197).toFixed(0);
-					var sixteenP	     = (originalValues[index] * 226).toFixed(0);
-					var seventeenP     = (originalValues[index] * 257).toFixed(0);
-					var eighteenP	     = (originalValues[index] * 290).toFixed(0);
-					var nineteenP	     = (originalValues[index] * 325).toFixed(0);
-					var twentyP	       = (originalValues[index] * 362).toFixed(0);
-					var twentyoneP     = (originalValues[index] * 401).toFixed(0);
-					var twentytwoP     = (originalValues[index] * 442).toFixed(0);
-					var twentythreeP	 = (originalValues[index] * 485).toFixed(0);
-					var twentyfourP	   = (originalValues[index] * 530).toFixed(0);
+					var oneP			     = (originalValues[index] / 1).toFixed(0);
+					var twoP			     = (originalValues[index] / 2).toFixed(0);
+					var threeP		     = (originalValues[index] / 5).toFixed(0);
+					var fourP			     = (originalValues[index] / 10).toFixed(0);
+					var fiveP			     = (originalValues[index] / 17).toFixed(0);
+					var sixP			     = (originalValues[index] / 26).toFixed(0);
+					var sevenP		     = (originalValues[index] / 37).toFixed(0);
+					var eightP		     = (originalValues[index] / 50).toFixed(0);
+					var nineP			     = (originalValues[index] / 65).toFixed(0);
+					var tenP			     = (originalValues[index] / 82).toFixed(0);
+					var elevenP		     = (originalValues[index] / 101).toFixed(0);
+					var twelveP		     = (originalValues[index] / 122).toFixed(0);
+					var thirteenP	     = (originalValues[index] / 145).toFixed(0);
+					var fourteenP	     = (originalValues[index] / 170).toFixed(0);
+					var fifteenP	     = (originalValues[index] / 197).toFixed(0);
+					var sixteenP	     = (originalValues[index] / 226).toFixed(0);
+					var seventeenP     = (originalValues[index] / 257).toFixed(0);
+					var eighteenP	     = (originalValues[index] / 290).toFixed(0);
+					var nineteenP	     = (originalValues[index] / 325).toFixed(0);
+					var twentyP	       = (originalValues[index] / 362).toFixed(0);
+					var twentyoneP     = (originalValues[index] / 401).toFixed(0);
+					var twentytwoP     = (originalValues[index] / 442).toFixed(0);
+					var twentythreeP	 = (originalValues[index] / 485).toFixed(0);
+					var twentyfourP	   = (originalValues[index] / 530).toFixed(0);
 					var origVal 	     = (originalValues[index] / 1).toFixed(0);
 
 					if(!calc.val() || calc.val() === "0") {

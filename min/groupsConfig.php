@@ -19,6 +19,7 @@ return array(
 			'//wp-includes/js/jquery/jquery.js',
 			'//wp-includes/js/jquery/jquery-migrate.min.js',
 			'//wp-content/themes/topdraw/js/draw_odds_calc.js',
+			// '//wp-content/themes/topdraw/js/data-table.js',
 			'//wp-content/themes/topdraw/js/plugins.js',
 			'//wp-content/themes/topdraw/js/scripts.js',
 			'//wp-content/themes/topdraw/js/lib/bootstrap-table.js',

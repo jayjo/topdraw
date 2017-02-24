@@ -3900,7 +3900,7 @@ tr:nth-child(1) {
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 150ms, visibility 0ms 150ms, transform 150ms;
+  transition: opacity 0ms, visibility 0ms;
   z-index: 10;
 }
 .tooltip.left {
@@ -4743,7 +4743,7 @@ section.chart {
 }
 #Fees-and-Deadlines .animal.two,
 .app_deadline_info .animal.two {
-  width: 30%;
+  width: 39%;
 }
 #Fees-and-Deadlines .cost,
 .app_deadline_info .cost {
@@ -4756,7 +4756,7 @@ section.chart {
 }
 #Fees-and-Deadlines .cost.two,
 .app_deadline_info .cost.two {
-  width: 19%;
+  width: 10%;
 }
 #Fees-and-Deadlines .date,
 .app_deadline_info .date {

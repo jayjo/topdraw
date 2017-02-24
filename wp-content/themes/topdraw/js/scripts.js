@@ -21,8 +21,9 @@
 
 		$('.animal_selector').fancySelect();
 		$(".table").tablesorter({
-			sortList: [[0,0], [1,0]]
+
 		});
+		// $(".table").DataTable();
 
 		$('#state').flexselect();
 		$('#state_flexselect').on('focus', function(){
@@ -82,6 +83,16 @@
 		//  $(this).removeClass('visible');
 		//  $('div').removeClass('fullScreen');
 		// });
+
+		// TOOLTIP STUFF
+		$('td.orange').hover(
+			function(e){
+				var tip = $(this).attr('tip-text');
+				$(this).find('span.tooltip').text(tip);
+			}, function(e){
+				$(this).find('span.tooltip').text('');
+			}
+		);
 
 		// MIXPANEL STUFF
 

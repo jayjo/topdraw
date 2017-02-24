@@ -4769,11 +4769,11 @@ section.chart {
 }
 #Fees-and-Deadlines .date.two,
 .app_deadline_info .date.two {
-  width: 32%;
+  width: 27%;
 }
 #Fees-and-Deadlines .avail,
 .app_deadline_info .avail {
-  width: 19%;
+  width: 24%;
   float: left;
 }
 #Fees-and-Deadlines .avail p,

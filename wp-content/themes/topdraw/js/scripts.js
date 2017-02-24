@@ -85,6 +85,7 @@
 		// });
 
 		// TOOLTIP STUFF
+		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
 		$('td.orange').hover(
 			function(e){
 				var tip = $(this).attr('tip-text');

@@ -4,7 +4,7 @@
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<title><?php wp_title(''); ?><?php if(wp_title('', false)) { echo ' :'; } ?> <?php bloginfo('name'); ?></title>
 
-		<!-- <script src="<?php echo get_template_directory_uri(); ?>/js/tracking.js" type="text/javascript"></script> -->
+		<script src="<?php echo get_template_directory_uri(); ?>/js/tracking.js" type="text/javascript"></script>
 
     <link href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/favicon.ico" rel="shortcut icon">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/touch.png" rel="apple-touch-icon-precomposed">
@@ -14,8 +14,8 @@
 		<meta name="description" content="<?php bloginfo('description'); ?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <script src="/min/?g=js"></script>
-    <link rel='stylesheet' href='/min/?g=css' />
+    <!-- <script src="/min/?g=js"></script>
+    <link rel='stylesheet' href='/min/?g=css' /> -->
 
 		<?php wp_head(); ?>
 		<script>

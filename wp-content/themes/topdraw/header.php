@@ -14,8 +14,8 @@
 		<meta name="description" content="<?php bloginfo('description'); ?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <!-- <script src="/min/?g=js"></script>
-    <link rel='stylesheet' href='/min/?g=css' /> -->
+    <script src="/min/?g=js"></script>
+    <link rel='stylesheet' href='/min/?g=css' />
 
 		<?php wp_head(); ?>
 		<script>

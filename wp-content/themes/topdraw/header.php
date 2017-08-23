@@ -4,7 +4,7 @@
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<title><?php wp_title(''); ?><?php if(wp_title('', false)) { echo ' :'; } ?> <?php bloginfo('name'); ?></title>
 
-		<!-- <script src="<?php echo get_template_directory_uri(); ?>/js/tracking.js" type="text/javascript"></script> -->
+		<script src="<?php echo get_template_directory_uri(); ?>/js/tracking.js" type="text/javascript"></script>
 
     <link href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/favicon.ico" rel="shortcut icon">
     <link href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/touch.png" rel="apple-touch-icon-precomposed">

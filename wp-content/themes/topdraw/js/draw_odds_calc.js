@@ -1,7 +1,9 @@
 (function ($, root, undefined) {
 
-	var $document = $(document),
-			$window = $(window);
+	$(function () {
+
+		var $document = $(document),
+				$window = $(window);
 
 		// True Odds Calculator (divided by value)
 
@@ -271,5 +273,7 @@
 		}
 
 		trueOddsCalcMulti();
+
+	});
 
 })(jQuery, this);

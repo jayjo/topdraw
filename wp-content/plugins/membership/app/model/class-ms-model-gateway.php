@@ -40,9 +40,9 @@ class MS_Model_Gateway extends MS_Model_Option {
 		$res = null;
 
 		if ( ! $Done ) {
-			self::$_gateways = array();
-			$gateways = array();
-			$Done = true;
+			self::$_gateways 	= array();
+			$gateways 			= array();
+			$Done 				= true;
 			self::load_core_gateways();
 
 			/**
@@ -56,8 +56,7 @@ class MS_Model_Gateway extends MS_Model_Option {
 			);
 
 			foreach ( $gateways as $key => $class ) {
-				self::$_gateways
-				[$key] = MS_Factory::load( $class );
+				self::$_gateways[ $key ] = MS_Factory::load( $class );
 			}
 		}
 
@@ -86,8 +85,8 @@ class MS_Model_Gateway extends MS_Model_Option {
 	 * @return bool True if the gateway is active.
 	 */
 	static public function is_active( $gateway_id ) {
-		$result = false;
-		$active_gateways = self::get_gateways( true );
+		$result 			= false;
+		$active_gateways 	= self::get_gateways( true );
 
 		if ( isset( $active_gateways[ $gateway_id ] ) ) {
 			$result = true;
@@ -103,20 +102,31 @@ class MS_Model_Gateway extends MS_Model_Option {
 	 * @since  1.0.0
 	 */
 	static protected function load_core_gateways() {
-		$model = MS_Factory::load( 'MS_Model_Gateway' );
-		$root_path = trailingslashit( dirname( dirname( MS_Plugin::instance()->dir ) ) );
-		$plugin_dir = substr( MS_Plugin::instance()->dir, strlen( $root_path ) );
-		$gateway_dir = $plugin_dir . 'app/gateway/';
+		$model 			= MS_Factory::load( 'MS_Model_Gateway' );
+		$content_dir 	= trailingslashit( dirname( dirname( MS_Plugin::instance()->dir ) ) );
+		$plugin_dir 	= substr( MS_Plugin::instance()->dir, strlen( $content_dir ) );
+
+		$gateway_dirs 	= array();
+		
+		
+
+		$gateway_dirs[] = $plugin_dir . 'app/gateway/';
 
 		if ( empty( $model->gateway_files ) || is_admin() ) {
 			// In Admin dashboard we always refresh the gateway-list...
-
-			$mask = $root_path . $gateway_dir . '*/class-ms-gateway-*.php';
-			$gateways = glob( $mask );
-
 			$model->gateway_files = array();
-			foreach ( $gateways as $file ) {
-				$model->gateway_files[] = substr( $file, strlen( $root_path ) );
+
+			foreach ( $gateway_dirs as $gateway_dir ) {
+				$mask 		= $content_dir . $gateway_dir . '*/class-ms-gateway-*.php';
+				$gateways 	= glob( $mask );
+
+				foreach ( $gateways as $file ) {
+					$gateway = basename( $file );
+					if ( empty( $model->gateway_files[ $gateway ] ) ) {
+						$gateway_path 						= substr( $file, strlen( $content_dir ) );
+						$model->gateway_files[ $gateway ] 	= $gateway_path;
+					}
+				}
 			}
 
 			/**
@@ -136,13 +146,13 @@ class MS_Model_Gateway extends MS_Model_Option {
 
 		// Loop all recignized Gateways and initialize them.
 		foreach ( $model->gateway_files as $file ) {
-			$gateway_file = $root_path . $file;
+			$gateway_file 	= $content_dir . $file;
 
 			// Get class-name from file-name
-			$class = basename( $file );
-			$class = str_replace( '.php', '', $class );
-			$class = implode( '_', array_map( 'ucfirst', explode( '-', $class ) ) );
-			$class = substr( $class, 6 ); // remove 'Class_' prefix
+			$class 			= basename( $file );
+			$class 			= str_replace( '.php', '', $class );
+			$class 			= implode( '_', array_map( 'ucfirst', explode( '-', $class ) ) );
+			$class 			= substr( $class, 6 ); // remove 'Class_' prefix
 
 			if ( file_exists( $gateway_file ) ) {
 				if ( ! class_exists( $class ) ) {
@@ -174,8 +184,8 @@ class MS_Model_Gateway extends MS_Model_Option {
 	 * @param bool $include_gateway_free Optional. True (default) includes Gateway Free.
 	 */
 	public static function get_gateway_names( $only_active = false, $include_gateway_free = false ) {
-		$gateways = self::get_gateways( $only_active );
-		$names = array();
+		$gateways 	= self::get_gateways( $only_active );
+		$names 		= array();
 
 		foreach ( $gateways as $gateway ) {
 			$names[ $gateway->id ] = $gateway->name;
@@ -205,16 +215,16 @@ class MS_Model_Gateway extends MS_Model_Option {
 	 */
 	public static function get_name( $gateway_id, $get_short = false ) {
 		static $Short_names = array();
-		$known_names = self::get_gateway_names();
-		$the_name = '-';
+		$known_names 		= self::get_gateway_names();
+		$the_name 			= '-';
 
-		if ( isset( $known_names[$gateway_id] ) ) {
-			$the_name = $known_names[$gateway_id];
+		if ( isset( $known_names[ $gateway_id ] ) ) {
+			$the_name = $known_names[ $gateway_id ];
 		}
 
 		if ( $get_short ) {
-			if ( ! isset( $Short_names[$gateway_id] ) ) {
-				$Short_names[$gateway_id] = trim(
+			if ( ! isset( $Short_names[ $gateway_id ] ) ) {
+				$Short_names[ $gateway_id ] = trim(
 					str_replace(
 						__( 'Gateway', 'membership2' ),
 						'',
@@ -222,7 +232,7 @@ class MS_Model_Gateway extends MS_Model_Option {
 					)
 				);
 			}
-			$the_name = $Short_names[$gateway_id];
+			$the_name = $Short_names[ $gateway_id ];
 		}
 
 		return $the_name;
@@ -253,10 +263,10 @@ class MS_Model_Gateway extends MS_Model_Option {
 		$gateway = null;
 
 		if ( 'admin' == $gateway_id || empty( $gateway_id ) || 'gateway' == $gateway_id ) {
-			$gateway = MS_Factory::create( 'MS_Gateway' );
+			$gateway 	= MS_Factory::create( 'MS_Gateway' );
 		} elseif ( self::is_valid_gateway( $gateway_id ) ) {
-			$gateways = self::get_gateways();
-			$gateway = $gateways[ $gateway_id ];
+			$gateways 	= self::get_gateways();
+			$gateway 	= $gateways[ $gateway_id ];
 		}
 
 		return apply_filters(
@@ -265,5 +275,4 @@ class MS_Model_Gateway extends MS_Model_Option {
 			$gateway_id
 		);
 	}
-
 }

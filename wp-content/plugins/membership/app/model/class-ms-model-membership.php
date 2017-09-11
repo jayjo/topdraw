@@ -349,6 +349,16 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	protected $update_replace = array();
 
 	/**
+	 * An internal counter that is increased every time membership details are
+	 * changed.
+	 *
+	 * @since 1.0.3.0
+	 * @internal
+	 * @var int
+	 */
+	protected $revision = 0;
+
+	/**
 	 * Used in simulation mode explaining why a page is allowed or denied.
 	 *
 	 * @since  1.0.0
@@ -425,17 +435,18 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public static function get_register_post_type_args() {
 		$args = array(
-			'label' => __( 'Membership2 Memberships', 'membership2' ),
-			'description' => __( 'Memberships user can join to.', 'membership2' ),
-			'show_ui' => false,
-			'show_in_menu' => false,
-			'menu_position' => 70, // below Users
-			'menu_icon' => 'dashicons-lock',
-			'public' => true,
-			'has_archive' => false,
-			'publicly_queryable' => false,
-			'supports' => false,
-			'hierarchical' => false,
+			'label' 				=> __( 'Membership2 Memberships', 'membership2' ),
+			'description' 			=> __( 'Memberships user can join to.', 'membership2' ),
+			'show_ui' 				=> false,
+			'show_in_menu' 			=> false,
+			'menu_position' 		=> 70, // below Users
+			'menu_icon' 			=> 'dashicons-lock',
+			'public' 				=> true,
+			'has_archive' 			=> false,
+			'publicly_queryable' 	=> false,
+			'supports' 				=> false,
+			'hierarchical' 			=> false,
+            'exclude_from_search' 	=> true
 		);
 
 		return apply_filters(
@@ -461,10 +472,10 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	static public function get_types() {
 		$types = array(
 			self::TYPE_STANDARD => __( 'Standard Membership', 'membership2' ),
-			self::TYPE_DRIPPED => __( 'Dripped Content Membership', 'membership2' ),
-			self::TYPE_GUEST => __( 'Guest Membership', 'membership2' ),
-			self::TYPE_USER => __( 'Default Membership', 'membership2' ),
-			self::TYPE_BASE => __( 'System Membership', 'membership2' ),
+			self::TYPE_DRIPPED 	=> __( 'Dripped Content Membership', 'membership2' ),
+			self::TYPE_GUEST 	=> __( 'Guest Membership', 'membership2' ),
+			self::TYPE_USER 	=> __( 'Default Membership', 'membership2' ),
+			self::TYPE_BASE 	=> __( 'System Membership', 'membership2' ),
 		);
 
 		return apply_filters( 'ms_model_membership_get_types', $types );
@@ -486,16 +497,16 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	public static function get_payment_types( $type = 'paid' ) {
 		if ( 'free' == $type ) {
 			$payment_types = array(
-				self::PAYMENT_TYPE_PERMANENT => __( 'Permanent access', 'membership2' ),
-				self::PAYMENT_TYPE_FINITE => __( 'Finite access', 'membership2' ),
-				self::PAYMENT_TYPE_DATE_RANGE => __( 'Date range access', 'membership2' ),
+				self::PAYMENT_TYPE_PERMANENT 	=> __( 'Permanent access', 'membership2' ),
+				self::PAYMENT_TYPE_FINITE	 	=> __( 'Finite access', 'membership2' ),
+				self::PAYMENT_TYPE_DATE_RANGE 	=> __( 'Date range access', 'membership2' ),
 			);
 		} else {
 			$payment_types = array(
-				self::PAYMENT_TYPE_PERMANENT => __( 'One payment for permanent access', 'membership2' ),
-				self::PAYMENT_TYPE_FINITE => __( 'One payment for finite access', 'membership2' ),
-				self::PAYMENT_TYPE_DATE_RANGE => __( 'One payment for date range access', 'membership2' ),
-				self::PAYMENT_TYPE_RECURRING => __( 'Recurring payments', 'membership2' ),
+				self::PAYMENT_TYPE_PERMANENT 	=> __( 'One payment for permanent access', 'membership2' ),
+				self::PAYMENT_TYPE_FINITE 		=> __( 'One payment for finite access', 'membership2' ),
+				self::PAYMENT_TYPE_DATE_RANGE 	=> __( 'One payment for date range access', 'membership2' ),
+				self::PAYMENT_TYPE_RECURRING 	=> __( 'Recurring payments', 'membership2' ),
 			);
 		}
 
@@ -517,8 +528,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return int The membership count.
 	 */
 	public static function get_membership_count( $args = null ) {
-		$ids = self::get_membership_ids( $args );
-		$count = count( $ids );
+		$ids 	= self::get_membership_ids( $args );
+		$count 	= count( $ids );
 
 		return apply_filters(
 			'ms_model_membership_get_membership_count',
@@ -545,13 +556,11 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			$sql = "
 			SELECT COUNT( 1 )
 			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} priv ON priv.post_id = p.ID AND priv.meta_key = %s
 			INNER JOIN {$wpdb->postmeta} free ON free.post_id = p.ID AND free.meta_key = %s
 			INNER JOIN {$wpdb->postmeta} pric ON pric.post_id = p.ID AND pric.meta_key = %s
 			INNER JOIN {$wpdb->postmeta} acti ON acti.post_id = p.ID AND acti.meta_key = %s
 			WHERE
 				p.post_type = %s
-				AND priv.meta_value != '1'
 				AND acti.meta_value = '1'
 				AND NOT (
 					free.meta_value = '1'
@@ -561,16 +570,15 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 
 			$sql = $wpdb->prepare(
 				$sql,
-				'private',       // INNER JOIN
 				'is_free',       // INNER JOIN
 				'price',         // INNER JOIN
 				'active',        // INNER JOIN
 				self::get_post_type() // WHERE condition
 			);
 
-			$res = $wpdb->get_var( $sql );
+			$res 		= $wpdb->get_var( $sql );
 
-			$Have_Paid = apply_filters(
+			$Have_Paid 	= apply_filters(
 				'ms_model_membership_have_paid_membership',
 				intval( $res ) > 0
 			);
@@ -595,13 +603,13 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		$defaults = apply_filters(
 			'ms_model_membership_get_query_args_defaults',
 			array(
-				'post_type' => self::get_post_type(),
-				'order' => 'ASC',
-				'orderby' => 'menu_order',
-				'post_status' => 'any',
+				'post_type' 	=> self::get_post_type(),
+				'order' 		=> 'ASC',
+				'orderby' 		=> 'menu_order',
+				'post_status' 	=> 'any',
 				'post_per_page' => -1,
-				'nopaging' => true,
-				'include_base' => false,
+				'nopaging' 		=> true,
+				'include_base' 	=> false,
 				'include_guest' => true,
 			)
 		);
@@ -664,8 +672,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		$args = self::get_query_args( $args );
 		$key = md5( json_encode( $args ) );
 
-		if ( ! isset( $Membership_IDs[$key] ) ) {
-			$Membership_IDs[$key] = array();
+		if ( ! isset( $Membership_IDs[ $key ] ) ) {
+			$Membership_IDs[ $key ] = array();
 
 			MS_Factory::select_blog();
 			$query = new WP_Query( $args );
@@ -684,15 +692,63 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			 * @see MS_Model_Relationship::get_subscriptions()
 			 */
 			foreach ( $items as $item ) {
-				$Membership_IDs[$key][] = $item->ID;
+				$Membership_IDs[ $key ][] = $item->ID;
 			}
 		}
 
 		return apply_filters(
 			'ms_model_membership_get_membership_ids',
-			$Membership_IDs[$key],
+			$Membership_IDs[ $key ],
 			$args
 		);
+	}
+
+
+	/**
+	 * Returns the membership-ID that matches the specified Membership name or
+	 * slug.
+	 *
+	 * If multiple memberships have the same name then the one with the lowest
+	 * ID (= the oldest) will be returned.
+	 *
+	 * Name or slug are case-IN-sensitive ('slug' and 'SLUG' are identical)
+	 * Wildcards are not allowed, the string must match exactly.
+	 *
+	 * @since  1.0.4
+	 * @param  string $name_or_slug The Membership name or slug to search.
+	 * @return int|false The membership ID or false.
+	 */
+	public function get_membership_id( $name_or_slug ) {
+		global $wpdb;
+		$res = false;
+
+		$sql = "
+		SELECT ID
+		FROM {$wpdb->posts} p
+		INNER JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = %s
+		WHERE
+			p.post_type = %s
+			AND ( m.meta_value = %s OR p.post_name = %s )
+		ORDER BY ID
+		;";
+
+		MS_Factory::select_blog();
+		$sql = $wpdb->prepare(
+			$sql,
+			'name',
+			self::get_post_type(),
+			$name_or_slug,
+			$name_or_slug
+		);
+
+		$ids = $wpdb->get_col( $sql );
+		MS_Factory::revert_blog();
+
+		if ( is_array( $ids ) && count( $ids ) ) {
+			$res = reset( $ids );
+		}
+
+		return $res;
 	}
 
 	/**
@@ -715,8 +771,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return MS_Model_Membership[] The selected memberships.
 	 */
 	static public function get_memberships( $args = null ) {
-		$ids = self::get_membership_ids( $args );
-		$memberships = array();
+		$ids 			= self::get_membership_ids( $args );
+		$memberships 	= array();
 
 		foreach ( $ids as $id ) {
 			$memberships[] = MS_Factory::load(
@@ -746,14 +802,14 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		$drip_args = array(
 			'meta_query' => array(
 				array(
-					'key' => 'type',
+					'key' 	=> 'type',
 					'value' => self::TYPE_DRIPPED,
 				),
 			),
 		);
 
-		$drip_args = wp_parse_args( $drip_args, $args );
-		$memberships = self::get_memberships( $drip_args );
+		$drip_args 		= wp_parse_args( $drip_args, $args );
+		$memberships 	= self::get_memberships( $drip_args );
 
 		return apply_filters(
 			'ms_model_membership_get_dripped_memberships',
@@ -782,9 +838,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * }
 	 */
 	public static function get_membership_names( $args = null ) {
-		$items = self::get_memberships( $args );
-
-		$memberships = array();
+		$items 			= self::get_memberships( $args );
+		$memberships 	= array();
 		foreach ( $items as $item ) {
 			$memberships[ $item->id ] = $item->name;
 		}
@@ -818,38 +873,38 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return array Returns sorted array of memberships. Sorted by priority.
 	 */
 	public static function get_signup_membership_list(
-		$args = null,
-		$exclude_ids = null,
-		$only_names = false,
-		$include_private = false
+		$args 				= null,
+		$exclude_ids 		= null,
+		$only_names 		= false,
+		$include_private 	= false
 	) {
 		$not_in = array();
 		if ( is_array( $exclude_ids ) ) {
 			$not_in = $exclude_ids;
 		}
-		$args['post__not_in'] = array_unique( $not_in );
-		$member = MS_Model_Member::get_current_member();
+		$args['post__not_in'] 	= array_unique( $not_in );
+		$member 				= MS_Model_Member::get_current_member();
 
 		if ( ! is_admin() ) {
-			$include_private = false;
+			$include_private 	= false;
 		}
 		// List of private memberships (they are grouped in own array).
-		$private = array();
+		$private 		= array();
 
 		// Retrieve memberships user is not part of, using selected args
-		$memberships = self::get_memberships( $args );
+		$memberships 	= self::get_memberships( $args );
 
 		// Check the upgrade-paths settings
 		foreach ( $memberships as $key => $ms ) {
 			if ( $ms->is_system() ) {
-				unset( $memberships[$key] );
+				unset( $memberships[ $key ] );
 			} elseif ( ! $member->can_subscribe_to( $ms->id ) ) {
-				unset( $memberships[$key] );
+				unset( $memberships[ $key ] );
 			}
 		}
 
 		// Filter memberships based on status.
-		$order = array();
+		$order 		= array();
 		foreach ( $memberships as $key => $membership ) {
 			// Remove if not active.
 			if ( ! $membership->active ) {
@@ -929,7 +984,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public static function is_valid_membership( $membership_id ) {
 		$membership = MS_Factory::load( 'MS_Model_Membership', $membership_id, '_is_valid_' );
-		$valid = ( $membership->id > 0 );
+		$valid 		= ( $membership->id > 0 );
 
 		return apply_filters(
 			'ms_model_membership_is_valid_membership',
@@ -953,10 +1008,10 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public static function _get_system_membership( $type, $create_missing = true ) {
 		static $Special_Membership = array();
-		$comp_key = $type;
+		$comp_key 	= $type;
 		$membership = false;
 
-		if ( ! isset( $Special_Membership[$comp_key] ) ) {
+		if ( ! isset( $Special_Membership[ $comp_key ] ) ) {
 			$membership = false;
 			global $wpdb;
 
@@ -985,9 +1040,9 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 				$type,
 			);
 
-			$sql = $wpdb->prepare( $sql, $values );
-			$item = $wpdb->get_results( $sql );
-			$base = array_shift( $item ); // Remove the base membership from the results
+			$sql 	= $wpdb->prepare( $sql, $values );
+			$item 	= $wpdb->get_results( $sql );
+			$base 	= array_shift( $item ); // Remove the base membership from the results
 			MS_Factory::revert_blog();
 
 			if ( ! empty( $base ) ) {
@@ -995,21 +1050,21 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			} elseif ( $create_missing ) {
 				$names = self::get_types();
 
-				$description = __( 'Membership2 Core Membership', 'membership2' );
-				$membership = MS_Factory::create( 'MS_Model_Membership' );
-				$membership->name = $names[$type];
-				$membership->title = $names[$type];
-				$membership->description = $description;
-				$membership->type = $type;
+				$description		 		= __( 'Membership2 Core Membership', 'membership2' );
+				$membership 				= MS_Factory::create( 'MS_Model_Membership' );
+				$membership->name 			= $names[ $type ];
+				$membership->title 			= $names[ $type ];
+				$membership->description 	= $description;
+				$membership->type 			= $type;
 				$membership->save();
 			}
 
-			$Special_Membership[$comp_key] = $membership;
+			$Special_Membership[ $comp_key ] = $membership;
 		}
 
 		return apply_filters(
 			'ms_model_membership_get_system_membership',
-			$Special_Membership[$comp_key],
+			$Special_Membership[ $comp_key ],
 			$type
 		);
 	}
@@ -1034,7 +1089,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			);
 
 			foreach ( $Base_Membership->_rules as $key => $rule ) {
-				$Base_Membership->_rules[$key]->is_base_rule = true;
+				$Base_Membership->_rules[ $key ]->is_base_rule = true;
 			}
 		}
 
@@ -1162,9 +1217,9 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		foreach ( $this->_rules as $rule_type => $rule ) {
 			$key = MS_Rule::rule_key( $rule_type );
 
-			$this->rule_values[$key] = $rule->serialize();
-			if ( empty( $this->rule_values[$key] ) ) {
-				unset( $this->rule_values[$key] );
+			$this->rule_values[ $key ] = $rule->serialize();
+			if ( empty( $this->rule_values[ $key ] ) ) {
+				unset( $this->rule_values[ $key ] );
 			}
 		}
 
@@ -1196,6 +1251,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			'custom_data',
 			'update_denied',
 			'update_replace',
+			'revision',
 		);
 	}
 
@@ -1210,6 +1266,10 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 
 		foreach ( $this->_rules as $rule ) {
 			$rule->membership_id = $this->id;
+		}
+
+		if ( $this->is_valid() ) {
+			$this->check_revision();
 		}
 	}
 
@@ -1253,6 +1313,82 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 
 		$post['menu_order'] = $this->priority;
 		return $post;
+	}
+
+	/**
+	 * Called by the before_save() function to detect what kind of revision
+	 * was made (i.e. which values were changed).
+	 *
+	 * This is used by the stripe gateway to sync membership infos with Stripe.
+	 *
+	 * @since  1.0.3.0
+	 */
+	public function check_revision() {
+		// Changes of these values are not counted as "revision".
+		$ignore = array(
+			'revision',
+			'id',
+			'is_setup_completed',
+			'post_modified',
+			'source',
+			'source_id',
+			'subscription_id',
+			'title',
+			'user_id',
+		);
+
+		$new_revision = false;
+		$changes = array();
+		if ( empty( $this->revision ) ) { $this->revision = 0; }
+
+		foreach ( $this->_saved_data as $field => $old_value ) {
+			if ( in_array( $field, $ignore ) ) { continue; }
+
+			$new_value = $this->$field;
+			if ( ! is_scalar( $old_value ) ) {
+				$old_value = json_encode( $old_value );
+			}
+			if ( ! is_scalar( $new_value ) ) {
+				$new_value = json_encode( $new_value );
+			}
+
+			if ( $old_value == $new_value ) { continue; }
+
+			$new_revision = true;
+			$changes[] = $field;
+
+			/**
+			 * Notification that a specific field of the membership changed.
+			 *
+			 * @since  1.0.3.0
+			 * @param  MS_Model_Membership The membership object (this).
+			 * @param  mixed               The old value, might be serialized.
+			 * @param  mixed               The new value.
+			 */
+			do_action(
+				'ms_model_membership_revision_change-' . $field,
+				$this,
+				$old_value,
+				$this->$field
+			);
+		}
+
+		if ( $new_revision ) {
+			$this->revision += 1;
+
+			/**
+			 * Notification that any field of the membership has changed.
+			 *
+			 * @since  1.0.3.0
+			 * @param  MS_Model_Membership The membership object (this).
+			 * @param  array               List of changed fields (only field-names).
+			 */
+			do_action(
+				'ms_model_membership_revision_change',
+				$this,
+				$changes
+			);
+		}
 	}
 
 	/**
@@ -1327,10 +1463,15 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			if ( ! MS_Rule::is_current_site( $key ) ) { continue; }
 
 			// Key could be "type" of "site:type" format.
-			$rule_type = MS_Rule::rule_type( $key );
+			$rule_type 	= MS_Rule::rule_type( $key );
 
 			// At this point we have an empty rule-instance
-			$rule = $this->get_rule( $rule_type );
+			$rule 		= $this->get_rule( $rule_type );
+
+			//clear role rules if not member
+			if ( MS_Rule_MemberRoles::RULE_ID === $key && $this->is_base() ) {
+				$values = array();
+			}
 
 			// Now we populate that rule-instance with site-specific settings.
 			$rule->populate( $values );
@@ -1389,14 +1530,14 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 
 			case self::PAYMENT_TYPE_RECURRING:
 				if ( $has_payment ) {
-					$desc = __( 'Pay each %1$s', 'membership2' );
+					$desc 		= __( 'Pay each %1$s', 'membership2' );
 					if ( 1 == $this->pay_cycle_repetitions ) {
-						$desc = __( 'Single payment', 'membership2' );
+						$desc 	= __( 'Single payment', 'membership2' );
 					} elseif ( $this->pay_cycle_repetitions > 1 ) {
-						$desc .= ', ' . __( '%2$s payments', 'membership2' );
+						$desc 	.= ', ' . __( '%2$s payments', 'membership2' );
 					}
 				} else {
-					$desc = __( 'Free access', 'membership2' );
+					$desc 		= __( 'Free access', 'membership2' );
 				}
 
 				$desc = sprintf(
@@ -1439,8 +1580,11 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	public function is_free() {
 		$result = false;
 
-		if ( $this->is_free ) { $result = true; }
-		elseif ( 0 == (int) ($this->price * 100) ) { $result = true; }
+		if ( $this->is_free ) {
+			$result = true;
+		} elseif ( 0 == (int) ($this->price * 100) ) {
+			$result = true;
+		}
 
 		$result = apply_filters(
 			'ms_model_membership_is_free',
@@ -1487,8 +1631,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	public function update_allowed( $id ) {
 		$denied = false;
 
-		if ( isset( $this->update_denied[$id] ) ) {
-			$denied = $this->update_denied[$id];
+		if ( isset( $this->update_denied[ $id ] ) ) {
+			$denied = $this->update_denied[ $id ];
 		}
 
 		return ! $denied;
@@ -1508,8 +1652,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	public function update_replaces( $id ) {
 		$deny = false;
 
-		if ( isset( $this->update_replace[$id] ) ) {
-			$deny = $this->update_replace[$id];
+		if ( isset( $this->update_replace[ $id ] ) ) {
+			$deny = $this->update_replace[ $id ];
 		}
 
 		return ! ! $deny;
@@ -1527,14 +1671,14 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		$result = true;
 
 		$this->disabled_gateways = lib3()->array->get( $this->disabled_gateways );
-		if ( isset( $this->disabled_gateways[$gateway_id] ) ) {
-			$state = $this->disabled_gateways[$gateway_id];
+		if ( isset( $this->disabled_gateways[ $gateway_id ] ) ) {
+			$state 	= $this->disabled_gateways[ $gateway_id ];
 			$result = ! lib3()->is_true( $state );
 		}
 
 		if ( $result ) {
-			$gateway = MS_Model_Gateway::factory( $gateway_id );
-			$result = $gateway->payment_type_supported( $this );
+			$gateway 	= MS_Model_Gateway::factory( $gateway_id );
+			$result 	= $gateway->payment_type_supported( $this );
 		}
 
 		$result = apply_filters(
@@ -1629,7 +1773,12 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return string Hex color, e.g. '#FFFFFF'
 	 */
 	public function get_color() {
-		return MS_Helper_Utility::color_index( $this->type . $this->id );
+		return apply_filters(
+			'ms_model_membership_get_color',
+			MS_Helper_Utility::color_index( $this->type . $this->id ),
+			$this->type,
+			$this->id
+		);
 	}
 
 	/**
@@ -1638,10 +1787,26 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 *
 	 * @since  1.0.0
 	 * @api
+	 * @param  bool   $with_tooltip Whether to add tooltip with Membership infos.
+	 * @return string The title HTML code.
 	 */
-	public function get_name_tag() {
+	public function get_name_tag( $with_tooltip = false ) {
+		if ( $with_tooltip ) {
+			$tooltip = sprintf(
+				__( 'Revision: %s | Type: %s', 'membership2' ),
+				$this->revision,
+				$this->type
+			);
+			$tag = sprintf(
+				'<span class="ms-membership" style="background:%%2$s" title="%s">%%1$s</span>',
+				$tooltip
+			);
+		} else {
+			$tag = '<span class="ms-membership" style="background:%2$s">%1$s</span>';
+		}
+
 		$code = sprintf(
-			'<span class="ms-membership" style="background:%2$s">%1$s</span>',
+			$tag,
 			esc_html( $this->name ),
 			$this->get_color()
 		);
@@ -1688,8 +1853,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return string The membership type description.
 	 */
 	public function get_type_description() {
-		$types = self::get_types();
-		$desc = $types[ $this->type ];
+		$types 	= self::get_types();
+		$desc 	= $types[ $this->type ];
 
 		return apply_filters(
 			'ms_model_membership_get_type_description',
@@ -1763,14 +1928,13 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		foreach ( $base_rules as $key => $base_rule ) {
 			try {
 				// Key could be "type" of "site:type" format.
-				$rule_type = MS_Rule::rule_type( $key );
+				$rule_type 	= MS_Rule::rule_type( $key );
 
-				$rule = $this->get_rule( $rule_type );
+				$rule 		= $this->get_rule( $rule_type );
 				$rule->protect_undefined_items( $base_rule, true );
 				$this->set_rule( $rule_type, $rule );
-			}
-			catch( Exception $e ) {
-				MS_Helper_Debug::log( $e );
+			} catch ( Exception $e ) {
+				MS_Helper_Debug::debug_log( $e );
 			}
 		}
 
@@ -1804,12 +1968,12 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			'include_guest' => false,
 		);
 		$options += $this->get_membership_names( $args );
-		unset( $options[$this->id] );
+		unset( $options[ $this->id ] );
 
 		$label = __( 'Change to: %s', 'membership2' );
 		foreach ( $options as $id => $option ) {
 			if ( $id > 0 ) {
-				$options[$id] = sprintf( $label, $option );
+				$options[ $id ] = sprintf( $label, $option );
 			}
 		}
 
@@ -1899,7 +2063,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		// Get a list of members.
 		$result = array();
 		foreach ( $items as $item ) {
-			$result[$item->user_id] = $item->get_member();
+			$result[ $item->user_id ] = $item->get_member();
 		}
 
 		return apply_filters(
@@ -1921,8 +2085,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return boolean
 	 */
 	public function has_dripped_content() {
-		$has_dripped = false;
-		$dripped = array( 'post', 'page' );
+		$has_dripped 	= false;
+		$dripped 		= array( 'post', 'page' );
 
 		foreach ( $dripped as $rule_type ) {
 			// using count() as !empty() never returned true
@@ -1948,12 +2112,12 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @internal
 	 */
 	private function get_rules_hierarchy() {
-		$rule_types = MS_Model_Rule::get_rule_types();
-		$rules = array();
-		$subscription = MS_Factory::load( 'MS_Model_Relationship', $this->subscription_id );
+		$rule_types 	= MS_Model_Rule::get_rule_types();
+		$rules 			= array();
+		$subscription 	= MS_Factory::load( 'MS_Model_Relationship', $this->subscription_id );
 
 		foreach ( $rule_types as $rule_type ) {
-			$rule = $this->get_rule( $rule_type );
+			$rule 		= $this->get_rule( $rule_type );
 
 			if ( $rule->rule_type != $rule_type ) {
 				// This means that the $rule_type was not found...
@@ -1965,8 +2129,8 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			// or default membership.
 			$rule->_subscription_id = $subscription->id;
 
-			$rule->membership_id = $this->id;
-			$rules[ $rule_type ] = $rule;
+			$rule->membership_id 	= $this->id;
+			$rules[ $rule_type ] 	= $rule;
 		}
 
 		return apply_filters(
@@ -1989,7 +2153,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 * @return bool $marked True in the first time setup is finished.
 	 */
 	public function setup_completed() {
-		$marked = false;
+		$marked 	= false;
 
 		if ( ! $this->is_setup_completed ) {
 			$this->is_setup_completed = true;
@@ -2014,7 +2178,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public function is_base( $type = null ) {
 		if ( ! $type ) { $type = $this->type; }
-		$res = $type == self::TYPE_BASE;
+		$res = (self::TYPE_BASE == $type);
 
 		return apply_filters(
 			'ms_model_membership_is_base',
@@ -2034,7 +2198,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public function is_guest( $type = null ) {
 		if ( ! $type ) { $type = $this->type; }
-		$res = $type == self::TYPE_GUEST;
+		$res = (self::TYPE_GUEST == $type);
 
 		return apply_filters(
 			'ms_model_membership_is_guest',
@@ -2054,7 +2218,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public function is_user( $type = null ) {
 		if ( ! $type ) { $type = $this->type; }
-		$res = $type == self::TYPE_USER;
+		$res = (self::TYPE_USER == $type);
 
 		return apply_filters(
 			'ms_model_membership_is_user',
@@ -2073,7 +2237,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 */
 	public function is_dripped( $type = null ) {
 		if ( ! $type ) { $type = $this->type; }
-		$res = $type == self::TYPE_DRIPPED;
+		$res = (self::TYPE_DRIPPED == $type);
 
 		return apply_filters(
 			'ms_model_membership_is_dripped',
@@ -2094,9 +2258,13 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		if ( ! $type ) { $type = $this->type; }
 
 		$res = false;
-		if ( $this->is_base( $type ) ) { $res = true; }
-		elseif ( $this->is_guest( $type ) ) { $res = true; }
-		elseif ( $this->is_user( $type ) ) { $res = true; }
+		if ( $this->is_base( $type ) ) {
+			$res = true;
+		} elseif ( $this->is_guest( $type ) ) {
+			$res = true;
+		} elseif ( $this->is_user( $type ) ) {
+			$res = true;
+		}
 
 		return apply_filters(
 			'ms_model_membership_is_system',
@@ -2140,10 +2308,10 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	 *     Null means: Rule not relevant for current page.
 	 */
 	public function has_access_to_current_page( $post_id = null ) {
-		$has_access = null;
-		$this->_access_reason = array();
-		$this->_deny_rule = array();
-		$this->_allow_rule = array();
+		$has_access 			= null;
+		$this->_access_reason 	= array();
+		$this->_deny_rule 		= array();
+		$this->_allow_rule 		= array();
 
 		// Only verify access if membership is Active.
 		if ( $this->active ) {
@@ -2151,6 +2319,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			// If 'has access' is found in the hierarchy, it does have access.
 			$rules = $this->get_rules_hierarchy();
 			foreach ( $rules as $rule ) {
+                $rule->_allow_without_rule = false;
 				$rule_access = $rule->has_access( $post_id );
 
 				if ( null === $rule_access ) {
@@ -2168,9 +2337,9 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 				);
 
 				if ( ! $rule_access ) {
-					$this->_deny_rule[] = $rule->rule_type;
+					$this->_deny_rule[] 	= $rule->rule_type;
 				} else {
-					$this->_allow_rule[] = $rule->rule_type;
+					$this->_allow_rule[] 	= $rule->rule_type;
 				}
 
 				// URL groups have final decission.
@@ -2322,6 +2491,19 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 	}
 
 	/**
+	 * Check protection for front-end.
+	 *
+	 * Return if content is restricted for this membership.
+	 *
+	 * @since  1.0.0
+	 * @internal
+	 */
+	public function has_access_to_content( $id ) {
+		$rules = $this->get_rules_hierarchy();
+		return $rules['content']->get_rule_value($id);
+	}	
+
+	/**
 	 * Set initial protection for admin side.
 	 *
 	 * Hide restricted content for this membership.
@@ -2456,11 +2638,7 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 					$value = $this->price;
 				}
 
-				$value = apply_filters(
-					'ms_apply_taxes',
-					$value,
-					$this
-				);
+				$value = apply_filters( 'ms_apply_taxes', $value, $this );
 				break;
 
 			case 'pay_cycle_repetitions':
@@ -2527,13 +2705,13 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 						if ( $existing && $existing->id != $this->id ) {
 							$value = self::TYPE_STANDARD;
 						} else {
-							$this->active = true;
-							$this->private = true;
-							$this->is_free = true;
-							$this->price = 0;
-							$this->post_name = sanitize_html_class( $this->title );
+							$this->active 		= true;
+							$this->private 		= true;
+							$this->is_free 		= true;
+							$this->price 		= 0;
+							$this->post_name 	= sanitize_html_class( $this->title );
 							$this->payment_type = self::PAYMENT_TYPE_PERMANENT;
-							$this->post_author = get_current_user_id();
+							$this->post_author 	= get_current_user_id();
 						}
 					}
 
@@ -2591,27 +2769,27 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 		} else {
 			switch ( $property ) {
 				case 'period_unit':
-					$this->period['period_unit'] = $this->validate_period_unit( $value );
+					$this->period['period_unit'] 			= $this->validate_period_unit( $value );
 					break;
 
 				case 'period_type':
-					$this->period['period_type'] = $this->validate_period_type( $value );
+					$this->period['period_type'] 			= $this->validate_period_type( $value );
 					break;
 
 				case 'pay_cycle_period_unit':
-					$this->pay_cycle_period['period_unit'] = $this->validate_period_unit( $value );
+					$this->pay_cycle_period['period_unit'] 	= $this->validate_period_unit( $value );
 					break;
 
 				case 'pay_cycle_period_type':
-					$this->pay_cycle_period['period_type'] = $this->validate_period_type( $value );
+					$this->pay_cycle_period['period_type'] 	= $this->validate_period_type( $value );
 					break;
 
 				case 'trial_period_unit':
-					$this->trial_period['period_unit'] = $this->validate_period_unit( $value );
+					$this->trial_period['period_unit'] 		= $this->validate_period_unit( $value );
 					break;
 
 				case 'trial_period_type':
-					$this->trial_period['period_type'] = $this->validate_period_type( $value );
+					$this->trial_period['period_type'] 		= $this->validate_period_type( $value );
 					break;
 
 				case 'public':
@@ -2624,13 +2802,13 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 
 				case 'deny_update':
 					foreach ( $value as $key => $state ) {
-						$this->update_denied[$key] = lib3()->is_true( $state );
+						$this->update_denied[ $key ] = lib3()->is_true( $state );
 					}
 					break;
 
 				case 'replace_update':
 					foreach ( $value as $key => $state ) {
-						$this->update_replace[$key] = lib3()->is_true( $state );
+						$this->update_replace[ $key ] = lib3()->is_true( $state );
 					}
 					break;
 
@@ -2644,5 +2822,17 @@ class MS_Model_Membership extends MS_Model_CustomPostType {
 			$this
 		);
 	}
-
+	
+	/**
+	 * Check if property isset.
+	 *
+	 * @since  1.0.0
+	 * @internal
+	 *
+	 * @param string $property The name of a property.
+	 * @return mixed Returns true/false.
+	 */
+	public function __isset( $property ) {
+		return isset($this->$property);
+	}		
 }

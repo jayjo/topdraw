@@ -1,5 +1,10 @@
 <?php
 /**
+ * View.
+ * @package Membership2
+ */
+
+/**
  * Renders Help and Documentation Page.
  *
  * Extends MS_View for rendering methods and magic methods.
@@ -85,7 +90,7 @@ class MS_View_Help extends MS_View {
 			_x( 'You use verion <strong>%s</strong> of Membership 2', 'help', 'membership2' ),
 			MS_PLUGIN_VERSION
 		);
-		if ( function_exists( 'membership2_init_pro_app' ) ) {
+		if ( MS_IS_PRO ) {
 			printf(
 				'<br />' .
 				_x( 'Hey, this is the <strong>PRO version</strong> of Membership 2 - thanks a lot for supporting us!', 'help', 'membership2' )
@@ -136,6 +141,12 @@ class MS_View_Help extends MS_View {
 			printf(
 				'<br />' .
 				_x( 'Currently M2 is configured <strong>not expire/change</strong> any subscription status.', 'help', 'membership2' )
+			);
+		}
+		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
+			printf(
+				'<br />' .
+				_x( 'Warning: DISABLE_WP_CRON is <strong>enabled</strong> on this site! M2 will not send all emails or change subscription status when expire date is reached!', 'help', 'membership2' )
 			);
 		}
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
@@ -295,7 +306,7 @@ class MS_View_Help extends MS_View {
 				<ul>
 					<li>
 						<code>type</code>
-						<?php _ex( '(all|loggedin|guest|admin)', 'help', 'membership2' ); ?>
+						<?php _ex( '(all|loggedin|guest|admin|non-admin)', 'help', 'membership2' ); ?>
 						<?php _ex( 'Decide, which type of users will see the message', 'help', 'membership2' ); ?>
 						<span class="ms-help-default">
 							<?php _ex( 'Default:', 'help', 'membership2' ); ?>
@@ -1631,7 +1642,7 @@ class MS_View_Help extends MS_View {
 		ob_start();
 		?>
 		<h2><?php _ex( 'Network-Wide Protection', 'help', 'membership2' ); ?></h2>
-		<?php if ( function_exists( 'membership2_init_pro_app' ) ) : ?>
+		<?php if ( MS_IS_PRO ) : ?>
 		<p>
 			<strong><?php _ex( 'Enable Network-Wide mode', 'help', 'membership2' ); ?></strong><br />
 			<?php _ex( 'In wp-config.php add the line <code>define( "MS_PROTECT_NETWORK", true );</code> to enable network wide protection. Important: Settings for Network-Wide mode are stored differently than normal (site-wide) settings. After switching to network wide mode the first time you have to set up the plugin again.<br />Note: The plugin will automatically enable itself network wide, you only need to add the option above.', 'help', 'membership2' ); ?>
@@ -1670,6 +1681,10 @@ class MS_View_Help extends MS_View {
 			<strong><?php _ex( 'Reset', 'help', 'membership2' ); ?></strong><br />
 			<?php _ex( 'Open the Settings page and add <code>&reset=1</code> to the URL. A prompt is displayed that can be used to reset all Membership2 settings. Use this to clean all traces after testing the plugin.', 'help', 'membership2' ); ?>
 		</p>
+        <p>
+            <strong><?php _ex( 'Fix subscriptions', 'help', 'membership2' ); ?></strong><br />
+            <?php _ex( 'Open the Settings page and add <code>&fixsub=1</code> to the URL. A prompt is displayed that can be used to fix Membership2 subscriptions. Use this to fix subscriptions that are out of sync with Stripe.', 'help', 'membership2' ); ?>
+        </p>
 		<p>
 			<strong><?php _ex( 'Stop Emails', 'help', 'membership2' ); ?></strong><br />
 			<?php _ex( 'In wp-config.php add the line <code>define( "MS_STOP_EMAILS", true );</code> to force Procted Content to <em>not</em> send any emails to Members. This can be used when testing to prevent your users from getting email notifications.', 'help', 'membership2' ); ?>
@@ -1693,6 +1708,18 @@ class MS_View_Help extends MS_View {
 		<p>
 			<strong><?php _ex( 'Debugging incorrect page access', 'help', 'membership2' ); ?></strong><br />
 			<?php _ex( 'M2 has a small debugging tool built into it, that allows you to analyze access issues for the current user. To use this tool you have to set <code>define( "WP_DEBUG", true );</code> on your site. Next open the page that you want to analyze and add <code>?explain=access</code> to the page URL. As a result you will not see the normal page contents but a lot of useful details on the access permissions.', 'help', 'membership2' ); ?>
+		</p>
+		<p>
+			<strong><?php _ex( 'Keep a log of all outgoing emails', 'help', 'membership2' ); ?></strong><br />
+			<?php _ex( 'If you want to keep track of all the emails that M2 sends to your members then add the line <code>define( "MS_LOG_EMAILS", true );</code> to your wp-config.php. A new navigation link will be displayed here in the Help page to review the email history.', 'help', 'membership2' ); ?>
+		</p>
+                <p>
+			<strong><?php _ex( 'Create subscription on trial when using Paypal', 'help', 'membership2' ); ?></strong><br />
+			<?php _ex( 'If you want to create subscription on trial period, use <code>define( "MS_PAYPAL_TRIAL_SUBSCRIPTION", true );</code> in wp-config.php file. Please note, it will work only if you use Paypal.', 'help', 'membership2' ); ?>
+		</p>
+                <p>
+			<strong><?php _ex( 'Disable default email on registration', 'help', 'membership2' ); ?></strong><br />
+			<?php _ex( 'To disable WP default email on registration from back end, use <code>define( "MS_DISABLE_WP_NEW_USER_NOTIFICATION", true );</code> in wp-config.php file.', 'help', 'membership2' ); ?>
 		</p>
 		<hr />
 		<?php
@@ -1759,5 +1786,31 @@ class MS_View_Help extends MS_View {
 		<hr />
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Render the email history list.
+	 *
+	 * @since  1.0.2.7
+	 * @return string
+	 */
+	public function render_tab_emails() {
+		$listview = MS_Factory::create( 'MS_Helper_ListTable_CommunicationLog' );
+		$listview->prepare_items();
+
+		ob_start();
+		?>
+		<div class="wrap ms-wrap ms-communicationlog">
+			<?php
+			$listview->views();
+			?>
+			<form action="" method="post">
+				<?php $listview->display(); ?>
+			</form>
+		</div>
+		<?php
+		$html = ob_get_clean();
+
+		return $html;
 	}
 }

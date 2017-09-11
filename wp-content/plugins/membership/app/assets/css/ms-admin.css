@@ -17,7 +17,7 @@
 
 /* Define general layout states */
 .ms-wrap {
-  margin: 10px 20px 0 2px;
+  margin: 40px 20px 0 2px;
   position: relative;
 }
 .ms-wrap input,
@@ -218,6 +218,11 @@
   box-shadow: 0 -20px 10px -10px rgba(0, 0, 0, 0.15) inset, inset 0px -1px 1px rgba(0, 0, 0, 0.5), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
   /*top internal highlight*/
 }
+#wpwrap .ms-wrap a .ms-membership,
+.ms-wrap a .ms-membership,
+.ms-form a .ms-membership {
+  cursor: pointer;
+}
 #wpwrap .ms-wrap h3 .ms-membership,
 .ms-wrap h3 .ms-membership,
 .ms-form h3 .ms-membership {
@@ -374,6 +379,9 @@
   box-shadow: 0 -20px 10px -10px rgba(0, 0, 0, 0.15) inset, inset 0px -1px 1px rgba(0, 0, 0, 0.5), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
   /*top internal highlight*/
 }
+#wpwrap .ms-wrap tr.inline-edit-row a .ms-membership {
+  cursor: pointer;
+}
 #wpwrap .ms-wrap tr.inline-edit-row .dripped-form {
   padding: 0 0 5px 0;
   margin: 0 0 5px 0;
@@ -430,6 +438,101 @@
 .ms-wrap .ms-content-tag-list .ms-content-tag a:active,
 .ms-wrap .ms-content-tag-list .ms-content-tag a:focus {
   background: #8E9295;
+}
+
+/***
+ * Email-history list *
+ ***/
+.ms-wrap.ms-communicationlog .wp-list-table .column-id {
+  width: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ms-wrap.ms-communicationlog .wp-list-table td.column-id {
+  font-size: 12px;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .column-date {
+  width: 120px;
+  white-space: nowrap;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .column-status {
+  width: 30px;
+  text-align: center;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .column-type {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .detail-block {
+  min-width: 300px;
+  position: relative;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .txt-quickinfo {
+  padding-left: 4px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .txt-subject {
+  color: #999;
+  padding-left: 10px;
+  display: inline;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details {
+  float: left;
+  width: 16px;
+  text-align: center;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .the-details {
+  display: none;
+  position: absolute;
+  top: 26px;
+  left: -6px;
+  right: 0;
+  background: #333;
+  padding: 10px;
+  z-index: 2;
+  color: #EEE;
+  text-align: left;
+  white-space: pre;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .the-details .inner {
+  overflow: auto;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .the-details hr {
+  margin: 11px 0 -8px;
+  border-color: #444;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .the-details:before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: -10px;
+  border: 5px solid transparent;
+  border-bottom-color: #333;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .the-details:after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: -25px;
+  height: 25px;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .line .line-num {
+  display: inline-block;
+  width: 22px;
+  color: #999;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details .line .line-val {
+  white-space: nowrap;
+}
+.ms-wrap.ms-communicationlog .wp-list-table .more-details:hover .the-details {
+  display: block;
 }
 
 /**
@@ -756,6 +859,10 @@
   border: 0;
   box-shadow: 0 -20px 10px -10px rgba(0, 0, 0, 0.15) inset, inset 0px -1px 1px rgba(0, 0, 0, 0.5), inset 0px 1px 1px rgba(255, 255, 255, 0.8);
   /*top internal highlight*/
+}
+#wpwrap .ms-wrap .ms-settings-title a .ms-membership,
+.ms-wrap .ms-settings-title a .ms-membership {
+  cursor: pointer;
 }
 #wpwrap .ms-wrap .ms-settings-desc,
 .ms-wrap .ms-settings-desc {
@@ -1718,6 +1825,9 @@ body #wpwrap .ms-wrap .wpmui-radio-slider-wrapper.inline-label .wpmui-field-labe
   margin-right: 10px;
   font-weight: bold;
 }
+.ms-wrap .ms-membership-list a .ms-membership {
+  cursor: pointer;
+}
 .ms-wrap .ms-membership-list .row-actions {
   margin-left: 23px;
 }
@@ -1881,6 +1991,9 @@ body #wpwrap .ms-wrap .wpmui-radio-slider-wrapper.inline-label .wpmui-field-labe
 }
 #wpwrap .ms-wrap tr.ms-assigned .ms-empty-note-wrapper {
   display: none;
+}
+#wpwrap .ms-wrap tr.ms-assigned .column-match .wpmui-select-wrapper .select2-selection__rendered {
+  color: #777;
 }
 #wpwrap .ms-wrap tr.ms-assigned .wpmui-select-wrapper .ms-memberships {
   margin: 0;
@@ -2554,6 +2667,9 @@ body #wpwrap .ms-wrap .wpmui-radio-slider-wrapper.inline-label .wpmui-field-labe
   z-index: 10;
   cursor: not-allowed;
   background: rgba(0, 0, 0, 0.1);
+}
+.ms-wrap.ms-addon-list .wpmui-input-direct_access {
+  width: 100%;
 }
 
 /**

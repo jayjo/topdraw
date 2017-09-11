@@ -41,16 +41,26 @@ class MS_Addon_Bbpress extends MS_Addon {
 	 * @since  1.0.0
 	 */
 	public function init() {
-		// Always remove bbpress from MS_Rule_CptGroup_Model.
-		$this->add_filter(
-			'ms_rule_cptgroup_model_get_excluded_content',
-			'exclude_bbpress_cpts'
-		);
 
 		if ( self::is_active() ) {
+			// Always remove bbpress from MS_Rule_CptGroup_Model.
+			$this->add_filter(
+				'ms_rule_cptgroup_model_get_excluded_content',
+				'exclude_bbpress_cpts'
+			);
+
 			$this->add_filter(
 				'ms_controller_protection_tabs',
 				'rule_tabs'
+			);
+
+			//Dripped content register rule
+			MS_Model_Rule::register_rule(
+				self::ID,
+				__CLASS__,
+				__( 'bbPress', 'membership2' ),
+				50,
+				true // can be dripped
 			);
 
 			MS_Factory::load( 'MS_Addon_Bbpress_Rule' );
@@ -66,9 +76,9 @@ class MS_Addon_Bbpress extends MS_Addon {
 	 */
 	public function register( $list ) {
 		$list[ self::ID ] = (object) array(
-			'name' => __( 'bbPress Integration', 'membership2' ),
-			'description' => __( 'Enable bbPress rules integration.', 'membership2' ),
-			'icon' => 'dashicons dashicons-format-chat',
+			'name' 			=> __( 'bbPress Integration', 'membership2' ),
+			'description' 	=> __( 'Enable bbPress rules integration.', 'membership2' ),
+			'icon' 			=> 'dashicons dashicons-format-chat',
 		);
 
 		if ( ! self::bbpress_active() ) {
@@ -104,7 +114,7 @@ class MS_Addon_Bbpress extends MS_Addon {
 	 * @return array The filtered tabs.
 	 */
 	public function rule_tabs( $tabs ) {
-		$rule = MS_Addon_Bbpress_Rule::RULE_ID;
+		$rule 			= MS_Addon_Bbpress_Rule::RULE_ID;
 		$tabs[ $rule  ] = true;
 
 		return $tabs;
@@ -128,5 +138,4 @@ class MS_Addon_Bbpress extends MS_Addon {
 
 		return $excluded;
 	}
-
 }

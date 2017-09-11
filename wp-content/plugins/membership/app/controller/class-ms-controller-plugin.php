@@ -2,6 +2,8 @@
 /**
  * Primary controller for Membership Plugin.
  *
+ * This controller is created during the `setup_theme` hook!
+ *
  * Responsible for flow control, navigation and invoking other controllers.
  *
  * @since  1.0.0
@@ -124,7 +126,7 @@ class MS_Controller_Plugin extends MS_Controller {
 		 *
 		 * @since  1.0.0
 		 */
-		if ( defined( 'MS_ADMIN_CAPABILITY' ) ) {
+		if ( defined( 'MS_ADMIN_CAPABILITY' ) && MS_ADMIN_CAPABILITY ) {
 			$this->capability = MS_ADMIN_CAPABILITY;
 		} else {
 			$this->capability = apply_filters(
@@ -157,12 +159,17 @@ class MS_Controller_Plugin extends MS_Controller {
 		// API should be the last Controller to create.
 		$this->controllers['api']                  = MS_Controller_Api::instance();
 
+		// Load the template-tags.
+		require_once MS_Plugin::instance()->dir . 'app/template/template-tags.php';
+
 		// Register all available styles and scripts. Nothing is enqueued.
 		$this->add_action( 'wp_loaded', 'wp_loaded' );
 
 		// Setup plugin admin UI.
-		$this->add_action( 'admin_menu', 'add_menu_pages' );
-		// Network-wide IS PRO ONLY!
+        $this->add_action( 'admin_menu', 'add_menu_pages' ); //for multisite, it needs too for Protection Rules page
+		if ( is_multisite() && MS_Plugin::is_network_wide() ) {
+             $this->add_action( 'network_admin_menu', 'add_menu_pages' );
+        }
 
 		// Select the right page to display.
 		$this->add_action( 'admin_init', 'route_submenu_request' );
@@ -382,12 +389,17 @@ class MS_Controller_Plugin extends MS_Controller {
 				$slug .= '-' . $page['slug'];
 			}
 
+			$page_title 	= apply_filters( 'ms_admin_submenu_page_title_' . $slug, $page['title'], $slug, self::$base_slug );
+			$menu_title 	= apply_filters( 'ms_admin_submenu_menu_title_' . $slug, $page['title'], $slug, self::$base_slug );
+			$capability 	= apply_filters( 'ms_admin_submenu_capability_' . $slug, $this->capability, $slug, self::$base_slug );
+			$submenu_slug 	= apply_filters( 'ms_admin_submenu_slug_' . $slug, $slug, self::$base_slug );
+
 			add_submenu_page(
 				self::$base_slug,
-				strip_tags( $page['title'] ),
-				$page['title'],
-				$this->capability,
-				$slug,
+				strip_tags( $page_title ),
+				$menu_title,
+				$capability,
+				$submenu_slug,
 				array( $this, 'handle_submenu_request' )
 			);
 
@@ -397,9 +409,9 @@ class MS_Controller_Plugin extends MS_Controller {
 			 * is an absolute URL.
 			 */
 			if ( $menu_link ) {
-				$item = end( $submenu[self::$base_slug] );
-				$key = key( $submenu[self::$base_slug] );
-				$submenu[self::$base_slug][$key][2] = $menu_link;
+				$item 	= end( $submenu[ self::$base_slug ] );
+				$key 	= key( $submenu[ self::$base_slug ] );
+				$submenu[ self::$base_slug ][ $key ][2] = $menu_link;
 			}
 		}
 
@@ -420,7 +432,7 @@ class MS_Controller_Plugin extends MS_Controller {
 		$pages = array(
 			'setup' => array(
 				'title' => __( 'Set-up', 'membership2' ),
-				'slug' => '',
+				'slug' 	=> '',
 			),
 		);
 
@@ -428,9 +440,9 @@ class MS_Controller_Plugin extends MS_Controller {
 		if ( MS_Controller_Membership::STEP_ADD_NEW == $step ) {
 			$pages['setup']['slug'] = 'setup';
 
-			$pages[self::MENU_SLUG] = array(
+			$pages[ self::MENU_SLUG ] = array(
 				'title' => __( 'Protection Rules', 'membership2' ),
-				'slug' => '',
+				'slug' 	=> '',
 			);
 		}
 
@@ -448,41 +460,41 @@ class MS_Controller_Plugin extends MS_Controller {
 		$show_billing = false;
 
 		$pages = array(
-			'memberships' => array(
-				'title' => __( 'Memberships', 'membership2' ),
-				'slug' => '',
+			'memberships' 		=> array(
+				'title' 			=> __( 'Memberships', 'membership2' ),
+				'slug' 				=> '',
 			),
 			'protected-content' => array(
-				'title' => __( 'Protection Rules', 'membership2' ),
-				'slug' => 'protection',
+				'title' 			=> __( 'Protection Rules', 'membership2' ),
+				'slug' 				=> 'protection',
 			),
-			'members' => array(
-				'title' => __( 'All Members', 'membership2' ),
-				'slug' => 'members',
+			'members' 			=> array(
+				'title' 			=> __( 'All Members', 'membership2' ),
+				'slug' 				=> 'members',
 			),
-			'add-member' => array(
-				'title' => __( 'Add Member', 'membership2' ),
-				'slug' => 'add-member',
+			'add-member' 		=> array(
+				'title' 			=> __( 'Add Member', 'membership2' ),
+				'slug' 				=> 'add-member',
 			),
-			'billing' => false,
-			'addon' => array(
-				'title' => __( 'Add-ons', 'membership2' ),
-				'slug' => 'addon',
+			'billing' 			=> false,
+			'addon' 			=> array(
+				'title' 			=> __( 'Add-ons', 'membership2' ),
+				'slug' 				=> 'addon',
 			),
-			'settings' => array(
-				'title' => __( 'Settings', 'membership2' ),
-				'slug' => 'settings',
+			'settings' 			=> array(
+				'title' 			=> __( 'Settings', 'membership2' ),
+				'slug' 				=> 'settings',
 			),
-			'help' => array(
-				'title' => __( 'Help', 'membership2' ),
-				'slug' => 'help',
+			'help' 				=> array(
+				'title' 			=> __( 'Help', 'membership2' ),
+				'slug' 				=> 'help',
 			),
 		);
 
-		$show_billing = MS_Model_Membership::have_paid_membership();
+		$show_billing 		= MS_Model_Membership::have_paid_membership();
 
 		if ( $show_billing ) {
-			$bill_count = MS_Model_Invoice::get_unpaid_invoice_count( null, true );
+			$bill_count 	= MS_Model_Invoice::get_unpaid_invoice_count( null, true );
 
 			if ( $bill_count > 0 ) {
 				$msg = '%1$s <span class="awaiting-mod count-%3$s"><span class="pending-count"><i class="hidden">(</i>%2$s<i class="hidden">)</i></span></span>';
@@ -505,8 +517,8 @@ class MS_Controller_Plugin extends MS_Controller {
 			 * gateways - if not then users cannot sign up for a membership.
 			 * Show a notice if no payment gateway is configured/activated.
 			 */
-			$gateways = MS_Model_Gateway::get_gateways( true );
-			$payment_possible = false;
+			$gateways 			= MS_Model_Gateway::get_gateways( true );
+			$payment_possible 	= false;
 			foreach ( $gateways as $key => $gateway ) {
 				if ( 'free' == $key ) { continue; }
 				$payment_possible = true;
@@ -540,14 +552,14 @@ class MS_Controller_Plugin extends MS_Controller {
 	 */
 	public function route_submenu_request() {
 		global $submenu;
-		$handler = null;
-		$handle_it = false;
+		$handler 	= null;
+		$handle_it 	= false;
 
 		if ( ! isset( $_GET['page'] ) ) { return; }
 		if ( $_GET['page'] === self::$base_slug ) {
 			$handle_it = true;
-		} elseif ( isset( $submenu[self::$base_slug] ) ) {
-			foreach ( $submenu[self::$base_slug] as $item ) {
+		} elseif ( isset( $submenu[ self::$base_slug ] ) ) {
+			foreach ( $submenu[ self::$base_slug ] as $item ) {
 				if ( $_GET['page'] === $item[2] ) { $handle_it = true; break; }
 			}
 		}
@@ -567,7 +579,7 @@ class MS_Controller_Plugin extends MS_Controller {
 					array( $this->controllers['protection'], 'admin_page' ),
 				);
 			}
-		} else  {
+		} else {
 			if ( self::is_page( '' ) ) {
 				$handler = array(
 					'network',
@@ -632,8 +644,8 @@ class MS_Controller_Plugin extends MS_Controller {
 
 		// Handle the target attribute specified in $handler[0]
 		if ( MS_Plugin::is_network_wide() && 'any' != $handler[0] ) {
-			$redirect = false;
-			$admin_script = 'admin.php?' . $_SERVER['QUERY_STRING'];
+			$redirect 		= false;
+			$admin_script 	= 'admin.php?' . $_SERVER['QUERY_STRING'];
 
 			if ( 'network' == $handler[0] && ! is_network_admin() ) {
 				$redirect = network_admin_url( $admin_script );
@@ -693,6 +705,23 @@ class MS_Controller_Plugin extends MS_Controller {
 	}
 
 	/**
+	 * Checks if the current user is on any Membership2 admin page.
+	 *
+	 * @since  1.0.0
+	 * @return bool
+	 */
+	public static function is_admin_page( ) {
+		$curpage = false;
+		if ( isset( $_REQUEST['page'] ) ) {
+			$curpage = sanitize_html_class( $_REQUEST['page'] );
+		}
+
+		$slug = self::$base_slug;
+
+		return ( strpos( $curpage, $slug ) !== false );
+	}
+
+	/**
 	 * Get admin url.
 	 *
 	 * @since  1.0.0
@@ -711,7 +740,8 @@ class MS_Controller_Plugin extends MS_Controller {
 		);
 
 		// Determine if the slug is opened in network-admin or site admin.
-		$network_slug = false;
+		$network_slug = MS_Plugin::is_network_wide()
+			&& ( in_array( $slug, $global_slugs ) || is_network_admin() );
 
 		if ( $network_slug ) {
 			$base_slug = self::MENU_SLUG;
@@ -854,7 +884,12 @@ class MS_Controller_Plugin extends MS_Controller {
 
 		// Checks for invoice single template.
 		if ( $type = MS_Model_Pages::is_membership_page() ) {
-			$membership_id = apply_filters( 'ms_detect_membership_id', 0, true );
+			$membership_id = apply_filters(
+				'ms_detect_membership_id',
+				0,
+				true,
+				true
+			);
 
 			if ( $membership_id ) {
 				$template = get_query_template(
@@ -909,25 +944,29 @@ class MS_Controller_Plugin extends MS_Controller {
 	 */
 	public function register_admin_scripts() {
 		$plugin_url = MS_Plugin::instance()->url;
-		$version = MS_Plugin::instance()->version;
+		$version 	= MS_Plugin::instance()->version;
 
 		// The main plugin script.
+		// Dont add dependants that hav not already loaded - Paul Kevin
 		wp_register_script(
 			'ms-admin',
-			$plugin_url . 'app/assets/js/ms-admin.js',
-			array( 'jquery', 'jquery-validate', 'jquery-plugins' ), $version
+			$plugin_url . 'app/assets/js/ms-admin.min.js',
+			array( 'jquery' ), $version
 		);
 
 		wp_register_script(
-			'jquery-plugins',
+			'm2-jquery-plugins',
 			$plugin_url . 'app/assets/js/jquery.m2.plugins.js',
 			array( 'jquery' ), $version
 		);
-		wp_register_script(
-			'jquery-validate',
-			$plugin_url . 'app/assets/js/jquery.m2.validate.js',
-			array( 'jquery' ), $version
-		);
+
+		if ( !wp_script_is( 'jquery-validate', 'registered' ) ){
+			wp_register_script(
+				'jquery-validate',
+				$plugin_url . 'app/assets/js/jquery.m2.validate.js',
+				array( 'jquery' ), $version
+			);
+		}
 	}
 
 	/**
@@ -942,7 +981,7 @@ class MS_Controller_Plugin extends MS_Controller {
 		// The main plugin style.
 		wp_register_style(
 			'ms-admin-styles',
-			$plugin_url . 'app/assets/css/ms-admin.css',
+			$plugin_url . 'app/assets/css/ms-admin.min.css',
 			null, $version
 		);
 	}
@@ -959,8 +998,8 @@ class MS_Controller_Plugin extends MS_Controller {
 		// The main plugin script.
 		wp_register_script(
 			'ms-admin',
-			$plugin_url . 'app/assets/js/ms-admin.js',
-			array( 'jquery', 'jquery-validate', 'jquery-plugins' ), $version
+			$plugin_url . 'app/assets/js/ms-admin.min.js',
+			array( 'jquery', 'jquery-validate', 'm2-jquery-plugins' ), $version
 		);
 		wp_register_script(
 			'ms-ajax-login',
@@ -974,7 +1013,7 @@ class MS_Controller_Plugin extends MS_Controller {
 		);
 
 		wp_register_script(
-			'jquery-plugins',
+			'm2-jquery-plugins',
 			$plugin_url . 'app/assets/js/jquery.m2.plugins.js',
 			array( 'jquery' ), $version
 		);
@@ -1008,11 +1047,15 @@ class MS_Controller_Plugin extends MS_Controller {
 	 *
 	 * @since  1.0.0
 	 */
-	public function enqueue_plugin_admin_styles() {
-		lib3()->ui->css( 'ms-admin-styles' );
-		lib3()->ui->add( 'core' );
-		lib3()->ui->add( 'select' );
-		lib3()->ui->add( 'fontawesome' );
+	public function enqueue_plugin_admin_styles( $hook ) {
+		//Load only on membership pages
+		$screen = get_current_screen();
+		if ( strpos( $screen->id , 'membership2') !== false ) {
+			lib3()->ui->css( 'ms-admin-styles' );
+			lib3()->ui->add( 'core' );
+			lib3()->ui->add( 'select' );
+			lib3()->ui->add( 'fontawesome' );
+		}
 	}
 
 	/**
@@ -1034,6 +1077,12 @@ class MS_Controller_Plugin extends MS_Controller {
 	 * @return void
 	 */
 	public function enqueue_plugin_admin_scripts() {
+		//Missing scripts needed for the meta box
+		lib3()->ui->js( 'm2-jquery-plugins' );
+		if( self::is_admin_page( ) ){
+			lib3()->ui->js( 'jquery-validate' );
+		}
+		lib3()->ui->js( 'ms-admin' );
 		lib3()->ui->add( 'select' );
 	}
 

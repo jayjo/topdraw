@@ -62,7 +62,7 @@ class MS_Controller_Protection extends MS_Controller {
 			if ( ! empty( $_REQUEST['membership_id'] ) ) {
 				$membership_id = absint( $_REQUEST['membership_id'] );
 
-				if ( $membership_id == MS_Model_Membership::get_base()->id ) {
+				if ( MS_Model_Membership::get_base()->id == $membership_id ) {
 					wp_safe_redirect(
 						esc_url_raw(
 							remove_query_arg( array( 'membership_id' ) )
@@ -112,7 +112,7 @@ class MS_Controller_Protection extends MS_Controller {
 
 			lib3()->array->equip_post( 'action', 'action2', 'item', 'rule_type' );
 			$action = $_POST['action'];
-			if ( empty( $action ) || $action == '-1' ) {
+			if ( empty( $action ) || '-1' == $action ) {
 				$action = $_POST['action2'];
 			}
 			$items = $_POST['item'];
@@ -180,8 +180,8 @@ class MS_Controller_Protection extends MS_Controller {
 	public function admin_page() {
 		do_action( 'ms_controller_protection_admin_page' );
 
-		$data = array();
-		$data['tabs'] = $this->get_available_tabs();
+		$data 				= array();
+		$data['tabs'] 		= $this->get_available_tabs();
 		$data['active_tab'] = $this->get_active_tab();
 
 		$view = MS_Factory::create( 'MS_View_Protection' );
@@ -200,89 +200,100 @@ class MS_Controller_Protection extends MS_Controller {
 		static $Tabs = null;
 
 		if ( null === $Tabs ) {
-			$membership = $this->load_membership();
-			$membership_id = $membership->id;
-			$is_base = $membership->is_base();
-			$settings = MS_Factory::load( 'MS_Model_Settings' );
+			$membership 	= $this->load_membership();
+			$membership_id 	= $membership->id;
+			$is_base 		= $membership->is_base();
+			$settings 		= MS_Factory::load( 'MS_Model_Settings' );
 
 			// First create a list including all possible tabs.
 			$tabs = array(
-				MS_Rule_Page::RULE_ID => true,
-				MS_Rule_Post::RULE_ID => true,
-				MS_Rule_Category::RULE_ID => true,
-				MS_Rule_Content::RULE_ID => true,
-				MS_Rule_Media::RULE_ID => true,
-				MS_Rule_MenuItem::RULE_ID => true,
-				MS_Rule_ReplaceMenu::RULE_ID => true,
-				MS_Rule_ReplaceLocation::RULE_ID => true,
-				MS_Rule_Shortcode::RULE_ID => true,
-				MS_Rule_Url::RULE_ID => true,
-				MS_Rule_Special::RULE_ID => true,
-				MS_Rule_MemberCaps::RULE_ID => true,
-				MS_Rule_MemberRoles::RULE_ID => true,
+				MS_Rule_Page::RULE_ID 				=> true,
+				MS_Rule_Post::RULE_ID 				=> true,
+				MS_Rule_Category::RULE_ID		 	=> true,
+				MS_Rule_CptItem::RULE_ID 			=> true,
+				MS_Rule_CptGroup::RULE_ID 			=> true,
+				MS_Rule_Content::RULE_ID 			=> true,
+				MS_Rule_Media::RULE_ID 				=> true,
+				MS_Rule_MenuItem::RULE_ID 			=> true,
+				MS_Rule_ReplaceMenu::RULE_ID 		=> true,
+				MS_Rule_ReplaceLocation::RULE_ID 	=> true,
+				MS_Rule_Shortcode::RULE_ID 			=> true,
+				MS_Rule_Url::RULE_ID 				=> true,
+				MS_Rule_Special::RULE_ID 			=> true,
+				
+				MS_Rule_MemberCaps::RULE_ID 		=> true,
+				MS_Rule_MemberRoles::RULE_ID 		=> true,
 			);
 
 			// Now remove items from the list that are not available.
 
 			// Optionally show "Posts"
 			if ( ! MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_POST_BY_POST ) ) {
-				$tabs[MS_Rule_Post::RULE_ID] = false;
+				$tabs[ MS_Rule_Post::RULE_ID ] = false;
 			}
 
 			// Optionally show "Category"
 			if ( ! MS_Model_Addon::is_enabled( MS_Addon_Category::ID ) ) {
-				$tabs[MS_Rule_Category::RULE_ID] = false;
+				$tabs[ MS_Rule_Category::RULE_ID ] = false;
 			}
 
 			// Optionally show "Media"
 			if ( ! MS_Model_Addon::is_enabled( MS_Addon_Mediafiles::ID ) ) {
-				$tabs[MS_Rule_Media::RULE_ID] = false;
+				$tabs[ MS_Rule_Media::RULE_ID ] = false;
+			}
+
+			if ( MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_CPT_POST_BY_POST ) ) {
+				$tabs[ MS_Rule_CptGroup::RULE_ID ] = false;
+			} else {
+				$tabs[ MS_Rule_CptItem::RULE_ID ] = false;
 			}
 
 			// Either "Menu Item" or "Menus" or "Menu Location"
 			switch ( $settings->menu_protection ) {
 				case 'menu':
-					$tabs[MS_Rule_MenuItem::RULE_ID] = false;
-					$tabs[MS_Rule_ReplaceLocation::RULE_ID] = false;
+					$tabs[ MS_Rule_MenuItem::RULE_ID ] 			= false;
+					$tabs[ MS_Rule_ReplaceLocation::RULE_ID ] 	= false;
 					break;
 
 				case 'location':
-					$tabs[MS_Rule_MenuItem::RULE_ID] = false;
-					$tabs[MS_Rule_ReplaceMenu::RULE_ID] = false;
+					$tabs[ MS_Rule_MenuItem::RULE_ID ] 			= false;
+					$tabs[ MS_Rule_ReplaceMenu::RULE_ID ] 		= false;
 					break;
 
 				case 'item':
 				default:
-					$tabs[MS_Rule_ReplaceMenu::RULE_ID] = false;
-					$tabs[MS_Rule_ReplaceLocation::RULE_ID] = false;
+					$tabs[ MS_Rule_ReplaceMenu::RULE_ID ] 		= false;
+					$tabs[ MS_Rule_ReplaceLocation::RULE_ID ] 	= false;
 					break;
 			}
 
 			// Maybe "Special Pages".
 			if ( ! MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_SPECIAL_PAGES ) ) {
-				$tabs[MS_Rule_Special::RULE_ID] = false;
+				$tabs[ MS_Rule_Special::RULE_ID ] = false;
 			}
 
 			// Maybe "URLs"
 			if ( ! MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_URL_GROUPS ) ) {
-				$tabs[MS_Rule_Url::RULE_ID] = false;
+				$tabs[ MS_Rule_Url::RULE_ID ] = false;
 			}
 
 			// Maybe "Shortcodes"
 			if ( ! MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_SHORTCODE ) ) {
-				$tabs[MS_Rule_Shortcode::RULE_ID] = false;
+				$tabs[ MS_Rule_Shortcode::RULE_ID ] = false;
 			}
+
+			
 
 			// Maybe "Membercaps"
 			if ( MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_MEMBERCAPS ) ) {
 				if ( MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_MEMBERCAPS_ADV ) ) {
-					$tabs[MS_Rule_MemberRoles::RULE_ID] = false;
+					$tabs[ MS_Rule_MemberRoles::RULE_ID ] = false;
 				} else {
-					$tabs[MS_Rule_MemberCaps::RULE_ID] = false;
+					$tabs[ MS_Rule_MemberCaps::RULE_ID ] = false;
 				}
 			} else {
-				$tabs[MS_Rule_MemberRoles::RULE_ID] = false;
-				$tabs[MS_Rule_MemberCaps::RULE_ID] = false;
+				$tabs[ MS_Rule_MemberRoles::RULE_ID ] 	= false;
+				$tabs[ MS_Rule_MemberCaps::RULE_ID ] 	= false;
 			}
 
 			lib3()->array->equip( $_GET, 'page' );
@@ -399,8 +410,8 @@ class MS_Controller_Protection extends MS_Controller {
 		}
 
 		$data = array(
-			'ms_init' => array(),
-			'lang' => array(
+			'ms_init' 	=> array(),
+			'lang' 		=> array(
 				'quickedit_error' => __( 'Error while saving changes.', 'membership2' ),
 			),
 			'dripped' => $dripped,
@@ -410,10 +421,10 @@ class MS_Controller_Protection extends MS_Controller {
 
 		switch ( $this->get_active_tab() ) {
 			case 'url':
-				$data['valid_rule_msg'] = __( 'Valid', 'membership2' );
-				$data['invalid_rule_msg'] = __( 'Invalid', 'membership2' );
-				$data['empty_msg'] = __( 'Before testing you have to first enter one or more Page URLs above.', 'membership2' );
-				$data['ms_init'][] = 'view_membership_urlgroup';
+				$data['valid_rule_msg'] 	= __( 'Valid', 'membership2' );
+				$data['invalid_rule_msg'] 	= __( 'Invalid', 'membership2' );
+				$data['empty_msg'] 			= __( 'Before testing you have to first enter one or more Page URLs above.', 'membership2' );
+				$data['ms_init'][] 			= 'view_membership_urlgroup';
 				break;
 
 			default:
@@ -427,5 +438,4 @@ class MS_Controller_Protection extends MS_Controller {
 
 		do_action( 'ms_controller_protection_enqueue_scripts', $this );
 	}
-
 }

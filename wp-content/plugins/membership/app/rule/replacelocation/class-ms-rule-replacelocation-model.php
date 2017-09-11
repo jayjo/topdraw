@@ -70,6 +70,15 @@ class MS_Rule_ReplaceLocation_Model extends MS_Rule {
 	}
 
 	/**
+	 * Support menu protection on admin-side.
+	 *
+	 * @since  1.0.2.4
+	 */
+	public function protect_admin_content() {
+		$this->protect_content();
+	}
+
+	/**
 	 * Replace specific menus for certain members.
 	 *
 	 * Relevant Action Hooks:
@@ -124,8 +133,8 @@ class MS_Rule_ReplaceLocation_Model extends MS_Rule {
 				$access = false;
 
 				if ( is_numeric( $saved ) && isset( $menus[ $saved ] ) ) {
-					$val = absint( $saved );
-					$access = true;
+					$val 		= absint( $saved );
+					$access 	= true;
 					$post_title = sprintf(
 						'%s &rarr; %s',
 						strip_tags( $description ),
@@ -134,12 +143,12 @@ class MS_Rule_ReplaceLocation_Model extends MS_Rule {
 				}
 
 				$contents[ $key ] = (object) array(
-					'access' => $access,
-					'title' => $description,
-					'value' => $val,
-					'post_title' => $post_title,
-					'id' => $key,
-					'type' => $this->rule_type,
+					'access' 		=> $access,
+					'title' 		=> $description,
+					'value' 		=> $val,
+					'post_title' 	=> $post_title,
+					'id'		 	=> $key,
+					'type' 			=> $this->rule_type,
 				);
 			}
 		}
@@ -285,10 +294,10 @@ class MS_Rule_ReplaceLocation_Model extends MS_Rule {
 
 		if ( ! $this->is_base_rule ) {
 			if ( MS_Model_Rule::RULE_VALUE_NO_ACCESS == $replace ) {
-				$delete = true;
+				$delete 	= true;
 			} else {
-				$base_rule = MS_Model_Membership::get_base()->get_rule( $this->rule_type );
-				$replace = true;
+				$base_rule 	= MS_Model_Membership::get_base()->get_rule( $this->rule_type );
+				$replace 	= true;
 			}
 		}
 

@@ -1,10 +1,15 @@
 <?php
 /**
+ * M2 Model file.
+ *
+ * @package Membership2
+ * @subpackage Model
+ */
+
+/**
  * Main class for protection.
  *
  * @since  1.0.0
- * @package Membership2
- * @subpackage Model
  */
 class MS_Model_Plugin extends MS_Model {
 
@@ -15,7 +20,7 @@ class MS_Model_Plugin extends MS_Model {
 	 *
 	 * @var string $member
 	 */
-	private $member;
+	public $member;
 
 	/**
 	 * Full admin menu, used by the Adminside rule.
@@ -30,12 +35,30 @@ class MS_Model_Plugin extends MS_Model {
 	protected $admin_menu = array();
 
 	/**
+	 * The number of members processed per batch
+	 *
+	 * @since 1.0.2.6
+	 *
+	 * @var $_process_per_batch
+	 */
+	private $_process_per_batch = 500;
+
+	/**
 	 * Prepare object.
 	 *
 	 * @since  1.0.0
 	 */
 	public function __construct() {
 		do_action( 'ms_model_plugin_constructor', $this );
+
+		/**
+		 * Define MS_PROCESS_PER_BATCH, set the number of members will be processed per batch
+		 *
+		 * Default value is 500
+		 */
+		if ( defined( 'MS_PROCESS_PER_BATCH' ) && MS_PROCESS_PER_BATCH ) {
+			$this->_process_per_batch = intval( MS_PROCESS_PER_BATCH );
+		}
 
 		// Upgrade membership database if needs to.
 		MS_Model_Upgrade::init();
@@ -75,7 +98,7 @@ class MS_Model_Plugin extends MS_Model {
 		 */
 
 		// Initialize the current member
-		$this->run_action( 'init', 'init_member', 1 );
+		$this->run_action( 'init', 'init_member', 11 ); // Load AFTER the default hook.
 
 		/*
 		 * ******************************************************************* *
@@ -90,12 +113,22 @@ class MS_Model_Plugin extends MS_Model {
 		$this->add_filter( 'cron_schedules', 'cron_time_period' );
 		$this->add_filter( 'ms_run_cron_services', 'run_cron_services' );
 		$this->add_action( 'ms_cron_check_membership_status', 'check_membership_status' );
+		$this->add_action( 'ms_toggle_cron', 'setup_cron_services', 1 );
 
 		$this->add_action( 'template_redirect', 'protect_current_page', 1 );
 
-		// Init gateways and communications to register actions/filters
+		// Init gateways and communications to register actions/filters.
 		$this->run_action( 'init', array( 'MS_Model_Gateway', 'get_gateways' ), 2 );
 		$this->run_action( 'init', array( 'MS_Model_Communication', 'init' ), 2 );
+
+		// Old plugin is enabled? Show a warning!
+		if ( class_exists( 'M_Membership' ) ) {
+			lib3()->ui->admin_message(
+				__( '<b>Warning</b>: The old version of the Membership plugin is active and causes conflicts with the new Membership 2 plugin. Please disable the old Membership plugin.', 'membership2' ),
+				'red'
+			);
+		}
+
 	}
 
 	/**
@@ -176,22 +209,22 @@ class MS_Model_Plugin extends MS_Model {
 		static $Info = null;
 
 		if ( null === $Info ) {
-			$Info = array(
-				'has_access' => null,
-				'is_admin' => false,
-				'memberships' => array(),
-				'url' => MS_Helper_Utility::get_current_url(),
+			$Info 		= array(
+				'has_access' 	=> null,
+				'is_admin' 		=> false,
+				'memberships'	=> array(),
+				'url' 			=> MS_Helper_Utility::get_current_url(),
 			);
 
 			// The ID of the main system membership.
-			$base_id = MS_Model_Membership::get_base()->id;
+			$base_id 	= MS_Model_Membership::get_base()->id;
 
 			$simulation = $this->member->is_simulated_user() || isset( $_GET['explain'] ) && 'access' == $_GET['explain'];
 			if ( $simulation ) { $Info['reason'] = array(); }
 
 			if ( $this->member->is_normal_admin() ) {
 				// Admins have access to ALL memberships.
-				$Info['is_admin'] = true;
+				$Info['is_admin'] 	= true;
 				$Info['has_access'] = true;
 
 				if ( $simulation ) {
@@ -253,22 +286,22 @@ class MS_Model_Plugin extends MS_Model {
 						}
 
 						if ( $simulation ) {
-							$Info['reason'][] = sprintf(
+							$Info['reason'][] 				= sprintf(
 								__( '%s: Membership "%s"', 'membership2' ),
 								$access ? __( 'Allow', 'membership2' ) : __( 'Deny', 'membership2' ),
 								$membership->name
 							);
 
-							$Info['deciding_membership'] = $membership->id;
+							$Info['deciding_membership'] 	= $membership->id;
 							if ( $access ) {
-								$Info['deciding_rule'] = $membership->_allow_rule;
+								$Info['deciding_rule'] 		= $membership->_allow_rule;
 							} else {
-								$Info['deciding_rule'] = $membership->_deny_rule;
+								$Info['deciding_rule'] 		= $membership->_deny_rule;
 							}
-							$Info['reason'][] = $membership->_access_reason;
+							$Info['reason'][] 				= $membership->_access_reason;
 						}
 
-						$Info['has_access'] = $access;
+						$Info['has_access'] 				= $access;
 					}
 				}
 
@@ -276,7 +309,7 @@ class MS_Model_Plugin extends MS_Model {
 					$Info['has_access'] = true;
 
 					if ( $simulation ) {
-						$Info['reason'][] = __( 'Allow: Page is not protected', 'membership2' );
+						$Info['reason'][] 					= __( 'Allow: Page is not protected', 'membership2' );
 					}
 				}
 
@@ -292,8 +325,8 @@ class MS_Model_Plugin extends MS_Model {
 				$access = lib3()->session->get_clear( 'ms-access' );
 				lib3()->session->add( 'ms-access', $Info );
 				for ( $i = 0; $i < 9; $i += 1 ) {
-					if ( isset( $access[$i] ) ) {
-						lib3()->session->add( 'ms-access', $access[$i] );
+					if ( isset( $access[ $i ] ) ) {
+						lib3()->session->add( 'ms-access', $access[ $i ] );
 					}
 				}
 
@@ -305,10 +338,15 @@ class MS_Model_Plugin extends MS_Model {
 
 					lib3()->debug->stacktrace_off();
 					foreach ( $access as $item ) {
+						if ( $item['has_access'] ) {
+							$label = __( 'Allow', 'membership2' );
+						} else {
+							$label = __( 'Deny', 'membership2' );
+						}
 						printf(
 							'<a href="%1$s">%1$s</a>: <strong>%2$s</strong>',
-							$item['url'],
-							$item['has_access'] ? __( 'Allow', 'membership2' ) : __( 'Deny', 'membership2' )
+							esc_url( $item['url'] ),
+							esc_attr( $label )
 						);
 						// Intended debug output, leave it here.
 						lib3()->debug->dump( $item );
@@ -331,8 +369,21 @@ class MS_Model_Plugin extends MS_Model {
 	 */
 	public function protect_current_page() {
 		do_action( 'ms_model_plugin_protect_current_page_before', $this );
+                
+		if( defined( 'MS_PROTECTED_MESSAGE_REVERSE_RULE' ) && MS_PROTECTED_MESSAGE_REVERSE_RULE ) {
+			$allowed_memberships = array();
+			$memberships = MS_Model_Membership::get_membership_ids();
+			foreach( $memberships as $membership_id ) {
+				$membership = MS_Factory::load( 'MS_Model_Membership', $membership_id );
+				if( $membership->has_access_to_current_page() ) {
+					$allowed_memberships[$membership->priority] = $membership_id;
+				}
+			}
+			ksort( $allowed_memberships );
+			$protected_membership_id = reset( $allowed_memberships );
+		}
 
-		// Admin user has access to everything
+		// Admin user has access to everything.
 		if ( $this->member->is_normal_admin() ) {
 			return;
 		}
@@ -340,6 +391,18 @@ class MS_Model_Plugin extends MS_Model {
 		$access = $this->get_access_info();
 
 		if ( ! $access['has_access'] ) {
+
+			if ( $auth = filter_input( INPUT_GET, 'auth' ) ) {
+				//set cookie when mapped domains
+				$user_id = wp_validate_auth_cookie( $auth, 'auth' );
+				if ( $user_id ) {
+						wp_set_auth_cookie( $user_id );
+
+						wp_redirect( get_permalink() );
+						exit;
+				}
+			}
+
 			MS_Model_Pages::create_missing_pages();
 			$no_access_page_url = MS_Model_Pages::get_page_url(
 				MS_Model_Pages::MS_PAGE_PROTECTED_CONTENT,
@@ -349,12 +412,21 @@ class MS_Model_Plugin extends MS_Model {
 
 			// Don't (re-)redirect the protection page.
 			if ( ! MS_Model_Pages::is_membership_page( null, MS_Model_Pages::MS_PAGE_PROTECTED_CONTENT ) ) {
-				$no_access_page_url = esc_url_raw(
-					add_query_arg(
-						array( 'redirect_to' => urlencode( $current_page_url ) ),
-						$no_access_page_url
-					)
-				);
+                if( defined( 'MS_PROTECTED_MESSAGE_REVERSE_RULE' ) && MS_PROTECTED_MESSAGE_REVERSE_RULE ) {
+					$no_access_page_url = esc_url_raw(
+						add_query_arg(
+							array( 'redirect_to' => urlencode( $current_page_url ), 'membership_id' => $protected_membership_id ),
+							$no_access_page_url
+						)
+					);
+				} else {
+					$no_access_page_url = esc_url_raw(
+						add_query_arg(
+							array( 'redirect_to' => urlencode( $current_page_url ) ),
+							$no_access_page_url
+						)
+					);
+				}
 
 				$no_access_page_url = apply_filters(
 					'ms_model_plugin_protected_content_page',
@@ -380,7 +452,7 @@ class MS_Model_Plugin extends MS_Model {
 	public function load_addons() {
 		do_action( 'ms_load_addons', $this );
 
-		// Initialize all Add-ons
+		// Initialize all Add-ons.
 		MS_Model_Addon::get_addons();
 	}
 
@@ -396,7 +468,7 @@ class MS_Model_Plugin extends MS_Model {
 		do_action( 'ms_load_rules', $this );
 
 		$rule_types = MS_Model_Rule::get_rule_types();
-		$base = MS_Model_Membership::get_base();
+		$base 		= MS_Model_Membership::get_base();
 
 		foreach ( $rule_types as $rule_type ) {
 			$rule = $base->get_rule( $rule_type );
@@ -410,6 +482,7 @@ class MS_Model_Plugin extends MS_Model {
 	 * - ms_init_done
 	 *
 	 * @since  1.0.0
+	 * @throws Exception When function is called too early.
 	 */
 	public function setup_rules() {
 		// Make sure we stick to the correct workflow.
@@ -439,6 +512,7 @@ class MS_Model_Plugin extends MS_Model {
 	 * - ms_init_done
 	 *
 	 * @since  1.0.0
+	 * @throws Exception When function called too early.
 	 */
 	public function setup_protection() {
 		if ( is_admin() ) { return; }
@@ -451,6 +525,25 @@ class MS_Model_Plugin extends MS_Model {
 
 		do_action( 'ms_setup_protection', $this );
 
+		// If multi membership addon is active and member has at least one membership with allow access then no need to protect content
+		$disable_protection = false;
+		if ( ! $this->member->is_normal_admin() && MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_MULTI_MEMBERSHIPS ) ) {
+
+			foreach ( $this->member->subscriptions as $subscription ) {
+				// Verify status of the membership.
+				// Only active, trial or canceled (until it expires) status memberships.
+				if ( ! $this->member->has_membership( $subscription->membership_id ) ) {
+					continue;
+				}
+
+				$membership = $subscription->get_membership();
+				$membership->initialize( $subscription );
+						
+				$disable_protection = $disable_protection || $membership->has_access_to_content( MS_Rule_Content_Model::MORE_LIMIT );
+			}
+
+		}		
+
 		// Search permissions through all memberships joined.
 		foreach ( $this->member->subscriptions as $subscription ) {
 			// Verify status of the membership.
@@ -462,8 +555,8 @@ class MS_Model_Plugin extends MS_Model {
 			$membership = $subscription->get_membership();
 			$membership->initialize( $subscription );
 
-			// Protection is not applied for Admin users
-			if ( ! $this->member->is_normal_admin() ) {
+			// Protection is not applied for Admin users.
+			if ( ! $this->member->is_normal_admin() && ! $disable_protection ) {
 				$membership->protect_content();
 			}
 		}
@@ -478,6 +571,7 @@ class MS_Model_Plugin extends MS_Model {
 	 * - ms_init_done
 	 *
 	 * @since  1.0.0
+	 * @throws Exception When function is called too early.
 	 */
 	public function setup_admin_protection() {
 		if ( ! is_admin() ) { return; }
@@ -501,7 +595,7 @@ class MS_Model_Plugin extends MS_Model {
 			$membership = $subscription->get_membership();
 			$membership->initialize( $subscription );
 
-			// Protection is not applied for Admin users
+			// Protection is not applied for Admin users.
 			if ( ! $this->member->is_normal_admin() ) {
 				$membership->protect_admin_content();
 			}
@@ -518,6 +612,8 @@ class MS_Model_Plugin extends MS_Model {
 	 * - cron_schedules
 	 *
 	 * @since  1.0.0
+	 * @param  array $periods Default Cron-Job period values; we add new ones.
+	 * @return array Modified list of Cron-Job periods.
 	 */
 	public function cron_time_period( $periods ) {
 		if ( ! is_array( $periods ) ) {
@@ -525,12 +621,12 @@ class MS_Model_Plugin extends MS_Model {
 		}
 
 		$periods['6hours'] = array(
-			'interval' => 6 * HOUR_IN_SECONDS,
-			'display' => __( 'Every 6 Hours', 'membership2' )
+			'interval' 	=> 6 * HOUR_IN_SECONDS,
+			'display' 	=> __( 'Every 6 Hours', 'membership2' ),
 		);
 		$periods['30mins'] = array(
-			'interval' => 30 * MINUTE_IN_SECONDS,
-			'display' => __( 'Every 30 Mins', 'membership2' )
+			'interval' 	=> 30 * MINUTE_IN_SECONDS,
+			'display' 	=> __( 'Every 30 Mins', 'membership2' ),
 		);
 
 		return apply_filters(
@@ -544,6 +640,7 @@ class MS_Model_Plugin extends MS_Model {
 	 * This function is used to manually trigger the cron services.
 	 *
 	 * @since  1.0.0
+	 * @param  string $hook Cron-Job to run on next page load.
 	 */
 	public function run_cron_services( $hook ) {
 		wp_clear_scheduled_hook( $hook );
@@ -565,14 +662,21 @@ class MS_Model_Plugin extends MS_Model {
 	 * "Membership2 > Settings" and adding URL param "&run_cron=1"
 	 *
 	 * @since  1.0.0
+	 * @param  string $reschedule Optional. Hook to re-schedule.
 	 */
 	public function setup_cron_services( $reschedule = null ) {
 		do_action( 'ms_model_plugin_setup_cron_services_before', $this );
 
-		$jobs = array(
-			'ms_cron_check_membership_status' => '6hours',
-			'ms_cron_process_communications' => 'hourly',
-		);
+		$jobs 		= self::cron_jobs();
+		$settings 	= MS_Factory::load( 'MS_Model_settings' );
+
+		if ( !$settings->enable_cron_use ) {
+			if ( wp_next_scheduled( 'ms_cron_process_communications' ) ) {
+				wp_clear_scheduled_hook( 'ms_cron_process_communications' );
+			}
+			do_action( 'ms_cron_process_communications' ); //Send any pending emails 
+			unset( $jobs['ms_cron_process_communications'] );
+		}
 
 		foreach ( $jobs as $hook => $interval ) {
 			if ( ! wp_next_scheduled( $hook ) || $hook == $reschedule ) {
@@ -581,6 +685,20 @@ class MS_Model_Plugin extends MS_Model {
 		}
 
 		do_action( 'ms_model_plugin_setup_cron_services_after', $this );
+	}
+
+	/**
+	 * Plugin cron jobs
+	 *
+	 * @since 1.0.3.6
+	 *
+	 * @return Array
+	 */
+	public static function cron_jobs() {
+		return array(
+			'ms_cron_check_membership_status' 	=> '6hours',
+			'ms_cron_process_communications' 	=> 'hourly',
+		);
 	}
 
 	/**
@@ -598,16 +716,49 @@ class MS_Model_Plugin extends MS_Model {
 			return;
 		}
 
-		$args = apply_filters(
+		/*
+		 * For performance reasons we only process a small batch at once.
+		 * Here we find out, which subscriptions should be processed during
+		 * the current request.
+		 */
+		$offset = (int) MS_Factory::get_option( 'ms_batch_check_offset_flag' );
+
+		// Find the next X subscriptions from DB.
+		$args 	= apply_filters(
 			'ms_model_plugin_check_membership_status_get_subscription_args',
-			array( 'status' => 'valid' )
+			array(
+				'status' 			=> 'valid',
+				'orderby' 			=> 'ID',
+				'posts_per_page' 	=> $this->_process_per_batch,
+				'offset' 			=> $offset,
+				'nopaging' 			=> false,
+			)
 		);
 		$subscriptions = MS_Model_Relationship::get_subscriptions( $args );
 
+		if ( count( $subscriptions ) < $this->_process_per_batch ) {
+			// We processed all subscriptions. Clean up.
+			MS_Factory::delete_option( 'ms_batch_check_offset_flag' );
+		} else {
+			// We did not process all subscriptions. Remember where to continue.
+			MS_Factory::update_option(
+				'ms_batch_check_offset_flag',
+				$offset + $this->_process_per_batch
+			);
+
+			// Re-scheduling the cron job will run it again on next page load.
+			$hook = 'ms_cron_check_membership_status';
+			wp_clear_scheduled_hook( $hook );
+			$this->setup_cron_services( $hook );
+		}
+                
+        $_SESSION['m2_status_check'] = 'inv';
+
+		// Perform the actual status checks!
 		foreach ( $subscriptions as $subscription ) {
 			$subscription->check_membership_status();
 		}
-
+                
 		do_action( 'ms_model_plugin_check_membership_status_after', $this );
 	}
 
@@ -625,15 +776,15 @@ class MS_Model_Plugin extends MS_Model {
 
 		if ( ! isset( $this->admin_menu['main'] ) ) {
 			$this->admin_menu = array(
-				'main' => $menu,
-				'sub' => $submenu,
+				'main' 	=> $menu,
+				'sub' 	=> $submenu,
 			);
 		} else {
 			foreach ( $menu as $pos => $item ) {
-				$this->admin_menu['main'][$pos] = $item;
+				$this->admin_menu['main'][ $pos ] 	= $item;
 			}
 			foreach ( $submenu as $parent => $item ) {
-				$this->admin_menu['sub'][$parent] = $item;
+				$this->admin_menu['sub'][ $parent ] = $item;
 			}
 			ksort( $this->admin_menu['main'] );
 		}
@@ -649,5 +800,4 @@ class MS_Model_Plugin extends MS_Model {
 	public function get_admin_menu() {
 		return $this->admin_menu;
 	}
-
 }

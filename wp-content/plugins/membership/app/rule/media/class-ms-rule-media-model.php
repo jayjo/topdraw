@@ -9,6 +9,10 @@
  * @package Membership2
  * @subpackage Model
  */
+
+/**
+ * Rule model.
+ */
 class MS_Rule_Media_Model extends MS_Rule {
 
 	/**
@@ -27,9 +31,9 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 *
 	 * @var string $protection_type
 	 */
-	const PROTECTION_TYPE_BASIC = 'protection_type_basic';
-	const PROTECTION_TYPE_COMPLETE = 'protection_type_complete';
-	const PROTECTION_TYPE_HYBRID = 'protection_type_hybrid';
+	const PROTECTION_TYPE_BASIC 	= 'protection_type_basic';
+	const PROTECTION_TYPE_COMPLETE 	= 'protection_type_complete';
+	const PROTECTION_TYPE_HYBRID 	= 'protection_type_hybrid';
 
 	/**
 	 * Media protection file change prefix.
@@ -69,12 +73,21 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param string $id The content id to verify access.
+	 * @param  string $id The content id to verify access.
+	 * @param  bool   $admin_has_access Used for post-meta box to get correct
+	 *         post permission: By default admin has access to all posts, if
+	 *         this flag is FALSE then the admin-check is skipped.
 	 * @return bool|null True if has access, false otherwise.
-	 *     Null means: Rule not relevant for current page.
+	 *         Null means: Rule not relevant for current page.
 	 */
 	public function has_access( $id, $admin_has_access = true ) {
-		return null;
+		if ( MS_Model_Addon::is_enabled( MS_Addon_Mediafiles::ID )
+			&& 'attachment' == get_post_type( $id )
+		) {
+			return parent::has_access( $id, $admin_has_access );
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -89,19 +102,19 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 * }
 	 */
 	public static function get_protection_types() {
-		$settings = MS_Factory::load( 'MS_Model_Settings' );
-		$mask = $settings->downloads['masked_url'];
-		$example1 = MS_Helper_Utility::home_url( $mask . date( '/Y/m/' ) . 'my-image.jpg' );
-		$example2 = MS_Helper_Utility::home_url( $mask . '/ms_12345.jpg' );
-		$example3 = MS_Helper_Utility::home_url( $mask . '/?ms_file=ms_12345.jpg' );
-		$example1 = '<br /><small>' . __( 'Example:', 'membership2' ) . ' ' . $example1 . '</small>';
-		$example2 = '<br /><small>' . __( 'Example:', 'membership2' ) . ' ' . $example2 . '</small>';
-		$example3 = '<br /><small>' . __( 'Example:', 'membership2' ) . ' ' . $example3 . '</small>';
+		$settings 	= MS_Factory::load( 'MS_Model_Settings' );
+		$mask 		= $settings->downloads['masked_url'];
+		$example1 	= MS_Helper_Utility::home_url( $mask . date( '/Y/m/' ) . 'my-image.jpg' );
+		$example2 	= MS_Helper_Utility::home_url( $mask . '/ms_12345.jpg' );
+		$example3 	= MS_Helper_Utility::home_url( $mask . '/?ms_file=ms_12345.jpg' );
+		$example1 	= '<br /><small>' . __( 'Example:', 'membership2' ) . ' ' . $example1 . '</small>';
+		$example2 	= '<br /><small>' . __( 'Example:', 'membership2' ) . ' ' . $example2 . '</small>';
+		$example3 	= '<br /><small>' . __( 'Example:', 'membership2' ) . ' ' . $example3 . '</small>';
 
 		$protection_types = array(
-			self::PROTECTION_TYPE_BASIC => __( 'Basic protection (default)', 'membership2' ) . $example1,
-			self::PROTECTION_TYPE_COMPLETE => __( 'Complete protection', 'membership2' ) . $example2,
-			self::PROTECTION_TYPE_HYBRID => __( 'Hybrid protection', 'membership2' ) . $example3,
+			self::PROTECTION_TYPE_BASIC 	=> __( 'Basic protection (default)', 'membership2' ) . $example1,
+			self::PROTECTION_TYPE_COMPLETE 	=> __( 'Complete protection', 'membership2' ) . $example2,
+			self::PROTECTION_TYPE_HYBRID 	=> __( 'Hybrid protection', 'membership2' ) . $example3,
 		);
 
 		return apply_filters(
@@ -167,10 +180,10 @@ class MS_Rule_Media_Model extends MS_Rule {
 	public function initialize() {
 		parent::protect_content();
 
-		if ( MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_MEDIA ) ) {
+		if ( MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_MEDIA ) && ( ! is_admin() && ! is_customize_preview() ) ) {
 			// Start buffering during init action, though output should only
-			// happen a lot later... This way we're save.
-			$this->add_action( 'init', 'buffer_start' );
+			// happen a lot later... This way we're safe.
+			$this->add_action( 'init', 'buffer_start', 9999 );
 
 			// Process the buffer right in the end.
 			$this->add_action( 'shutdown', 'buffer_end' );
@@ -206,9 +219,9 @@ class MS_Rule_Media_Model extends MS_Rule {
 			return $the_content;
 		}
 
-		$upload_dir = wp_upload_dir();
-		$original_url = trailingslashit( $upload_dir['baseurl'] );
-		$new_path = trailingslashit(
+		$upload_dir 	= wp_upload_dir();
+		$original_url 	= trailingslashit( $upload_dir['baseurl'] );
+		$new_path 		= trailingslashit(
 			trailingslashit( get_option( 'home' ) ) .
 			$download_settings['masked_url']
 		);
@@ -217,10 +230,17 @@ class MS_Rule_Media_Model extends MS_Rule {
 		 * Find all the urls in the post and then we'll check if they are protected
 		 * Regex from http://blog.mattheworiordan.com/post/13174566389/url-regular-expression-for-links-with-or-without-the
 		 */
-		$url_exp = '/((([A-Za-z]{3,9}:(?:\/\/)?)' .
-					'(?:[-;:&=\+\$,\w]+@)?'.
-					'[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?' .
-					'\??(?:[-\+=&;%@.\w_]*)#?(?:[.\!\/\\w]*))?)/';
+		$url_exp = implode(
+			'',
+			array(
+				'/((([A-Za-z]{3,9}:(?:\/\/)?)',
+				'(?:[-;:&=\+\$,\w]+@)?',
+				'[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?',
+				'\??(?:[-\+=&;%@.\w_]*)#?(?:[.\!\/\\w]*))?)/',
+			)
+		);
+
+		
 
 		$matches = array();
 		if ( preg_match_all( $url_exp, $the_content, $matches ) ) {
@@ -238,8 +258,11 @@ class MS_Rule_Media_Model extends MS_Rule {
 				$paths = (array) $matches[4];
 
 				foreach ( $links as $key => $link ) {
-					// Ignore all external links
+					// Ignore all external links.
 					if ( 0 !== strpos( $link, $home ) ) { continue; }
+
+					//Ignore BBpress avatars
+					if ( strpos( $link, 'avatars' ) !== false) { continue; }
 
 					// The file is on local site - is it a valid attachment?
 					$file = basename( $paths[ $key ] );
@@ -313,32 +336,32 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 * }
 	 */
 	public function extract_file_info( $file ) {
-		// See if the filename has a size extension and if so, strip it out
-		$filename_exp_full = '/(.+)\-(\d+[x]\d+)\.(.+)$/';
-		$filename_exp_min = '/(.+)\.(.+)$/';
+		// See if the filename has a size extension and if so, strip it out.
+		$filename_exp_full 	= '/(.+)\-(\d+[x]\d+)\.(.+)$/';
+		$filename_exp_min 	= '/(.+)\.(.+)$/';
 		$filematch = array();
 
 		if ( preg_match( $filename_exp_full, $file, $filematch ) ) {
-			// Image with an image size attached
-			$type = strtolower( $filematch[3] );
-			$filename = $filematch[1] . '.' . $type;
+			// Image with an image size attached.
+			$type 			= strtolower( $filematch[3] );
+			$filename 		= $filematch[1] . '.' . $type;
 			$size_extension = '-' . $filematch[2];
 		} elseif ( preg_match( $filename_exp_min, $file, $filematch ) ) {
-			// Image without an image size definition
-			$type = strtolower( $filematch[2] );
-			$filename = $filematch[1] . '.' . $type;
+			// Image without an image size definition.
+			$type 			= strtolower( $filematch[2] );
+			$filename 		= $filematch[1] . '.' . $type;
 			$size_extension = '';
 		} else {
 			// Image without an extension.
-			$type = '';
-			$filename = $file;
+			$type 			= '';
+			$filename 		= $file;
 			$size_extension = '';
 		}
 
 		$info = (object) array(
-			'filename' => $filename,
-			'size_extension' => $size_extension,
-			'type' => $type,
+			'filename' 			=> $filename,
+			'size_extension' 	=> $size_extension,
+			'type' 				=> $type,
 		);
 
 		return apply_filters(
@@ -354,7 +377,7 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param string $filename The filename to obtain the post_id.
+	 * @param  string $url The URL to obtain the post_id.
 	 * @return int The post ID or 0 if not found.
 	 */
 	public function get_attachment_id( $url ) {
@@ -363,7 +386,7 @@ class MS_Rule_Media_Model extends MS_Rule {
 		global $wpdb;
 
 		// First let WordPress try to find the Attachment ID.
-		$id = url_to_postid( $url );
+		$id = $this->thumbnail_url_to_id( $url );
 
 		if ( $id ) {
 			// Make sure the result ID is a valid attachment ID.
@@ -372,11 +395,10 @@ class MS_Rule_Media_Model extends MS_Rule {
 			}
 		} else {
 			// Manual attempt: Get the filename from the URL and use a custom query.
-
 			if ( null === $Uploads_Url ) {
-				$uploads = wp_upload_dir();
-				$Uploads_Url = trailingslashit( $uploads['baseurl'] );
-				$Uploads_Url_Len = strlen( $Uploads_Url );
+				$uploads 			= wp_upload_dir();
+				$Uploads_Url 		= trailingslashit( $uploads['baseurl'] );
+				$Uploads_Url_Len 	= strlen( $Uploads_Url );
 			}
 
 			if ( false !== strpos( $url, $Uploads_Url ) ) {
@@ -389,15 +411,15 @@ class MS_Rule_Media_Model extends MS_Rule {
 			if ( empty( $id ) ) {
 				$sql = "
 				SELECT wposts.ID
-				FROM $wpdb->posts wposts
-					INNER JOIN $wpdb->postmeta wpostmeta ON wposts.ID = wpostmeta.post_id
+				FROM $wpdb->posts as wposts
+					INNER JOIN $wpdb->postmeta as wpostmeta ON wposts.ID = wpostmeta.post_id
 				WHERE
 					wposts.post_type = 'attachment'
 					AND wpostmeta.meta_key = '_wp_attached_file'
 					AND wpostmeta.meta_value = %s
 				";
-				$sql = $wpdb->prepare( $sql, $url );
-				$id = $wpdb->get_var( $sql );
+				$sql 	= $wpdb->prepare( $sql, $url );
+				$id 	= $wpdb->get_var( $sql );
 
 				wp_cache_set( $url, $id, 'ms_attachment_id' );
 			}
@@ -409,6 +431,40 @@ class MS_Rule_Media_Model extends MS_Rule {
 			$url,
 			$this
 		);
+	}
+
+	/**
+	 * Fetch ID of an image from the image URL.
+	 * The URL can contain the size
+	 *
+	 * @see http://stackoverflow.com/questions/10990808/wordpress-unique-scenario-get-attachment-id-by-url
+	 * @since  1.0.2.6
+	 * @param  string $file_url URL of an attachment.
+	 * @return int The post-ID or 0 if no post found.
+	 */
+	public function thumbnail_url_to_id( $file_url ) {
+		global $wpdb;
+		$filename = basename( $file_url );
+
+		// TODO: This is the same code as used in function `get_attachment_id` above??
+		$rows = $wpdb->get_results(
+			$wpdb->prepare( "
+				SELECT     p.ID, m.meta_value
+				FROM       {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} m ON p.ID = m.post_id
+					AND m.meta_key = '_wp_attachment_metadata'
+					AND m.meta_value LIKE %s
+				",
+				'%"' . $filename . '"%'
+			)
+		);
+
+		foreach ( $rows as $row ) {
+			$row->meta_value = maybe_unserialize( $row->meta_value );
+			return $row->ID;
+		}
+
+		return 0;
 	}
 
 	/**
@@ -430,22 +486,24 @@ class MS_Rule_Media_Model extends MS_Rule {
 			$this
 		);
 
-		$the_file = false;
-		$requested_item = false;
-		$download_settings = MS_Plugin::instance()->settings->downloads;
-		$protection_type = $download_settings['protection_type'];
+		$the_file 			= false;
+		$requested_item 	= false;
+		$download_settings 	= MS_Plugin::instance()->settings->downloads;
+		$protection_type 	= $download_settings['protection_type'];
 
 		if ( ! MS_Model_Addon::is_enabled( MS_Model_Addon::ADDON_MEDIA ) ) {
 			return;
 		}
 
-		if ( ! empty( $query->query_vars['protectedfile'] ) ) {
+		if ( ! empty( $query->query_vars['protectedfile'] ) && self::PROTECTION_TYPE_COMPLETE == $protection_type ) {
 			$requested_item = explode( '/', $query->query_vars['protectedfile'] );
 			$requested_item = array_pop( $requested_item );
 		} elseif ( ! empty( $_GET['ms_file'] )
 			&& self::PROTECTION_TYPE_HYBRID == $protection_type
 		) {
 			$requested_item = $_GET['ms_file'];
+		} else {
+			$requested_item = MS_Helper_Utility::get_current_url();
 		}
 
 		if ( ! empty( $requested_item ) ) {
@@ -455,22 +513,48 @@ class MS_Rule_Media_Model extends MS_Rule {
 			switch ( $protection_type ) {
 				case self::PROTECTION_TYPE_COMPLETE:
 				case self::PROTECTION_TYPE_HYBRID:
-					// Work out the post_id again
+					// Work out the post_id again.
 					$attachment_id = preg_replace(
 						'/^' . self::FILE_PROTECTION_PREFIX . '/',
 						'',
 						$f_info->filename
 					);
-					$attachment_id -= (int) self::FILE_PROTECTION_INCREMENT;
 
-					$the_file = $this->restore_filename( $attachment_id, $f_info->size_extension );
+					if( $protection_type == self::PROTECTION_TYPE_COMPLETE ){
+						
+						$request_name 	= basename( $attachment_id ); // Get the name of the requested file
+						$request_name 	= pathinfo( $request_name ); // Get the info the of the requested file
+						
+						if ( isset( $request_name['filename'] ) ) {
+							$attachment_id 	= str_replace( 'ms_', '', $request_name['filename'] ); // Remove the prefix since we always have ms_ and get the attachment id.
+						}
+					}
+					
+					if ( $attachment_id ){
+						$attachment_id = ( int ) $attachment_id - ( int ) self::FILE_PROTECTION_INCREMENT;
+
+						$the_file = $this->restore_filename( $attachment_id, $f_info->size_extension );
+					}
 					break;
 
 				default:
 				case self::PROTECTION_TYPE_BASIC:
-					$home = untrailingslashit( get_option( 'home' ) );
-					$attachment_id = $this->get_attachment_id( $home . $f_info->filename );
-					$the_file = $this->restore_filename( $attachment_id, $f_info->size_extension );
+					$upload_dir 	= wp_upload_dir();
+					$original_url 	= $upload_dir['baseurl'];
+					$home 			= get_option( 'home' );
+					$original_url 	= explode( $home, $original_url );
+
+					$furl = untrailingslashit(
+						str_replace(
+							'/' . $download_settings['masked_url'],
+							$original_url[1],
+							$requested_item
+						)
+					);
+
+					$home 			= untrailingslashit( get_option( 'home' ) );
+					$attachment_id 	= $this->get_attachment_id( $furl );
+					$the_file 		= $this->restore_filename( $attachment_id, $f_info->size_extension );
 					break;
 			}
 
@@ -480,7 +564,7 @@ class MS_Rule_Media_Model extends MS_Rule {
 			) {
 				if ( $this->can_access_file( $attachment_id ) ) {
 					$upload_dir = wp_upload_dir();
-					$file = trailingslashit( $upload_dir['basedir'] ) . $the_file;
+					$file 		= trailingslashit( $upload_dir['basedir'] ) . $the_file;
 					$this->output_file( $file );
 				} else {
 					$this->show_no_access_image();
@@ -499,7 +583,7 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 * Checks if the current user can access the specified attachment.
 	 *
 	 * @since  1.0.0
-	 * @param  int $attachment_id
+	 * @param  int $attachment_id The attachment post-ID.
 	 * @return bool
 	 */
 	public function can_access_file( $attachment_id ) {
@@ -509,20 +593,55 @@ class MS_Rule_Media_Model extends MS_Rule {
 			return true;
 		}
 
-		/*
-		 * Default protection mode:
-		 * Protect Attachments based on the parent post.
-		 */
-		$parent_id = get_post_field( 'post_parent', $attachment_id );
+		if ( ! MS_Model_Addon::is_enabled( MS_Addon_Mediafiles::ID ) ) {
+			/*
+			 * Default protection mode:
+			 * Protect Attachments based on the parent post.
+			 */
+			$parent_id = get_post_field( 'post_parent', $attachment_id );
 
-		if ( ! $parent_id ) {
-			$access = true;
+			if ( ! $parent_id ) {
+				$access = true;
+			} else {
+				$member 			= MS_Model_Member::get_current_member();
+				$cache_key 			= 'ms_media_protection_member_'.$member->id.'_'.$attachment_id;
+				$member_has_access 	= wp_cache_get( $cache_key, 'ms_media_protection_member' );
+
+				if ( false !== $member_has_access ) {
+					$access = $member_has_access;
+				} else {
+					foreach ( $member->subscriptions as $subscription ) {
+						$membership = $subscription->get_membership();
+						$access 	= $membership->has_access_to_post( $parent_id );
+						if ( $access ) { 
+							wp_cache_set( $cache_key, true , 'ms_media_protection_member' );
+							break; 
+						}
+					}
+				}
+				
+				
+			}
 		} else {
-			$member = MS_Model_Member::get_current_member();
-			foreach ( $member->subscriptions as $subscription ) {
-				$membership = $subscription->get_membership();
-				$access = $membership->has_access_to_post( $parent_id );
-				if ( $access ) { break; }
+			/*
+			 * Advanced protection mode (via Add-on):
+			 * Each Attachment can be protected individually.
+			 */
+			$member 			= MS_Model_Member::get_current_member();
+			$cache_key 			= 'ms_media_protection_addon_member_'.$member->id.'_'.$attachment_id;
+			$member_has_access 	= wp_cache_get( $cache_key, 'ms_media_protection_member' );
+
+			if ( false !== $member_has_access ) {
+				$access = $member_has_access;
+			} else {
+				foreach ( $member->subscriptions as $subscription ) {
+					$rule 	= $subscription->get_membership()->get_rule( MS_Rule_Media::RULE_ID );
+					$access = $rule->has_access( $attachment_id );
+					if ( $access ) { 
+						wp_cache_set( $cache_key, true , 'ms_media_protection_member' );
+						break; 
+					}
+				}
 			}
 		}
 
@@ -540,24 +659,24 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 *
 	 * @todo refactory hack to get extension.
 	 *
-	 * @param int $post_id The attachment post_id.
-	 * @param string $size_extension The image size extension.
+	 * @param  int    $post_id The attachment post_id.
+	 * @param  string $size_extension The image size extension.
 	 * @return string The attachment filename.
 	 */
-	public function restore_filename( $post_id, $size_extension ) {
+	public function restore_filename( $post_id, $size_extension = '' ) {
 		$img_filename = null;
 
 		if ( ! empty( $post_id ) && is_numeric( $post_id ) ) {
 			$img_filename = get_post_meta( $post_id, '_wp_attached_file', true );
 			if ( ! empty( $size_extension ) ) {
-				// Add back in a size extension if we need to
+				// Add back in a size extension if we need to.
 				$img_filename = str_replace(
 					'.' . pathinfo( $img_filename, PATHINFO_EXTENSION ),
 					$size_extension . '.' . pathinfo( $img_filename, PATHINFO_EXTENSION ),
 					$img_filename
 				);
 
-				// hack to remove any double extensions :/ need to change when work out a neater way
+				// Hack to remove any double extensions :/ need to change when work out a neater way.
 				$img_filename = str_replace(
 					$size_extension . $size_extension,
 					$size_extension,
@@ -604,45 +723,47 @@ class MS_Rule_Media_Model extends MS_Rule {
 		if ( false === strpos( $_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS' ) ) {
 			header( 'Content-Length: ' . filesize( $file ) );
 		}
+                
+        if( ! defined( 'M2_MEDIA_ETAG_DISABLED' ) ) {
+			if( ! defined( 'M2_MEDIA_ETAG' ) ) define( 'M2_MEDIA_ETAG', 'm2_media_addon_etag' );
 
-		$last_modified = gmdate( 'D, d M Y H:i:s', filemtime( $file ) );
-		$etag = '"' . md5( $last_modified ) . '"';
-		header( "Last-Modified: $last_modified GMT" );
-		header( 'ETag: ' . $etag );
-		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + 100000000 ) . ' GMT' );
+			$last_modified = date_i18n( 'D, d M Y H:i:s', filemtime( $file ) );
+			$etag = '"' . md5( $last_modified ) . '"';
+			header( "Last-Modified: $last_modified GMT" );
+			header( 'ETag: ' . $etag );
+			header( 'Expires: ' . date_i18n( 'D, d M Y H:i:s', time() + 100000000 ) . ' GMT' );
 
-		// Support for Conditional GET
-		if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) ) {
-			$client_etag = stripslashes( $_SERVER['HTTP_IF_NONE_MATCH'] );
-		} else {
-			$client_etag = false;
+			// Support for Conditional GET.
+			if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) ) {
+				$client_etag = stripslashes( $_SERVER['HTTP_IF_NONE_MATCH'] );
+			} else {
+				$client_etag = false;
+			}
+
+			if ( ! isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) ) {
+				$_SERVER['HTTP_IF_MODIFIED_SINCE'] = false;
+			}
+
+			$client_last_modified = trim( $_SERVER['HTTP_IF_MODIFIED_SINCE'] );
+			// If string is empty, return 0. If not, attempt to parse into a timestamp.
+			$client_modified_timestamp = $client_last_modified ? strtotime( $client_last_modified ) : 0;
+
+			// Make a timestamp for our most recent modification...
+			$modified_timestamp = strtotime( $last_modified );
+
+			if ( $client_last_modified && $client_etag ) {
+				$valid_etag = ( $client_modified_timestamp >= $modified_timestamp ) && ( $client_etag === $etag );
+			} else {
+				$valid_etag = ( $client_modified_timestamp >= $modified_timestamp ) || ( $client_etag === $etag );
+			}
+
+			/*if ( $valid_etag ) {
+					status_header( 304 );
+					exit;
+			}*/
 		}
-
-		if ( ! isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) ) {
-			$_SERVER['HTTP_IF_MODIFIED_SINCE'] = false;
-		}
-
-		$client_last_modified = trim( $_SERVER['HTTP_IF_MODIFIED_SINCE'] );
-		// If string is empty, return 0. If not, attempt to parse into a timestamp
-		$client_modified_timestamp = $client_last_modified ? strtotime( $client_last_modified ) : 0;
-
-		// Make a timestamp for our most recent modification...
-		$modified_timestamp = strtotime( $last_modified );
-
-		if ( $client_last_modified && $client_etag ) {
-			$valid_etag = ( $client_modified_timestamp >= $modified_timestamp )
-				&& ( $client_etag === $etag );
-		} else {
-			$valid_etag = ( $client_modified_timestamp >= $modified_timestamp )
-				|| ( $client_etag === $etag );
-		}
-
-		if ( $valid_etag ) {
-			status_header( 304 );
-			exit;
-		}
-
-		// If we made it this far, just serve the file
+                
+		// If we made it this far, just serve the file.
 		readfile( $file );
 
 		do_action( 'ms_rule_media_model_output_file_after', $file, $this );
@@ -670,8 +791,8 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 * Get content to protect.
 	 *
 	 * @since  1.0.0
-	 * @param $args The query post args
-	 *     @see @link http://codex.wordpress.org/Class_Reference/WP_Query
+	 * @param array $args The query post args.
+	 *        @see @link http://codex.wordpress.org/Class_Reference/WP_Query
 	 * @return array The contents array.
 	 */
 	public function get_contents( $args = null ) {
@@ -680,10 +801,10 @@ class MS_Rule_Media_Model extends MS_Rule {
 
 		$contents = array();
 		foreach ( $posts as $content ) {
-			$content->id = $content->ID;
-			$content->type = MS_Rule_Media::RULE_ID;
-			$content->name = $content->post_name;
-			$content->access = $this->can_access_file( $content->id );
+			$content->id 		= $content->ID;
+			$content->type 		= MS_Rule_Media::RULE_ID;
+			$content->name 		= $content->post_name;
+			$content->access 	= $this->can_access_file( $content->id );
 
 			$contents[ $content->id ] = $content;
 		}
@@ -701,8 +822,8 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param $args The query post args
-	 *     @see @link http://codex.wordpress.org/Class_Reference/WP_Query
+	 * @param array $args The query post args.
+	 *        @see @link http://codex.wordpress.org/Class_Reference/WP_Query
 	 * @return int The total content count.
 	 */
 	public function get_content_count( $args = null ) {
@@ -724,15 +845,15 @@ class MS_Rule_Media_Model extends MS_Rule {
 	 * @since  1.0.0
 	 *
 	 * @param string $args The query post args.
-	 *     @see @link http://codex.wordpress.org/Class_Reference/WP_Query
+	 *        @see @link http://codex.wordpress.org/Class_Reference/WP_Query
 	 * @return array The parsed args.
 	 */
 	public function get_query_args( $args = null ) {
 		$defaults = array(
-			'orderby' => 'post_date',
-			'order' => 'DESC',
-			'post_type' => 'attachment',
-			'post_status' => 'any',
+			'orderby' 		=> 'post_date',
+			'order' 		=> 'DESC',
+			'post_type' 	=> 'attachment',
+			'post_status' 	=> 'any',
 		);
 		$args = wp_parse_args( $args, $defaults );
 

@@ -9,17 +9,17 @@ class MS_Helper_Period extends MS_Helper {
 	/**
 	 * Period types
 	 */
-	const PERIOD_TYPE_DAYS = 'days';
-	const PERIOD_TYPE_WEEKS = 'weeks';
-	const PERIOD_TYPE_MONTHS = 'months';
-	const PERIOD_TYPE_YEARS = 'years';
+	const PERIOD_TYPE_DAYS 		= 'days';
+	const PERIOD_TYPE_WEEKS 	= 'weeks';
+	const PERIOD_TYPE_MONTHS 	= 'months';
+	const PERIOD_TYPE_YEARS 	= 'years';
 
 	/**
 	 * Date formats
 	 */
-	const PERIOD_FORMAT = 'Y-m-d';
-	const DATE_TIME_FORMAT = 'Y-m-d H:i';
-	const DATE_FORMAT_SHORT = 'y-m-d';
+	const PERIOD_FORMAT 		= 'Y-m-d';
+	const DATE_TIME_FORMAT 		= 'Y-m-d H:i';
+	const DATE_FORMAT_SHORT 	= 'y-m-d';
 
 	/**
 	 * Add a period interval to a date.
@@ -32,7 +32,7 @@ class MS_Helper_Period extends MS_Helper {
 	 * @return string The added date.
 	 */
 	public static function add_interval( $period_unit, $period_type, $start_date = null ) {
-		if ( empty ( $start_date ) ) {
+		if ( empty( $start_date ) ) {
 			$start_date = self::current_date();
 		}
 		if ( ! is_numeric( $start_date ) ) {
@@ -41,7 +41,7 @@ class MS_Helper_Period extends MS_Helper {
 		$result = $start_date;
 
 		if ( is_numeric( $period_unit ) && $period_unit > 0 ) {
-			$days = self::get_period_in_days( $period_unit, $period_type );
+			$days 	= self::get_period_in_days( $period_unit, $period_type );
 			$result = strtotime( '+' . $days . 'days', $start_date );
 
 			if ( false === $result ) {
@@ -51,7 +51,7 @@ class MS_Helper_Period extends MS_Helper {
 
 		return apply_filters(
 			'ms_helper_period_add_interval',
-			gmdate( self::PERIOD_FORMAT, $result )
+			date_i18n( self::PERIOD_FORMAT, $result )
 		);
 	}
 
@@ -66,7 +66,7 @@ class MS_Helper_Period extends MS_Helper {
 	 * @return string The subtracted date.
 	 */
 	public static function subtract_interval( $period_unit, $period_type, $start_date = null ) {
-		if ( empty ( $start_date ) ) {
+		if ( empty( $start_date ) ) {
 			$start_date = self::current_date();
 		}
 		if ( ! is_numeric( $start_date ) ) {
@@ -75,7 +75,7 @@ class MS_Helper_Period extends MS_Helper {
 		$result = $start_date;
 
 		if ( is_numeric( $period_unit ) && $period_unit > 0 ) {
-			$days = self::get_period_in_days( $period_unit, $period_type );
+			$days 	= self::get_period_in_days( $period_unit, $period_type );
 			$result = strtotime( '-' . $days . 'days', $start_date );
 
 			if ( false === $result ) {
@@ -85,7 +85,7 @@ class MS_Helper_Period extends MS_Helper {
 
 		return apply_filters(
 			'ms_helper_period_subtract_interval',
-			gmdate( self::PERIOD_FORMAT, $result )
+			date_i18n( self::PERIOD_FORMAT, $result )
 		);
 	}
 
@@ -111,7 +111,21 @@ class MS_Helper_Period extends MS_Helper {
 			$end_date = '2999-12-31';
 		}
 
-		$end_date = new DateTime( $end_date );
+		// TODO: This could cause problems, since new DateTime() uses the servers
+		// timezone, not the WP timezone! This will lead to subscriptions
+		// expiring early in some countries...
+		//
+		// E.g. Server timezone is UTC
+		//      WP timezone is UTC -9
+		//      Expire date is '2016-03-01'
+		//
+		//      Resulting expire timestamp is:
+		//      2016-03-02 00:00:00 UTC
+		//
+		//      While actual timestamp should be:
+		//      2016-03-02 00:00:00 UTC-9
+		// (or) 2016-03-02 09:00:00 UTC
+		$end_date 	= new DateTime( $end_date );
 		$start_date = new DateTime( $start_date );
 
 		if ( ! is_numeric( $precission ) || $precission <= 0 ) {
@@ -194,7 +208,7 @@ class MS_Helper_Period extends MS_Helper {
 		static $Date = array();
 		$key = (string) $format . (int) $ignore_filters;
 
-		if ( ! isset( $Date[$key] ) ) {
+		if ( ! isset( $Date[ $key ] ) ) {
 			if ( empty( $format ) ) {
 				$format = self::PERIOD_FORMAT;
 			}
@@ -204,7 +218,7 @@ class MS_Helper_Period extends MS_Helper {
 				$format
 			);
 
-			$date = gmdate( $format );
+			$date = date_i18n( $format );
 
 			if ( ! $ignore_filters ) {
 				$date = apply_filters(
@@ -212,10 +226,10 @@ class MS_Helper_Period extends MS_Helper {
 					$date
 				);
 			}
-			$Date[$key] = $date;
+			$Date[ $key ] = $date;
 		}
 
-		return $Date[$key];
+		return $Date[ $key ];
 	}
 
 	/**
@@ -226,10 +240,10 @@ class MS_Helper_Period extends MS_Helper {
 	 * @return string The current timestamp.
 	 */
 	public static function current_time( $format = 'mysql', $ignore_filters = false ) {
-		static $Time = array();
-		$key = (string) $format . (int) $ignore_filters;
+		static $Time 	= array();
+		$key 			= (string) $format . (int) $ignore_filters;
 
-		if ( ! isset( $Time[$key] ) ) {
+		if ( ! isset( $Time[ $key ] ) ) {
 			$time = current_time( $format, 1 );
 
 			if ( ! $ignore_filters ) {
@@ -239,10 +253,10 @@ class MS_Helper_Period extends MS_Helper {
 				);
 			}
 
-			$Time[$key] = $time;
+			$Time[ $key ] = $time;
 		}
 
-		return $Time[$key];
+		return $Time[ $key ];
 	}
 
 	/**
@@ -255,26 +269,26 @@ class MS_Helper_Period extends MS_Helper {
 	 */
 	public static function get_period_types( $type = 'all' ) {
 		$singular = array(
-			'1' . self::PERIOD_TYPE_DAYS => __( 'one day', 'membership2' ),
-			'1' . self::PERIOD_TYPE_WEEKS => __( 'one week', 'membership2' ),
-			'1' . self::PERIOD_TYPE_MONTHS => __( 'one month', 'membership2' ),
-			'1' . self::PERIOD_TYPE_YEARS => __( 'one year', 'membership2' ),
-			'1-' . self::PERIOD_TYPE_DAYS => __( 'day', 'membership2' ),
-			'1-' . self::PERIOD_TYPE_WEEKS => __( 'week', 'membership2' ),
+			'1' . self::PERIOD_TYPE_DAYS 	=> __( 'one day', 'membership2' ),
+			'1' . self::PERIOD_TYPE_WEEKS 	=> __( 'one week', 'membership2' ),
+			'1' . self::PERIOD_TYPE_MONTHS 	=> __( 'one month', 'membership2' ),
+			'1' . self::PERIOD_TYPE_YEARS 	=> __( 'one year', 'membership2' ),
+			'1-' . self::PERIOD_TYPE_DAYS 	=> __( 'day', 'membership2' ),
+			'1-' . self::PERIOD_TYPE_WEEKS 	=> __( 'week', 'membership2' ),
 			'1-' . self::PERIOD_TYPE_MONTHS => __( 'month', 'membership2' ),
-			'1-' . self::PERIOD_TYPE_YEARS => __( 'year', 'membership2' ),
+			'1-' . self::PERIOD_TYPE_YEARS 	=> __( 'year', 'membership2' ),
 		);
 		$plural = array(
-			self::PERIOD_TYPE_DAYS => __( 'days', 'membership2' ),
-			self::PERIOD_TYPE_WEEKS => __( 'weeks', 'membership2' ),
-			self::PERIOD_TYPE_MONTHS => __( 'months', 'membership2' ),
-			self::PERIOD_TYPE_YEARS => __( 'years', 'membership2' ),
+			self::PERIOD_TYPE_DAYS 			=> __( 'days', 'membership2' ),
+			self::PERIOD_TYPE_WEEKS 		=> __( 'weeks', 'membership2' ),
+			self::PERIOD_TYPE_MONTHS 		=> __( 'months', 'membership2' ),
+			self::PERIOD_TYPE_YEARS 		=> __( 'years', 'membership2' ),
 		);
 
 		switch ( $type ) {
-			case 'singular': $res = $singular; break;
-			case 'plural':   $res = $plural; break;
-			default:         $res = $singular + $plural; break;
+			case 'singular': $res 			= $singular; break;
+			case 'plural':   $res 			= $plural; break;
+			default:         $res 			= $singular + $plural; break;
 		}
 
 		return apply_filters(
@@ -355,14 +369,30 @@ class MS_Helper_Period extends MS_Helper {
 			$desc = '%2$s';
 
 			if ( $include_quanity_one ) {
-				$period_type = $types['1' . $period_type];
+				$period_type = $types[ '1' . $period_type ];
 			} else {
-				$period_type = $types['1-' . $period_type];
+				$period_type = $types[ '1-' . $period_type ];
 			}
 		} else {
 			$desc = '%1$s %2$s';
 		}
 		$desc = sprintf( $desc, $period_unit, $period_type );
+
+		$desc = str_replace(
+			array(
+				'days',
+				'weeks',
+				'months',
+				'years',
+			),
+			array(
+				__( 'days', 'membership2' ),
+				__( 'weeks', 'membership2' ),
+				__( 'months', 'membership2' ),
+				__( 'years', 'membership2' ),
+			),
+			$desc
+		);
 
 		return apply_filters(
 			'ms_helper_period_get_period_desc',
@@ -386,10 +416,10 @@ class MS_Helper_Period extends MS_Helper {
 	 */
 	public static function validate_range( $value, $unit ) {
 		if ( $value <= 1 ) {
-			$value = 1;
+			$value 	= 1;
 		} else {
-			$unit = strtoupper( $unit[0] );
-			$max = 1;
+			$unit 	= strtoupper( $unit[0] );
+			$max 	= 1;
 
 			switch ( $unit ) {
 				case 'D': $max = 90; break;
@@ -405,17 +435,23 @@ class MS_Helper_Period extends MS_Helper {
 	}
 
 	/**
-	 * Returns a formated date string
+	 * Returns a formatted date string in local timezone.
 	 *
-	 * @param  string $date The date value.
+	 * This function is intended for display to the user; do not store the
+	 * resulting value in the DB!
+	 *
+	 * @param  string $date The date value in UTC.
 	 * @param  string $format Optional the format to apply.
+	 * @return string The formatted timestamp in local timezone.
 	 */
 	public static function format_date( $date, $format = null ) {
 		if ( empty( $format ) ) {
 			$format = get_option( 'date_format' );
 		}
 
-		$result = self::get_date_time_value( $format, strtotime( $date ), true, true );
+		// Convert the timestamp to local time.
+		$timestamp 	= strtotime( $date ); // Converting time to Unix timestamp
+		$result 	= date_i18n( $format, $timestamp );
 
 		return apply_filters(
 			'ms_format_date',
@@ -423,42 +459,5 @@ class MS_Helper_Period extends MS_Helper {
 			$date,
 			$format
 		);
-	}
-
-	public static function get_date_time_value( $format = null, $timestamp = false, $date = true, $time = false, $gmt = true, $zone = false ){
-		$res = '';
-
-		if ( empty( $format ) ) {
-			$format = get_option( 'date_format' );
-		}
-
-		if ( $timestamp == false ) {
-		    $str = current_time( 'timestamp' );
-		}
-
-		if ( $date ) {
-		    $res .= date_i18n( $format, $timestamp );
-		}
-
-		if ( $time ) {
-			$zone_setting = floatval( get_option( 'gmt_offset' ) );
-
-			if ( $gmt ) {
-				$gm_offset = $zone_setting * 3600;
-			} else {
-				$gm_offset = 0;
-			}
-			$res .= ' ' . date_i18n( get_option( 'time_format' ), $timestamp + $gm_offset );
-
-			if ( $zone ) {
-				if ( $zone_setting ) {
-					$res .= ' UTC';
-				} else {
-			    	$res .= ' UTC ' . ( $zone_setting > 0 ? '+ ' : '- ' ) . $zone_setting;
-				}
-			}
-		}
-
-		return $res;
 	}
 }

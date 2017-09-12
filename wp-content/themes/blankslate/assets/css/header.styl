@@ -1,0 +1,27 @@
+header
+	height 80px
+	padding 15px 0 0 0
+	position fixed
+	top 0
+	width 100%
+	z-index 1
+	transition background 150ms 300ms
+
+header .logo svg
+  width 200px
+  fill $dark_blue
+  margin 0
+
+.nav ul li a
+	color rgba($grey,.5)
+	padding 8px 0
+
+	&.mainlogin
+		color rgba($grey, 1)
+		margin-left 35px
+
+	&:hover
+		color: rgba($grey,1)
+		transition: all 200ms
+		border-bottom: 3px solid $red
+

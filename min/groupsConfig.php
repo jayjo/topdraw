@@ -30,7 +30,7 @@ return array(
     ),
     // 'css' => array('//css/file1.css', '//css/file2.css'),
     'css' => array(
-			'//wp-content/themes/topdraw/normalize.css',
-			'//wp-content/themes/topdraw/style.css'
+			'//wp-content/themes/blankslate/normalize.css',
+			'//wp-content/themes/blankslate/style.css'
     )
 );

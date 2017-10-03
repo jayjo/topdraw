@@ -19,11 +19,16 @@ class MS_Rule_ReplaceLocation_ListTable extends MS_Helper_ListTable_RuleMatching
 	public function __construct( $model ) {
 		parent::__construct( $model );
 		$this->name['singular'] = __( 'Menu Location', 'membership2' );
-		$this->name['plural'] = __( 'Menu Locations', 'membership2' );
+		$this->name['plural'] 	= __( 'Menu Locations', 'membership2' );
 
 		add_filter(
 			'ms_helper_listtable_' . $this->id . '_columns',
 			array( $this, 'customize_columns' )
+		);
+                
+		add_filter(
+			'bulk_actions-membership-2_page_membership2-protection',
+			array( $this, 'replace_location_disable_bulk_action' )
 		);
 
 		$this->editable = self::list_shows_base_items();
@@ -38,6 +43,18 @@ class MS_Rule_ReplaceLocation_ListTable extends MS_Helper_ListTable_RuleMatching
 		$columns['access'] = true;
 		return $columns;
 	}
+        
+        /**
+	 * Remove bulk action feature
+	 *
+	 * @since  1.0.2.6
+	 */
+	public function replace_location_disable_bulk_action( $actions ) {
+		if( isset( $_REQUEST['tab'] ) && $_REQUEST['tab'] == 'replace_location' ) {
+			return '';
+		}
+		return $actions;
+	}
 
 	/**
 	 * Override the column captions.
@@ -50,8 +67,8 @@ class MS_Rule_ReplaceLocation_ListTable extends MS_Helper_ListTable_RuleMatching
 		$label = '';
 
 		switch ( $col ) {
-			case 'item': $label = __( 'Menu Location', 'membership2' ); break;
-			case 'match': $label = __( 'Show this menu to members', 'membership2' ); break;
+			case 'item': $label 	= __( 'Menu Location', 'membership2' ); break;
+			case 'match': $label 	= __( 'Show this menu to members', 'membership2' ); break;
 		}
 
 		return $label;

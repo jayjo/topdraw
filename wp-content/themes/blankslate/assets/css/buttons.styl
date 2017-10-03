@@ -1,0 +1,95 @@
+.button
+	border-radius 2px
+	text-align center
+	display inline-block
+	margin 0 auto
+	font-family $das
+	font-weight 700
+	text-decoration none
+	text-transform uppercase
+	transition all $one-fifty
+
+	&.large
+		font-size 15px
+		padding 1em 1.5em 1.05em
+
+	&.med
+		font-size 13px
+		padding .65em 1em
+
+	&.small
+		font-size 12px
+		padding .65em 1em
+
+	&.outline
+		border 2px solid
+		background transparent
+
+		&.red
+				border-color $red
+				color $red
+			&:hover
+				background rgb(198,66,71)
+				border-color rgb(198,66,71)
+				color #fff
+
+		&.blue
+				border-color $dark-blue
+				color $dark-blue
+			&:hover
+				background rgb(45,51,67)
+				border-color rgb(45,51,67)
+				color #fff
+
+		&.orange
+				border-color $orange
+				color $orange
+			&:hover
+				background rgb(229,167,80)
+				border-color rgb(229,167,80)
+				color #fff
+
+		&.white
+			color #fff
+			border-color #fff
+
+			&:hover
+				background rgba(255,255,255, 1)
+
+		&:hover
+			box-shadow 0 7px 24px 0px rgba(0, 0, 0, 0.3)
+
+	&.solid
+		border 2px solid transparent
+		color #fff
+
+		&.red
+			background $red
+			&:hover
+				background rgb(198,66,71)
+				color #fff
+
+		&.blue
+			background $dark-blue
+			&:hover
+				background rgb(45,51,67)
+				color #fff
+
+		&.orange
+			background $orange
+			&:hover
+				background rgb(229,167,80)
+				color #fff
+
+		&.white
+			background rgba(255,255,255,.9)
+			color $dark-blue
+
+			&:hover
+				background rgba(255,255,255, 1)
+
+		&:hover
+			box-shadow 0 7px 24px 0px rgba(0, 0, 0, 0.3)
+
+	&:hover
+		transition all $one-fiftys

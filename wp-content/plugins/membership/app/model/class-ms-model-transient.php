@@ -22,7 +22,7 @@ class MS_Model_Transient extends MS_Model {
 		$this->before_save();
 
 		$option_key = $this->option_key();
-		$settings = array();
+		$settings 	= array();
 
 		$data = MS_Factory::serialize_model( $this );
 		foreach ( $data as $field => $val ) {
@@ -63,7 +63,10 @@ class MS_Model_Transient extends MS_Model {
 		// Option key should be all lowercase.
 		$key = strtolower( get_class( $this ) );
 
-		// Network-wide IS PRO ONLY!
+		// Network-wide mode uses different options then single-site mode.
+		if ( MS_Plugin::is_network_wide() ) {
+			$key .= '-network';
+		}
 
 		return substr( $key, 0, 45 );
 	}

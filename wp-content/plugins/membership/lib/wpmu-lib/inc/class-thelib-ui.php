@@ -310,12 +310,13 @@ class TheLib_Ui extends TheLib {
 	 *
 	 * @since  1.0.1
 	 * @internal
-	 *
-	 * @param  string $hook The current admin page that is rendered.
 	 */
-	public function _enqueue_style_callback( $hook = '' ) {
+	public function _enqueue_style_callback() {
+		global $hook_suffix;
+
 		$items = $this->_get( 'css' );
 		$this->_clear( 'css' );
+		$hook = $hook_suffix;
 
 		if ( empty( $hook ) ) { $hook = 'front'; }
 
@@ -341,12 +342,13 @@ class TheLib_Ui extends TheLib {
 	 *
 	 * @since  1.0.1
 	 * @internal
-	 *
-	 * @param  string $hook The current admin page that is rendered.
 	 */
-	public function _enqueue_script_callback( $hook = '' ) {
+	public function _enqueue_script_callback() {
+		global $hook_suffix;
+
 		$items = $this->_get( 'js' );
 		$this->_clear( 'js' );
+		$hook = $hook_suffix;
 
 		if ( empty( $hook ) ) { $hook = 'front'; }
 

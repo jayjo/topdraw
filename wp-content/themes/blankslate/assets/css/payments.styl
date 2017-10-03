@@ -1,0 +1,99 @@
+.leaky-paywall-subscription-details-wrapper
+  float left
+  padding-right 50px
+  text-align left
+  width 50%
+
+  ul.leaky-paywall-subscription-details
+  	margin 0
+  	padding 0
+
+  	li
+  		line-height 30px
+
+.leaky-paywall-payment-form
+	float left
+	text-align left
+	width 50%
+
+	p
+		align-items center
+		display flex
+		margin-bottom 10px
+
+		label
+			flex none
+			padding-right 10px
+			text-align left
+			width 50%
+
+		input[type=text], input[type=email], input[type=password]
+			flex none
+			width 50%
+
+		input[type=text].exp-year, input[type=text].exp-month
+			flex none
+			width 22%
+
+		input[type=text].exp-month
+			margin-right 6px
+
+		input[type=text].exp-year
+			margin-left 6px
+
+	div
+		margin-bottom 50px
+
+	&:after
+		content ""
+		clear both
+		display table
+
+.page-template-page-admin .entry-content
+
+	&:after
+		content ""
+		clear both
+		display table
+
+.leaky-paywall-subscription-total
+	border-top 1px solid rgba($grey, .4)
+	font-family $volte
+	font-size 30px
+	font-weight 700
+	margin 15px 0 0 0
+	padding 15px 0 0 0
+
+	strong
+		display block
+		font-family $das
+		font-size 16px
+		font-weight 700
+		margin 0 0 5px 0
+
+.leaky-paywall-payment-form div.leaky-paywall-payment-method-container
+	margin-bottom 15px
+
+	img
+		float right
+
+#leaky-paywall-credit-card-form
+	padding 0
+
+.leaky-paywall-payment-form div.leaky-paywall-message.error
+	margin-bottom 15px
+
+.leaky-paywall-payment-form p.leaky-paywall-error
+	background-color $red
+	border-radius 2px
+	bottom 50px
+	color #fff
+	display inline
+	font-size 13px
+	padding 10px 25px
+	text-align center
+	text-transform none
+	width auto
+
+.leaky-paywall-payment-form div.leaky-paywall-checkout-button, .entry-content .button
+	margin-bottom 0

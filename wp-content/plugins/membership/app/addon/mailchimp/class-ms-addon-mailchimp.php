@@ -87,6 +87,30 @@ class MS_Addon_Mailchimp extends MS_Addon {
 				'subscribe_deactivated',
 				10, 2
 			);
+
+			$this->add_filter(
+				'ms_view_membership_details_tab',
+				'mc_fields_for_ms',
+				10, 3
+			);
+
+			$this->add_filter(
+				'ms_view_membership_edit_to_html',
+				'mc_custom_html',
+				10, 3
+			);
+
+			$this->add_action(
+				'ms_model_membership__set_after',
+				'ms_model_membership__set_after_cb',
+				10, 3
+			);
+
+			$this->add_action(
+				'ms_model_membership__get',
+				'ms_model_membership__get_cb',
+				10, 3
+			);
 		}
 	}
 
@@ -99,9 +123,9 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 */
 	public function register( $list ) {
 		$list[ self::ID ] = (object) array(
-			'name' => __( 'MailChimp Integration', 'membership2' ),
-			'description' => __( 'Enable MailChimp integration.', 'membership2' ),
-			'icon' => 'dashicons dashicons-email',
+			'name' 			=> __( 'MailChimp Integration', 'membership2' ),
+			'description' 	=> __( 'Enable MailChimp integration.', 'membership2' ),
+			'icon' 			=> 'dashicons dashicons-email',
 		);
 
 		return $list;
@@ -115,10 +139,14 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 * @param  mixed $member
 	 */
 	public function subscribe_registered( $event, $member ) {
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' ) ) {
-			if ( ! self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::subscribe_user( $member, $list_id );
+		try {
+			if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' ) ) {
+				if ( ! self::is_user_subscribed( $member->email, $list_id ) ) {
+					self::subscribe_user( $member, $list_id );
+				}
 			}
+		} catch ( Exception $e ) {
+			// MS_Helper_Debug::debug_log( $e->getMessage() );
 		}
 	}
 
@@ -130,27 +158,47 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 * @param  mixed $member
 	 */
 	public function subscribe_members( $event, $subscription ) {
-		$member = $subscription->get_member();
+		try {
+			$member = $subscription->get_member();
 
-		/** Verify if is subscribed to registered mail list and remove it. */
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' ) ) {
-			if ( self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::unsubscribe_user( $member->email, $list_id );
-			}
-		}
+			$mail_list_registered 	= self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' );
+			$mail_list_deactivated 	= self::$settings->get_custom_setting( 'mailchimp', 'mail_list_deactivated' );
+			$mail_list_members 		= self::$settings->get_custom_setting( 'mailchimp', 'mail_list_members' );
 
-		/** Verify if is subscribed to deactivated mail list and remove it. */
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_deactivated' ) ) {
-			if ( self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::unsubscribe_user( $member->email, $list_id );
+			if ( $mail_list_members != $mail_list_registered ) {
+				/** Verify if is subscribed to registered mail list and remove it. */
+				if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' ) ) {
+					if ( self::is_user_subscribed( $member->email, $list_id ) ) {
+						self::unsubscribe_user( $member->email, $list_id );
+					}
+				}
 			}
-		}
 
-		/** Subscribe to members mail list. */
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_members' ) ) {
-			if ( ! self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::subscribe_user( $member, $list_id );
+			if ( $mail_list_members != $mail_list_deactivated ) {
+				/** Verify if is subscribed to deactivated mail list and remove it. */
+				if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_deactivated' ) ) {
+					if ( self::is_user_subscribed( $member->email, $list_id ) ) {
+						self::unsubscribe_user( $member->email, $list_id );
+					}
+				}
 			}
+
+			/** Subscribe to members mail list. */
+			$custom_list_id = get_option( 'ms_mc_m_id_' . $subscription->membership_id );
+
+			if ( isset( $custom_list_id ) && 0 != $custom_list_id ) {
+				$list_id = $custom_list_id;
+			} else {
+				$list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_members' );
+			}
+
+			if ( $list_id ) {
+				if ( ! self::is_user_subscribed( $member->email, $list_id ) ) {
+					self::subscribe_user( $member, $list_id );
+				}
+			}
+		} catch ( Exception $e ) {
+			// MS_Helper_Debug::debug_log( $e->getMessage() );
 		}
 	}
 
@@ -162,27 +210,48 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 * @param  mixed $member
 	 */
 	public function subscribe_deactivated( $event, $subscription ) {
-		$member = $subscription->get_member();
+		try {
+			$member = $subscription->get_member();
 
-		// Verify if is subscribed to registered mail list and remove it.
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' ) ) {
-			if ( self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::unsubscribe_user( $member->email, $list_id );
-			}
-		}
+			//Check if member has a new subscription
+			$membership 	= $subscription->get_membership();
+			$new_membership = MS_Factory::load(
+				'MS_Model_Membership',
+				$membership->on_end_membership_id
+			);
+			if ( !$new_membership->is_valid() ) {
 
-		// Verify if is subscribed to members mail list and remove it.
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_members' ) ) {
-			if ( self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::unsubscribe_user( $member->email, $list_id );
-			}
-		}
+				$mail_list_registered 	= self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' );
+				$mail_list_deactivated 	= self::$settings->get_custom_setting( 'mailchimp', 'mail_list_deactivated' );
+				$mail_list_members 		= self::$settings->get_custom_setting( 'mailchimp', 'mail_list_members' );
 
-		// Subscribe to deactiveted members mail list.
-		if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_deactivated' ) ) {
-			if ( ! self::is_user_subscribed( $member->email, $list_id ) ) {
-				self::subscribe_user( $member, $list_id );
+				if ( $mail_list_deactivated == $mail_list_registered ) {
+					// Verify if is subscribed to registered mail list and remove it.
+					if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_registered' ) ) {
+						if ( self::is_user_subscribed( $member->email, $list_id ) ) {
+							self::unsubscribe_user( $member->email, $list_id );
+						}
+					}
+				}
+
+				if ( $mail_list_deactivated == $mail_list_members ) {
+					// Verify if is subscribed to members mail list and remove it.
+					if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_members' ) ) {
+						if ( self::is_user_subscribed( $member->email, $list_id ) ) {
+							self::unsubscribe_user( $member->email, $list_id );
+						}
+					}
+				}
+
+				// Subscribe to deactiveted members mail list.
+				if ( $list_id = self::$settings->get_custom_setting( 'mailchimp', 'mail_list_deactivated' ) ) {
+					if ( ! self::is_user_subscribed( $member->email, $list_id ) ) {
+						self::subscribe_user( $member, $list_id );
+					}
+				}
 			}
+		} catch ( Exception $e ) {
+			// MS_Helper_Debug::debug_log( $e->getMessage() );
 		}
 	}
 
@@ -200,7 +269,7 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	public function settings_tabs( $tabs ) {
 		$tabs[ self::ID  ] = array(
 			'title' => __( 'MailChimp', 'membership2' ),
-			'url' => MS_Controller_Plugin::get_admin_url(
+			'url' 	=> MS_Controller_Plugin::get_admin_url(
 				'settings',
 				array( 'tab' => self::ID )
 			),
@@ -237,9 +306,9 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 */
 	public function manage_render_callback( $callback, $tab, $data ) {
 		if ( self::ID == $tab ) {
-			$view = MS_Factory::load( 'MS_Addon_Mailchimp_View' );
+			$view 		= MS_Factory::load( 'MS_Addon_Mailchimp_View' );
 			$view->data = $data;
-			$callback = array( $view, 'render_tab' );
+			$callback 	= array( $view, 'render_tab' );
 		}
 
 		return $callback;
@@ -258,9 +327,8 @@ class MS_Addon_Mailchimp extends MS_Addon {
 		try {
 			self::load_mailchimp_api();
 			$status = true;
-		}
-		catch( Exception $e ) {
-			MS_Helper_Debug::log( $e );
+		} catch ( Exception $e ) {
+			// MS_Helper_Debug::debug_log( $e );
 		}
 
 		return $status;
@@ -278,29 +346,22 @@ class MS_Addon_Mailchimp extends MS_Addon {
 			$options = apply_filters(
 				'ms_addon_mailchimp_load_mailchimp_api_options',
 				array(
-					'timeout' => false,
-					'ssl_verifypeer' => false,
-					'ssl_verifyhost' => false,
-					'ssl_cainfo' => false,
-					'debug' => false,
+					'timeout' 			=> false,
+					'ssl_verifypeer' 	=> false,
+					'ssl_verifyhost' 	=> false,
+					'ssl_cainfo' 		=> false,
+					'debug' 			=> false,
 				)
 			);
 
-			if ( ! class_exists( 'Mailchimp' ) ) {
+			if ( ! class_exists( 'M2_Mailchimp' ) ) {
 				require_once MS_Plugin::instance()->dir . '/lib/mailchimp-api/Mailchimp.php';
 			}
+			$api_key 		= self::$settings->get_custom_setting( 'mailchimp', 'api_key' );
+			$exploded 		= explode( '-', $api_key );
+			$data_center 	= end( $exploded );
 
-			$api = new M2_Mailchimp(
-				self::$settings->get_custom_setting( 'mailchimp', 'api_key' ),
-				$options
-			);
-
-			// Pinging the server
-			$ping = $api->helper->ping();
-
-			if ( is_wp_error( $ping ) ) {
-				throw new Exception( $ping );
-			}
+			$api = new M2_Mailchimp( $api_key, $data_center );
 
 			self::$mailchimp_api = $api;
 		}
@@ -313,21 +374,25 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 *
 	 * @return Array Lists info
 	 */
-	public static function get_mail_lists() {
+	public static function get_mail_lists( $default = null ) {
 		static $Mail_lists = null;
 
+		if ( null === $default ) {
+			$default = __( 'None', 'membership2' );
+		}
+
 		if ( null === $Mail_lists ) {
-			$Mail_lists = array( 0 => __( 'none', 'membership2' ) );
+			$Mail_lists = array( 0 => $default );
+
 			if ( self::get_api_status() ) {
-				$page = 0;
+				$page 			= 0;
 				$items_per_page = 25;
-				$iterations = 0;
+				$iterations 	= 0;
 
 				do {
-					$lists = self::$mailchimp_api->lists->getList(
-						array(),
-						$page,
-						$items_per_page
+					$lists = self::$mailchimp_api->get_lists(
+						$items_per_page,
+						$page
 					);
 
 					$page += 1;
@@ -335,7 +400,7 @@ class MS_Addon_Mailchimp extends MS_Addon {
 
 					if ( is_wp_error( $lists ) ) {
 						$has_more = false;
-						MS_Helper_Debug::log( $lists );
+						// MS_Helper_Debug::debug_log( $lists );
 					} else {
 						$has_more = count( $lists['data'] ) >= $items_per_page;
 						foreach ( $lists['data'] as $list ) {
@@ -365,19 +430,14 @@ class MS_Addon_Mailchimp extends MS_Addon {
 		$subscribed = false;
 
 		if ( is_email( $user_email ) && self::get_api_status() ) {
-			$emails = array(
-				array( 'email' => $user_email ),
-			);
 
-			$results = self::$mailchimp_api->lists->memberInfo( $list_id, $emails );
+			$results = self::$mailchimp_api->check_email( $list_id, $user_email );
 
-			if ( is_wp_error( $results ) ) {
-				MS_Helper_Debug::log( $results );
-			} elseif ( ! empty( $results['success_count'] )
-				&& ! empty( $results['data'][0]['status'] )
-				&& 'subscribed' == $results['data'][0]['status']
-			) {
+			if ( !is_wp_error( $results ) ) {
 				$subscribed = true;
+			} else {
+				$this->log( $results->get_error_message() );
+				
 			}
 		}
 
@@ -407,14 +467,14 @@ class MS_Addon_Mailchimp extends MS_Addon {
 				$list_id
 			);
 
+			$subscribe_data = array(
+				'email_address' => $member->email,
+				'status'        => ( $auto_opt_in ) ? 'subscribed' : 'pending'
+			);
+
 			$merge_vars = array();
 			$merge_vars['FNAME'] = $member->first_name;
 			$merge_vars['LNAME'] = $member->last_name;
-
-			if ( $auto_opt_in ) {
-				$merge_vars['optin_ip'] = $_SERVER['REMOTE_ADDR'];
-				$merge_vars['optin_time'] = MS_Helper_Period::current_time();
-			}
 
 			if ( empty( $merge_vars['FNAME'] ) ) {
 				unset( $merge_vars['FNAME'] );
@@ -430,16 +490,14 @@ class MS_Addon_Mailchimp extends MS_Addon {
 				$list_id
 			);
 
-			$email_field = array( 'email' => $member->email );
+			$subscribe_data['merge_fields'] = $merge_vars;
 
-			$res = self::$mailchimp_api->lists->subscribe(
-				$list_id,
-				$email_field,
-				$merge_vars,
-				'html',
-				( ! $auto_opt_in ),
-				$update
-			);
+
+			$res = self::$mailchimp_api->subscribe( $list_id, $subscribe_data );
+
+			if ( is_wp_error( $res ) ) {
+				echo $res->errorMessage();
+			}
 		}
 	}
 
@@ -457,11 +515,10 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	 */
 	public static function update_user( $user_email, $list_id, $merge_vars ) {
 		if ( self::get_api_status() ) {
-			$merge_vars['update_existing'] = true;
 
-			return self::$mailchimp_api->lists->updateMember(
+			return self::$mailchimp_api->update_subscription(
 				$list_id,
-				array( 'email' => $user_email ),
+				$user_email,
 				$merge_vars
 			);
 		}
@@ -470,17 +527,113 @@ class MS_Addon_Mailchimp extends MS_Addon {
 	/**
 	 * Unsubscribe a user from a list
 	 *
+	 * @since 1.0.4
 	 * @param  string $user_email
 	 * @param  string $list_id
-	 * @param  bool $delete True if the user is gonna be deleted from the list (not only unsubscribed)
 	 */
-	public static function unsubscribe_user( $user_email, $list_id, $delete = false ) {
+	public static function unsubscribe_user( $user_email, $list_id ) {
 		if ( self::get_api_status() ) {
-			return self::$mailchimp_api->lists->unsubscribe(
+			return self::$mailchimp_api->unsubscribe(
 				$list_id,
-				array( 'email' => $user_email ),
-				$delete
+				$user_email
 			);
 		}
+	}
+
+	/**
+	 * Add additional field to show a list of mailchimp list
+	 *
+	 * @since 1.0.3.0
+	 */
+	public function mc_fields_for_ms( $fields, $membership, $data ) {
+
+		$mail_list = self::get_mail_lists( __( 'Default', 'membership2' ) );
+
+		$fields['ms_mc'] = array(
+			'id' 			=> 'ms_mc',
+			'type' 			=> MS_Helper_Html::INPUT_TYPE_SELECT,
+			'title' 		=> __( 'Mailchimp List', 'membership2' ),
+			'desc' 			=> __( 'You can select a list for this membership.', 'membership2' ),
+			'class' 		=> 'ms-mc',
+			'before' 		=> __( 'Select a list', 'membership2' ),
+			'value' 		=> $membership->ms_mc,
+			'field_options' => $mail_list,
+			'ajax_data' 	=> array( 1 ),
+		);
+
+		return $fields;
+
+	}
+
+	/**
+	 * Modify the edit membership basic settings page
+	 *
+	 * @since 1.0.3.0
+	 */
+	public function mc_custom_html( $html, $field, $membership ) {
+		ob_start();
+		?>
+		<div>
+			<form class="ms-form wpmui-ajax-update ms-edit-membership" data-wpmui-ajax="<?php echo esc_attr( 'save' ); ?>">
+				<div class="ms-form wpmui-form wpmui-grid-8">
+					<div class="col-5">
+						<?php
+						MS_Helper_Html::html_element( $field['name'] );
+						if ( ! $membership->is_system() ) {
+							MS_Helper_Html::html_element( $field['description'] );
+						}
+						?>
+					</div>
+					<div class="col-3">
+						<?php
+						MS_Helper_Html::html_element( $field['active'] );
+						if ( ! $membership->is_system() ) {
+							MS_Helper_Html::html_element( $field['public'] );
+							MS_Helper_Html::html_element( $field['paid'] );
+						}
+						?>
+					</div>
+				</div>
+				<div class="ms-form wpmui-form wpmui-grid-8">
+					<div class="col-8">
+					<?php
+					if ( ! $membership->is_system() ) {
+						MS_Helper_Html::html_element( $field['priority'] );
+					}
+					echo '<hr>';
+					MS_Helper_Html::html_element( $field['ms_mc'] );
+					?>
+					</div>
+				</div>
+			</form>
+		</div>
+		<?php
+		$output = ob_get_clean();
+
+		return $output;
+	}
+
+	/**
+	 * Save custom list for individual membership
+	 *
+	 * @since 1.0.3.0
+	 */
+	public function ms_model_membership__set_after_cb( $property, $value, $membership ) {
+		if ( 'ms_mc' == $property ) {
+			update_option( 'ms_mc_m_id_' . $membership->id, $value );
+		}
+	}
+
+	/**
+	 * Retrieve custom list for indiviaul membership
+	 *
+	 * @since 1.0.3.0
+	 */
+	public function ms_model_membership__get_cb( $value, $property, $membership ) {
+		if ( 'ms_mc' == $property ) {
+			return get_option( 'ms_mc_m_id_' . $membership->id );
+		}
+
+		return $value;
 	}
 }

@@ -252,8 +252,8 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 	 */
 	public static function get_items( $args = null ) {
 		MS_Factory::select_blog();
-		$args = self::get_query_args( $args );
-		$query = new WP_Query( $args );
+		$args 	= self::get_query_args( $args );
+		$query 	= new WP_Query( $args );
 		MS_Factory::revert_blog();
 
 		$items = array();
@@ -287,12 +287,12 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 	 */
 	public static function get_query_args( $args ) {
 		$defaults = array(
-			'post_type' => self::get_post_type(),
-			'post_status' => 'any',
-			'fields' => 'ids',
-			'order' => 'DESC',
-			'orderby' => 'ID',
-			'posts_per_page' => 20,
+			'post_type' 		=> self::get_post_type(),
+			'post_status' 		=> 'any',
+			'fields' 			=> 'ids',
+			'order' 			=> 'DESC',
+			'orderby' 			=> 'ID',
+			'posts_per_page' 	=> 20,
 		);
 
 		if ( ! empty( $args['state'] ) ) {
@@ -333,7 +333,7 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 	 * Returns a list of post_ids that have the specified Transaction State.
 	 *
 	 * @since  1.0.1.0
-	 * @param  string $state A valid transaction state [err|ok|ignore].
+	 * @param  string|array $state A valid transaction state [err|ok|ignore].
 	 * @return array List of post_ids.
 	 */
 	static public function get_state_ids( $state ) {
@@ -354,32 +354,34 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 			AND LENGTH( method.meta_value ) > 0
 		";
 
-		switch ( $state ) {
-			case 'err':
-				$sql .= "
-				AND (state1.meta_value IS NULL OR state1.meta_value IN ('','0','err'))
-				AND (state2.meta_value IS NULL OR state2.meta_value IN (''))
-				";
-				break;
+		if ( ! is_array( $state ) ) { $state = array( $state ); }
+		$state_cond = array();
 
-			case 'ok':
-				$sql .= "
-				AND (
-					state1.meta_value IN ('1','ok')
-					OR state2.meta_value IN ('1','ok')
-				)
-				";
-				break;
+		foreach ( $state as $key ) {
+			switch ( $key ) {
+				case 'err':
+					$state_cond[] = "(
+						(state1.meta_value IS NULL OR state1.meta_value IN ('','0','err'))
+						AND (state2.meta_value IS NULL OR state2.meta_value IN (''))
+					)";
+					break;
 
-			case 'ignore':
-				$sql .= "
-				AND (
-					state1.meta_value IN ('ignore')
-					OR state2.meta_value IN ('ignore')
-				)
-				";
-				break;
+				case 'ok':
+					$state_cond[] = "(
+						state1.meta_value IN ('1','ok')
+						OR state2.meta_value IN ('1','ok')
+					)";
+					break;
+
+				case 'ignore':
+					$state_cond[] = "(
+						state1.meta_value IN ('ignore')
+						OR state2.meta_value IN ('ignore')
+					)";
+					break;
+			}
 		}
+		$sql .= 'AND (' . implode( ' OR ', $state_cond ) . ')';
 
 		$sql = $wpdb->prepare( $sql, self::get_post_type() );
 		$ids = $wpdb->get_col( $sql );
@@ -423,8 +425,7 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 			case 'm1':
 				$sql .= "
 				AND gateway.meta_value = 'paypalstandard'
-				AND form.meta_value LIKE '%%s:6:\"custom\";s:%%'
-				AND form.meta_value LIKE '%%:{$source_int}:%%'
+				AND form.meta_value REGEXP 's:6:\"custom\";s:[0-9]+:\"[0-9]+:[0-9]+:{$source_int}:'
 				";
 				break;
 
@@ -513,11 +514,11 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 		}
 
 		if ( ! $this->id ) {
-			$this->url = lib3()->net->current_url();
-			$this->post = $_POST;
-			$this->headers = $this->get_headers();
-			$this->user_id = get_current_user_id();
-			$this->title = 'Transaction Log';
+			$this->url 		= lib3()->net->current_url();
+			$this->post 	= $_POST;
+			$this->headers 	= $this->get_headers();
+			$this->user_id 	= get_current_user_id();
+			$this->title 	= 'Transaction Log';
 		}
 	}
 
@@ -531,8 +532,8 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 
 		if ( ! $this->member_id ) {
 			if ( $this->invoice_id ) {
-				$invoice = MS_Factory::load( 'MS_Model_Invoice', $this->invoice_id );
-				$this->member_id = $invoice->user_id;
+				$invoice	 		= MS_Factory::load( 'MS_Model_Invoice', $this->invoice_id );
+				$this->member_id 	= $invoice->user_id;
 			} elseif ( MS_Gateway_Paypalstandard::ID == $this->gateway ) {
 				/*
 				 * Migration logic for M1 IPN messages:
@@ -574,9 +575,9 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 		} else {
 			foreach ( $_SERVER as $key => $value ) {
 				if ( 'HTTP_' == substr( $key, 0, 5 ) ) {
-					$key = str_replace( '_', ' ', substr( $key, 5 ) );
-					$key = str_replace( ' ', '-', ucwords( strtolower( $key ) ) );
-					$headers[ $key ] = $value;
+					$key 				= str_replace( '_', ' ', substr( $key, 5 ) );
+					$key 				= str_replace( ' ', '-', ucwords( strtolower( $key ) ) );
+					$headers[ $key ] 	= $value;
 				}
 			}
 		}
@@ -630,12 +631,12 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 
 		if ( 'clear' == $state ) {
 			$this->manual_state = '';
-			$this->manual_date = '';
-			$this->manual_user = 0;
+			$this->manual_date 	= '';
+			$this->manual_user 	= 0;
 		} else {
 			$this->manual_state = $state;
-			$this->manual_date = MS_Helper_Period::current_time();
-			$this->manual_user = get_current_user_id();
+			$this->manual_date 	= MS_Helper_Period::current_time();
+			$this->manual_user 	= get_current_user_id();
 		}
 		return true;
 	}
@@ -687,9 +688,9 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 	 * @param int $id A valid subscription ID.
 	 */
 	protected function set_subscription( $id ) {
-		$subscription = MS_Factory::load( 'MS_Model_Relationship', $id );
-		$this->subscription_id = $subscription->id;
-		$this->member_id = $subscription->user_id;
+		$subscription 			= MS_Factory::load( 'MS_Model_Relationship', $id );
+		$this->subscription_id 	= $subscription->id;
+		$this->member_id 		= $subscription->user_id;
 	}
 
 	/**
@@ -700,10 +701,10 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 	 * @param int $id A valid invoice ID.
 	 */
 	protected function set_invoice( $id ) {
-		$invoice = MS_Factory::load( 'MS_Model_Invoice', $id );
-		$this->invoice_id = $invoice->id;
-		$this->subscription_id = $invoice->ms_relationship_id;
-		$this->member_id = $invoice->user_id;
+		$invoice 				= MS_Factory::load( 'MS_Model_Invoice', $id );
+		$this->invoice_id 		= $invoice->id;
+		$this->subscription_id 	= $invoice->ms_relationship_id;
+		$this->member_id 		= $invoice->user_id;
 	}
 
 	/**
@@ -715,33 +716,33 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 	protected function set_state( $value ) {
 		switch ( $value ) {
 			case 'ok':
-				$this->_state = $value;
-				$this->success = true;
+				$this->_state 	= $value;
+				$this->success 	= true;
 				break;
 
 			case 'ignore':
-				$this->_state = $value;
-				$this->success = null;
+				$this->_state 	= $value;
+				$this->success 	= null;
 				break;
 
 			case 'err':
-				$this->_state = $value;
-				$this->success = false;
+				$this->_state 	= $value;
+				$this->success 	= false;
 				break;
 
 			case true:
-				$this->_state = 'ok';
-				$this->success = $value;
+				$this->_state 	= 'ok';
+				$this->success 	= $value;
 				break;
 
 			case false:
-				$this->_state = 'err';
-				$this->success = $value;
+				$this->_state 	= 'err';
+				$this->success 	= $value;
 				break;
 
 			case null:
-				$this->_state = 'ignore';
-				$this->success = 'ignore';
+				$this->_state 	= 'ignore';
+				$this->success 	= 'ignore';
 				break;
 
 			default:
@@ -825,4 +826,17 @@ class MS_Model_Transactionlog extends MS_Model_CustomPostType {
 			$this
 		);
 	}
+
+	/**
+	 * Check if property isset.
+	 *
+	 * @since  1.0.0
+	 * @internal
+	 *
+	 * @param string $property The name of a property.
+	 * @return mixed Returns true/false.
+	 */
+	public function __isset( $property ) {
+		return isset($this->$property);
+	}		
 }

@@ -101,6 +101,15 @@ class MS_Rule_Shortcode_Model extends MS_Rule {
 	}
 
 	/**
+	 * Allow using the [ms-protect-content] shortcode on admin-side.
+	 *
+	 * @since  1.0.2.4
+	 */
+	public function protect_admin_content() {
+		$this->protect_content();
+	}
+
+	/**
 	 * Do protected shortcode [do_protected_shortcode].
 	 *
 	 * This shortcode is executed to replace a protected shortcode.
@@ -147,10 +156,10 @@ class MS_Rule_Shortcode_Model extends MS_Rule {
 			'ms_model_shortcode_protect_content_shortcode_atts',
 			shortcode_atts(
 				array(
-					'id' => '',
-					'access' => true,
-					'silent' => false,
-					'msg' => false,
+					'id' 		=> '',
+					'access' 	=> true,
+					'silent' 	=> false,
+					'msg' 		=> false,
 				),
 				$atts
 			)
@@ -164,7 +173,13 @@ class MS_Rule_Shortcode_Model extends MS_Rule {
 		} else {
 			if ( ! is_string( $msg ) || ! strlen( $msg ) ) {
 				$settings = MS_Factory::load( 'MS_Model_Settings' );
-				$membership_id = apply_filters( 'ms_detect_membership_id', 0 );
+				// TO-DO: Need to think about logic here. Tracking ID: 70522969408012/53509795076060
+				if( defined( 'MS_PROTECTED_MESSAGE_REVERSE_RULE' ) && MS_PROTECTED_MESSAGE_REVERSE_RULE ) {
+					$membership_id = $atts['id'];
+				}else{
+					$membership_id = apply_filters( 'ms_detect_membership_id', 0 );
+				}
+                                
 				$msg = $settings->get_protection_message(
 					MS_Model_Settings::PROTECTION_MSG_SHORTCODE,
 					$membership_id
@@ -276,10 +291,10 @@ class MS_Rule_Shortcode_Model extends MS_Rule {
 			'ms_model_shortcode_protect_content_shortcode_atts',
 			shortcode_atts(
 				array(
-					'id' => '',
-					'access' => true,
-					'silent' => false,
-					'msg' => false,
+					'id'	 	=> '',
+					'access' 	=> true,
+					'silent' 	=> false,
+					'msg' 		=> false,
 				),
 				$atts
 			)
@@ -288,12 +303,12 @@ class MS_Rule_Shortcode_Model extends MS_Rule {
 
 		if ( lib3()->is_true( $access ) ) {
 			$msg_access = __( 'Visible for members of', 'membership2' );
-			$alt_msg1 = __( 'Other users will see', 'membership2' );
-			$alt_msg2 = __( 'Other uses will see nothing', 'membership2' );
+			$alt_msg1 	= __( 'Other users will see', 'membership2' );
+			$alt_msg2 	= __( 'Other uses will see nothing', 'membership2' );
 		} else {
 			$msg_access = __( 'Hidden from members of', 'membership2' );
-			$alt_msg1 = __( 'Those users will see', 'membership2' );
-			$alt_msg2 = __( 'Those uses will see nothing', 'membership2' );
+			$alt_msg1 	= __( 'Those users will see', 'membership2' );
+			$alt_msg2 	= __( 'Those uses will see nothing', 'membership2' );
 		}
 
 		if ( $msg ) {
@@ -431,11 +446,11 @@ class MS_Rule_Shortcode_Model extends MS_Rule {
 				}
 			}
 
-			$contents[ $key ] = new StdClass();
-			$contents[ $key ]->id = $key;
-			$contents[ $key ]->name = "[$key]";
-			$contents[ $key ]->type = MS_Rule_Shortcode::RULE_ID;
-			$contents[ $key ]->access = $this->get_rule_value( $key );
+			$contents[ $key ] 			= new StdClass();
+			$contents[ $key ]->id 		= $key;
+			$contents[ $key ]->name 	= "[$key]";
+			$contents[ $key ]->type 	= MS_Rule_Shortcode::RULE_ID;
+			$contents[ $key ]->access 	= $this->get_rule_value( $key );
 		}
 
 		$filter = $this->get_exclude_include( $args );

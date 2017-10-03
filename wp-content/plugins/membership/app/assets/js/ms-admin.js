@@ -1,6 +1,6 @@
-/*! Membership 2 - v4.0.06
- * https://wordpress.org/plugins/membership/
- * Copyright (c) 2015; * Licensed GPLv2+ */
+/*! Membership 2 Pro - v1.0.4
+ * https://premium.wpmudev.org/project/membership/
+ * Copyright (c) 2017; * Licensed GPLv2+ */
 /*global window:false */
 /*global document:false */
 /*global ms_data:false */
@@ -97,6 +97,8 @@ window.ms_functions = {
 				anim = anim.parents( '.wpmui-radio-slider-wrapper' ).first();
 			} else if ( anim.parents( '.wpmui-input-wrapper' ).length ) {
 				anim = anim.parents( '.wpmui-input-wrapper' ).first();
+			} else if ( anim.parents( '.wpmui-select-wrapper' ).length ) {
+				anim = anim.parents( '.wpmui-select-wrapper' ).first();
 			} else if ( anim.parents( 'label' ).length ) {
 				anim = anim.parents( 'label' ).first();
 			}
@@ -226,7 +228,7 @@ window.ms_functions = {
 			if ( undefined === data[field_key] ) {
 				data[field_key] = field_value;
 			} else {
-				if ( ! data[field_key] instanceof Array ) {
+				if ( ! ( data[field_key] instanceof Array ) ) {
 					data[field_key] = [ data[field_key] ];
 				}
 				data[field_key].push( field_value );
@@ -645,6 +647,14 @@ jQuery( document ).ready( function() {
 				el.data( 'val', el.val() );
 				fn.ajax_update( this );
 			}
+		}
+	)
+        .on(
+		'change',
+		'input.wpmui-ajax-update[type="number"]',
+		function( ev ) {
+			var el = jQuery( this );
+			el.focus();
 		}
 	)
 	.on(
@@ -1069,7 +1079,8 @@ window.ms_init.view_billing_transactions = function init() {
 		btn_ignore = table.find( '.action-ignore' ),
 		btn_link = table.find( '.action-link' ),
 		btn_retry = table.find( '.action-retry' ),
-		btn_match = frm_match.find( '.action-match' );
+		btn_match = frm_match.find( '.action-match' ),
+		retry_transactions, show_link_dialog, append_option;
 
 	// Handle the "Save Matching" action.
 	function save_matching( ev ) {
@@ -1081,16 +1092,14 @@ window.ms_init.view_billing_transactions = function init() {
 			window.ajaxurl,
 			data,
 			function(response) {
-				var message = '';
-
-				if ( response.indexOf( 'OK:' ) === 0 ) {
-					message = response.substr( 3 );
-					wpmUi.message( message );
+				if ( response.success ) {
+					wpmUi.message( response.data.message );
 
 					// Start to process the transactions.
 					retry_transactions();
 				}
-			}
+			},
+			'json'
 		).always(function() {
 			frm_match.removeClass( 'wpmui-loading' );
 		});
@@ -1099,16 +1108,15 @@ window.ms_init.view_billing_transactions = function init() {
 	}
 
 	// Retry to process all displayed transactions.
-	function retry_transactions() {
+	retry_transactions = function() {
 		var rows = table.find( '.item' ),
 			nonce = frm_match.find( '.retry_nonce' ).val(),
-			action = frm_match.find( '.retry_action' ).val(),
 			progress = wpmUi.progressbar(),
 			counter = 0,
 			ajax_data = {},
 			queue = [];
 
-		ajax_data.action = action;
+		ajax_data.action = 'transaction_retry';
 		ajax_data._wpnonce = nonce;
 
 		// Collect all log-IDs in the queue.
@@ -1144,28 +1152,22 @@ window.ms_init.view_billing_transactions = function init() {
 				window.ajaxurl,
 				data,
 				function(response) {
-					var message = false;
-
-					if ( response.indexOf( 'OK:' ) === 0 ) {
-						message = response.substr( 3 );
-						row.removeClass( 'log-err' ).addClass( 'log-ok' );
-					} else if ( response.indexOf( 'ERR:' ) === 0 ) {
-						message = response.substr( 4 );
-					}
-
-					if ( message ) {
-						row.find( '.column-note .txt' ).text( message );
+					if ( response.success && response.data.desc ) {
+						row.removeClass( 'log-err log-ignore log-ok' );
+						row.addClass( 'log-' + response.data.state );
+						row.find( '.column-note .txt' ).text( response.data.desc );
 					}
 
 					window.setTimeout( function() { process_queue(); }, 1 );
-				}
+				},
+				'json'
 			).always(function() {
 				row.find( '.column-note' ).removeClass( 'wpmui-loading' );
 			});
 		}
 
 		process_queue();
-	}
+	};
 
 	// Handle the "Reset" action.
 	function clear_line( ev ) {
@@ -1233,7 +1235,7 @@ window.ms_init.view_billing_transactions = function init() {
 			row_id = row.attr( 'id' ).replace( /^item-/, '' ),
 			data = {};
 
-		if ( ! row.hasClass( 'log-err' ) ) { return false; }
+		if ( ! row.hasClass( 'log-err' ) && ! row.hasClass( 'log-ignore' ) ) { return false; }
 
 		data.action = 'transaction_retry';
 		data._wpnonce = nonce;
@@ -1244,19 +1246,13 @@ window.ms_init.view_billing_transactions = function init() {
 			window.ajaxurl,
 			data,
 			function(response) {
-				var message = false;
-
-				if ( response.indexOf( 'OK:' ) === 0 ) {
-					message = response.substr( 3 );
-					row.removeClass( 'log-err' ).addClass( 'log-ok' );
-				} else if ( response.indexOf( 'ERR:' ) === 0 ) {
-					message = response.substr( 4 );
+				if ( response.success && response.data.desc ) {
+					row.removeClass( 'log-err log-ignore log-ok' );
+					row.addClass( 'log-' + response.data.state );
+					row.find( '.column-note .txt' ).text( response.data.desc );
 				}
-
-				if ( message ) {
-					row.find( '.column-note .txt' ).text( message );
-				}
-			}
+			},
+			'json'
 		).always(function() {
 			cell.removeClass( 'wpmui-loading' );
 		});
@@ -1295,7 +1291,7 @@ window.ms_init.view_billing_transactions = function init() {
 	}
 
 	// Display the Transaction-Link popup.
-	function show_link_dialog( row, data ) {
+	show_link_dialog = function( row, data ) {
 		var sel_user, sel_subscription, sel_invoice, nonce_data, nonce_update,
 			row_user, row_subscription, row_invoice, btn_submit, log_id,
 			popup = wpmUi.popup(),
@@ -1445,9 +1441,9 @@ window.ms_init.view_billing_transactions = function init() {
 		if ( ! isNaN( sel_user.val() ) && sel_user.val() > 0 ) {
 			load_subscriptions();
 		}
-	}
+	};
 
-	function append_option( container, val, label ) {
+	append_option = function( container, val, label ) {
 		if ( typeof label === 'object' ) {
 			var group = jQuery( '<optgroup></optgroup>' );
 			group.attr( 'label', val );
@@ -1462,7 +1458,7 @@ window.ms_init.view_billing_transactions = function init() {
 				.html( label )
 			);
 		}
-	}
+	};
 
 	btn_clear.click(clear_line);
 	btn_ignore.click(ignore_line);
@@ -1491,7 +1487,8 @@ window.ms_init.view_member_editor = function init () {
 		sel_user = jQuery( '.ms-group-select #user_id' ),
 		btn_add = jQuery( '#btn_create' ),
 		btn_select = jQuery( '#btn_select' ),
-		chosen_options = {};
+		chosen_options = {},
+		validate_buttons;
 
 	function validate_field( fieldname, field ) {
 		var value = field.val(),
@@ -1526,7 +1523,7 @@ window.ms_init.view_member_editor = function init () {
 		);
 	}
 
-	function validate_buttons() {
+	validate_buttons = function() {
 		if ( txt_username.hasClass( 'valid' ) && txt_email.hasClass( 'valid' ) ) {
 			btn_add.prop( 'disabled', false );
 			btn_add.removeClass( 'disabled' );
@@ -1542,7 +1539,7 @@ window.ms_init.view_member_editor = function init () {
 			btn_select.prop( 'disabled', true );
 			btn_select.addClass( 'disabled' );
 		}
-	}
+	};
 
 	txt_username.change(function() {
 		validate_field( 'username', txt_username );
@@ -1694,6 +1691,53 @@ window.ms_init.view_membership_list = function init () {
 			window.location.reload();
 		}
 	});
+};
+
+window.ms_init.bulk_delete_membership = function() {
+    
+    var delete_url = jQuery( '.bulk_delete_memberships_button' ).attr( 'href' );
+    
+    var serealize_membership_ids = function() {
+        
+        var membership_ids = [];
+        jQuery( 'input.del_membership_ids:checked' ).each( function() {
+            membership_ids.push( jQuery( this ).val() );
+        } );
+        
+        if( membership_ids.length > 0 ){
+            return delete_url + '&membership_ids=' + membership_ids.join( '-' );
+        }else{
+            return delete_url;
+        }
+        
+    };
+    
+    function confirm_bulk_delete( ev ) {
+            var args,
+                    me = jQuery( this ),
+                    row = me.parents( 'tr' ),
+                    delete_url = me.attr( 'href' );
+
+            ev.preventDefault();
+            args = {
+                    message: ms_data.lang.msg_bulk_delete,
+                    buttons: [
+                            ms_data.lang.btn_delete,
+                            ms_data.lang.btn_cancel
+                    ],
+                    callback: function( key ) {
+                            if ( key === 0 ) {
+                                    window.location = serealize_membership_ids();
+                            }
+                    }
+            };
+            wpmUi.confirm( args );
+
+            return false;
+    }
+    
+    jQuery( '.bulk_delete_memberships_button' ).click( confirm_bulk_delete );
+        
 };
 /*global window:false */
 /*global document:false */
@@ -1915,7 +1959,6 @@ window.ms_init.view_membership_payment = function init () {
 	jQuery( '.wpmui-slider-trial_period_enabled' ).on( 'ms-radio-slider-updated', toggle_trial );
 	jQuery(document).on( 'ms-ajax-updated', '#enable_trial_addon', reload_page );
 };
-
 /*global window:false */
 /*global document:false */
 /*global ms_data:false */
@@ -1923,7 +1966,8 @@ window.ms_init.view_membership_payment = function init () {
 
 window.ms_init.view_protected_content = function init () {
 	var table = jQuery( '.wp-list-table' ),
-		sel_network_site = jQuery( '#select-site' );
+		sel_network_site = jQuery( '#select-site' ),
+		setup_editor;
 
 	window.ms_init.memberships_column( '.column-access' );
 
@@ -2017,7 +2061,7 @@ window.ms_init.view_protected_content = function init () {
 	}
 
 	// Set up the event-handlers of the inline editor.
-	function setup_editor( form ) {
+	setup_editor = function( form ) {
 		var sel_type = form.find( 'select.dripped_type' ),
 			inp_date = form.find( '.wpmui-datepicker' );
 
@@ -2033,7 +2077,7 @@ window.ms_init.view_protected_content = function init () {
 
 		// Datepicker
 		inp_date.ms_datepicker();
-	}
+	};
 
 	// The table was updated, at least one row needs to be re-initalized.
 	function update_table( ev, row ) {
@@ -2302,11 +2346,25 @@ window.ms_init.view_settings = function init () {
 		}
 	}
 
+	function hide_footer( ev, data ) {
+		// Show/Hide the footer for Membership2.
+		if ( !data.value ) {
+			jQuery( '.ms-settings-email-cron' ).hide();
+		} else {
+			jQuery( '.ms-settings-email-cron' ).show();
+		}
+		var ajax_data = jQuery( '.wpmui-slider-enable_cron_use .wpmui-toggle').attr('data-wpmui-ajax');
+		ajax_data = JSON.parse(ajax_data);
+		jQuery.post(window.ajaxurl,{'action' : 'toggle_cron', '_wpnonce' : ajax_data._wpnonce }, function(){});
+	}
+
 	// Reload the page when Wizard mode is activated.
 	jQuery( '#initial_setup' ).on( 'ms-ajax-updated', reload_window );
 
 	// Hide/Show the "Test Membership" button in the toolbar.
 	jQuery( '.wpmui-slider-plugin_enabled').on( 'ms-radio-slider-updated', update_toolbar );
+	//Hide/Show footer when the cron is enabled or disabled
+	jQuery( '.wpmui-slider-enable_cron_use').on( 'ms-radio-slider-updated', hide_footer );
 
 	// Membership Pages: Update contents after a page was saved
 	jQuery( '.wpmui-wp-pages' ).on( 'ms-ajax-updated', page_changed );
@@ -2660,7 +2718,7 @@ window.ms_init.view_settings_payment = function init() {
 
 			if ( 'sandbox' === data.value ) {
 				row.removeClass( 'is-live' ).addClass( 'is-sandbox' );
-			} else {
+			} else if ( 'live' === data.value ) {
 				row.removeClass( 'is-sandbox' ).addClass( 'is-live' );
 			}
 		} else {
@@ -2693,7 +2751,6 @@ window.ms_init.view_settings_payment = function init() {
 	}
 
 	jQuery( document ).on( 'ms-ajax-updated', toggle_status );
-
 	jQuery( document ).on( 'click', '.show-settings', change_icon );
 
 	jQuery( '.wpmui-slider-secure_cc' ).on( 'ms-ajax-done', toggle_description );

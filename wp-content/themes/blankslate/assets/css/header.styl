@@ -1,0 +1,128 @@
+header
+	background-color #fff
+	box-shadow 0 1px 3px rgba(0,0,0,.18)
+	height 60px
+	padding 0 10px
+	position fixed
+	top 0
+	width 100%
+	z-index 1
+	transition background 150ms 300ms
+
+.nav
+	float right
+
+.logo-group
+	float left
+	padding-top 14px
+
+	.logo svg
+		width 160px
+	  fill $dark_blue
+	  margin 0
+
+.menu-header-menu-container, .login-stuff
+	float left
+
+.nav ul.login-stuff
+	border-left 1px solid $grey
+	margin 13px 0 0 20px
+	padding 0 0 0 25px
+
+	li:first-child
+		margin 0
+
+.logged-in .nav ul.login-stuff
+	margin 12px 0 0 20px
+	padding 8px 0 12px 25px
+
+.nav ul
+	margin 20px 0 0 0
+
+.nav ul li
+	display inline-block
+	margin 0 0 0 20px
+	text-align left
+
+.nav ul li a
+	border-bottom 2px solid transparent
+	color $red
+	font-size 14px
+	font-weight 700
+	padding 21px 0
+	text-decoration none
+	text-transform uppercase
+
+	&:hover
+		border-color $red
+		transition all $one-fifty
+
+.nav ul li.menu-item-262 a
+	padding-right 20px
+
+.nav ul li.menu-item-has-children
+	position relative
+
+.nav ul li.menu-item-has-children > a:before,
+.nav ul li.menu-item-has-children > a:after
+	background-color $red
+	content ""
+	display inline-block
+	float right
+	height 3px
+	position relative
+	width 7px
+
+.nav ul li.menu-item-has-children > a:before
+	left -5px
+	margin 7px 0 0 -3px
+	transform rotateZ(-45deg)
+
+.nav ul li.menu-item-has-children > a:after
+	left -5px
+	margin 7px 0 0 -10px
+	transform rotateZ(45deg)
+
+.nav ul li.menu-item-has-children:hover a:before,
+.nav ul li.menu-item-has-children:hover a:after
+	background $red
+
+.nav ul li.menu-item-has-children > ul.sub-menu
+	background-color #fff
+	border-radius 0 0 4px 4px
+	box-shadow 0 0 3px rgba(0,0,0,0.30)
+	display none
+	left -17px
+	padding 5px
+	position absolute
+	top 10px
+	white-space nowrap
+
+	li
+		margin 0
+		line-height 15px
+		padding 0
+		width 100%
+		display block
+		&:hover
+			border none
+
+		a
+			border none
+			border-radius 2px
+			color $red
+			display block
+			padding 8px 11px
+
+			&:hover
+				background-color $red
+				box-shadow 0 2px 8px 0px rgba(0, 0, 0, 0.3)
+				border none
+				color #fff
+				transition all $one-fifty
+
+.nav ul li.menu-item-has-children:hover > ul.sub-menu
+	display block
+
+.nav ul li a.main-login
+	color $dark-blue

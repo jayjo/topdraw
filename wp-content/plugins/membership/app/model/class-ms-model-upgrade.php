@@ -30,10 +30,22 @@ class MS_Model_Upgrade extends MS_Model {
 		// This is a hidden feature available in the Settings > General page.
 		add_action( 'init', array( __CLASS__, 'maybe_reset' ) );
 
+		// This is a hidden feature available in Settings > General page.
+        add_action( 'init', array( __CLASS__, 'maybe_fix_stripe_subs' ) );
+
 		// Prevent WordPress from updating the Membership plugin when the
 		// WPMU DEV Dashboard is disabled.
-
-		// PRO ONLY!
+		if ( ! class_exists( 'WPMUDEV_Dashboard' ) ) {
+			add_filter(
+				'plugins_api',
+				array( __CLASS__, 'no_dash_plugins_api' ),
+				101, 3
+			);
+			add_filter(
+				'site_transient_update_plugins',
+				array( __CLASS__, 'no_dash_update_plugins' )
+			);
+		}
 
 		do_action( 'ms_model_upgrade_init' );
 	}
@@ -58,11 +70,11 @@ class MS_Model_Upgrade extends MS_Model {
 		// Check for correct network-wide protection setup.
 		self::check_settings();
 
-		$settings = MS_Factory::load( 'MS_Model_Settings' );
-		$old_version = $settings->version; // Old: The version in DB.
-		$new_version = MS_Plugin::instance()->version; // New: Version in file.
+		$settings 		= MS_Factory::load( 'MS_Model_Settings' );
+		$old_version 	= $settings->version; // Old: The version in DB.
+		$new_version 	= MS_Plugin::instance()->version; // New: Version in file.
 
-		$is_new_setup = empty( $old_version );
+		$is_new_setup 	= empty( $old_version );
 
 		// Compare current src version to DB version:
 		// We only do UP-grades but no DOWN-grades!
@@ -128,16 +140,23 @@ class MS_Model_Upgrade extends MS_Model {
 			 */
 
 			// Upgrade from a 1.0.0.x version to 1.0.1.0 or higher
-			if ( version_compare( $old_version, '4.0.0.4', 'lt' ) ) {
+			if ( version_compare( $old_version, '1.0.1.0', 'lt' ) ) {
 				self::_upgrade_1_0_1_0();
 			}
 
 			// Upgrade from 1.0.1.0 version to 1.0.1.1 or higher
-			// ONLY RELEVANT FOR PRO VERSION!
+			if ( version_compare( $old_version, '1.0.1.1', 'lt' ) ) {
+				self::_upgrade_1_0_1_1();
+			}
 
 			// Upgrade from 1.0.1.x version to 1.0.2.0 or higher
-			if ( version_compare( $old_version, '4.0.0.6', 'lt' ) ) {
+			if ( version_compare( $old_version, '1.0.2.0', 'lt' ) ) {
 				self::_upgrade_1_0_2_0();
+			}
+
+			// Upgrade from 1.0.2.x version to 1.0.2.4 or higher
+			if ( version_compare( $old_version, '1.0.2.4', 'lt' ) ) {
+				self::_upgrade_1_0_2_4();
 			}
 
 			/*
@@ -169,6 +188,9 @@ class MS_Model_Upgrade extends MS_Model {
 	}
 
 	/**
+	 * When WPMU DEV Dashboard is disabled this function will tell WordPress
+	 * to not update Membership 2.
+	 *
 	 * PRO ONLY!
 	 *
 	 * @since  1.0.1.2
@@ -178,10 +200,26 @@ class MS_Model_Upgrade extends MS_Model {
 	 * @return mixed
 	 */
 	static public function no_dash_plugins_api( $res, $action, $args ) {
-		// PRO ONLY!
+		if ( ! empty( $args ) && is_object( $args ) ) {
+			if ( isset( $args->slug ) ) {
+				if ( 'wpmudev_install-1003656' == $args->slug ) {
+					$res = true;
+				} elseif ( 'wpmudev_install-130' == $args->slug ) {
+					$res = true;
+				} elseif ( 'membership' == $args->slug ) {
+					$res = true;
+				}
+			}
+		}
+
+		return $res;
 	}
 
 	/**
+	 * Filter the site transient value right before it is returned by the
+	 * get_site_transient function.
+	 * We mark the Membership2 plugin for "no update".
+	 *
 	 * PRO ONLY!
 	 *
 	 * @since  1.0.1.2
@@ -189,7 +227,14 @@ class MS_Model_Upgrade extends MS_Model {
 	 * @return object
 	 */
 	static public function no_dash_update_plugins( $data ) {
-	// PRO ONLY!
+		if ( ! empty( $data ) && is_object( $data ) && ! empty( $data->response ) ) {
+			if ( isset( $data->response['membership/membership2.php'] ) ) {
+				$data->no_update['membership/membership2.php'] = $data->response['membership/membership2.php'];
+				unset( $data->response['membership/membership2.php'] );
+			}
+		}
+
+		return $data;
 	}
 
 
@@ -237,9 +282,46 @@ class MS_Model_Upgrade extends MS_Model {
 
 	/**
 	 * Upgrade from 1.0.1.0 version to a higher version.
-	 * ONLY RELEVANT FOR PRO VERSION!
 	 */
 	static private function _upgrade_1_0_1_1() {
+		lib3()->updates->clear();
+
+		/*
+		 * A bug in 1.0.1 created multiple copies of email templates.
+		 * This update block will delete the duplicates again.
+		 */
+		{
+			global $wpdb;
+			$sql = "
+			SELECT ID
+			FROM {$wpdb->posts}
+			WHERE
+				post_type = 'ms_communication'
+				AND ID NOT IN (
+				SELECT
+					MIN( p.ID ) ID
+				FROM
+					{$wpdb->posts} p
+					INNER JOIN {$wpdb->postmeta} m1
+					ON m1.post_id = p.ID AND m1.meta_key = 'type'
+				WHERE
+					p.post_type = 'ms_communication'
+					AND LENGTH( m1.meta_value ) > 0
+				GROUP BY
+					m1.meta_value,
+					p.post_parent
+				);
+			";
+			$ids = $wpdb->get_col( $sql );
+
+			foreach ( $ids as $id ) {
+				lib3()->updates->add( 'wp_delete_post', $id, true );
+			}
+		}
+
+		// Execute all queued actions!
+		lib3()->updates->plugin( 'membership2' );
+		lib3()->updates->execute();
 	}
 
 	/**
@@ -267,6 +349,36 @@ class MS_Model_Upgrade extends MS_Model {
 		}
 	}
 
+	/**
+	 * Upgrade from 1.0.2.x version to 1.0.2.4 version.
+	 */
+	static private function _upgrade_1_0_2_4() {
+		lib3()->updates->clear();
+
+		/*
+		 * Transaction matching of M1 payments with M2 memberships has improved
+		 * so a single M2 membership can be matched with multiple transaction
+		 * types.
+		 */
+		{
+			$memberships = MS_Model_Membership::get_memberships();
+			foreach ( $memberships as $item ) {
+				$source_id = $membership->source_id;
+				if ( empty( $source_id ) ) { continue; }
+
+				$data = lib3()->array->get(
+					$membership->get_custom_data( 'matching' )
+				);
+
+				if ( ! isset( $data['m1'] ) ) { $data['m1'] = array(); }
+				$data['m1'] 	= lib3()->array->get( $data['m1'] );
+				$data['m1'][] 	= $source_id;
+				$membership->set_custom_data( 'matching', $data );
+				$membership->save();
+			}
+		}
+	}
+
 	#
 	# ##########################################################################
 	#
@@ -281,8 +393,57 @@ class MS_Model_Upgrade extends MS_Model {
 	 */
 	static private function remove_old_copy() {
 		$new_dir = WP_PLUGIN_DIR . '/membership';
-		// ONLY RELEVANT IN PRO VERSION!
-		return;
+		$old_dir = WP_PLUGIN_DIR . '/protected-content';
+		$old_plugins = array(
+			'protected-content/protected-content.php',
+			'membership/membershippremium.php',
+		);
+		$new_plugin = plugin_basename( MS_Plugin::instance()->file );
+
+		// Make sure that the current plugin is the official M2 one.
+		if ( false === strpos( MS_Plugin::instance()->dir, $new_dir ) ) {
+			// Cancel: This plugin is not the official plugin (maybe a backup or beta version)
+
+			if ( false !== strpos( MS_Plugin::instance()->dir, $old_dir ) ) {
+				lib3()->ui->admin_message(
+					__( '<b>Upgrade warning</b>:<br>The Membership 2 plugin is installed in an deprecated folder. Some users did report issues when the plugin is installed in this directory.<br>To fix this issue please follow these steps:<br><br>1. Delete* the old Membership Premium plugin if it is still installed.<br>2. Delete* the Membership 2 plugin.<br>3. Re-install Membership 2 from the WPMU Dashboard - your existing data is not affected by this.<br><br>*) <em>Only deactivating the plugins does not work, you have to delete them.</em>', 'membership2' ),
+					'error'
+				);
+			}
+
+			return;
+		}
+
+		// 1. See if there is a old copy of the plugin directory. Delete it.
+		if ( is_dir( $old_dir ) && is_file( $old_dir . '/protected-content.php' ) ) {
+			// Looks like the old version of this plugin is still installed. Remove it.
+			try {
+				unlink( $old_dir . '/protected-content.php' );
+				array_map( 'unlink', glob( "$old_dir/*.*" ) );
+				rmdir( $old_dir );
+			} catch( Exception $e ) {
+				// Something went wrong when removing the old plugin.
+			}
+		}
+
+		// 2. See if WordPress uses an old plugin in the DB. Update it.
+		if ( is_multisite() ) {
+			$global_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
+			foreach ( $global_plugins as $key => $the_path ) {
+				if ( in_array( $the_path, $old_plugins ) ) {
+					$global_plugins[$key] = $new_plugin;
+				}
+			}
+			update_site_option( 'active_sitewide_plugins', $global_plugins );
+		}
+
+		$site_plugins = (array) get_option( 'active_plugins', array() );
+		foreach ( $site_plugins as $key => $the_path ) {
+			if ( in_array( $the_path, $old_plugins ) ) {
+				$site_plugins[$key] = $new_plugin;
+			}
+		}
+		update_option( 'active_plugins', $site_plugins );
 	}
 
 	#
@@ -347,8 +508,8 @@ class MS_Model_Upgrade extends MS_Model {
 			MS_Model_Transactionlog::get_post_type(),
 			MS_Model_Membership::get_post_type(),
 			MS_Model_Relationship::get_post_type(),
-			// MS_Addon_Coupon_Model::get_post_type(), ONLY PRO
-			// MS_Addon_Invitation_Model::get_post_type(), ONLY PRO
+			MS_Addon_Coupon_Model::get_post_type(),
+			MS_Addon_Invitation_Model::get_post_type(),
 		);
 
 		foreach ( $ms_posttypes as $type ) {
@@ -389,6 +550,59 @@ class MS_Model_Upgrade extends MS_Model {
 		exit;
 	}
 
+    /**
+     * Fix subscriptions with issue where Stripe payments would not go active.
+     *
+     * @since 1.0.3.4
+     */
+	static private function fix_subs() {
+        /**
+         * Because the issue is only with recurring payments, we get all memberships
+         * with a price and recurring payment.
+         */
+        $paid_memberships = MS_Model_Membership::get_memberships( array(
+            'meta_query' => array(
+                array(
+                    'key' 		=> 'price',
+                    'value' 	=> 0,
+                    'compare' 	=> '>',
+                ),
+                array(
+                    'key' 		=> 'payment_type',
+                    'value' 	=> 'recurring',
+                ),
+            ),
+        ) );
+
+        // Loop over the memberships.
+        foreach ( $paid_memberships as $membership ) {
+
+            // Bug only applies to Stripe.
+            if ( ! $membership->can_use_gateway( 'stripeplan' ) ) {
+                return;
+            }
+
+            // Get all the members in the selected membership.
+            $members = $membership->get_members( array(
+                'status' => 'all',
+            ) );
+
+            // Loop through all the members.
+            foreach ( $members as $member ) {
+                $subscription = $member->get_subscription( $membership->id );
+
+                // Check if the bug is present.
+                if ( $subscription && ( $subscription->current_invoice_number < count( $subscription->get_invoices() ) ) ) {
+                    $subscription->current_invoice_number = count( $subscription->get_invoices() );
+                    $subscription->save();
+                }
+            }
+
+        }
+
+        return;
+    }
+
 	/**
 	 * Checks several settings to make sure that M2 is fully working.
 	 *
@@ -404,7 +618,23 @@ class MS_Model_Upgrade extends MS_Model {
 		if ( ! $Setting_Check_Done ) {
 			$Setting_Check_Done = true;
 
-			// A) ONLY RELEVANT IN PRO VERSION!
+			// A) Check plugin activation in network-wide mode.
+			if ( is_multisite() ) {
+
+				if ( MS_Plugin::is_network_wide() ) {
+					// This function does not exist in network admin
+					if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+						require_once ABSPATH . '/wp-admin/includes/plugin.php';
+					}
+
+					if ( ! is_plugin_active_for_network( MS_PLUGIN ) ) {
+						activate_plugin( MS_PLUGIN, null, true );
+						lib3()->ui->admin_message(
+							__( 'Info: Membership2 is not activated network-wide', 'membership2' )
+						);
+					}
+				}
+			}
 
 			// B) Check the Permalink settings.
 			if ( false === strpos( get_option( 'permalink_structure' ), '%postname%' ) ) {
@@ -431,17 +661,17 @@ class MS_Model_Upgrade extends MS_Model {
 	 * @since  1.0.0
 	 */
 	static private function check_migration_handler() {
-		$migrate = '';
-		$settings = MS_Factory::load( 'MS_Model_Settings' );
+		$migrate 		= '';
+		$settings 		= MS_Factory::load( 'MS_Model_Settings' );
 
 		// Check Migration from old Membership plugin.
-		$option_m1 = '_wpmudev_update_to_m2';
+		$option_m1 		= '_wpmudev_update_to_m2';
 		$option_m1_free = '_wporg_update_to_m2';
-		$from_m1 = get_site_option( $option_m1 );
-		$from_m1_free = get_site_option( $option_m1_free );
+		$from_m1 		= get_site_option( $option_m1 );
+		$from_m1_free 	= get_site_option( $option_m1_free );
 
 		if ( $from_m1 || $from_m1_free ) {
-			$migrate = 'm1';
+			$migrate 	= 'm1';
 
 			delete_site_option( $option_m1 );
 			delete_site_option( $option_m1_free );
@@ -551,13 +781,20 @@ class MS_Model_Upgrade extends MS_Model {
 		if ( ! is_admin() ) { return false; }
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { return false; }
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) { return false; }
+		/**
+		 * BuddyPress notices hack
+		 */
+		$bp = function_exists( 'buddypress' ) ? buddypress() : null;
+		if( null != $bp ) {
+			if ( ! did_action( 'init' ) ) { return false; }
+		}
 		if ( ! current_user_can( 'manage_options' ) ) { return false; }
 
 		return true;
 	}
 
 	/**
-	 * Checks if valid reset-instructions are present. If yes, then whipe the
+	 * Checks if valid reset-instructions are present. If yes, then wipe the
 	 * plugin settings.
 	 *
 	 * @since  1.0.0
@@ -577,6 +814,28 @@ class MS_Model_Upgrade extends MS_Model {
 			exit;
 		}
 	}
+
+    /**
+     * Checks if valid fixsub-instructions are present. If yes, then fix the
+     * plugin subscriptions.
+     *
+     * @since  1.0.3.4
+     */
+	static public function maybe_fix_stripe_subs() {
+	    static $Fix_Done = false;
+
+	    if ( ! $Fix_Done ) {
+            $Fix_Done = true;
+            if ( ! self::verify_token( 'fixsub' ) ) { return false; }
+
+            self::fix_subs();
+            $msg = __( 'Membership 2 subscriptions fixed!', 'membership2' );
+            lib3()->ui->admin_message( $msg );
+
+            wp_safe_redirect( MS_Controller_Plugin::get_admin_url( 'MENU_SLUG' ) );
+            exit;
+        }
+    }
 
 	/**
 	 * Checks if valid restore-options are specified. If they are, the snapshot

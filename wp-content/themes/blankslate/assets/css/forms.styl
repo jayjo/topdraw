@@ -1,0 +1,53 @@
+.email-us
+	margin-top 45px
+
+	a
+		background-color transparent
+		color $red
+		padding 0 5px
+		text-decoration none
+		transition all $one-fifty
+
+		&:hover
+			background-color $red
+			color #fff
+			transition all $one-fifty
+
+.form:before
+	border-bottom 3px dashed rgba($grey,.5)
+	content ""
+	display block
+	height 4px
+	margin 125px auto 0
+	width 130px
+
+.error-thing
+	display none
+
+label
+	font-family $das
+	font-size 13px
+	font-weight 700
+
+input[type=text], input[type=email], input[type=password]
+	background-color #fff
+	background-image none
+	border 1px solid $grey
+	border-radius 2px
+	box-shadow none
+	color $dark-blue
+	font-family $das
+	font-size 13px
+	font-weight 700
+	padding 8px 10px
+	outline none
+	transition all $one-fifty
+
+	&:focus
+		border-color $light-blue
+		box-shadow 0 2px 15px -5px rgba(0,0,0,.47)
+		color $dark-blue
+		transition all $one-fifty
+
+input[type=text]:disabled, input[type=email]:disabled, input[type=password]:disabled
+	opacity .3

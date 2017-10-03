@@ -1,0 +1,78 @@
+.internal-hero
+	background-position center
+	background-repeat no-repeat
+	background-size cover
+	height 100vh
+	position relative
+
+.internal-hero .content
+	position absolute
+	top 45%
+	left 50%
+	transform translate3D(-50%,-50%,0)
+	text-align center
+	width 100%
+
+.internal-hero h1
+	color #fff
+	font-size 90px
+	letter-spacing -3px
+	margin 0 0 10px 0
+	text-shadow 0 8px 78px rgba(0,0,0,0.4)
+
+.internal-hero h2
+	color #fff
+	font-size 70px
+	font-weight normal
+	letter-spacing -2px
+	margin 0 0 10px 0
+	text-shadow 0 5px 18px rgba(0,0,0,0.4)
+
+.chart
+	margin 125px auto
+	min-width 720px
+	text-align left
+	width 75%
+
+	.content, .analysis-type
+		float left
+
+	.content
+		max-width 630px
+		width 70%
+
+	.analysis-type
+		box-sizing border-box
+		padding 70px 0 0 50px
+		max-width 270px
+		width 30%
+
+		ul
+			margin 0
+			padding 0
+
+			li a
+				background none
+				background-color #fff
+				background-image none
+				border 1px solid $grey
+				border-radius 2px
+				color $red
+				display block
+				font-family $das
+				font-size 15px
+				font-weight 700
+				height auto
+				margin 0 auto 10px
+				min-height auto
+				outline none
+				padding 1em 1.5em 1.05em
+				text-align center
+				text-decoration none
+				text-transform uppercase
+				transition all $one-fifty
+
+				&:hover
+					box-shadow 0 7px 24px -8px rgba(0,0,0,0.35)
+					color rgb(198,66,71)
+					transition all $one-fifty

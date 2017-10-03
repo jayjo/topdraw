@@ -1,11 +1,20 @@
 @import 'reset'
 @import	'mixins'
-@import 'header'
 
 // GLOBAL STYLES
 
 *
 	box-sizing border-box
+
+::-moz-selection
+	background-color $red
+	color #fff
+	text-shadow none
+
+::selection
+	background-color $red
+	color #fff
+	text-shadow none
 
 body
 	background-color #fff
@@ -13,3 +22,45 @@ body
 	line-height 1
 	margin 0
 	padding 0
+	-webkit-font-smoothing antialiased
+
+.wrapper
+	margin 0 auto
+	max-width 1200px
+	width 100%
+
+.cf:after
+	content ""
+	display table
+	clear both
+
+.post-edit-link
+	background-color #fff
+	border-radius 2px
+	bottom 50px
+	box-shadow 0 4px 17px 0px rgba(0, 0, 0, 0.13)
+	color $red
+	font-size 11px
+	font-weight 700
+	padding 10px 15px
+	position fixed
+	right 50px
+	text-decoration none
+	text-transform uppercase
+
+@import 'typography'
+@import 'admin-pages'
+@import 'buttons'
+
+/// PAGE STYLES
+
+@import 'header'
+@import 'home'
+@import 'footer'
+@import 'forms'
+@import 'login'
+@import 'payments'
+@import 'state'
+@import 'unit-analysis'
+@import 'validation'
+@import 'coming-soon'

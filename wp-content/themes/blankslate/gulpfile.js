@@ -96,7 +96,7 @@ const AUTOPREFIXER_BROWSERS = [
 var gulp         = require('gulp'); // Gulp of-course
 
 // CSS related plugins.
-var stylus         = require('gulp-stylus'); // Gulp pluign for stylus compilation.
+var stylus       = require('gulp-stylus'); // Gulp pluign for stylus compilation.
 var minifycss    = require('gulp-uglifycss'); // Minifies CSS files.
 var autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic.
 var mmq          = require('gulp-merge-media-queries'); // Combine matching media queries into one media query definition.
@@ -317,7 +317,7 @@ gulp.task( 'browser-sync', function() {
   *
   * Watches for file changes and runs specific tasks.
   */
- gulp.task( 'watch', ['styles', 'vendorsJs', 'customJS', 'images', 'browser-sync'], function () {
+ gulp.task( 'default', ['styles', 'vendorsJs', 'customJS', 'images', 'browser-sync'], function () {
   gulp.watch( projectPHPWatchFiles, reload ); // Reload on PHP file changes.
   gulp.watch( styleWatchFiles, [ 'styles' ] ); // Reload on styl file changes.
   gulp.watch( vendorJSWatchFiles, [ 'vendorsJs', reload ] ); // Reload on vendorsJs file changes.

@@ -1,0 +1,71 @@
+.hero
+	background-position center
+	background-repeat no-repeat
+	background-size cover
+	height 100vh
+	position relative
+
+.hero .content
+	position absolute
+	top 45%
+	left 50%
+	transform translate3D(-50%,-50%,0)
+	text-align center
+	width 100%
+
+.hero h1
+	color #fff
+	font-size 90px
+	letter-spacing -3px
+	margin 0 0 10px 0
+	text-shadow 0 8px 78px rgba(0,0,0,0.4)
+
+.hero h2
+	color #fff
+	font-size 70px
+	font-weight normal
+	letter-spacing -2px
+	margin 0 0 10px 0
+	text-shadow 0 5px 18px rgba(0,0,0,0.4)
+
+.second:before
+	border-bottom 3px dashed rgba($grey,.5)
+	content ""
+	display block
+	height 4px
+	width 130px
+
+.second:before
+	margin 0 auto 125px
+
+.first, .third
+	.content
+		margin 125px auto
+		min-width 720px
+		text-align center
+		width 75%
+
+.second
+	.image-container, .content
+		float left
+		width 50%
+
+.second .image-container img
+	width 100%
+
+.second .content
+	padding 20px 65px
+
+.button .arrow svg
+	fill #fff
+	margin 0 0 0 20px
+	position relative
+	top -1px
+	width 15px
+	vertical-align middle
+	transition all $one-fifty
+
+.button:hover .arrow svg
+	fill $red
+	margin 0 0 0 40px
+	transition all $one-fifty

@@ -50,6 +50,7 @@
 		display table
 
 .page-template-page-admin .entry-content
+	position relative
 
 	&:after
 		content ""
@@ -97,3 +98,19 @@
 
 .leaky-paywall-payment-form div.leaky-paywall-checkout-button, .entry-content .button
 	margin-bottom 0
+
+.leaky_paywall_message.error
+	background-color $red
+	border-radius 5px 5px 0 0
+	display inline
+	font-size 13px
+	left 0px
+	padding 10px 25px
+	position absolute
+	text-align center
+	text-transform none
+	top 0px
+	width 100%
+
+	p
+		color #fff

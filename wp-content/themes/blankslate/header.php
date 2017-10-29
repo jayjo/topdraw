@@ -7,8 +7,8 @@
 
 	<?php wp_head(); ?>
 
-	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendors.js" type="text/javascript"></script>
-	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/custom.js" type="text/javascript"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendors.min.js" type="text/javascript"></script>
+	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/custom.min.js" type="text/javascript"></script>
   <script src="<?php echo get_template_directory_uri(); ?>/assets/js/tracking.js" type="text/javascript"></script>
 
 </head>
@@ -32,7 +32,7 @@
           <?php } else { ?>
           <ul class="login-stuff">
             <li><a href="<?php echo home_url('/login'); ?>" class="main-login">Login</a></li>
-            <li class="right"><a href="<?php echo home_url('/subscription'); ?>" class="button med solid red join">Join Now</a></li>
+            <li class="right"><a href="<?php echo home_url('/subscription'); ?>" class="button med solid red join signup-button" attr="Header">Join Now</a></li>
           </ul>
         <?php } ?>
       </nav>

@@ -1,0 +1,131 @@
+.table_container
+	background #fff
+	bottom 0
+	height 100vh
+	left 0
+	opacity 0
+	overflow scroll
+	padding-top 70px
+	position fixed
+	right 0
+	top 0
+	visibility hidden
+	width 100vw
+	z-index 1
+	transition visibility 0 150ms, opacity 150ms
+
+	table
+		opacity 0
+		width 100vw
+		transition opacity 75ms
+
+	tr:nth-child(odd)
+		background rgba($grey, .15)
+
+	td, th
+		border-bottom 1px solid rgba($grey, .35)
+		border-right 1px solid rgba($grey, .35)
+		position relative
+
+	th
+		background #fff
+		font-size 12px
+		line-height 15px
+		padding 25px 15px
+		text-transform uppercase
+		vertical-align middle
+
+	td
+		font-size 14px
+		line-height 15px
+		padding 15px
+
+table .orange
+	color $orange
+
+.tooltip
+	background $orange
+	border-radius 3px
+	box-shadow 0 3px 18px -4px rgba(0,0,0,.35)
+	color $dark-blue
+	font-size 12px
+	max-width 240px
+	opacity 0
+	padding 10px
+	position absolute
+	top -17px
+	visibility hidden
+	transition opacity 0ms, visibility 0ms
+	z-index 10
+
+	&.left
+		left -230px
+		transform translateX(10px)
+
+	&.right
+		right 45px
+		transform translateX(-10px)
+
+	&.bottom
+		left 0
+		transform translateY(40px)
+
+	&.top
+		left 0
+		transform translateY(-40px)
+
+table .orange:hover .tooltip
+	opacity 1
+	visibility visible
+	transition opacity 150ms 200ms, transform 150ms 200ms
+
+	&.left
+		transform translateX(0)
+
+	&.right
+		transform translateX(0)
+
+	&.bottom
+		transform translateY(60px)
+
+	&.top
+		transform translateY(-60px)
+
+.table-head
+	background $dark-blue
+	box-shadow 0 2px 4px 0 rgba(0,0,0,.32)
+	height 70px
+	left 0
+	opacity 0
+	position fixed
+	top 0
+	visibility hidden
+	width 100vw
+	z-index 1
+	transition opacity 75ms, visibility 0ms 75ms
+
+////// Active TABLE styles
+
+.table-active
+
+	.table_container
+		opacity 1
+		visibility visible
+		transition visibility 0ms, opacity 150ms
+
+		table
+			opacity 1
+			transition opacity 75ms 150ms
+
+	.table-head
+		opacity 1
+		visibility visible
+		transition visibility 0ms, opacity 150ms
+
+	.navvy.species
+		left 50%
+		margin-left -200px
+		position fixed
+		top 11px
+		z-index 20
+		transition top 150ms

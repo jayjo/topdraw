@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Registration Functions
  *
@@ -20,10 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 4.0.0
  */
 function leaky_paywall_process_registration() {
-	
+
 	if ( !isset( $_POST['leaky_paywall_register_nonce'] ) ) {
 		return;
-	}	
+	}
 
 	if ( !wp_verify_nonce( $_POST['leaky_paywall_register_nonce'], 'leaky-paywall-register-nonce' ) ) {
 		return;
@@ -44,11 +44,11 @@ function leaky_paywall_process_registration() {
 	if ( isset( $_POST['payment_method'] ) ) {
 		$gateway = sanitize_text_field( $_POST['payment_method'] );
 	}
-	
-	/** 
+
+	/**
 	 * Validate the Form
 	 */
-	
+
 	// validate user data
 	$user_data = leaky_paywall_validate_user_data();
 
@@ -73,7 +73,7 @@ function leaky_paywall_process_registration() {
 				'last_name'				=> $user_data['last_name'],
 				'display_name'			=> $user_data['first_name'] . ' ' . $user_data['last_name'],
 				'user_registered'		=> date( 'Y-m-d H:i:s' )
-			) 
+			)
 		);
 
 		if ( !empty( $user_data['id'] ) ) {
@@ -88,7 +88,7 @@ function leaky_paywall_process_registration() {
 	}
 
 	// add details about the subscription to newly created subscriber
-	
+
 	if ( $user_data['id'] ) {
 
 		if ( isset( $_POST['plan_id'] ) ) {
@@ -122,19 +122,19 @@ function leaky_paywall_process_registration() {
 			$meta['payment_status'] = 'active';
 
 		}
-		
+
 		foreach( $meta as $key => $value ) {
 
 			update_user_meta( $user_data['id'], '_issuem_leaky_paywall_' . $mode . '_' . $key . $site, $value );
-			
+
 		}
-		
+
 		do_action( 'leaky_paywall_form_processing', $_POST, $user_data['id'], $meta['price'], $mode, $site, $level_id );
 
 		if ( leaky_paywall_is_free_registration( $meta ) ) {
 
 			// process a free subscription
-			
+
 			$subscription_data = array(
 				'length'			=> sanitize_text_field( $_POST['interval_count'] ),
 				'length_unit'		=> sanitize_text_field( $_POST['interval'] ),
@@ -144,7 +144,7 @@ function leaky_paywall_process_registration() {
 
 			leaky_paywall_set_expiration_date( $user_data['id'], apply_filters( 'leaky_paywall_subscription_data', $subscription_data, $meta ) );
 
-			// send email notification 
+			// send email notification
 			// @todo add a free version of the email notification, not just new
 			leaky_paywall_email_subscription_status( $user_data['id'], 'new', $user_data );
 
@@ -158,7 +158,7 @@ function leaky_paywall_process_registration() {
 			} else if ( !empty( $settings['page_for_subscription'] ) ) {
 				wp_safe_redirect( get_page_link( $settings['page_for_subscription'] ) );
 			}
-			
+
 			exit;
 
 		} else {
@@ -187,23 +187,23 @@ function leaky_paywall_process_registration() {
 				'post_data'			=> $_POST
 			);
 
-			// send email notification 
+			// send email notification
 			leaky_paywall_email_subscription_status( $user_data['id'], 'new', $user_data );
 
 			// send all data to the gateway for processing
 			leaky_paywall_send_to_gateway( $gateway, apply_filters( 'leaky_paywall_subscription_data', $subscription_data, $meta ) );
 
 		}
-		
+
 
 		// @todo: move login and redirect code here so that it doesn't have to be included in each payment gateway
-		
+
 	}
 }
 add_action( 'init', 'leaky_paywall_process_registration', 100 );
 
 
-/** 
+/**
  * Validate and setup the user data for registration
  *
  * @since  4.0.0
@@ -235,44 +235,44 @@ function leaky_paywall_validate_user_data() {
 		// empty first name
 		leaky_paywall_errors()->add( 'firstname_empty', __( 'Please enter your first name', 'leaky_paywall' ), 'register' );
 	}
-	
+
 	if ( empty( $user['last_name'] ) ) {
 		// empty last name
 		leaky_paywall_errors()->add( 'lastname_empty', __( 'Please enter your last name', 'leaky_paywall' ), 'register' );
 	}
-	
+
 	if ( ! is_email( $user['email'] ) ) {
 		//invalid email
 		leaky_paywall_errors()->add( 'email_invalid', __( 'Invalid email', 'leaky_paywall' ), 'register' );
 	}
-	
+
 	if ( ! leaky_paywall_validate_username( $user['login'] ) ) {
 		// invalid username
 		leaky_paywall_errors()->add( 'username_invalid', __( 'Invalid username', 'leaky_paywall' ), 'register' );
 	}
-	
+
 	if ( ! is_user_logged_in() && empty( $user['password'] ) ) {
 		// password is empty
 		leaky_paywall_errors()->add( 'password_empty', __( 'Please enter a password', 'leaky_paywall' ), 'register' );
 	}
-	
+
 	if ( ! is_user_logged_in() && $user['password'] !== $user['confirm_password'] ) {
 		// passwords do not match
 		leaky_paywall_errors()->add( 'password_mismatch', __( 'Passwords do not match', 'leaky_paywall' ), 'register' );
 	}
 
 	if ( $user['need_new'] ) {
-		
+
 		if ( email_exists( $user['email'] ) ) {
 			//Email address already registered
 			leaky_paywall_errors()->add( 'email_used', __( 'Email already registered', 'leaky_paywall' ), 'register' );
 		}
-		
+
 		if ( username_exists( $user['login'] ) ) {
 			// Username already registered
 			leaky_paywall_errors()->add( 'username_unavailable', __( 'Username already taken', 'leaky_paywall' ), 'register' );
 		}
-		
+
 		if ( empty( $user['login'] ) ) {
 			// empty username
 			leaky_paywall_errors()->add( 'username_empty', __( 'Please enter a username', 'leaky_paywall' ), 'register' );
@@ -301,7 +301,7 @@ function leaky_paywall_validate_username( $username = '' ) {
 /**
  * Display the credit card fields on the registration form
  *
- * @since  4.0.0 
+ * @since  4.0.0
  */
 function leaky_paywall_card_form() {
 
@@ -322,6 +322,11 @@ function leaky_paywall_card_form() {
 		  </p>
 
 		  <p class="form-row">
+		    <label><?php printf( __( 'Expiration (MM/YYYY)', 'leaky-paywall' ) ); ?> <i class="required">*</i></label>
+		    <input type="text" size="2" name="exp_month" class="exp-month" /> /  <input type="text" size="4" name="exp_year" class="exp-year" />
+		  </p>
+
+		  <p class="form-row">
 		    <label><?php printf( __( 'CVC', 'leaky-paywall' ) ); ?> <i class="required">*</i></label>
 		    <input type="text" size="4" name="cvc" class="cvc" />
 		  </p>
@@ -331,16 +336,11 @@ function leaky_paywall_card_form() {
 		    <input type="text" size="20" name="card_zip" class="card-zip" />
 		  </p>
 
-		  <p class="form-row">
-		    <label><?php printf( __( 'Expiration (MM/YYYY)', 'leaky-paywall' ) ); ?> <i class="required">*</i></label>
-		    <input type="text" size="2" name="exp_month" class="exp-month" /> /  <input type="text" size="4" name="exp_year" class="exp-year" />
-		  </p>
-
 	  </fieldset>
 
 	</div>
-		 
-	<?php 
+
+	<?php
 }
 
 
@@ -645,7 +645,7 @@ function leaky_paywall_card_form_full() {
 	        </select>
 	    </p>
 	</div>
-	<?php 
+	<?php
 
 }
 

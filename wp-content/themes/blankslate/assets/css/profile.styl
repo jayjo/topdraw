@@ -1,0 +1,63 @@
+.leaky-paywall-profile-subscription-details
+	display block
+	margin 0 0 50px 0
+	margin 0 0 50px 0
+
+	thead
+		display block
+
+		tr
+			display flex
+			flex-wrap nowrap
+
+			th
+				border-bottom 1px solid rgba($grey, .35)
+				border-right 1px solid rgba($grey, .35)
+				border-top 1px solid rgba($grey, .35)
+				flex 1
+				font-size 11px
+				padding 10px 0
+				text-transform uppercase
+
+				&:first-child
+					border-left 1px solid rgba($grey, .35)
+
+#leaky-paywall-profile
+	margin 0 auto 50px
+	position relative
+	text-align left
+	width 400px
+
+	p
+		align-items center
+		display flex
+		margin-bottom 10px
+
+		label
+			flex none
+			padding-right 10px
+			text-align left
+			width 50%
+
+		input[type=text], input[type=email], input[type=password]
+			flex none
+			width 50%
+
+		input[type=text].exp-year, input[type=text].exp-month
+			flex none
+			width 22%
+
+		input[type=text].exp-month
+			margin-right 6px
+
+		input[type=text].exp-year
+			margin-left 6px
+
+	div
+		margin-bottom 50px
+
+	&:after
+		content ""
+		clear both
+		display table
+

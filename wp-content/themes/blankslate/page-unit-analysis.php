@@ -11,12 +11,13 @@ $heroImage = get_field('heroImage', $parent_id);
 
 <section class="chart cf">
 	<div class="wrapper">
-		<div class="top-info">
+		<div class="top-info cf">
 			<div class="content">
-				<h1><?php echo get_the_title($parent_id); ?> - <?php the_title(); ?></h1>
+				<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
 				<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
 			</div>
 			<div class="analysis-type">
+				<h5>More in <?php echo get_the_title($parent_id); ?></h5>
 				<?php
 				  if($post->post_parent)
 				  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
@@ -31,11 +32,11 @@ $heroImage = get_field('heroImage', $parent_id);
 		</div>
 		<div class="sector species cf">
 			<div class="navvy species cf">
-				<h4>Species</h4>
-				<div class="button_group cf">
+				<div id="dd" class="button-group cf" tabindex="1">
 					<!-- Set up the Species repeater to generate links for each Species -->
 					<?php if(have_rows('species', $parent_id)): ?>
-					<ul class="animal_chooser">
+					<span>Animal Species: Elk</span>
+					<ul class="animal-chooser" tabindex="1">
 						<?php while(have_rows('species', $parent_id)): the_row();
 							$species_name = get_sub_field('species_name', $parent_id);
 						?>
@@ -49,7 +50,7 @@ $heroImage = get_field('heroImage', $parent_id);
 			</div>
 			<!-- Set up the Trophy Information repeater to generate all of the info for all of the species -->
 			<?php if(have_rows('unit_info')): ?>
-			<div class="tabscontent species_information cf">
+			<div class="tabscontent species-information cf">
 				<?php while(have_rows('unit_info')): the_row();
 					$unit_species_name = get_sub_field('unit_species_name');
 					$species_info = get_sub_field('species_info');
@@ -91,17 +92,8 @@ $heroImage = get_field('heroImage', $parent_id);
 				<?php endwhile; ?>
 			</div>
 		</div>
-		<div class="table_toggle calculating">
-			<p class="centery">
-				<div class="input">
-					<label for="calculator">True draw odds</label>
-					<input type="text" name="calculator" id="calc" class="calc calcMulti" placeholder="Enter bonus points..." value=""/>
-				</div>
-			</p>
-		</div>
-		<!-- <button class="button red outline small expand">Open</button>
-		<button class="button red outline small shrink">Close</button> -->
-		<div class="tabscontent species_chart cf">
+		<button class="button red outline large expand">Calculate your draw odds</button>
+		<div class="tabscontent species-chart cf">
 		<?php while(have_rows('unit_info')): the_row();
 			$unit_species_name = get_sub_field('unit_species_name');
 			$unit_table = get_sub_field('unit_table');
@@ -113,6 +105,17 @@ $heroImage = get_field('heroImage', $parent_id);
 		</div>
 		<?php endif; ?>
 		<p class="footnote"><?php the_field('table_footnote', $parent_id); ?></p>
+		<div class="table-head">
+			<a href="#" class="close">Close</a>
+			<div class="table_toggle calculating">
+				<p class="centery">
+					<div class="input">
+						<label for="calculator">True draw odds</label>
+						<input type="text" name="calculator" id="calc" class="calc calcMulti" placeholder="Enter bonus points..." value=""/>
+					</div>
+				</p>
+			</div>
+		</div>
 	</div>
 </section>
 

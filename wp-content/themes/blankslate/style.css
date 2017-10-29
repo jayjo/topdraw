@@ -1578,7 +1578,7 @@ table .orange:hover .tooltip.top {
 }
 .table-head {
   background: #191e25;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.32);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.32);
   height: 70px;
   left: 0;
   opacity: 0;

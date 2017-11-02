@@ -31,6 +31,10 @@
 			max-width 270px
 			width 30%
 
+			.expand
+				margin 65px auto 0
+				width 100%
+
 			h5
 				font-size 16px
 				margin-bottom 25px
@@ -41,7 +45,8 @@
 				padding 0
 
 				li.current_page_item a
-					border 3px solid $red
+					border 3px solid $dark-blue
+					color $dark-blue
 
 				li a
 					background none
@@ -282,3 +287,22 @@
 .separator
 	color $red
 	font-weight normal
+
+.species-chart
+	h6
+		font-size 15px
+		font-weight bold
+		margin-bottom 20px
+		text-transform uppercase
+
+button.expand
+	display table
+	margin 0 auto 50px
+
+.footnote a
+	color $red
+	text-decoration none
+
+	&:hover
+		background $red
+		color #fff

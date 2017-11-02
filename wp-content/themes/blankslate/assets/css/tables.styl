@@ -104,6 +104,45 @@ table .orange:hover .tooltip
 	z-index 1
 	transition opacity 75ms, visibility 0ms 75ms
 
+.close
+	background transparent
+	border 1px solid $red
+	border-radius 2px
+	color #fff
+	font-size 15px
+	font-weight bold
+	padding 5px 10px
+	position absolute
+	right 20px
+	text-decoration none
+	text-transform uppercase
+	top 21px
+
+	&:hover
+		background $red
+		box-shadow 0 7px 24px -8px rgba(0,0,0,0.35)
+		transition all $one-fifty
+
+.highlight
+	background rgba($orange, .1)
+
+.table_toggle.calculating
+	color #fff
+	font-size 15px
+	font-weight bold
+	left 20px
+	position absolute
+	text-transform uppercase
+	top -29px
+
+	label
+		margin 0 10px 0 0
+
+	input[type=text]
+		font-size 15px
+		font-weight bold
+		padding 14px 16px 15px
+
 ////// Active TABLE styles
 
 .table-active

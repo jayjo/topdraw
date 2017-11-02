@@ -349,14 +349,12 @@
 		// Expand the table to full screen
 		$document.on('click', '.expand', function(e){
 			$('body').addClass('table-active');
-			console.log('cheeseburger');
 			return false;
 		});
 
 		// Close the table to full screen
 		$document.on('click', '.close', function(e){
 			$('body').removeClass('table-active');
-			console.log('butt-plug');
 			return false;
 		});
 

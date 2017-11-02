@@ -32,17 +32,17 @@ p{font-size:17px;line-height:25px;margin-bottom:40px}
 .page-template-page-admin .leaky-paywall-payment-button a:hover,.page-template-page-admin .stripe-button-el:hover,.page-template-page-admin #leaky-paywall-submit:hover,.page-template-page-admin .button-primary:hover{background:#c64247;box-shadow:0 7px 24px 0 rgba(0,0,0,0.3);color:#fff}
 .page-template-page-admin .stripe-button-el{display:none}
 .post-1001 .entry-content{padding-bottom:30px}
-.button{border-radius:2px;text-align:center;display:inline-block;margin:0 auto;font-family:'das',sans-serif;font-weight:700;text-decoration:none;text-transform:uppercase;-webkit-transition:all 150ms;transition:all 150ms}
+.button{border-radius:2px;text-align:center;display:inline-block;margin:0 auto;font-family:'das',sans-serif;outline:0;font-weight:700;text-decoration:none;text-transform:uppercase;-webkit-transition:all 150ms;transition:all 150ms}
 .button.large{font-size:15px;padding:1em 1.5em 1.05em}
 .button.med{font-size:13px;padding:.65em 1em}
 .button.small{font-size:12px;padding:.65em 1em}
 .button.outline{border:2px solid;background:transparent}
 .button.outline.red{border-color:#b63f44;color:#b63f44}
-.button.outline:hover{background:#c64247;border-color:#c64247;color:#fff}
+.button.outline.red:hover{background:#b63f44;border-color:#b63f44;color:#fff}
 .button.outline.blue{border-color:#191e25;color:#191e25}
-.button.outline:hover{background:#2d3343;border-color:#2d3343;color:#fff}
+.button.outline.blue:hover{background:#191e25;border-color:#191e25;color:#fff}
 .button.outline.orange{border-color:#eb9a35;color:#eb9a35}
-.button.outline:hover{background:#e5a750;border-color:#e5a750;color:#fff}
+.button.outline.orange:hover{background:#eb9a35;border-color:#eb9a35;color:#fff}
 .button.outline.white{color:#fff;border-color:#fff}
 .button.outline.white:hover{background:#fff}
 .button.outline:hover{box-shadow:0 7px 24px 0 rgba(0,0,0,0.3)}
@@ -114,9 +114,10 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .page-template-page-unit-analysis .chart .top-info:after,.page-template-page-trophy-analysis .chart .top-info:after,.page-template-page-rules-regulations .chart .top-info:after{border-bottom:3px dashed rgba(187,188,189,0.5);content:"";display:block;height:4px;margin:0 auto 65px;padding:65px 0 0;width:130px}
 .page-template-page-unit-analysis .chart .top-info .content,.page-template-page-trophy-analysis .chart .top-info .content,.page-template-page-rules-regulations .chart .top-info .content{max-width:630px;width:70%}
 .page-template-page-unit-analysis .chart .top-info .analysis-type,.page-template-page-trophy-analysis .chart .top-info .analysis-type,.page-template-page-rules-regulations .chart .top-info .analysis-type{box-sizing:border-box;padding:25px 0 0 50px;max-width:270px;width:30%}
+.page-template-page-unit-analysis .chart .top-info .analysis-type .expand,.page-template-page-trophy-analysis .chart .top-info .analysis-type .expand,.page-template-page-rules-regulations .chart .top-info .analysis-type .expand{margin:65px auto 0;width:100%}
 .page-template-page-unit-analysis .chart .top-info .analysis-type h5,.page-template-page-trophy-analysis .chart .top-info .analysis-type h5,.page-template-page-rules-regulations .chart .top-info .analysis-type h5{font-size:16px;margin-bottom:25px;text-transform:uppercase}
 .page-template-page-unit-analysis .chart .top-info .analysis-type ul,.page-template-page-trophy-analysis .chart .top-info .analysis-type ul,.page-template-page-rules-regulations .chart .top-info .analysis-type ul{margin:0;padding:0}
-.page-template-page-unit-analysis .chart .top-info .analysis-type ul li.current_page_item a,.page-template-page-trophy-analysis .chart .top-info .analysis-type ul li.current_page_item a,.page-template-page-rules-regulations .chart .top-info .analysis-type ul li.current_page_item a{border:3px solid #b63f44}
+.page-template-page-unit-analysis .chart .top-info .analysis-type ul li.current_page_item a,.page-template-page-trophy-analysis .chart .top-info .analysis-type ul li.current_page_item a,.page-template-page-rules-regulations .chart .top-info .analysis-type ul li.current_page_item a{border:3px solid #191e25;color:#191e25}
 .page-template-page-unit-analysis .chart .top-info .analysis-type ul li a,.page-template-page-trophy-analysis .chart .top-info .analysis-type ul li a,.page-template-page-rules-regulations .chart .top-info .analysis-type ul li a{background:0;background-color:#fff;background-image:none;border:1px solid #bbbcbd;border-radius:2px;color:#b63f44;display:block;font-family:'das',sans-serif;font-size:15px;font-weight:700;height:auto;margin:0 auto 10px;min-height:auto;outline:0;padding:1em 1.5em 1.05em;text-align:center;text-decoration:none;text-transform:uppercase;-webkit-transition:all 150ms;transition:all 150ms}
 .page-template-page-unit-analysis .chart .top-info .analysis-type ul li a:hover,.page-template-page-trophy-analysis .chart .top-info .analysis-type ul li a:hover,.page-template-page-rules-regulations .chart .top-info .analysis-type ul li a:hover{box-shadow:0 7px 24px -8px rgba(0,0,0,0.35);color:#c64247;-webkit-transition:all 150ms;transition:all 150ms}
 .page-template-page-unit-analysis .chart .top-info .analysis-type ul li a:active,.page-template-page-trophy-analysis .chart .top-info .analysis-type ul li a:active,.page-template-page-rules-regulations .chart .top-info .analysis-type ul li a:active{background:rgba(187,188,189,0.15);box-shadow:inset 0 1px 2px rgba(0,0,0,0.25)}
@@ -158,6 +159,10 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .page-template-page-trophy-analysis .tabscontent.species-information .record p strong{display:block}
 .page-template-page-trophy-analysis .tabscontent.species-information .record.full-width p{border:0;width:100%}
 .separator{color:#b63f44;font-weight:normal}
+.species-chart h6{font-size:15px;font-weight:bold;margin-bottom:20px;text-transform:uppercase}
+button.expand{display:table;margin:0 auto 50px}
+.footnote a{color:#b63f44;text-decoration:none}
+.footnote a:hover{background:#b63f44;color:#fff}
 #loginform p{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;display:block;margin-bottom:10px}
 #loginform p label{display:inline-block;padding-right:10px;text-align:left;width:50%}
 #loginform p input[type=text],#loginform p input[type=email],#loginform p input[type=password]{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:50%}
@@ -233,6 +238,12 @@ table .orange:hover .tooltip.right{-webkit-transform:translateX(0);-ms-transform
 table .orange:hover .tooltip.bottom{-webkit-transform:translateY(60px);-ms-transform:translateY(60px);transform:translateY(60px)}
 table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transform:translateY(-60px);transform:translateY(-60px)}
 .table-head{background:#191e25;box-shadow:0 2px 4px 0 rgba(0,0,0,0.32);height:70px;left:0;opacity:0;position:fixed;top:0;visibility:hidden;width:100vw;z-index:1;-webkit-transition:opacity 75ms,visibility 0ms 75ms;transition:opacity 75ms,visibility 0ms 75ms}
+.close{background:transparent;border:1px solid #b63f44;border-radius:2px;color:#fff;font-size:15px;font-weight:bold;padding:5px 10px;position:absolute;right:20px;text-decoration:none;text-transform:uppercase;top:21px}
+.close:hover{background:#b63f44;box-shadow:0 7px 24px -8px rgba(0,0,0,0.35);-webkit-transition:all 150ms;transition:all 150ms}
+.highlight{background:rgba(235,154,53,0.1)}
+.table_toggle.calculating{color:#fff;font-size:15px;font-weight:bold;left:20px;position:absolute;text-transform:uppercase;top:-29px}
+.table_toggle.calculating label{margin:0 10px 0 0}
+.table_toggle.calculating input[type=text]{font-size:15px;font-weight:bold;padding:14px 16px 15px}
 .table-active .table_container{opacity:1;visibility:visible;-webkit-transition:visibility 0ms,opacity 150ms;transition:visibility 0ms,opacity 150ms}
 .table-active .table_container table{opacity:1;-webkit-transition:opacity 75ms 150ms;transition:opacity 75ms 150ms}
 .table-active .table-head{opacity:1;visibility:visible;-webkit-transition:visibility 0ms,opacity 150ms;transition:visibility 0ms,opacity 150ms}

@@ -1,6 +1,6 @@
 <?php
   $loggedIn = get_body_class();
-  if(in_array('ms-member', $loggedIn)) {
+  if(in_array('logged-in', $loggedIn)) {
 
   } else { ?>
 

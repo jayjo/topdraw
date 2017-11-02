@@ -11,8 +11,7 @@
 		var page = window.location.pathname,
 				hash = window.location.hash,
 				animal = $('.animal_chooser li a'),
-				rule = $('.info_chooser li a'),
-				buttonAttribute;
+				rule = $('.info_chooser li a');
 				// distinctID = mixpanel.get_distinct_id();
 				// urlPart = page.split('/'),
 				// state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
@@ -59,24 +58,19 @@
 			});
 		});
 
-		// Track Signups
-		$('.signup-button').on('click', function(e){
-			var buttonAttribute = $(this).attr('location');
-			mixpanel.track("Signed Up", {
-				"Page": page,
-				"Button Location": buttonAttribute,
-				"Species": hash
-			});
-		});
-
 		// Track Contact Attempts
-		$('.contact-button').on('click', function(e){
-			var buttonAttribute = $(this).attr('location');
-			mixpanel.track("Contact Attempt", {
+		$('.button, button, .submit, input[type=submit]').on('click', function(e){
+
+			var buttonAttribute = $(this).attr('location'),
+					buttonType = $(this).attr('kind');
+
+			mixpanel.track("Button Clicked", {
 				"Page": page,
 				"Button Location": buttonAttribute,
+				"Button Type": buttonType,
 				"Species": hash
 			});
+			console.log(buttonType, buttonAttribute);
 		});
 
 	});

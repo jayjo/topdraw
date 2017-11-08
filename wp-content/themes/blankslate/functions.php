@@ -65,3 +65,5 @@ function blankslate_comments_number( $count )
 		return $count;
 	}
 }
+
+show_admin_bar( false );

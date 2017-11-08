@@ -206,16 +206,16 @@ button.expand{display:table;margin:0 auto 50px}
 .leaky-paywall-profile-subscription-details tbody tr{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:nowrap;-ms-flex-wrap:nowrap;flex-wrap:nowrap}
 .leaky-paywall-profile-subscription-details tbody tr td{border-bottom:1px solid rgba(187,188,189,0.35);border-right:1px solid rgba(187,188,189,0.35);border-top:1px solid rgba(187,188,189,0.35);-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;font-size:14px;padding:10px 0}
 .leaky-paywall-profile-subscription-details tbody tr td:first-child{border-left:1px solid rgba(187,188,189,0.35)}
-#leaky-paywall-profile{margin:0 auto;position:relative;text-align:left;width:400px}
-#leaky-paywall-profile p{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:10px}
-#leaky-paywall-profile p.submit{margin:65px 0 0 0}
-#leaky-paywall-profile p label{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;padding-right:10px;text-align:left;width:50%}
-#leaky-paywall-profile p input[type=text],#leaky-paywall-profile p input[type=email],#leaky-paywall-profile p input[type=password]{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:50%}
-#leaky-paywall-profile p input[type=text].exp-year,#leaky-paywall-profile p input[type=text].exp-month{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:22%}
-#leaky-paywall-profile p input[type=text].exp-month{margin-right:6px}
-#leaky-paywall-profile p input[type=text].exp-year{margin-left:6px}
-#leaky-paywall-profile div{margin-bottom:50px}
-#leaky-paywall-profile:after{content:"";clear:both;display:table}
+#leaky-paywall-profile,#leaky-paywall-update-credit-card{margin:0 auto;position:relative;text-align:left;width:400px}
+#leaky-paywall-profile p,#leaky-paywall-update-credit-card p{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:10px}
+#leaky-paywall-profile p.submit,#leaky-paywall-update-credit-card p.submit{margin:65px 0 0 0}
+#leaky-paywall-profile p label,#leaky-paywall-update-credit-card p label{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;padding-right:10px;text-align:left;width:50%}
+#leaky-paywall-profile p input[type=text],#leaky-paywall-update-credit-card p input[type=text],#leaky-paywall-profile p input[type=email],#leaky-paywall-update-credit-card p input[type=email],#leaky-paywall-profile p input[type=password],#leaky-paywall-update-credit-card p input[type=password]{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:50%}
+#leaky-paywall-profile p input[type=text].exp-year,#leaky-paywall-update-credit-card p input[type=text].exp-year,#leaky-paywall-profile p input[type=text].exp-month,#leaky-paywall-update-credit-card p input[type=text].exp-month{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:22%}
+#leaky-paywall-profile p input[type=text].exp-month,#leaky-paywall-update-credit-card p input[type=text].exp-month{margin-right:6px}
+#leaky-paywall-profile p input[type=text].exp-year,#leaky-paywall-update-credit-card p input[type=text].exp-year{margin-left:6px}
+#leaky-paywall-profile div,#leaky-paywall-update-credit-card div{margin-bottom:50px}
+#leaky-paywall-profile:after,#leaky-paywall-update-credit-card:after{content:"";clear:both;display:table}
 .leaky-paywall-profile-subscription-details tr{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}
 .leaky-paywall-profile-subscription-details tr td{-webkit-box-align:start;-webkit-align-items:flex-start;-ms-flex-align:start;align-items:flex-start;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;text-align:center}
 .internal-hero{background-position:center;background-repeat:no-repeat;background-size:cover;border:150px solid #fff;height:80vh;position:relative}

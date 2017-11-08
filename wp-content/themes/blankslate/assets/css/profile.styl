@@ -11,6 +11,7 @@
 			flex-wrap nowrap
 
 			th
+				background rgba($grey, .15)
 				border-bottom 1px solid rgba($grey, .35)
 				border-right 1px solid rgba($grey, .35)
 				border-top 1px solid rgba($grey, .35)
@@ -22,8 +23,26 @@
 				&:first-child
 					border-left 1px solid rgba($grey, .35)
 
+	tbody
+		display block
+
+		tr
+			display flex
+			flex-wrap nowrap
+
+			td
+				border-bottom 1px solid rgba($grey, .35)
+				border-right 1px solid rgba($grey, .35)
+				border-top 1px solid rgba($grey, .35)
+				flex 1
+				font-size 14px
+				padding 10px 0
+
+				&:first-child
+					border-left 1px solid rgba($grey, .35)
+
 #leaky-paywall-profile
-	margin 0 auto 50px
+	margin 0 auto
 	position relative
 	text-align left
 	width 400px
@@ -32,6 +51,9 @@
 		align-items center
 		display flex
 		margin-bottom 10px
+
+		&.submit
+			margin 65px 0 0 0
 
 		label
 			flex none
@@ -61,3 +83,12 @@
 		clear both
 		display table
 
+.leaky-paywall-profile-subscription-details
+
+	tr
+		display flex
+
+		td
+			align-items flex-start
+			flex 1
+			text-align center

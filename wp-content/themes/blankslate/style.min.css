@@ -204,20 +204,25 @@ button.expand{display:table;margin:0 auto 50px}
 .leaky-paywall-profile-subscription-details thead tr th:first-child{border-left:1px solid rgba(187,188,189,0.35)}
 .leaky-paywall-profile-subscription-details tbody{display:block}
 .leaky-paywall-profile-subscription-details tbody tr{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:nowrap;-ms-flex-wrap:nowrap;flex-wrap:nowrap}
-.leaky-paywall-profile-subscription-details tbody tr td{border-bottom:1px solid rgba(187,188,189,0.35);border-right:1px solid rgba(187,188,189,0.35);border-top:1px solid rgba(187,188,189,0.35);-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;font-size:14px;padding:10px 0}
+.leaky-paywall-profile-subscription-details tbody tr td{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;border-bottom:1px solid rgba(187,188,189,0.35);border-right:1px solid rgba(187,188,189,0.35);border-top:1px solid rgba(187,188,189,0.35);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;font-size:14px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;padding:10px}
 .leaky-paywall-profile-subscription-details tbody tr td:first-child{border-left:1px solid rgba(187,188,189,0.35)}
+.leaky-paywall-profile-subscription-details tbody tr td a{color:#b63f44;text-decoration:none}
+.leaky-paywall-profile-subscription-details tbody tr td a:hover{background:#b63f44;color:#fff}
 #leaky-paywall-profile,#leaky-paywall-update-credit-card{margin:0 auto;position:relative;text-align:left;width:400px}
 #leaky-paywall-profile p,#leaky-paywall-update-credit-card p{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:10px}
 #leaky-paywall-profile p.submit,#leaky-paywall-update-credit-card p.submit{margin:65px 0 0 0}
 #leaky-paywall-profile p label,#leaky-paywall-update-credit-card p label{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;padding-right:10px;text-align:left;width:50%}
 #leaky-paywall-profile p input[type=text],#leaky-paywall-update-credit-card p input[type=text],#leaky-paywall-profile p input[type=email],#leaky-paywall-update-credit-card p input[type=email],#leaky-paywall-profile p input[type=password],#leaky-paywall-update-credit-card p input[type=password]{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:50%}
 #leaky-paywall-profile p input[type=text].exp-year,#leaky-paywall-update-credit-card p input[type=text].exp-year,#leaky-paywall-profile p input[type=text].exp-month,#leaky-paywall-update-credit-card p input[type=text].exp-month{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:22%}
+#leaky-paywall-profile p input[type=text].exp-year,#leaky-paywall-update-credit-card p input[type=text].exp-year,#leaky-paywall-profile p input[type=text].exp-month,#leaky-paywall-update-credit-card p input[type=text].exp-month{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:22%}
+#leaky-paywall-profile p input[type=text]#leaky-paywall-cc-exp-year,#leaky-paywall-update-credit-card p input[type=text]#leaky-paywall-cc-exp-year,#leaky-paywall-profile p input[type=text]#leaky-paywall-cc-exp-month,#leaky-paywall-update-credit-card p input[type=text]#leaky-paywall-cc-exp-month{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:23%}
 #leaky-paywall-profile p input[type=text].exp-month,#leaky-paywall-update-credit-card p input[type=text].exp-month{margin-right:6px}
 #leaky-paywall-profile p input[type=text].exp-year,#leaky-paywall-update-credit-card p input[type=text].exp-year{margin-left:6px}
 #leaky-paywall-profile div,#leaky-paywall-update-credit-card div{margin-bottom:50px}
 #leaky-paywall-profile:after,#leaky-paywall-update-credit-card:after{content:"";clear:both;display:table}
 .leaky-paywall-profile-subscription-details tr{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}
 .leaky-paywall-profile-subscription-details tr td{-webkit-box-align:start;-webkit-align-items:flex-start;-ms-flex-align:start;align-items:flex-start;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;text-align:center}
+.issuem-leaky-paywall-subscriber-info{margin-top:50px}
 .internal-hero{background-position:center;background-repeat:no-repeat;background-size:cover;border:150px solid #fff;height:80vh;position:relative}
 .internal-hero .content{position:absolute;top:50%;left:50%;-webkit-transform:translate3D(-50%,-50%,0);-ms-transform:translate3D(-50%,-50%,0);transform:translate3D(-50%,-50%,0);text-align:center;width:100%}
 .internal-hero h1{color:#fff;font-size:90px;letter-spacing:-3px;margin:0 0 10px 0;text-shadow:0 8px 78px rgba(0,0,0,0.4)}

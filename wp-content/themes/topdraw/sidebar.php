@@ -1,15 +1,9 @@
-<!-- sidebar -->
-<aside class="sidebar" role="complementary">
-
-	<?php // get_template_part('searchform'); ?>
-
-	<div class="sidebar-widget">
-		<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('widget-area-1')) ?>
-	</div>
-
-	<div class="sidebar-widget">
-		<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('widget-area-2')) ?>
-	</div>
-
+<aside id="sidebar" role="complementary">
+<?php if ( is_active_sidebar( 'primary-widget-area' ) ) : ?>
+<div id="primary" class="widget-area">
+<ul class="xoxo">
+<?php dynamic_sidebar( 'primary-widget-area' ); ?>
+</ul>
+</div>
+<?php endif; ?>
 </aside>
-<!-- /sidebar -->

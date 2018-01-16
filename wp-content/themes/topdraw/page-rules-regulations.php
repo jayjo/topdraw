@@ -9,41 +9,34 @@ $heroImage = get_field('heroImage', $parent_id);
 
 ?>
 
-<section class="internal_hero">
-	<img src ="<?php echo $heroImage['url']; ?>" alt="<?php echo $heroImage['alt']; ?>" class="inside_hero" />
-	<div class="content">
-		<div class="wrapper">
-			<h1 class="ranger"><?php echo get_the_title($parent_id); ?></h1>
-			<h2><?php the_title(); ?></h2>
-		</div>
-	</div>
-</section>
-
 <section class="chart cf">
 	<div class="wrapper">
-		<div class="top_info">
-			<h1><?php echo get_the_title($parent_id); ?> - <?php the_title(); ?></h1>
-			<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
-		</div>
-		<div class="analysis_type">
-			<?php
-			  if($post->post_parent)
-			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
-			  else
-			  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
-			  if ($children) { ?>
-			  <ul>
-			  	<?php echo $children; ?>
-			  </ul>
-		  <?php } ?>
+		<div class="top-info cf">
+			<div class="content">
+				<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
+				<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
+			</div>
+			<div class="analysis-type">
+				<h5>More in <?php echo get_the_title($parent_id); ?></h5>
+				<?php
+				  if($post->post_parent)
+				  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
+				  else
+				  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
+				  if ($children) { ?>
+				  <ul>
+				  	<?php echo $children; ?>
+				  </ul>
+			  <?php } ?>
+			</div>
 		</div>
 		<div class="sector rules cf">
-			<div class="navvy unit_info cf">
-				<h4>Legend</h4>
-				<div class="button_group cf">
+			<div class="navvy unit-info cf">
+				<div id="dd" class="button-group cf" tabindex="1">
 					<!-- Set up the Rules and Regs repeater to generate links for each Rule -->
 					<?php if(have_rows('rules_and_regulations', $parent_id)): ?>
-					<ul class="info_chooser">
+					<span>Fees & Deadlines</span>
+					<ul class="info-chooser" tabindex="1">
 						<?php while(have_rows('rules_and_regulations', $parent_id)): the_row();
 							$rule = get_sub_field('rule', $parent_id);
 						?>
@@ -57,7 +50,7 @@ $heroImage = get_field('heroImage', $parent_id);
 			</div>
 			<!-- Set up the Rules Information repeater to generate all of the info for all of the regulations -->
 			<?php if(have_rows('regulations')): ?>
-			<div class="tabscontent unit_information cf">
+			<div class="tabscontent unit-information cf">
 				<?php while(have_rows('regulations')): the_row();
 					$rule_name = get_sub_field('rule_name');
 					$regulation = get_sub_field('regulation');

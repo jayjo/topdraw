@@ -1,0 +1,308 @@
+.page-template-page-unit-analysis .chart,
+.page-template-page-trophy-analysis .chart,
+.page-template-page-rules-regulations .chart
+	margin 125px auto
+	min-width 720px
+	max-width 875px
+	text-align left
+	width 100%
+
+	.content, .analysis-type
+		float left
+
+	.top-info
+
+		&:after
+			border-bottom 3px dashed rgba($grey,.5)
+			content ""
+			display block
+			height 4px
+			margin 0 auto 65px
+			padding 65px 0 0
+			width 130px
+
+		.content
+			max-width 630px
+			width 70%
+
+		.analysis-type
+			box-sizing border-box
+			padding 25px 0 0 50px
+			max-width 270px
+			width 30%
+
+			.expand
+				margin 65px auto 0
+				width 100%
+
+			h5
+				font-size 16px
+				margin-bottom 25px
+				text-transform uppercase
+
+			ul
+				margin 0
+				padding 0
+
+				li.current_page_item a
+					border 3px solid $dark-blue
+					color $dark-blue
+
+				li a
+					background none
+					background-color #fff
+					background-image none
+					border 1px solid $grey
+					border-radius 2px
+					color $red
+					display block
+					font-family $das
+					font-size 15px
+					font-weight 700
+					height auto
+					margin 0 auto 10px
+					min-height auto
+					outline none
+					padding 1em 1.5em 1.05em
+					text-align center
+					text-decoration none
+					text-transform uppercase
+					transition all $one-fifty
+
+					&:hover
+						box-shadow 0 7px 24px -8px rgba(0,0,0,0.35)
+						color rgb(198,66,71)
+						transition all $one-fifty
+
+					&:active
+						background rgba($grey, .15)
+						box-shadow inset 0 1px 2px rgba(0,0,0,.25)
+
+.navvy.species .button-group, .navvy.unit-info .button-group
+	background #fff
+	border 1px solid $grey
+	border-radius 2px
+	box-shadow none
+	font-size 15px
+	margin 0 auto
+	outline none
+	padding 1em 1.5em 1.05em
+	position relative
+	width 400px
+	text-transform uppercase
+	transition all $one-fifty
+
+	&:hover
+		box-shadow 0 7px 24px -8px rgba(0,0,0,0.35)
+		color rgb(198,66,71)
+		transition all $one-fifty
+
+	span
+		font-weight bold
+
+	&:after
+		border-color $red transparent
+		border-style solid
+		border-width 6px 6px 0 6px
+		content ""
+		margin-top -3px
+		position absolute
+		right 16px
+		top 50%
+		height 0
+		width 0
+
+	.animal-chooser, .info-chooser
+		background-color #fff
+		border-radius 0 0 4px 4px
+		box-shadow 0 0 3px rgba(0,0,0,0.30)
+		left 0
+		opacity 0
+		padding 10px
+		pointer-events none
+		position absolute
+		right 0
+		top 100% + 2px
+		white-space nowrap
+
+		li
+			margin 0
+			line-height 20px
+			padding 0
+			width 100%
+			display block
+
+			&:hover
+				border none
+
+			&.current a
+				background rgba($grey, .24)
+				color $dark-blue
+
+			a
+				border none
+				border-radius 2px
+				color $red
+				display block
+				font-weight bold
+				padding 9px 11px
+				text-decoration none
+
+				&:hover
+					background-color $red
+					box-shadow 0 2px 8px 0px rgba(0, 0, 0, 0.3)
+					border none
+					color #fff
+					transition all $one-fifty
+
+	&.active .animal-chooser, &.active .info-chooser
+		opacity 1
+		pointer-events auto
+
+.tabscontent.species-information,
+.tabscontent.unit-information
+	margin-top 65px
+
+	h4
+		font-size 18px
+		margin-bottom 10px
+		text-align center
+		text-transform uppercase
+
+	h5
+		font-size 18px
+		font-weight normal
+		margin-bottom 65px
+		text-align center
+
+	h6
+		font-size 15px
+		font-weight bold
+		margin-bottom 40px
+		text-transform uppercase
+
+.tabscontent.species-information,
+.tabscontent.unit-information,
+.tabscontent.rules-regulations
+	a
+		color $red
+		text-decoration none
+
+		&:hover
+			background $red
+			color #fff
+
+	ul
+		margin 0 0 50px 5px
+
+	li
+		line-height 25px
+		list-style-type circle
+		margin 0 0 10px 0
+
+.boxes
+	background rgba($grey, .15)
+	display flex
+	margin-bottom 65px
+	padding 25px 25px
+
+	.animal, .date, .cost, .avail
+		align-items flex-start
+		flex 1
+		text-align center
+
+		p
+			font-size 15px
+			padding 10px 5px
+
+		p:nth-child(even)
+			background-color rgba($grey, .15)
+
+		p.item, p.spacer-thing
+			margin 10px 0
+
+			span
+				font-weight bold
+
+		p.header
+			background none
+			font-size 13px
+			height 60px
+			margin 0
+			text-transform uppercase
+
+		p:last-child
+			margin 10px 0 0
+
+.page-template-page-rules-regulations .tabscontent.unit-information
+	h4
+		margin-bottom 65px
+
+.page-template-page-rules-regulations .tabscontent.unit-information #Fees-and-Deadlines
+	h4
+		margin-bottom 10px
+
+.page-template-page-trophy-analysis .tabscontent.species-information
+	h4
+		margin-bottom 65px
+
+	.record
+		margin-bottom 0
+		padding 0
+
+		&:last-child
+			margin-bottom 65px
+
+		h5
+			background rgba($grey, .30)
+			display block
+			font-family $das
+			font-size 13px
+			font-weight bold
+			margin-bottom 3px
+			padding 15px 0
+			text-align center
+			text-transform uppercase
+
+		p
+			background rgba($grey, .15)
+			font-size 15px
+			float left
+			margin 0 0 3px 0
+			padding 15px 5px
+			text-align center
+			width 50%
+
+			&:last-child
+				border-left 3px solid #fff
+
+			strong
+				display block
+
+		&.full-width
+			p
+				border none
+				width 100%
+
+.separator
+	color $red
+	font-weight normal
+
+.species-chart
+	h6
+		font-size 15px
+		font-weight bold
+		margin-bottom 20px
+		text-transform uppercase
+
+button.expand
+	display table
+	margin 0 auto 50px
+
+.footnote a
+	color $red
+	text-decoration none
+
+	&:hover
+		background $red
+		color #fff

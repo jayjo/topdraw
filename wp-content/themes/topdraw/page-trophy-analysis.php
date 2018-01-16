@@ -9,41 +9,35 @@ $heroImage = get_field('heroImage', $parent_id);
 
 ?>
 
-<section class="internal_hero">
-	<img src ="<?php echo $heroImage['url']; ?>" alt="<?php echo $heroImage['alt']; ?>" class="inside_hero" />
-	<div class="content">
-		<div class="wrapper">
-			<h1 class="ranger"><?php echo get_the_title($parent_id); ?></h1>
-			<h2><?php the_title(); ?></h2>
-		</div>
-	</div>
-</section>
-
 <section class="chart cf">
 	<div class="wrapper">
-		<div class="top_info">
-			<h1><?php echo get_the_title($parent_id); ?> - <?php the_title(); ?></h1>
-			<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
-		</div>
-		<div class="analysis_type">
-			<?php
-			  if($post->post_parent)
-			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
-			  else
-			  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
-			  if ($children) { ?>
-			  <ul>
-			  	<?php echo $children; ?>
-			  </ul>
-		  <?php } ?>
+		<div class="top-info cf">
+			<div class="content">
+				<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
+				<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
+			</div>
+			<div class="analysis-type">
+				<h5>More in <?php echo get_the_title($parent_id); ?></h5>
+				<?php
+				  if($post->post_parent)
+				  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
+				  else
+				  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
+				  if ($children) { ?>
+				  <ul>
+				  	<?php echo $children; ?>
+				  </ul>
+			  <?php } ?>
+			  <button class="button red outline large expand">Calculate draw odds</button>
+			</div>
 		</div>
 		<div class="sector species trophy cf">
 			<div class="navvy species cf">
-				<h4>Species</h4>
-				<div class="button_group cf">
+				<div id="dd" class="button-group cf" tabindex="1">
 					<!-- Set up the Species repeater to generate links for each Species -->
 					<?php if(have_rows('species', $parent_id)): ?>
-					<ul class="animal_chooser">
+					<span>Animal Species: Elk</span>
+					<ul class="animal-chooser" tabindex="1">
 						<?php while(have_rows('species', $parent_id)): the_row();
 							$species_name = get_sub_field('species_name', $parent_id);
 						?>
@@ -57,7 +51,7 @@ $heroImage = get_field('heroImage', $parent_id);
 			</div>
 			<!-- Set up the Trophy Information repeater to generate all of the info for all of the species -->
 			<?php if(have_rows('trophy_info')): ?>
-			<div class="tabscontent species_information cf">
+			<div class="tabscontent species-information cf">
 				<?php while(have_rows('trophy_info')): the_row();
 					$trophy_species_name = get_sub_field('trophy_species_name');
 				?>
@@ -80,7 +74,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				<?php endwhile; ?>
 			</div>
 		</div>
-		<div class="tabscontent species_chart cf">
+		<div class="tabscontent species-chart cf">
 		<?php while(have_rows('trophy_info')): the_row();
 			$trophy_species_name = get_sub_field('trophy_species_name');
 			$species_desc = get_sub_field('species_description');
@@ -91,6 +85,18 @@ $heroImage = get_field('heroImage', $parent_id);
 			<?php echo $species_table; ?>
 		</div>
 		<?php endwhile; ?>
+		</div>
+		<button class="button red outline large expand">Calculate your draw odds</button>
+		<div class="table-head">
+			<a href="#" class="close">Close</a>
+			<div class="table_toggle calculating">
+				<p class="centery">
+					<div class="input">
+						<label for="calculator">True draw odds</label>
+						<input type="text" name="calculator" id="calc" class="calc calcMulti" placeholder="Enter bonus points..." value=""/>
+					</div>
+				</p>
+			</div>
 		</div>
 	<?php endif; ?>
 	</div>

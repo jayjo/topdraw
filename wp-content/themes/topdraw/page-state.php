@@ -5,8 +5,7 @@ setup_postdata($post);
 $heroImage = get_field('heroImage');
 ?>
 
-<section class="internal_hero">
-	<img src ="<?php echo $heroImage['url']; ?>" alt="<?php echo $heroImage['alt']; ?>" class="inside_hero" />
+<section class="internal-hero" style="background-image: url(<?php echo $heroImage['url']; ?>" alt="<?php echo $heroImage['alt']; ?>)">
 	<div class="content">
 		<div class="wrapper">
 			<h1 class="ranger"><?php the_title(); ?></h1>
@@ -16,9 +15,11 @@ $heroImage = get_field('heroImage');
 
 <section class="chart cf">
 	<div class="wrapper">
-		<h1><?php the_title(); ?></h1>
-		<div class="intro"><?php the_content(); ?></div>
-		<div class="analysis_type">
+		<div class="content">
+			<h1><?php the_title(); ?></h1>
+			<div class="intro"><?php the_content(); ?></div>
+		</div>
+		<div class="analysis-type">
 			<?php
 			  if($post->post_parent)
 			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");

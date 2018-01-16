@@ -1,19 +1,10 @@
 <?php get_header(); ?>
-
-	<main role="main">
-		<!-- section -->
-		<section>
-
-			<h1><?php _e( 'Latest Posts', 'html5blank' ); ?></h1>
-
-			<?php get_template_part('loop'); ?>
-
-			<?php get_template_part('pagination'); ?>
-
-		</section>
-		<!-- /section -->
-	</main>
-
+<section id="content" role="main">
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+<?php get_template_part( 'entry' ); ?>
+<?php comments_template(); ?>
+<?php endwhile; endif; ?>
+<?php get_template_part( 'nav', 'below' ); ?>
+</section>
 <?php get_sidebar(); ?>
-
 <?php get_footer(); ?>

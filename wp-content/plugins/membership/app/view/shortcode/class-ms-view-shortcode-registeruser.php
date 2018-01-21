@@ -87,7 +87,7 @@ class MS_View_Shortcode_RegisterUser extends MS_View {
 			'ms_shortcode_register_form_url',
 			//MS_Model_Pages::get_page_url( MS_Model_Pages::MS_PAGE_REGISTER ),
                         //MS_Model_Pages::current_page(),
-                        get_permalink(),
+            get_permalink(),
 			$this->data
 		);
 		$reg_url = esc_url_raw(
@@ -290,6 +290,7 @@ class MS_View_Shortcode_RegisterUser extends MS_View {
 				jQuery( this ).find( 'button[type="submit"]' ).prop("disabled",true);
 			});
 		});
+		
 		<?php
 		$script = ob_get_clean();
 		lib3()->ui->js( 'jquery-validate' );

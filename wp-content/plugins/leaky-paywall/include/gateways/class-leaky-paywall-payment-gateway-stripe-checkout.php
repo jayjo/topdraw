@@ -35,7 +35,7 @@ class Leaky_Paywall_Payment_Gateway_Stripe_Checkout extends Leaky_Paywall_Paymen
 
 		// @todo: Fix: this will ignore coupons
 		$this->amount      = $level['price'];
-		$this->currency    = $settings['leaky_paywall_currency'];
+		$this->currency    = leaky_paywall_get_currency();
 		$this->length_unit = $level['interval'];
 		$this->length      = $level['interval_count'];
 
@@ -43,7 +43,11 @@ class Leaky_Paywall_Payment_Gateway_Stripe_Checkout extends Leaky_Paywall_Paymen
 			require_once LEAKY_PAYWALL_PATH . 'include/stripe/lib/Stripe.php';
 		}
 
-		parent::process_signup();
+		$subscriber_data = parent::process_signup();
+
+		do_action( 'leaky_paywall_after_process_stripe_checkout', $subscriber_data );
+
+		leaky_paywall_subscriber_registration( $subscriber_data );
 
 	}
 

@@ -42,12 +42,13 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 
 			add_action( 'wp_ajax_leaky_paywall_process_notice_link', array( $this, 'ajax_process_notice_link' ) );
 				
-			add_action( 'wp', array( $this, 'process_requests' ) );
+			add_action( 'wp', array( $this, 'process_content_restrictions' ) );
 
-			add_action( 'init', array( $this, 'run' ) );
+			add_action( 'init', array( $this, 'process_js_restrictions' ) );
 			
-			if ( 'on' === $settings['restrict_pdf_downloads'] )
-				add_filter( 'issuem_pdf_attachment_url', array( $this, 'issuem_pdf_attachment_url' ), 10, 2 );
+			if ( 'on' === $settings['restrict_pdf_downloads'] ) {
+				add_filter( 'issuem_pdf_attachment_url', array( $this, 'restrict_pdf_attachment_url' ), 10, 2 );
+			}	
 			
 			if ( in_array( 'paypal_standard', $settings['payment_gateway'] ) || in_array( 'paypal-standard', $settings['payment_gateway'] ) ) {
 				
@@ -61,14 +62,20 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 			
 		}
 
-		public function run() 
+		public function process_js_restrictions() 
 		{
 
 			$restrictions = new Leaky_Paywall_Restrictions();
-			$restrictions->run();
+			$restrictions->process_js();
+		}
+
+		public function process_content_restrictions() 
+		{
+			$restrictions = new Leaky_Paywall_Restrictions();
+			$restrictions->process();
 		}
 		
-		function issuem_pdf_attachment_url( $attachment_url, $attachment_id ) {
+		public function restrict_pdf_attachment_url( $attachment_url, $attachment_id ) {
 			return esc_url( add_query_arg( 'issuem-pdf-download', $attachment_id ) );
 		}
 		
@@ -95,316 +102,8 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 			
 		}
 		
-		function process_requests() {
 				
-			$settings = $this->get_settings();
-
-			do_action( 'leaky_paywall_before_process_requests', $settings );
-
-			$has_subscriber_paid = leaky_paywall_has_user_paid();
-											
-			if ( isset( $_REQUEST['issuem-pdf-download'] ) ) {
-				
-				//Admins or subscribed users can download PDFs
-				if ( current_user_can( apply_filters( 'leaky_paywall_current_user_can_view_all_content', 'manage_options' ) ) || $has_subscriber_paid ) {
-				
-					leaky_paywall_server_pdf_download( $_REQUEST['issuem-pdf-download'] );
-				
-				} else {
-					
-					$output = '<h3>' . __( 'Unauthorize PDF Download', 'issuem-leaky-paywall' ) . '</h3>';
 		
-					$output .= '<p>' . sprintf( __( 'You must be <a href="%s">logged in</a> with a valid subscription to download Issue PDFs.', 'issuem-leaky-paywall' ), get_page_link( $settings['page_for_login'] ) ) . '</p>';
-					$output .= '<a href="' . get_home_url() . '">' . sprintf( __( 'back to %s', 'issuem-leak-paywall' ), $settings['site_name'] ) . '</a>';
-					
-					wp_die( apply_filters( 'leaky_paywall_unauthorized_pdf_download_output', $output ) );
-					
-				}
-				
-			}
-			
-			if ( is_singular() ) {
-				
-				global $blog_id;
-				if ( is_multisite_premium() ){
-					$site = '_' . $blog_id;
-				} else {
-					$site = '';
-				}
-			
-				if ( !current_user_can( apply_filters( 'leaky_paywall_current_user_can_view_all_content', 'manage_options' ) ) ) { //Admins can see it all
-				
-					// We don't ever want to block the login, subscription
-					if ( !is_page( array( $settings['page_for_login'], $settings['page_for_subscription'], $settings['page_for_profile'], $settings['page_for_register'] ) ) ) {
-					
-						global $post;
-						$post_type_id = '';
-						$restricted_post_type = '';
-						$is_restricted = false;
-						
-						$restrictions = leaky_paywall_subscriber_restrictions();
-						
-						if ( !empty( $restrictions ) ) {
-							
-							foreach( $restrictions as $key => $restriction ) {
-								
-								if ( is_singular( $restriction['post_type'] ) ) {
-								
-									if ( 0 <= $restriction['allowed_value'] ) {
-									
-										$post_type_id = $key;
-										$restricted_post_type = $restriction['post_type'];
-										$is_restricted = true;
-										break;
-										
-									}
-									
-								}
-								
-							}
-
-						}
-					
-						$level_ids = leaky_paywall_subscriber_current_level_ids();
-						$visibility = get_post_meta( $post->ID, '_issuem_leaky_paywall_visibility', true );
-						
-						if ( false !== $visibility && !empty( $visibility['visibility_type'] ) && 'default' !== $visibility['visibility_type'] ) {
-													
-							switch( $visibility['visibility_type'] ) {
-								
-								// using trim() == false instead of empty() for older versions of php 
-								// see note on http://php.net/manual/en/function.empty.php
-
-								case 'only':
-									$only = array_intersect( $level_ids, $visibility['only_visible'] );
-									if ( empty( $only ) ) {
-										add_filter( 'the_content', array( $this, 'the_content_paywall' ), 999 );
-										do_action( 'leaky_paywall_is_restricted_content' );
-										return;
-									}
-									break;
-									
-								case 'always':
-									$always = array_intersect( $level_ids, $visibility['always_visible'] );
-									if ( in_array( -1, $visibility['always_visible'] ) || !empty( $always ) ) { //-1 = Everyone
-										return; //always visible, don't need process anymore
-									}
-									break;
-								
-								case 'onlyalways':
-									$onlyalways = array_intersect( $level_ids, $visibility['only_always_visible'] );
-									if ( empty( $onlyalways ) ) {
-										add_filter( 'the_content', array( $this, 'the_content_paywall' ), 999 );
-										do_action( 'leaky_paywall_is_restricted_content' );
-										return;
-									} else if ( !empty( $onlyalways ) ) {
-										return; //always visible, don't need process anymore
-									}
-									break;
-								
-								
-							}
-							
-						}
-						
-						$is_restricted = apply_filters( 'leaky_paywall_filter_is_restricted', $is_restricted, $restrictions, $post );
-						
-						if ( $is_restricted ) {
-							
-							switch ( $settings['cookie_expiration_interval'] ) {
-								case 'hour':
-									$multiplier = 60 * 60; //seconds in an hour
-									break;
-								case 'day':
-									$multiplier = 60 * 60 * 24; //seconds in a day
-									break;
-								case 'week':
-									$multiplier = 60 * 60 * 24 * 7; //seconds in a week
-									break;
-								case 'month':
-									$multiplier = 60 * 60 * 24 * 7 * 4; //seconds in a month (4 weeks)
-									break;
-								case 'year':
-									$multiplier = 60 * 60 * 24 * 7 * 52; //seconds in a year (52 weeks)
-									break;
-							}
-							$expiration = time() + ( $settings['cookie_expiration'] * $multiplier );
-														
-							if ( !empty( $_COOKIE['issuem_lp' . $site] ) ) {
-								$available_content = json_decode( stripslashes( $_COOKIE['issuem_lp' . $site] ), true );
-							}
-							
-							if ( empty( $available_content[$restricted_post_type] ) )
-								$available_content[$restricted_post_type] = array();							
-						
-							foreach ( $available_content[$restricted_post_type] as $key => $restriction ) {
-								
-								if ( time() > $restriction || 7200 > $restriction ) { 
-									//this post view has expired
-									//Or it is very old and based on the post ID rather than the expiration time
-									unset( $available_content[$restricted_post_type][$key] );
-									
-								}
-								
-							}
-														
-							if( -1 != $restrictions[$post_type_id]['allowed_value'] ) { //-1 means unlimited
-																							
-								if ( $restrictions[$post_type_id]['allowed_value'] > count( $available_content[$restricted_post_type] ) ) { 
-								
-									if ( !array_key_exists( $post->ID, $available_content[$restricted_post_type] ) ) {
-										
-										$available_content[$restricted_post_type][$post->ID] = $expiration;
-									
-									}
-									
-								} else {
-								
-									if ( !array_key_exists( $post->ID, $available_content[$restricted_post_type] ) ) {
-											
-										add_filter( 'the_content', array( $this, 'the_content_paywall' ), 999 );
-										do_action( 'leaky_paywall_is_restricted_content' );
-										
-									}
-									
-								}
-							
-							}
-
-							$json_available_content = json_encode( $available_content );
-
-							$cookie = setcookie( 'issuem_lp' . $site, $json_available_content, $expiration, '/' );
-							$_COOKIE['issuem_lp' . $site] = $json_available_content;	
-						
-						}
-						
-						return; //We don't need to process anything else after this
-						
-					}
-					
-				}
-	
-			}
-			
-			if ( $has_subscriber_paid ) {
-						
-				if ( 
-					(
-						( !empty( $settings['page_for_subscription'] ) && is_page( $settings['page_for_subscription'] ) ) 
-						|| ( !empty( $settings['page_for_profile'] ) && is_page( $settings['page_for_profile'] )  )
-					)
-					&& isset( $_REQUEST['cancel'] ) ) {
-					
-					wp_die( leaky_paywall_cancellation_confirmation() );
-					
-				}
-				
-			
-				if ( !empty( $settings['page_for_login'] ) && is_page( $settings['page_for_login'] ) ) {
-					
-					if ( !empty( $settings['page_for_profile'] ) ) {
-						wp_safe_redirect( get_page_link( $settings['page_for_profile'] ) );
-					} else if ( !empty( $settings['page_for_subscription'] ) ) {
-						wp_safe_redirect( get_page_link( $settings['page_for_subscription'] ) );
-					}
-					
-				}
-			
-			} else {
-			
-				if ( !empty( $settings['page_for_login'] ) && is_page( $settings['page_for_login'] )  && !empty( $_REQUEST['r'] ) ) {
-
-					$login_hash = $_REQUEST['r'];
-					
-					if ( verify_leaky_paywall_login_hash( $login_hash ) ) {
-					
-						leaky_paywall_attempt_login( $login_hash );
-						if ( !empty( $settings['page_for_profile'] ) ) {
-							wp_safe_redirect( get_page_link( $settings['page_for_profile'] ) );
-						} else if ( !empty( $settings['page_for_subscription'] ) ) {
-							wp_safe_redirect( get_page_link( $settings['page_for_subscription'] ) );
-						}
-						
-					} else {
-					
-						$output  = '<h3>' . __( 'Invalid or Expired Login Link', 'issuem-leaky-paywall' ) . '</h3>';
-						$output .= '<p>' . sprintf( __( 'Sorry, this login link is invalid or has expired. <a href="%s">Try again?</a>', 'issuem-leaky-paywall' ), get_page_link( $settings['page_for_login'] ) ) . '</p>';
-						$output .= '<a href="' . get_home_url() . '">' . sprintf( __( 'back to %s', 'issuem-leak-paywall' ), $settings['site_name'] ) . '</a>';
-						
-						wp_die( apply_filters( 'leaky_paywall_invalid_login_link', $output ) );
-
-					}
-					
-					return; //We don't need to process anything else after this
-					
-				}
-						
-			}
-			
-		}
-		
-		function the_content_paywall( $content ) {
-		
-			$settings = $this->get_settings();	
-					
-			add_filter( 'excerpt_more', '__return_false' );
-			
-			//Remove the_content filter for get_the_excerpt calls
-			remove_filter( 'the_content', array( $this, 'the_content_paywall' ), 999 );
-			$content = get_the_excerpt();
-			add_filter( 'the_content', array( $this, 'the_content_paywall' ), 999 );
-			//Add the_content filter back for futhre the_content calls
-			
-			$message  = '<div id="leaky_paywall_message">';
-			if ( !is_user_logged_in() ) {
-				$message .= $this->replace_variables( stripslashes( $settings['subscribe_login_message'] ) );
-			} else {
-				$message .= $this->replace_variables( stripslashes( $settings['subscribe_upgrade_message'] ) );
-			}
-			$message .= '</div>';
-		
-			$new_content = $content . $message;
-		
-			return apply_filters( 'leaky_paywall_subscribe_or_login_message', $new_content, $message, $content );
-			
-		}
-				
-		public function replace_variables( $message ) {
-	
-			$settings = $this->get_settings();
-			
-			if ( 0 === $settings['page_for_subscription'] )
-				$subscription_url = get_bloginfo( 'wpurl' ) . '/?subscription'; //CHANGEME -- I don't really know what this is suppose to do...
-			else
-				$subscription_url = get_page_link( $settings['page_for_subscription'] );
-			
-			if ( 0 === $settings['page_for_profile'] )
-				$my_account_url = get_bloginfo( 'wpurl' ) . '/?my-account'; //CHANGEME -- I don't really know what this is suppose to do...
-			else
-				$my_account_url = get_page_link( $settings['page_for_profile'] );
-				
-			$message = str_ireplace( '{{SUBSCRIBE_LOGIN_URL}}', $subscription_url, $message );
-			$message = str_ireplace( '{{SUBSCRIBE_URL}}', $subscription_url, $message );
-			$message = str_ireplace( '{{MY_ACCOUNT_URL}}', $my_account_url, $message );
-			
-			if ( 0 === $settings['page_for_login'] )
-				$login_url = get_bloginfo( 'wpurl' ) . '/?login'; //CHANGEME -- I don't really know what this is suppose to do...
-			else
-				$login_url = get_page_link( $settings['page_for_login'] );
-				
-			$message = str_ireplace( '{{LOGIN_URL}}', $login_url, $message );
-			
-			//Deprecated
-			if ( !empty( $settings['price'] ) ) {
-				$message = str_ireplace( '{{PRICE}}', $settings['price'], $message );
-			}
-			if ( !empty( $settings['interval_count'] ) && !empty( $settings['interval'] ) ) {
-				$message = str_ireplace( '{{LENGTH}}', leaky_paywall_human_readable_interval( $settings['interval_count'], $settings['interval'] ), $message );
-			}
-			
-			return $message;
-			
-		}
 		
 		/**
 		 * Prints backend IssueM styles
@@ -542,8 +241,13 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 				'site_name'						=> get_option( 'blogname' ), /* Site Specific */
 				'from_name'						=> get_option( 'blogname' ), /* Site Specific */
 				'from_email'					=> get_option( 'admin_email' ), /* Site Specific */
+				'new_subscriber_email'			=> 'off',
 				'new_email_subject'				=> '',
 				'new_email_body'				=> $default_email_body,
+				'renewal_reminder_email'		=> 'on',
+				'renewal_reminder_email_subject'=> '',
+				'renewal_reminder_email_body'	=> '',
+				'renewal_reminder_days_before'   => '7',
 				'new_subscriber_admin_email'	=> 'off',
 				'payment_gateway'				=> array( 'stripe_checkout' ),
 				'test_mode'						=> 'off',
@@ -563,6 +267,8 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 				'paypal_sand_api_secret'		=> '',
 				'leaky_paywall_currency'		=> 'USD',
 				'restrict_pdf_downloads' 		=> 'off',
+				'enable_combined_restrictions'  => 'off',
+				'combined_restrictions_total_allowed' => '',
 				'enable_js_cookie_restrictions' => 'off',
 				'restrictions' 	=> array(
 					'post_types' => array(
@@ -710,11 +416,33 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 					if ( !empty( $_REQUEST['from_email'] ) )
 						$settings['from_email'] = trim( $_REQUEST['from_email'] );
 
+					if ( !empty( $_POST['new_subscriber_email'] ) )
+						$settings['new_subscriber_email'] = $_POST['new_subscriber_email'];
+					else
+						$settings['new_subscriber_email'] = 'off';
+
 					if ( !empty( $_REQUEST['new_email_subject'] ) )
 						$settings['new_email_subject'] = trim( $_REQUEST['new_email_subject'] );
 
 					if ( !empty( $_REQUEST['new_email_body'] ) )
 						$settings['new_email_body'] = wp_kses_post( $_REQUEST['new_email_body'] );
+
+					if ( !empty( $_REQUEST['renewal_reminder_email'] ) )
+						$settings['renewal_reminder_email'] = $_REQUEST['renewal_reminder_email'];
+					else
+						$settings['renewal_reminder_email'] = 'off';
+
+					if ( !empty( $_POST['renewal_reminder_email_subject'] ) ) {
+						$settings['renewal_reminder_email_subject'] = wp_kses_post( $_POST['renewal_reminder_email_subject'] );
+					}
+
+					if ( !empty( $_POST['renewal_reminder_email_body'] ) ) {
+						$settings['renewal_reminder_email_body'] = wp_kses_post( $_POST['renewal_reminder_email_body'] );
+					}
+
+					if ( !empty( $_POST['renewal_reminder_days_before'] ) ) {
+						$settings['renewal_reminder_days_before'] = sanitize_text_field( $_POST['renewal_reminder_days_before'] );
+					}
 
 					if ( !empty( $_REQUEST['new_subscriber_admin_email'] ) )
 						$settings['new_subscriber_admin_email'] = $_REQUEST['new_subscriber_admin_email'];
@@ -754,10 +482,20 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 						$settings['restrictions'] = array();
 					}
 
+					if ( !empty( $_POST['enable_combined_restrictions'] ) )
+						$settings['enable_combined_restrictions'] = $_POST['enable_combined_restrictions'];
+					else
+						$settings['enable_combined_restrictions'] = 'off';
+
+					if ( !empty( $_REQUEST['combined_restrictions_total_allowed'] ) )
+						$settings['combined_restrictions_total_allowed'] = trim( $_REQUEST['combined_restrictions_total_allowed'] );
+
 					if ( !empty( $_POST['enable_js_cookie_restrictions'] ) )
 						$settings['enable_js_cookie_restrictions'] = $_POST['enable_js_cookie_restrictions'];
 					else
 						$settings['enable_js_cookie_restrictions'] = 'off';
+
+					
 
 					if ( !empty( $_REQUEST['levels'] ) ) {
 						$settings['levels'] = $_REQUEST['levels'];
@@ -1023,66 +761,128 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 	                    
 	                        <div class="handlediv" title="Click to toggle"><br /></div>
 	                        
-	                        <h3 class="hndle"><span><?php _e( 'Email Settings', 'issuem-leaky-paywall' ); ?></span></h3>
+	                        <h3 class="hndle"><span><?php _e( 'Email Settings', 'leaky-paywall' ); ?></span></h3>
 	                        
 	                        <div class="inside">
 	                        
 	                        <table id="leaky_paywall_administrator_options" class="form-table">
 	                        
 	                        	<tr>
-	                                <th><?php _e( 'Site Name', 'issuem-leaky-paywall' ); ?></th>
+	                                <th><?php _e( 'Site Name', 'leaky-paywall' ); ?></th>
 	                                <td><input type="text" id="site_name" class="regular-text" name="site_name" value="<?php echo htmlspecialchars( stripcslashes( $settings['site_name'] ) ); ?>" /></td>
 	                            </tr>
 	                        
 	                        	<tr>
-	                                <th><?php _e( 'From Name', 'issuem-leaky-paywall' ); ?></th>
+	                                <th><?php _e( 'From Name', 'leaky-paywall' ); ?></th>
 	                                <td><input type="text" id="from_name" class="regular-text" name="from_name" value="<?php echo htmlspecialchars( stripcslashes( $settings['from_name'] ) ); ?>" /></td>
 	                            </tr>
 	                            
 	                        	<tr>
-	                                <th><?php _e( 'From Email', 'issuem-leaky-paywall' ); ?></th>
+	                                <th><?php _e( 'From Email', 'leaky-paywall' ); ?></th>
 	                                <td><input type="text" id="from_email" class="regular-text" name="from_email" value="<?php echo htmlspecialchars( stripcslashes( $settings['from_email'] ) ); ?>" /></td>
 	                            </tr>
 
-	                            <tr><td colspan="2"><h3><?php _e( 'New Subscriber Email', 'issuem-leaky-paywall' ); ?></h3></td></tr>
 
 	                            <tr>
-	                                <th><?php _e( 'Subject', 'issuem-leaky-paywall' ); ?></th>
-	                                <td><input type="text" id="new_email_subject" class="regular-text" name="new_email_subject" value="<?php echo htmlspecialchars( stripcslashes( $settings['new_email_subject'] ) ); ?>" />
-	                                	<p class="description"><?php _e( 'The subject line for the email sent to new subscribers.', 'issuem-leaky-paywall' ); ?></p>
-	                                </td>
+	                            	<th><?php _e( "Disable New User Notifications", 'leaky-paywall' ); ?></th>
+	                                <td><input type="checkbox" id="new_subscriber_admin_email" name="new_subscriber_admin_email" <?php checked( 'on', $settings['new_subscriber_admin_email'] ); ?> /> <?php _e( 'Disable the email sent to an admin when a new subscriber is added to Leaky Paywall', 'leaky-paywall' ); ?></td>
 	                            </tr>
 
-	                            <tr>
-	                                <th><?php _e( 'Body', 'issuem-leaky-paywall' ); ?></th>
-	                                <td><textarea id="new_email_body" class="large-text" name="new_email_body" rows="10" cols="20"><?php echo htmlspecialchars( stripcslashes( $settings['new_email_body'] ) ); ?></textarea>
-	                                <p class="description"><?php _e( 'The email message that is sent to new subscribers.', 'issuem-leaky-paywall' ); ?></p>
-	                                <p class="description"><?php _e( 'Available template tags:', 'issuem-leaky-paywall' ); ?> <br>
-	                                %blogname%, %sitename%, %username%, %password%, %firstname%, %lastname%, %displayname%</p>
-	                                </td>
-	                            </tr>
-
-	                            <table id="leaky_paywall_test_option" class="form-table">
-
-		                            <tr>
-		                            	<th><?php _e( "Disable New User Notifications", 'issuem-leaky-paywall' ); ?></th>
-		                                <td><input type="checkbox" id="new_subscriber_admin_email" name="new_subscriber_admin_email" <?php checked( 'on', $settings['new_subscriber_admin_email'] ); ?> /> Disable the email sent to an admin when a new subscriber is added to Leaky Paywall.</td>
-		                            </tr>
-		                            
-			                    </table>
-
-	                            <?php wp_nonce_field( 'issuem_leaky_email_options', 'issuem_leaky_email_options_nonce' ); ?>
-	                            
 	                        </table>
 	                        
 	                        </div>
 	                        
 	                    </div>
 
+	                    <div id="modules" class="postbox">
+	                    
+	                        <div class="handlediv" title="Click to toggle"><br /></div>
+	                        
+	                        <h3 class="hndle"><span><?php _e( 'New Subscriber Email', 'leaky-paywall' ); ?></span></h3>
+	                        
+	                        <div class="inside">
+
+	                        	<table id="leaky_paywall_new_subscriber_email_options" class="form-table">
+	                        		
+                        			 <tr>
+                        		    	<th><?php _e( "Disable New Subscriber Email", 'leaky-paywall' ); ?></th>
+                        		        <td><input type="checkbox" id="new_subscriber_email" name="new_subscriber_email" <?php checked( 'on', $settings['new_subscriber_email'] ); ?> /> Disable the new subscriber email sent to a subscriber</td>
+                        		    </tr>
+
+		                        	<tr>
+		                        	    <th><?php _e( 'Subject', 'leaky-paywall' ); ?></th>
+		                        	    <td><input type="text" id="new_email_subject" class="regular-text" name="new_email_subject" value="<?php echo htmlspecialchars( stripcslashes( $settings['new_email_subject'] ) ); ?>" />
+		                        	    	<p class="description"><?php _e( 'The subject line for the email sent to new subscribers.', 'leaky-paywall' ); ?></p>
+		                        	    </td>
+		                        	</tr>
+
+		                        	<tr>
+		                        	    <th><?php _e( 'Body', 'leaky-paywall' ); ?></th>
+		                        	    <td><textarea id="new_email_body" class="large-text" name="new_email_body" rows="10" cols="20"><?php echo htmlspecialchars( stripcslashes( $settings['new_email_body'] ) ); ?></textarea>
+		                        	    <p class="description"><?php _e( 'The email message that is sent to new subscribers.', 'leaky-paywall' ); ?></p>
+		                        	    <p class="description"><?php _e( 'Available template tags:', 'leaky-paywall' ); ?> <br>
+		                        	    %blogname%, %sitename%, %username%, %password%, %firstname%, %lastname%, %displayname%</p>
+		                        	    </td>
+		                        	</tr>
+
+	                        	</table>
+
+	                        </div>
+
+	                    </div>
+
+
+	                     <div id="modules" class="postbox">
+	                    
+	                        <div class="handlediv" title="Click to toggle"><br /></div>
+	                        
+	                        <h3 class="hndle"><span><?php _e( 'Renewal Reminder Email', 'leaky-paywall' ); ?></span></h3>
+	                        
+	                        <div class="inside">
+
+	                        	<table id="leaky_paywall_renewal_reminder_email_options" class="form-table">
+	                        	
+		                        	 <tr>
+		                            	<th><?php _e( "Disable Renewal Reminder Email", 'leaky-paywall' ); ?></th>
+		                                <td><input type="checkbox" id="renewal_reminder_email" name="renewal_reminder_email" <?php checked( 'on', $settings['renewal_reminder_email'] ); ?> /> Disable the renewal reminder email sent to a subscriber</td>
+		                            </tr>
+
+		                            <tr>
+		                                <th><?php _e( 'Subject', 'leaky-paywall' ); ?></th>
+		                                <td><input type="text" id="renewal_reminder_email_subject" class="regular-text" name="renewal_reminder_email_subject" value="<?php echo htmlspecialchars( stripcslashes( $settings['renewal_reminder_email_subject'] ) ); ?>" />
+		                                	
+		                                </td>
+		                            </tr>
+
+		                            <tr>
+		                                <th><?php _e( 'Body', 'leaky-paywall' ); ?></th>
+		                                <td><textarea id="renewal_reminder_email_body" class="large-text" name="renewal_reminder_email_body" rows="10" cols="20"><?php echo htmlspecialchars( stripcslashes( $settings['renewal_reminder_email_body'] ) ); ?></textarea>
+		                                <p class="description"><?php _e( 'The email message that is sent to remind subscribers to renew their subscription.', 'leaky-paywall' ); ?></p>
+		                                <p class="description"><?php _e( 'Available template tags:', 'leaky-paywall' ); ?> <br>
+		                                %blogname%, %sitename%, %username%, %password%, %firstname%, %lastname%, %displayname%</p>
+		                                </td>
+		                            </tr>
+
+		                            <tr>
+				                        <th><?php _e( 'When to Send Reminder', 'leaky-paywall' ); ?></th>
+				                        <td>
+				                        <input type="number" value="<?php echo $settings['renewal_reminder_days_before']; ?>" name="renewal_reminder_days_before" />
+				                        <p class="description"><?php _e( 'Days in advance of a subscriber\'s expiration date to remind them to renew.', 'leaky-paywall' ); ?></p>
+				                        </td>
+				                    </tr>
+
+	                        	</table>
+
+	                        </div>
+
+	                    </div>
+
+	                    <?php wp_nonce_field( 'issuem_leaky_email_options', 'issuem_leaky_email_options_nonce' ); ?>
+
 	                    <?php do_action('leaky_paywall_after_email_settings'); ?>
 
 	                    <p class="submit">
-                            <input class="button-primary" type="submit" name="update_leaky_paywall_settings" value="<?php _e( 'Save Settings', 'issuem-leaky-paywall' ) ?>" />
+                            <input class="button-primary" type="submit" name="update_leaky_paywall_settings" value="<?php _e( 'Save Settings', 'leaky-paywall' ) ?>" />
                         </p>
 
 	                    <?php endif; ?>
@@ -1095,7 +895,7 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 	                    
 	                        <div class="handlediv" title="Click to toggle"><br /></div>
 	                        
-	                        <h3 class="hndle"><span><?php _e( 'Payment Gateway Settings', 'issuem-leaky-paywall' ); ?></span></h3>
+	                        <h3 class="hndle"><span><?php _e( 'Payment Gateway Settings', 'leaky-paywall' ); ?></span></h3>
 	                        
 	                        <div class="inside">
 		                        
@@ -1402,6 +1202,19 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 		                        </tr>
 
 		                        <tr class="restriction-options">
+	                                <th><?php _e( 'Combined Restrictions', 'leaky-paywall' ); ?></th>
+	                                <td><input type="checkbox" id="enable_combined_restrictions" name="enable_combined_restrictions" <?php checked( 'on', $settings['enable_combined_restrictions'] ); ?> /> Use a single value for total content allowed regardless of content type. This uses the content types from the restriction content setting above.</td>
+	                            </tr>
+
+	                            <tr class="restriction-options">
+	                                <th><?php _e( 'Combined Restrictions Total Allowed', 'leaky-paywall' ); ?></th>
+	                                <td>
+	                                	<input type="text" id="combined_restrictions_total_allowed" class="small-text" name="combined_restrictions_total_allowed" value="<?php echo stripcslashes( $settings['combined_restrictions_total_allowed'] ); ?>" /> 
+	                                	<p class="description">If combined restrictions is enabled, the total amount of content items allowed before content is restricted.</p>
+	                                </td>
+	                            </tr>
+
+		                        <tr class="restriction-options">
 	                                <th><?php _e( 'Enable Alternative Restriction Handling', 'issuem-leaky-paywall' ); ?></th>
 	                                <td><input type="checkbox" id="enable_js_cookie_restrictions" name="enable_js_cookie_restrictions" <?php checked( 'on', $settings['enable_js_cookie_restrictions'] ); ?> /> Only check this if your host uses heavy caching and the paywall notice isn't displaying. (Not Recommended)</td>
 	                            </tr>
@@ -1504,6 +1317,10 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 	                     	<h2>Getting Started</h2>
 
 	                    	<p><a target="_blank" href="https://zeen101.com/documentation/leaky-paywall-getting-started/">Setting Up Leaky Paywall</a></p>
+
+	                    	<h2>Support Documentation Articles</h2>
+
+	                    	<p><a target="_blank" href="https://zeen101.com/documentation-category/leaky-paywall/">View All</a></p>
 							
 							<?php wp_nonce_field( 'verify', 'leaky_paywall_help_wpnonce' ); ?>
 							
@@ -1522,7 +1339,7 @@ if ( ! class_exists( 'Leaky_Paywall' ) ) {
 
             </div>
              <div class="leaky-paywall-sidebar" style="float: right; width: 28%; margin-top: 110px;">
-				<a target="_blank" href="https://anvil.pub/"><img width="300" src="http://howto.pub/wp-content/uploads/2016/08/anvil-sidebar-ad.jpg" alt="Anvil"></a>
+				<a target="_blank" href="https://zeen101.com/"><img width="300" src="http://howto.pub/wp-content/uploads/2016/08/anvil-sidebar-ad.jpg" alt="Anvil"></a>
              </div>
 			</div>
 			<?php

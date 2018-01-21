@@ -34,6 +34,15 @@ $heroImage = get_field('heroImage');
 	</div>
 </section>
 
+<!-- WHEN LOGGED OUT-->
+
+<?php
+  $loggedIn = get_body_class();
+  if(!in_array('logged-in', $loggedIn)) { ?>
+
+<section class="logged-out"><div class="wrapper"></div></section>
 <?php include 'inc/form.php'; ?>
+
+<?php } ?>
 
 <?php get_footer(); ?>

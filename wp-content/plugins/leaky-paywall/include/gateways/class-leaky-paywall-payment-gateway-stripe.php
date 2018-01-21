@@ -54,20 +54,19 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 	public function process_signup() {
 
 		if( empty( $_POST['stripeToken'] ) ) {
-            leaky_paywall_errors()->add( 'missing_stripe_token', __( 'Error Processing Payment. If you are using an Ad Blocker, please disable it, refresh the page, and try again.', 'issuem-leaky-paywall' ), 'register' );
+            leaky_paywall_errors()->add( 'missing_stripe_token', __( 'Error Processing Payment. If you are using an Ad Blocker, please disable it, refresh the page, and try again.', 'leaky-paywall' ), 'register' );
             return;
 		}
 
 		\Stripe\Stripe::setApiKey( $this->secret_key );
 
+		$cu = false;
 		$paid   = false;
-		$customer_exists = false;
+		$existing_customer = false;
 
 		$settings = get_leaky_paywall_settings();
 		$mode = 'off' === $settings['test_mode'] ? 'live' : 'test';
 		$level = get_leaky_paywall_subscription_level( $this->level_id );
-
-		$cu = false;
 
 		try {
 
@@ -80,17 +79,25 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 			if ( is_user_logged_in() && !is_admin() ) {
 				//Update the existing user
 				$user_id = get_current_user_id();
-				$subscriber_id = get_user_meta( $user_id, '_issuem_leaky_paywall_' . $mode . '_subscriber_id' . $site, true );
+
+				if ( get_user_meta( $user_id, '_issuem_leaky_paywall_' . $mode . '_payment_gateway' . $site, true ) == 'stripe' ) {
+					$subscriber_id = get_user_meta( $user_id, '_issuem_leaky_paywall_' . $mode . '_subscriber_id' . $site, true );
+				}
+				
 			}
 
 			if ( !empty( $subscriber_id ) ) {
-				$cu = \Stripe\Customer::retrieve( get_user_meta( $user_id, '_issuem_leaky_paywall_' . $mode . '_subscriber_id' . $site, true ) );
+				$cu = \Stripe\Customer::retrieve( $subscriber_id );
 			}
 
 			if ( empty( $cu ) ) {
 				if ( $user = get_user_by( 'email', $this->email ) ) {
 					try {
-						$subscriber_id = get_user_meta( $user->ID, '_issuem_leaky_paywall_' . $mode . '_subscriber_id' . $site, true );
+
+						if ( get_user_meta( $user_id, '_issuem_leaky_paywall_' . $mode . '_payment_gateway' . $site, true ) == 'stripe' ) {
+							$subscriber_id = get_user_meta( $user->ID, '_issuem_leaky_paywall_' . $mode . '_subscriber_id' . $site, true );
+						}
+						
 						if ( !empty( $subscriber_id ) ) {
 							$cu = \Stripe\Customer::retrieve( $subscriber_id );
 						} else {
@@ -118,6 +125,20 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 			);
 
 			$customer_array = apply_filters( 'leaky_paywall_process_stripe_payment_customer_array', $customer_array );
+
+			// create new stripe plan if this is a recurring level but does not have a plan created yet
+			if ( 'on' === $this->recurring && empty( $this->plan_id ) ) {
+
+				$plan_args = array(
+					'stripe_price'	=> number_format( $this->level_price, 2, '', '' ),
+					'currency'	=> leaky_paywall_get_currency(),
+					'secret_key'	=> $this->secret_key
+				);
+
+				$stripe_plan = leaky_paywall_create_stripe_plan( $level, $this->level_id, $plan_args );
+				$this->plan_id = $stripe_plan->id;
+
+			}
 
 			// recurring subscription
 			if ( !empty( $this->recurring ) && 'on' === $this->recurring && !empty( $this->plan_id ) ) {
@@ -165,18 +186,22 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 
 		} catch ( Exception $e ) {
 
-			return new WP_Error( 'broke', sprintf( __( 'Error processing request: %s', 'issuem-leaky-paywall' ), $e->getMessage() ) );
-			
+			leaky_paywall_errors()->add( 'stripe_error', __( 'Error Processing Payment. ', 'leaky-paywall' ) . $e->getMessage(), 'register' );
+            return;
+
 		}
 
 		$customer_id = $cu->id;
 
-		// @todo: if for some reason the customer id is empty at this point, we need to bail and not create a user
+		if ( !$customer_id ) {
+			wp_die( __( 'An error occurred, please contact the site administrator: ', 'leaky-paywall' ) . get_bloginfo( 'admin_email' ), __( 'Error', 'leaky-paywall' ), array( 'response' => '401' ) );
+		}
 
-		$meta_args = array(
+		$gateway_data = array(
 			'level_id'			=> $this->level_id,
 			'subscriber_id' 	=> $customer_id,
 			'subscriber_email' 	=> $this->email,
+			'existing_customer' => $existing_customer,
 			'price' 			=> $this->level_price,
 			'description' 		=> $this->level_name,
 			'payment_gateway' 	=> 'stripe',
@@ -184,40 +209,14 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 			'interval' 			=> $this->length_unit,
 			'interval_count' 	=> $this->length,
 			'site' 				=> !empty( $level['site'] ) ? $level['site'] : '',
-			'plan' 				=> !empty( $customer_array['plan'] ) ? $customer_array['plan'] : '',
+			'plan' 				=> $this->plan_id,
+			'recurring'			=> $this->recurring,
+			'currency'			=> $this->currency
 		);
 
-		if ( is_user_logged_in() || !empty( $existing_customer ) ) {
-			$user_id = leaky_paywall_update_subscriber( NULL,  $this->email, $customer_id, $meta_args ); //if the email already exists, we want to update the subscriber, not create a new one
-		} else {
-			// create the new customer as a leaky paywall subscriber
-			$user_id = leaky_paywall_new_subscriber( NULL,  $this->email, $customer_id, $meta_args );
-		}
+		do_action( 'leaky_paywall_stripe_signup', $gateway_data );
 
-		if ( $user_id ) {
-
-			do_action( 'leaky_paywall_stripe_signup', $user_id );
-			
-			// log the user in
-			wp_set_current_user( $user_id );
-			wp_set_auth_cookie( $user_id, true );
-			
-			// redirect user after sign up
-			if ( !empty( $settings['page_for_after_subscribe'] ) ) {
-				wp_safe_redirect( get_page_link( $settings['page_for_after_subscribe'] ) );
-			} else if ( !empty( $settings['page_for_profile'] ) ) {
-				wp_safe_redirect( get_page_link( $settings['page_for_profile'] ) );
-			} else if ( !empty( $settings['page_for_subscription'] ) ) {
-				wp_safe_redirect( get_page_link( $settings['page_for_subscription'] ) );
-			}
-
-			exit;
-
-		} else {
-
-			wp_die( __( 'An error occurred, please contact the site administrator: ', 'leaky-paywall' ) . get_bloginfo( 'admin_email' ), __( 'Error', 'leaky-paywall' ), array( 'response' => '401' ) );
-
-		}
+		return $gateway_data;
 
 	}
 
@@ -245,6 +244,8 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 		if ( isset( $stripe_event->type ) ) {
 		    
 		    $stripe_object = $stripe_event->data->object;
+
+		    leaky_paywall_log( $stripe_object, 'stripe webhook');
 		
 		    if ( !empty( $stripe_object->customer ) ) {
 		        $user = get_leaky_paywall_subscriber_by_subscriber_id( $stripe_object->customer, $mode );
@@ -279,6 +280,11 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 		            case 'charge.dispute.created' :
 		            case 'charge.dispute.updated' :
 		            case 'charge.dispute.closed' :
+		            case 'customer.created' :
+		            case 'customer.updated' :
+		            case 'customer.source.created' :
+		            case 'invoice.created' :
+		            case 'invoice.updated' :
 		                break;
 		            case 'customer.deleted' :
 		                    update_user_meta( $user->ID, '_issuem_leaky_paywall_' . $mode . '_payment_status' . $site, 'canceled' );
@@ -299,6 +305,8 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 		                break;
 		                
 		            case 'customer.subscription.created' :
+		            	$expires = date_i18n( 'Y-m-d 23:59:59', $stripe_object->current_period_end );
+		            	update_user_meta( $user->ID, '_issuem_leaky_paywall_' . $mode . '_expires' . $site, $expires );
 		                update_user_meta( $user->ID, '_issuem_leaky_paywall_' . $mode . '_payment_status' . $site, 'active' );
 		                break;
 		                
@@ -307,12 +315,14 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 		                break;
 		               
 		            default:
-		            	// if none of the above cases match, set them to deactivated
-		            	update_user_meta( $user->ID, '_issuem_leaky_paywall_' . $mode . '_payment_status' . $site, 'deactivated' );
 		            	break;
 		
 		        };
-		        
+
+		        // create an action for each event fired by stripe
+		        $action = str_replace( '.', '_', $stripe_event->type );
+		        do_action( 'leaky_paywall_stripe_' . $action, $user, $stripe_object );
+		
 		    }
 		        
 		}
@@ -337,7 +347,7 @@ class Leaky_Paywall_Payment_Gateway_Stripe extends Leaky_Paywall_Payment_Gateway
 
 		$plan_args = array(
 			'stripe_price'	=> number_format( $level['price'], 2, '', '' ),
-			'currency'		=> $settings['leaky_paywall_currency'],
+			'currency'		=> leaky_paywall_get_currency(),
 			'secret_key'	=> $this->secret_key
 		);
 

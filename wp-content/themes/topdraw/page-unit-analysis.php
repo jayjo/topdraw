@@ -9,6 +9,12 @@ $heroImage = get_field('heroImage', $parent_id);
 
 ?>
 
+<!-- IF LOGGED IN -->
+
+<?php
+  $loggedIn = get_body_class();
+  if(in_array('logged-in', $loggedIn)) { ?>
+
 <section class="chart cf">
 	<div class="wrapper">
 		<div class="top-info cf">
@@ -120,31 +126,18 @@ $heroImage = get_field('heroImage', $parent_id);
 	</div>
 </section>
 
+<!-- IF LOGGED OUT -->
+
+<?php } else { ?>
+
+<section class="logged-out">
+	<div class="wrapper">
+		<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
+	</div>
+</section>
+
 <?php include 'inc/form.php'; ?>
 
-<?php if(have_rows('unit_info')): ?>
-	<?php while(have_rows('unit_info')): the_row();
-		$unit_species_name = get_sub_field('unit_species_name');
-		$calculator = get_sub_field('calculator');
-		$drawType = get_sub_field('draw_odds_type');
-		$multi = "Multiplier";
-		$reg = "Regular";
-	?>
-	<?php if($drawType === "") { ?>
-
-		<span class="calculatorValues" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
-
-		<?php } elseif($drawType === $multi) { ?>
-
-		<span class="calculatorValuesMulti" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
-
-		<?php } elseif($drawType === $reg) { ?>
-
-
-		<?php } ?>
-
-	<?php endwhile; ?>
-
-<?php endif; ?>
+<?php } ?>
 
 <?php get_footer(); ?>

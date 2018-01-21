@@ -77,10 +77,11 @@ header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;p
 .nav ul li.menu-item-has-children>a:before{left:-5px;margin:7px 0 0 -3px;-webkit-transform:rotateZ(-45deg);-ms-transform:rotate(-45deg);transform:rotateZ(-45deg)}
 .nav ul li.menu-item-has-children>a:after{left:-5px;margin:7px 0 0 -10px;-webkit-transform:rotateZ(45deg);-ms-transform:rotate(45deg);transform:rotateZ(45deg)}
 .nav ul li.menu-item-has-children:hover a:before,.nav ul li.menu-item-has-children:hover a:after{background:#b63f44}
-.nav ul li.menu-item-has-children>ul.sub-menu{background-color:#fff;border-radius:0 0 4px 4px;box-shadow:0 0 3px rgba(0,0,0,0.3);display:none;left:-17px;padding:5px;position:absolute;top:10px;white-space:nowrap}
+.nav ul li.menu-item-has-children>ul.sub-menu{background-color:#fff;border-radius:0 0 4px 4px;box-shadow:0 0 3px rgba(0,0,0,0.3);display:none;left:-70px;padding:5px;position:absolute;top:10px;white-space:nowrap}
 .nav ul li.menu-item-has-children>ul.sub-menu li{margin:0;line-height:15px;padding:0;width:100%;display:block}
 .nav ul li.menu-item-has-children>ul.sub-menu li:hover{border:0}
 .nav ul li.menu-item-has-children>ul.sub-menu li a{border:0;border-radius:2px;color:#b63f44;display:block;padding:8px 11px}
+.nav ul li.menu-item-has-children>ul.sub-menu li a.coming-soon{color:#bbbcbd;pointer-events:none;text-transform:none}
 .nav ul li.menu-item-has-children>ul.sub-menu li a:hover{background-color:#b63f44;box-shadow:0 2px 8px 0 rgba(0,0,0,0.3);border:0;color:#fff;-webkit-transition:all 150ms;transition:all 150ms}
 .nav ul li.menu-item-has-children:hover>ul.sub-menu{display:block}
 .nav ul li a.main-login{color:#191e25}

@@ -189,6 +189,9 @@
 			}
 		});
 
+		// If the Sub Menu links have the words coming soon add a class that makes them inactive
+		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon');
+
 	});
 
 })(jQuery, this);

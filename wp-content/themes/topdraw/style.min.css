@@ -152,7 +152,7 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .boxes .animal p:nth-child(even),.boxes .date p:nth-child(even),.boxes .cost p:nth-child(even),.boxes .avail p:nth-child(even){background-color:rgba(187,188,189,0.15)}
 .boxes .animal p.item,.boxes .date p.item,.boxes .cost p.item,.boxes .avail p.item,.boxes .animal p.spacer-thing,.boxes .date p.spacer-thing,.boxes .cost p.spacer-thing,.boxes .avail p.spacer-thing{margin:10px 0}
 .boxes .animal p.item span,.boxes .date p.item span,.boxes .cost p.item span,.boxes .avail p.item span,.boxes .animal p.spacer-thing span,.boxes .date p.spacer-thing span,.boxes .cost p.spacer-thing span,.boxes .avail p.spacer-thing span{font-weight:bold}
-.boxes .animal p.header,.boxes .date p.header,.boxes .cost p.header,.boxes .avail p.header{background:0;font-size:13px;height:60px;margin:0;text-transform:uppercase}
+.boxes .animal p.header,.boxes .date p.header,.boxes .cost p.header,.boxes .avail p.header{background:0;font-size:12px;height:60px;margin:0;text-transform:uppercase}
 .boxes .animal p:last-child,.boxes .date p:last-child,.boxes .cost p:last-child,.boxes .avail p:last-child{margin:10px 0 0}
 .page-template-page-rules-regulations .tabscontent.unit-information h4{margin-bottom:65px}
 .page-template-page-rules-regulations .tabscontent.unit-information #Fees-and-Deadlines h4{margin-bottom:10px}
@@ -276,7 +276,7 @@ table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transfo
 .table-active .navvy.species{left:50%;margin-left:-200px;position:fixed;top:11px;z-index:20;-webkit-transition:top 150ms;transition:top 150ms}
 .error-thing{background-color:#b63f44}
 .centery{display:block;margin:35px auto 45px;text-align:center}
-.internal_content{margin-bottom:75px}
+.internal_content{margin:0 auto 75px;max-width:900px;min-width:720px}
 .two_col.left,.two_col.right{display:inline-block;float:left;width:50%}
 .two_col.left img,.two_col.right img{width:100%}
 .two_col.left a,.two_col.right a{color:#b63f44;text-decoration:none}

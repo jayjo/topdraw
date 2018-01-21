@@ -9,6 +9,12 @@ $heroImage = get_field('heroImage', $parent_id);
 
 ?>
 
+<!-- IF LOGGED IN -->
+
+<?php
+  $loggedIn = get_body_class();
+  if(in_array('logged-in', $loggedIn)) { ?>
+
 <section class="chart cf">
 	<div class="wrapper">
 		<div class="top-info cf">
@@ -65,6 +71,18 @@ $heroImage = get_field('heroImage', $parent_id);
 	</div>
 </section>
 
+<!-- IF LOGGED OUT -->
+
+<?php } else { ?>
+
+<section class="logged-out">
+	<div class="wrapper">
+		<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
+	</div>
+</section>
+
 <?php include 'inc/form.php'; ?>
+
+<?php } ?>
 
 <?php get_footer(); ?>

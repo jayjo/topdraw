@@ -2,8 +2,8 @@
 Contributors: zeen101, layotte, pericson, endocreative
 Tags: magazine, issue, manager, paywall, leaky
 Requires at least: 3.3
-Tested up to: 4.8
-Stable tag: 4.9.2
+Tested up to: 4.9
+Stable tag: 4.10.3
 Tags: paywall, subscriptions, metered, membership, pay wall, content monetization, metered access, metered pay wall, paid content
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,23 @@ You must have:
 * Leaky Paywall for WordPress is GPL
 
 == Changelog ==
+
+= 4.10.3 =
+* Fixed bug causing multiple charges for same checkout
+* Refactor restrictions
+
+= 4.10.2 =
+* Fixing subscription expiration bug for Stripe
+
+= 4.10.1 =
+* Adding some additional event tracking
+* Adding some additional hooks
+
+= 4.10.0 =
+* Change in registration process
+* General code cleanup
+* New filters/hooks
+* Reminder emails!
 
 = 4.9.2 =
 * Switching serialize commands to json_en/decode commands, for security reasons

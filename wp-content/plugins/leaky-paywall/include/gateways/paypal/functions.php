@@ -22,6 +22,8 @@ function leaky_paywall_paypal_subscription_cards( $payment_options, $level, $lev
 
 	if ( in_array( 'paypal_standard', array_keys( $enabled_gateways ) ) && $settings['enable_paypal_on_registration'] != 'on' ) {
 		$output = leaky_paywall_paypal_button( $level, $level_id );
+	} else if($settings['enable_paypal_on_registration'] == 'on'){
+		return '<div class="leaky-paywall-payment-button"><a href="' . get_page_link( $settings['page_for_register'] ) . '?level_id=' . $level_id . '">Subscribe</a></div>';
 	}
 
 	return $payment_options . $output;
@@ -40,7 +42,7 @@ function leaky_paywall_paypal_button( $level, $level_id ) {
 	$mode = 'off' === $settings['test_mode'] ? 'live' : 'test';
 	$paypal_sandbox = 'off' === $settings['test_mode'] ? '' : 'sandbox';
 	$paypal_account = 'on' === $settings['test_mode'] ? $settings['paypal_sand_email'] : $settings['paypal_live_email'];
-	$currency = $settings['leaky_paywall_currency'];
+	$currency = leaky_paywall_get_currency();
 	$current_user = wp_get_current_user();
 	if ( 0 !== $current_user->ID ) {
 		$user_email = $current_user->user_email;

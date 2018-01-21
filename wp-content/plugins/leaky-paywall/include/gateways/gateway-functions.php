@@ -35,12 +35,33 @@ function leaky_paywall_get_payment_gateways() {
 
 function leaky_paywall_send_to_gateway( $gateway, $subscription_data ) {
 
+	// we don't have an actual gateway class for a free registration at this time, so we format the data as needed here
+	if ( $gateway == 'free_registration' ) {
+		
+		return array(
+			'level_id' => $subscription_data['level_id'],
+			'subscriber_id' => '',
+			'subscriber_email' => $subscription_data['user_email'],
+			'existing_customer' => false,
+			'price' => 0,
+			'description' => $subscription_data['description'],
+			'payment_gateway' => 'free_registration',
+			'payment_status' => 'active',
+			'interval' => $subscription_data['interval'],
+			'interval_count' => $subscription_data['interval_count'],
+			'site' => $subscription_data['site'],
+			'plan' => $subscription_data['plan'],
+			'recurring' => false
+		);
+
+	}
+
 	$gateways = new Leaky_Paywall_Payment_Gateways;
 	$gateway = $gateways->get_gateway( $gateway );
 
 	$gateway = new $gateway['class']( $subscription_data );
 
-	$gateway->process_signup();
+	return $gateway->process_signup();
 	
 }
 

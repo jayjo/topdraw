@@ -148,6 +148,11 @@
 				padding 9px 11px
 				text-decoration none
 
+				&.coming-soon-link
+					color $grey
+					pointer-events none
+					text-transform none
+
 				&:hover
 					background-color $red
 					box-shadow 0 2px 8px 0px rgba(0, 0, 0, 0.3)
@@ -206,7 +211,7 @@
 .boxes
 	background rgba($grey, .15)
 	display flex
-	margin-bottom 65px
+	margin-bottom 35px
 	padding 25px 25px
 
 	.animal, .date, .cost, .avail
@@ -217,6 +222,10 @@
 		p
 			font-size 15px
 			padding 10px 5px
+
+			strong
+				font-size 12px
+				text-transform uppercase
 
 		p:nth-child(even)
 			background-color rgba($grey, .15)
@@ -229,7 +238,7 @@
 
 		p.header
 			background none
-			font-size 13px
+			font-size 12px
 			height 60px
 			margin 0
 			text-transform uppercase
@@ -303,7 +312,11 @@ button.expand
 	margin 0 auto 50px
 
 p.footnote
-	margin-bottom 0
+	color $grey
+	font-size 15px
+	line-height 20px
+	margin 0 auto 0
+	width 80%
 
 .footnote a
 	color $red
@@ -312,6 +325,9 @@ p.footnote
 	&:hover
 		background $red
 		color #fff
+
+.tabscontent.species-chart p.footnote
+	width 100%
 
 .intro
 	font-size 17px

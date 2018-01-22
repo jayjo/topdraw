@@ -81,7 +81,7 @@ header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;p
 .nav ul li.menu-item-has-children>ul.sub-menu li{margin:0;line-height:15px;padding:0;width:100%;display:block}
 .nav ul li.menu-item-has-children>ul.sub-menu li:hover{border:0}
 .nav ul li.menu-item-has-children>ul.sub-menu li a{border:0;border-radius:2px;color:#b63f44;display:block;padding:8px 11px}
-.nav ul li.menu-item-has-children>ul.sub-menu li a.coming-soon{color:#bbbcbd;pointer-events:none;text-transform:none}
+.nav ul li.menu-item-has-children>ul.sub-menu li a.coming-soon-link{color:#bbbcbd;pointer-events:none;text-transform:none}
 .nav ul li.menu-item-has-children>ul.sub-menu li a:hover{background-color:#b63f44;box-shadow:0 2px 8px 0 rgba(0,0,0,0.3);border:0;color:#fff;-webkit-transition:all 150ms;transition:all 150ms}
 .nav ul li.menu-item-has-children:hover>ul.sub-menu{display:block}
 .nav ul li a.main-login{color:#191e25}
@@ -135,6 +135,7 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .navvy.species .button-group .animal-chooser li:hover,.navvy.unit-info .button-group .animal-chooser li:hover,.navvy.species .button-group .info-chooser li:hover,.navvy.unit-info .button-group .info-chooser li:hover{border:0}
 .navvy.species .button-group .animal-chooser li.current a,.navvy.unit-info .button-group .animal-chooser li.current a,.navvy.species .button-group .info-chooser li.current a,.navvy.unit-info .button-group .info-chooser li.current a{background:rgba(187,188,189,0.24);color:#191e25}
 .navvy.species .button-group .animal-chooser li a,.navvy.unit-info .button-group .animal-chooser li a,.navvy.species .button-group .info-chooser li a,.navvy.unit-info .button-group .info-chooser li a{border:0;border-radius:2px;color:#b63f44;display:block;font-weight:bold;padding:9px 11px;text-decoration:none}
+.navvy.species .button-group .animal-chooser li a.coming-soon-link,.navvy.unit-info .button-group .animal-chooser li a.coming-soon-link,.navvy.species .button-group .info-chooser li a.coming-soon-link,.navvy.unit-info .button-group .info-chooser li a.coming-soon-link{color:#bbbcbd;pointer-events:none;text-transform:none}
 .navvy.species .button-group .animal-chooser li a:hover,.navvy.unit-info .button-group .animal-chooser li a:hover,.navvy.species .button-group .info-chooser li a:hover,.navvy.unit-info .button-group .info-chooser li a:hover{background-color:#b63f44;box-shadow:0 2px 8px 0 rgba(0,0,0,0.3);border:0;color:#fff;-webkit-transition:all 150ms;transition:all 150ms}
 .navvy.species .button-group.active .animal-chooser,.navvy.unit-info .button-group.active .animal-chooser,.navvy.species .button-group.active .info-chooser,.navvy.unit-info .button-group.active .info-chooser{opacity:1;pointer-events:auto}
 .tabscontent.species-information,.tabscontent.unit-information{margin-top:65px}
@@ -146,9 +147,10 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .tabscontent.species-information a:hover,.tabscontent.unit-information a:hover,.tabscontent.rules-regulations a:hover{background:#b63f44;color:#fff}
 .tabscontent.species-information ul,.tabscontent.unit-information ul,.tabscontent.rules-regulations ul{margin:0 0 50px 5px}
 .tabscontent.species-information li,.tabscontent.unit-information li,.tabscontent.rules-regulations li{line-height:25px;list-style-type:circle;margin:0 0 10px 0}
-.boxes{background:rgba(187,188,189,0.15);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:65px;padding:25px 25px}
+.boxes{background:rgba(187,188,189,0.15);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:35px;padding:25px 25px}
 .boxes .animal,.boxes .date,.boxes .cost,.boxes .avail{-webkit-box-align:start;-webkit-align-items:flex-start;-ms-flex-align:start;align-items:flex-start;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;text-align:center}
 .boxes .animal p,.boxes .date p,.boxes .cost p,.boxes .avail p{font-size:15px;padding:10px 5px}
+.boxes .animal p strong,.boxes .date p strong,.boxes .cost p strong,.boxes .avail p strong{font-size:12px;text-transform:uppercase}
 .boxes .animal p:nth-child(even),.boxes .date p:nth-child(even),.boxes .cost p:nth-child(even),.boxes .avail p:nth-child(even){background-color:rgba(187,188,189,0.15)}
 .boxes .animal p.item,.boxes .date p.item,.boxes .cost p.item,.boxes .avail p.item,.boxes .animal p.spacer-thing,.boxes .date p.spacer-thing,.boxes .cost p.spacer-thing,.boxes .avail p.spacer-thing{margin:10px 0}
 .boxes .animal p.item span,.boxes .date p.item span,.boxes .cost p.item span,.boxes .avail p.item span,.boxes .animal p.spacer-thing span,.boxes .date p.spacer-thing span,.boxes .cost p.spacer-thing span,.boxes .avail p.spacer-thing span{font-weight:bold}
@@ -167,9 +169,10 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .separator{color:#b63f44;font-weight:normal}
 .species-chart h6{font-size:15px;font-weight:bold;margin-bottom:20px;text-transform:uppercase}
 button.expand{display:table;margin:0 auto 50px}
-p.footnote{margin-bottom:0}
+p.footnote{color:#bbbcbd;font-size:15px;line-height:20px;margin:0 auto 0;width:80%}
 .footnote a{color:#b63f44;text-decoration:none}
 .footnote a:hover{background:#b63f44;color:#fff}
+.tabscontent.species-chart p.footnote{width:100%}
 .intro{font-size:17px;line-height:25px;margin-bottom:40px}
 .intro a{color:#b63f44;text-decoration:none}
 .intro a:hover{background:#b63f44;color:#fff}
@@ -267,7 +270,7 @@ table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transfo
 .close{background:transparent;border:1px solid #b63f44;border-radius:2px;color:#fff;font-size:15px;font-weight:bold;padding:5px 10px;position:absolute;right:20px;text-decoration:none;text-transform:uppercase;top:21px}
 .close:hover{background:#b63f44;box-shadow:0 7px 24px -8px rgba(0,0,0,0.35);-webkit-transition:all 150ms;transition:all 150ms}
 .highlight{background:rgba(235,154,53,0.1)}
-.table_toggle.calculating{color:#fff;font-size:15px;font-weight:bold;left:20px;position:absolute;text-transform:uppercase;top:-29px}
+.table_toggle.calculating{color:#fff;font-size:15px;font-weight:bold;left:20px;position:absolute;text-transform:uppercase;top:-34px}
 .table_toggle.calculating label{margin:0 10px 0 0}
 .table_toggle.calculating input[type=text]{font-size:15px;font-weight:bold;padding:14px 16px 15px}
 .table-active .table_container{opacity:1;visibility:visible;-webkit-transition:visibility 0ms,opacity 150ms;transition:visibility 0ms,opacity 150ms}

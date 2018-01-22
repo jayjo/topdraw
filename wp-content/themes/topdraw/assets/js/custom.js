@@ -365,7 +365,7 @@
 				var tip = $(this).attr('tip-text');
 				$(this).find('span.tooltip').text(tip);
 			}, function(e){
-				$(this).find('span.tooltip').text('');
+				$(this).find('span.tooltip').text(tip);
 			}
 		);
 
@@ -468,8 +468,9 @@
 			}
 		});
 
-		// If the Sub Menu links have the words coming soon add a class that makes them inactive
-		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon');
+		// If a link has the words coming soon add a class that makes them inactive
+		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon-link');
+		$(".animal-chooser a:contains('Coming Soon')").addClass('coming-soon-link');
 
 	});
 

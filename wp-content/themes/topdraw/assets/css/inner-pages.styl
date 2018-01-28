@@ -1,9 +1,12 @@
 .page-template-page-unit-analysis .chart,
 .page-template-page-trophy-analysis .chart,
-.page-template-page-rules-regulations .chart
+.page-template-page-rules-regulations .chart,
+.page-template-page-unit-analysis-demo .chart,
+.page-template-page-trophy-analysis-demo .chart,
+.page-template-page-rules-regulations-demo .chart
 	margin 125px auto 0
 	min-width 720px
-	max-width 875px
+	max-width 900px
 	text-align left
 	width 100%
 
@@ -78,7 +81,8 @@
 						background rgba($grey, .15)
 						box-shadow inset 0 1px 2px rgba(0,0,0,.25)
 
-.navvy.species .button-group, .navvy.unit-info .button-group
+.navvy.species .button-group,
+.navvy.unit-info .button-group
 	background #fff
 	border 1px solid $grey
 	border-radius 2px
@@ -112,7 +116,8 @@
 		height 0
 		width 0
 
-	.animal-chooser, .info-chooser
+	.animal-chooser,
+	.info-chooser
 		background-color #fff
 		border-radius 0 0 4px 4px
 		box-shadow 0 0 3px rgba(0,0,0,0.30)
@@ -160,7 +165,8 @@
 					color #fff
 					transition all $one-fifty
 
-	&.active .animal-chooser, &.active .info-chooser
+	&.active .animal-chooser,
+	&.active .info-chooser
 		opacity 1
 		pointer-events auto
 
@@ -214,7 +220,10 @@
 	margin-bottom 35px
 	padding 25px 25px
 
-	.animal, .date, .cost, .avail
+	.animal,
+	.date,
+	.cost,
+	.avail
 		align-items flex-start
 		flex 1
 		text-align center
@@ -230,11 +239,17 @@
 		p:nth-child(even)
 			background-color rgba($grey, .15)
 
-		p.item, p.spacer-thing
+		p.item,
+		p.spacer-thing
 			margin 10px 0
 
 			span
 				font-weight bold
+
+		p.item:first-child
+			font-size 12px
+			font-weight bold
+			text-transform uppercase
 
 		p.header
 			background none
@@ -246,15 +261,18 @@
 		p:last-child
 			margin 10px 0 0
 
-.page-template-page-rules-regulations .tabscontent.unit-information
+.page-template-page-rules-regulations .tabscontent.unit-information,
+.page-template-page-rules-regulations-demo .tabscontent.unit-information
 	h4
 		margin-bottom 65px
 
-.page-template-page-rules-regulations .tabscontent.unit-information #Fees-and-Deadlines
+.page-template-page-rules-regulations .tabscontent.unit-information #Fees-and-Deadlines,
+.page-template-page-rules-regulations-demo .tabscontent.unit-information #Fees-and-Deadlines
 	h4
 		margin-bottom 10px
 
-.page-template-page-trophy-analysis .tabscontent.species-information
+.page-template-page-trophy-analysis .tabscontent.species-information,
+.page-template-page-trophy-analysis-demo .tabscontent.species-information
 	h4
 		margin-bottom 65px
 
@@ -317,6 +335,9 @@ p.footnote
 	line-height 20px
 	margin 0 auto 0
 	width 80%
+
+	&.showthisthing
+		display block !important
 
 .footnote a
 	color $red

@@ -92,17 +92,9 @@ $heroImage = get_field('heroImage', $parent_id);
 		</div>
 		<?php endwhile; ?>
 		</div>
-		<button class="button red outline large expand">Calculate your draw odds</button>
+		<button class="button red outline large expand">Research Trophy Analyses</button>
 		<div class="table-head">
 			<a href="#" class="close">Close</a>
-			<div class="table_toggle calculating">
-				<p class="centery">
-					<div class="input">
-						<label for="calculator">True draw odds</label>
-						<input type="text" name="calculator" id="calc" class="calc calcMulti" placeholder="Enter bonus points..." value=""/>
-					</div>
-				</p>
-			</div>
 		</div>
 	<?php endif; ?>
 	</div>

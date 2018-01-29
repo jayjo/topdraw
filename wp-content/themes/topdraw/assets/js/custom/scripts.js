@@ -81,14 +81,14 @@
 
 		// TOOLTIP STUFF
 		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
-		$('td.orange').hover(
-			function(e){
-				var tip = $(this).attr('tip-text');
-				$(this).find('span.tooltip').text(tip);
-			}, function(e){
-				$(this).find('span.tooltip').text(tip);
-			}
-		);
+		// $('td.orange').hover(
+		// 	function(e){
+		// 		var tip = $(this).attr('tip-text');
+		// 		$(this).find('span.tooltip').text(tip);
+		// 	}, function(e){
+		// 		$(this).find('span.tooltip').text(tip);
+		// 	}
+		// );
 
 		// Animal Chooser Dropdown stuff
 		function DropDown(el) {

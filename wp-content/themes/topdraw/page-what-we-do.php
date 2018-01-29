@@ -36,7 +36,7 @@ setup_postdata($post);
 				<p>We also look at trending trophy information by tracking quantity and quality of Pope and Young record entries for Elk, Mule Deer, Pronghorn, Bighorn Sheep, Desert Sheep, Shiras Moose, Mountain Goat and Bison.  Our objective is to put the best tags in your pocket specific to your individual goals as a hunter.  We do not work with outfitters, assuring you that our unit analysis is not being driven by business behind the scenes.  It comes directly from harvest reports, P&Y records and conversations with local biologists.  This formula ensures no biased or misleading information.   For the hard-core DIY bow hunter, there simply isn’t a better resource. </p>
 			</div>
 		</div>
-		<p class="centery"><a href="<?php echo get_permalink(14); ?>" class="button large solid red">Check out our resources</a></p>
+		<p class="centery"><a href="<?php echo get_permalink(11); ?>" class="button large solid red">Check out our resources</a></p>
 	<div class="wrapper cf">
 		<div class="col layout cf">
 			<div class="two_col left cf">

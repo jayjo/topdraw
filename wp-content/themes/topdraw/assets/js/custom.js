@@ -35,6 +35,9 @@
 						$(this).text(oddsVal);
 						$('.drawOdds').addClass('highlight');
 		      }
+		      if(oddsVal < 1){
+		      	$(this).text("1");
+		      }
 				});
 			}
 
@@ -252,6 +255,7 @@
 			$document.on('click ready', function(e){
 				var calculating = $('.calculating'),
 						calc 				= $('#calc');
+
 				if($(calcValStr).hasClass('current')) {
 					calculating.hide();
 					calc.removeClass('');
@@ -354,14 +358,14 @@
 
 		// TOOLTIP STUFF
 		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
-		$('td.orange').hover(
-			function(e){
-				var tip = $(this).attr('tip-text');
-				$(this).find('span.tooltip').text(tip);
-			}, function(e){
-				$(this).find('span.tooltip').text(tip);
-			}
-		);
+		// $('td.orange').hover(
+		// 	function(e){
+		// 		var tip = $(this).attr('tip-text');
+		// 		$(this).find('span.tooltip').text(tip);
+		// 	}, function(e){
+		// 		$(this).find('span.tooltip').text(tip);
+		// 	}
+		// );
 
 		// Animal Chooser Dropdown stuff
 		function DropDown(el) {

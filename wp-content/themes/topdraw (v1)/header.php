@@ -14,9 +14,6 @@
 		<meta name="description" content="<?php bloginfo('description'); ?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script src="/min/?g=js"></script>
-    <link rel='stylesheet' href='/min/?g=css' />
-
 		<?php wp_head(); ?>
 		<script>
       // conditionizr.com
@@ -26,6 +23,8 @@
           tests: {}
       });
     </script>
+
+    <link href="<?php echo get_template_directory_uri(); ?>/style.css" media="all" rel="stylesheet" />
 
 	  <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>

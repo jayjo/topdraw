@@ -16,6 +16,7 @@
 			function getoriginalValues(){
 				var values = [];
 				odds.each(function(index){
+					$(this).attr('data-idx', index);
 					values[index] = $(this).text();
 				});
 				return values;
@@ -24,17 +25,18 @@
 			function setDrawOddValues(){
 				var curVal = calc.val();
 				$document.find('.drawOdds').each(function(index){
+					var index = parseInt($(this).attr('data-idx'));
 		      var oddsVal = (originalValues[index] / curVal).toFixed(0);
 		      var origVal = (originalValues[index] / 1);
 		      if(!calc.val() || calc.val() === "0" || calc.val() === "1") {
 						$(this).text(origVal);
-						// $('.draw').text(headVal);
 						$('.draw, .drawOdds').removeClass('highlight');
 		      } else {
 						$(this).text(oddsVal);
 						$('.drawOdds').addClass('highlight');
-						// $('.draw').text("True Draw Odds");
-						// $('.draw, .drawOdds').addClass('highlight');
+		      }
+		      if(oddsVal < 1){
+		      	$(this).text("1");
 		      }
 				});
 			}
@@ -43,11 +45,10 @@
 				setDrawOddValues();
 			});
 
-			$('.animal_chooser li a').on('click', function(){
+			$('.animal_chooser li a').on('click', function(e){
 				$('.calc').val("");
 				setDrawOddValues();
 			});
-
 		}
 
 		trueOddsCalc();
@@ -61,6 +62,7 @@
 			function getoriginalValues(){
 				var values = [];
 				odds.each(function(index){
+					$(this).attr('data-idx', index);
 					values[index] = $(this).text();
 				});
 				return values;
@@ -70,6 +72,7 @@
 				var curVal = calc.val();
 				$document.find('.drawOdds').each(function(index){
 
+					var index = parseInt($(this).attr('data-idx'));
 					var oddsVal		     = (originalValues[index] / curVal).toFixed(0);
 					var oneP			     = (originalValues[index] / 1).toFixed(0);
 					var twoP			     = (originalValues[index] / 2).toFixed(0);
@@ -99,7 +102,6 @@
 
 					if(!calc.val() || calc.val() === "0") {
 							$(this).text(origVal);
-							// $('.draw').text(headVal);
 							$('.draw, .drawOdds').removeClass('highlight');
 						}
 							else if(calc.val() === "1") {
@@ -181,8 +183,6 @@
 
 							$(this).text(origVal);
 							$('.drawOdds').addClass('highlight');
-							// $('.draw').text("True Draw Odds");
-							// $('.draw, .drawOdds').addClass('highlight');
 						}
 
 					if (document.location.pathname.indexOf("/nevada/") == "0") {
@@ -255,18 +255,16 @@
 			$document.on('click ready', function(e){
 				var calculating = $('.calculating'),
 						calc 				= $('#calc');
+
 				if($(calcValStr).hasClass('current')) {
 					calculating.hide();
 					calc.removeClass('');
-					// console.log('no calculator');
 				} else if($(calcValStrMulti).hasClass('current')) {
 					calculating.show();
 					calc.addClass('calcMulti').removeClass('calc');
-					// console.log('multi');
 				}	else {
 					calculating.show();
 					calc.addClass('calc').removeClass('calcMulti');
-					// console.log('reg');
 				}
 			});
 

@@ -65,6 +65,7 @@ $heroImage = get_field('heroImage', $parent_id);
 					<?php echo $regulation; ?>
 				</div>
 				<?php endwhile; ?>
+				<p class="footnote showthisthing"><?php the_field('species_info_footnote'); ?></p>
 			</div>
 			<?php endif; ?>
 		</div>

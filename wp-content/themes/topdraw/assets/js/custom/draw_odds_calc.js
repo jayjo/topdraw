@@ -35,6 +35,9 @@
 						$(this).text(oddsVal);
 						$('.drawOdds').addClass('highlight');
 		      }
+		      if(oddsVal < 1){
+		      	$(this).text("1");
+		      }
 				});
 			}
 
@@ -252,6 +255,7 @@
 			$document.on('click ready', function(e){
 				var calculating = $('.calculating'),
 						calc 				= $('#calc');
+
 				if($(calcValStr).hasClass('current')) {
 					calculating.hide();
 					calc.removeClass('');

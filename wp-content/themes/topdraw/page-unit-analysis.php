@@ -140,4 +140,29 @@ $heroImage = get_field('heroImage', $parent_id);
 
 <?php } ?>
 
+<?php if(have_rows('unit_info')): ?>
+	<?php while(have_rows('unit_info')): the_row();
+		$unit_species_name = get_sub_field('unit_species_name');
+		$calculator = get_sub_field('calculator');
+		$drawType = get_sub_field('draw_odds_type');
+		$multi = "Multiplier";
+		$reg = "Regular";
+	?>
+	<?php if($drawType === "") { ?>
+
+		<span class="calculatorValues" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
+
+		<?php } elseif($drawType === $multi) { ?>
+
+		<span class="calculatorValuesMulti" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
+
+		<?php } elseif($drawType === $reg) { ?>
+
+
+		<?php } ?>
+
+	<?php endwhile; ?>
+
+<?php endif; ?>
+
 <?php get_footer(); ?>

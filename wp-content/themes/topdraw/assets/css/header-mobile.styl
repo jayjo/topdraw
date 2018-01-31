@@ -1,0 +1,114 @@
+@media only screen and (min-width: $bp-small) and (max-width: $bp-med)
+
+	header
+		height 45px
+		padding 0 10px
+
+	.logo-group
+		padding-top 10px
+
+		.logo svg
+			width 120px
+
+	.nav
+		background #fff
+		position absolute
+		right 10px
+		top 4px
+
+		&:before
+			background linear-gradient(
+				to bottom,
+				$dark-blue, $dark-blue 20%,
+				white 20%, white 40%,
+				$dark-blue 40%, $dark-blue 60%,
+				white 60%, white 80%,
+				$dark-blue 80%, $dark-blue 100%
+			)
+			content ""
+			display block
+			height 15px
+			position absolute
+			right 0
+			top 11px
+			width 20px
+
+	.menu-header-menu-container
+		background #fff
+		float none
+		height 100vh
+		left 0
+		position fixed
+		top 46px
+		width 100%
+
+.nav ul
+	margin 0
+	padding 12px 10px
+
+	li
+		display block
+		margin 0
+		padding 0
+
+		&.menu-item-has-children
+			> a:before, a:after
+				display none
+
+			> ul.sub-menu
+				box-shadow none
+				display block
+				left 0
+				padding 0px 10px
+				position relative
+				top 0
+
+				li
+					line-height 24px
+
+					a:hover, a:active
+						background rgba($grey, .1)
+						box-shadow none
+						color $red
+
+		a
+			display block
+			padding 12px 10px
+			width 100%
+
+			&:hover, &:active
+				background rgba($grey, .1)
+				border-color transparent
+
+	&.login-stuff
+		align-items stretch
+		background $red
+		bottom 0
+		border none
+		color #fff
+		display flex
+		height 55px
+		position fixed
+		right 0
+		width 100%
+
+		li
+			display flex
+
+			a
+				text-align center
+				&.join
+					border none
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -193,6 +193,18 @@
 		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon-link');
 		$(".animal-chooser a:contains('Coming Soon')").addClass('coming-soon-link');
 
+		// Mobile Stuff
+		////
+		////
+		////
+		////
+		////
+		// Hamburger Menu
+		$('.nav').on('click', function(){
+			$('.menu-header-menu-container').toggleClass('active');
+			$('.login-stuff').toggleClass('active');
+		});
+
 	});
 
 })(jQuery, this);

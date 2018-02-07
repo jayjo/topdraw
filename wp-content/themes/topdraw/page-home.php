@@ -7,8 +7,8 @@ setup_postdata($post);
 <section class="hero" style="background-image: url(<?php bloginfo('template_directory'); ?>/assets/img/hero.png)">
 	<div class="wrapper">
 		<div class="content">
-			<h1>Increase your draw odds.</h1>
-			<h2>We guarantee it.</h2>
+			<h1>Hunt the Rockies.</h1>
+			<h2>We Can Help.</h2>
 		</div>
 	</div>
 </section>

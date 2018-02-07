@@ -294,7 +294,8 @@ table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transfo
 .page-template-coming-soon .hero h2{font-size:32px;line-height:45px;margin:0 auto 40px;width:70%}
 .page-template-coming-soon .hero .logo{margin-bottom:10px}
 .page-template-coming-soon .hero .logo svg{fill:#b63f44;margin:0 auto;width:240px}
-@media(min-width:320px) and (max-width:564px){h1{font-size:38px}
+@media(min-width:20em) and (max-width:35.3em){.wrapper{margin:0 auto;min-width:100%;padding:0 10px}
+h1{font-size:38px}
 p{font-size:15px;line-height:22px;margin-bottom:40px}
 .button{display:block}
 header{height:45px;padding:0 10px}
@@ -324,13 +325,22 @@ header{height:45px;padding:0 10px}
 .nav ul.login-stuff li a.join{border:0}
 .logged-in .nav ul.login-stuff{background:rgba(187,188,189,0.4);margin:0;padding:0}
 .logged-in .nav ul.login-stuff li a{color:#191e25}
-.hero h1{font-size:38px;letter-spacing:-2px}
-.hero h2{font-size:28px;letter-spacing:-1px}
-.first .content,.third .content{margin:40px auto;min-width:100%;padding:20px 10px}
-.second .content{padding:20px 10px}
-.second .image-container,.second .content{float:none;width:100%}
+.form:before{height:0}
+.form .content{margin:10px auto 40px}
 .page-template-page-unit-analysis .chart,.page-template-page-trophy-analysis .chart,.page-template-page-rules-regulations .chart,.page-template-page-unit-analysis-demo .chart,.page-template-page-trophy-analysis-demo .chart,.page-template-page-rules-regulations-demo .chart{margin:125px auto 0}
 .internal-hero{border:10px solid #fff;height:40vh;margin:45px 0 10px}
 .internal-hero h1{font-size:38px}
 .internal_content{min-width:100%;padding:20px 10px}
+.internal_content{margin:0 auto 20px;max-width:900px;min-width:100%}
+.centery{margin:15px auto 35px}
+.two_col.left .spacer,.two_col.right .spacer{display:none}
+.two_col.left,.two_col.right{padding:0;width:100%}
+.two_col.left p,.two_col.right p{margin-bottom:20px}
+.two_col.left img,.two_col.right img{margin-bottom:20px}
+.single_col p{margin-bottom:20px}
+}@media(min-width:320px) and (max-width:564px){.hero h1{font-size:38px;letter-spacing:-2px}
+.hero h2{font-size:28px;letter-spacing:-1px}
+.first .content,.third .content{margin:40px auto;min-width:100%;padding:20px 10px}
+.second .content{padding:20px 10px}
+.second .image-container,.second .content{float:none;width:100%}
 }

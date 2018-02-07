@@ -85,8 +85,6 @@ header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;p
 .nav ul li.menu-item-has-children>ul.sub-menu li a:hover{background-color:#b63f44;box-shadow:0 2px 8px 0 rgba(0,0,0,0.3);border:0;color:#fff;-webkit-transition:all 150ms;transition:all 150ms}
 .nav ul li.menu-item-has-children:hover>ul.sub-menu{display:block}
 .nav ul li a.main-login{color:#191e25}
-.logged-in .nav ul.login-stuff{background:rgba(187,188,189,0.4);margin:0;padding:0}
-.logged-in .nav ul.login-stuff li a{color:#191e25}
 .hero{background-position:center;background-repeat:no-repeat;background-size:cover;height:100vh;position:relative}
 .hero .content{position:absolute;top:45%;left:50%;-webkit-transform:translate3D(-50%,-50%,0);-ms-transform:translate3D(-50%,-50%,0);transform:translate3D(-50%,-50%,0);text-align:center;width:100%}
 .hero h1{color:#fff;font-size:90px;letter-spacing:-3px;margin:0 0 10px 0;text-shadow:0 8px 78px rgba(0,0,0,0.4)}
@@ -324,6 +322,8 @@ header{height:45px;padding:0 10px}
 .nav ul.login-stuff li a.main-login:hover{color:rgba(255,255,255,0.5)}
 .nav ul.login-stuff li a.button.solid.red:hover{background:transparent;border-color:none;box-shadow:none;color:rgba(255,255,255,0.5)}
 .nav ul.login-stuff li a.join{border:0}
+.logged-in .nav ul.login-stuff{background:rgba(187,188,189,0.4);margin:0;padding:0}
+.logged-in .nav ul.login-stuff li a{color:#191e25}
 .hero h1{font-size:38px;letter-spacing:-2px}
 .hero h2{font-size:28px;letter-spacing:-1px}
 .first .content,.third .content{margin:40px auto;min-width:100%;padding:20px 10px}

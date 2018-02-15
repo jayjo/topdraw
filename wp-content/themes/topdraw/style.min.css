@@ -294,7 +294,8 @@ table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transfo
 .page-template-coming-soon .hero h2{font-size:32px;line-height:45px;margin:0 auto 40px;width:70%}
 .page-template-coming-soon .hero .logo{margin-bottom:10px}
 .page-template-coming-soon .hero .logo svg{fill:#b63f44;margin:0 auto;width:240px}
-@media(min-width:320px) and (max-width:564px){h1{font-size:38px}
+@media(min-width:20em) and (max-width:35.3em){.wrapper{margin:0 auto;min-width:100%;padding:0 10px}
+h1{font-size:38px}
 p{font-size:15px;line-height:22px;margin-bottom:40px}
 .button{display:block}
 header{height:45px;padding:0 10px}
@@ -324,13 +325,40 @@ header{height:45px;padding:0 10px}
 .nav ul.login-stuff li a.join{border:0}
 .logged-in .nav ul.login-stuff{background:rgba(187,188,189,0.4);margin:0;padding:0}
 .logged-in .nav ul.login-stuff li a{color:#191e25}
-.hero h1{font-size:38px;letter-spacing:-2px}
+.form:before{height:0}
+.form .content{margin:10px auto 40px}
+.page-template-page-unit-analysis .chart,.page-template-page-trophy-analysis .chart,.page-template-page-rules-regulations .chart,.page-template-page-unit-analysis-demo .chart,.page-template-page-trophy-analysis-demo .chart,.page-template-page-rules-regulations-demo .chart{margin:125px auto 0;min-width:100%;width:100%}
+.page-template-page-unit-analysis .chart .top-info:after,.page-template-page-trophy-analysis .chart .top-info:after,.page-template-page-rules-regulations .chart .top-info:after,.page-template-page-unit-analysis-demo .chart .top-info:after,.page-template-page-trophy-analysis-demo .chart .top-info:after,.page-template-page-rules-regulations-demo .chart .top-info:after{height:0;margin:0 auto 45px;padding:45px 0 0}
+.page-template-page-unit-analysis .chart .top-info .content,.page-template-page-trophy-analysis .chart .top-info .content,.page-template-page-rules-regulations .chart .top-info .content,.page-template-page-unit-analysis-demo .chart .top-info .content,.page-template-page-trophy-analysis-demo .chart .top-info .content,.page-template-page-rules-regulations-demo .chart .top-info .content{max-width:100%;width:100%}
+.page-template-page-unit-analysis .chart .top-info .analysis-type,.page-template-page-trophy-analysis .chart .top-info .analysis-type,.page-template-page-rules-regulations .chart .top-info .analysis-type,.page-template-page-unit-analysis-demo .chart .top-info .analysis-type,.page-template-page-trophy-analysis-demo .chart .top-info .analysis-type,.page-template-page-rules-regulations-demo .chart .top-info .analysis-type{max-width:100%;padding:0 25px;width:100%}
+.page-template-page-unit-analysis .chart .top-info .analysis-type .expand,.page-template-page-trophy-analysis .chart .top-info .analysis-type .expand,.page-template-page-rules-regulations .chart .top-info .analysis-type .expand,.page-template-page-unit-analysis-demo .chart .top-info .analysis-type .expand,.page-template-page-trophy-analysis-demo .chart .top-info .analysis-type .expand,.page-template-page-rules-regulations-demo .chart .top-info .analysis-type .expand{display:none}
+.navvy.species .button-group,.navvy.unit-info .button-group{max-width:100%;width:86%}
+.tabscontent.species-information,.tabscontent.unit-information{margin-top:35px}
+.tabscontent.species-information h5,.tabscontent.unit-information h5{font-size:15px;margin-bottom:25px}
+.boxes{padding:5px 0}
+.boxes .animal,.boxes .date,.boxes .cost,.boxes .avail{display:block}
+.boxes .animal p,.boxes .date p,.boxes .cost p,.boxes .avail p{font-size:12px;line-height:15px}
+.boxes .animal p.header,.boxes .date p.header,.boxes .cost p.header,.boxes .avail p.header{height:35px;margin-bottom:10px}
+.boxes .animal p strong,.boxes .date p strong,.boxes .cost p strong,.boxes .avail p strong{font-size:11px}
+.boxes .animal p.item,.boxes .date p.item,.boxes .cost p.item,.boxes .avail p.item{height:65px;margin:0}
+.boxes .animal p.spacer-thing,.boxes .date p.spacer-thing,.boxes .cost p.spacer-thing,.boxes .avail p.spacer-thing{display:none;margin:0}
+.page-template-page-state .chart{margin:0 auto 25px;min-width:100%}
+.page-template-page-state .chart .content{min-width:100%}
+.page-template-page-state .chart .analysis-type{max-width:100%;padding:10px 20px;width:100%}
+.internal-hero{border:10px solid #fff;height:40vh;margin:45px 0 10px}
+.internal-hero h1{font-size:38px}
+.internal_content{min-width:100%;padding:20px 10px}
+.logged-out{display:none}
+.internal_content{margin:0 auto 20px;max-width:900px;min-width:100%}
+.centery{margin:15px auto 35px}
+.two_col.left .spacer,.two_col.right .spacer{display:none}
+.two_col.left,.two_col.right{padding:0;width:100%}
+.two_col.left p,.two_col.right p{margin-bottom:20px}
+.two_col.left img,.two_col.right img{margin-bottom:20px}
+.single_col p{margin-bottom:20px}
+}@media(min-width:320px) and (max-width:564px){.hero h1{font-size:38px;letter-spacing:-2px}
 .hero h2{font-size:28px;letter-spacing:-1px}
 .first .content,.third .content{margin:40px auto;min-width:100%;padding:20px 10px}
 .second .content{padding:20px 10px}
 .second .image-container,.second .content{float:none;width:100%}
-.page-template-page-unit-analysis .chart,.page-template-page-trophy-analysis .chart,.page-template-page-rules-regulations .chart,.page-template-page-unit-analysis-demo .chart,.page-template-page-trophy-analysis-demo .chart,.page-template-page-rules-regulations-demo .chart{margin:125px auto 0}
-.internal-hero{border:10px solid #fff;height:40vh;margin:45px 0 10px}
-.internal-hero h1{font-size:38px}
-.internal_content{min-width:100%;padding:20px 10px}
 }

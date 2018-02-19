@@ -1,4 +1,5 @@
-.table_container
+.table_container,
+.table-container
 	background #fff
 	bottom 0
 	height 100vh
@@ -27,6 +28,14 @@
 		border-right 1px solid rgba($grey, .35)
 		position relative
 
+		a
+			color $red
+			text-decoration none
+
+			&:hover
+				background $red
+				color #fff
+
 	th
 		background #fff
 		font-size 12px
@@ -39,6 +48,21 @@
 		font-size 14px
 		line-height 15px
 		padding 15px
+
+.table-container
+	height auto
+	margin 50px auto 100px
+	opacity 1
+	padding-top 20px
+	position relative
+	visibility visible
+	width 94%
+
+	table
+		border-left 1px solid rgba($grey, .35)
+		border-top 1px solid rgba($grey, .35)
+		opacity 1
+		width 100%
 
 table .orange
 	color $orange
@@ -142,6 +166,10 @@ table .orange:hover .tooltip
 		font-size 15px
 		font-weight bold
 		padding 14px 16px 15px
+
+p.footnote.pushed
+	margin 40px auto 0
+	text-align center
 
 ////// Active TABLE styles
 

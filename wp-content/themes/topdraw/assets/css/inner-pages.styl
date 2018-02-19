@@ -3,7 +3,8 @@
 .page-template-page-rules-regulations .chart,
 .page-template-page-unit-analysis-demo .chart,
 .page-template-page-trophy-analysis-demo .chart,
-.page-template-page-rules-regulations-demo .chart
+.page-template-page-rules-regulations-demo .chart,
+.page-template-page-deadlines .chart
 	margin 125px auto 0
 	min-width 720px
 	max-width 900px
@@ -318,12 +319,16 @@
 	color $red
 	font-weight normal
 
-.species-chart
+.species-chart,
+.deadline-chart
 	h6
 		font-size 15px
 		font-weight bold
 		margin-bottom 20px
 		text-transform uppercase
+
+.deadline-chart h6
+	text-align center
 
 button.expand
 	display table
@@ -362,5 +367,16 @@ p.footnote
 		&:hover
 			background $red
 			color #fff
+
+.page-template-page-deadlines .chart
+
+	.top-info
+
+		&:after
+			border-bottom none
+			height 0
+			margin 0 auto 25px
+			padding 0
+			width 0
 
 @import 'inner-pages-mobile'

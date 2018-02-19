@@ -294,9 +294,14 @@ table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transfo
 .page-template-coming-soon .hero h2{font-size:32px;line-height:45px;margin:0 auto 40px;width:70%}
 .page-template-coming-soon .hero .logo{margin-bottom:10px}
 .page-template-coming-soon .hero .logo svg{fill:#b63f44;margin:0 auto;width:240px}
-@media(min-width:20em) and (max-width:35.3em){.wrapper{margin:0 auto;min-width:100%;padding:0 10px}
-h1{font-size:38px}
+@media(min-width:20em) and (max-width:35.3em){body{letter-spacing:-0.5px}
+.wrapper{margin:0 auto;min-width:100%;padding:0 10px}
+.post-edit-link{z-index:100}
+h1{font-size:28px;letter-spacing:-1px}
+h2{font-size:25px;letter-spacing:-1px}
+h3{font-size:22px;letter-spacing:-1px}
 p{font-size:15px;line-height:22px;margin-bottom:40px}
+.page-template-page-admin .entry-content p a{display:inline-block;margin-bottom:45px}
 .button{display:block}
 header{height:45px;padding:0 10px}
 .logo-group{padding-top:10px}
@@ -327,21 +332,48 @@ header{height:45px;padding:0 10px}
 .logged-in .nav ul.login-stuff li a{color:#191e25}
 .form:before{height:0}
 .form .content{margin:10px auto 40px}
-.page-template-page-unit-analysis .chart,.page-template-page-trophy-analysis .chart,.page-template-page-rules-regulations .chart,.page-template-page-unit-analysis-demo .chart,.page-template-page-trophy-analysis-demo .chart,.page-template-page-rules-regulations-demo .chart{margin:125px auto 0;min-width:100%;width:100%}
+.page-template-page-unit-analysis .chart,.page-template-page-trophy-analysis .chart,.page-template-page-rules-regulations .chart,.page-template-page-unit-analysis-demo .chart,.page-template-page-trophy-analysis-demo .chart,.page-template-page-rules-regulations-demo .chart{margin:75px auto 0;min-width:100%;width:100%}
 .page-template-page-unit-analysis .chart .top-info:after,.page-template-page-trophy-analysis .chart .top-info:after,.page-template-page-rules-regulations .chart .top-info:after,.page-template-page-unit-analysis-demo .chart .top-info:after,.page-template-page-trophy-analysis-demo .chart .top-info:after,.page-template-page-rules-regulations-demo .chart .top-info:after{height:0;margin:0 auto 45px;padding:45px 0 0}
 .page-template-page-unit-analysis .chart .top-info .content,.page-template-page-trophy-analysis .chart .top-info .content,.page-template-page-rules-regulations .chart .top-info .content,.page-template-page-unit-analysis-demo .chart .top-info .content,.page-template-page-trophy-analysis-demo .chart .top-info .content,.page-template-page-rules-regulations-demo .chart .top-info .content{max-width:100%;width:100%}
 .page-template-page-unit-analysis .chart .top-info .analysis-type,.page-template-page-trophy-analysis .chart .top-info .analysis-type,.page-template-page-rules-regulations .chart .top-info .analysis-type,.page-template-page-unit-analysis-demo .chart .top-info .analysis-type,.page-template-page-trophy-analysis-demo .chart .top-info .analysis-type,.page-template-page-rules-regulations-demo .chart .top-info .analysis-type{max-width:100%;padding:0 25px;width:100%}
 .page-template-page-unit-analysis .chart .top-info .analysis-type .expand,.page-template-page-trophy-analysis .chart .top-info .analysis-type .expand,.page-template-page-rules-regulations .chart .top-info .analysis-type .expand,.page-template-page-unit-analysis-demo .chart .top-info .analysis-type .expand,.page-template-page-trophy-analysis-demo .chart .top-info .analysis-type .expand,.page-template-page-rules-regulations-demo .chart .top-info .analysis-type .expand{display:none}
+.page-template-page-unit-analysis .chart .tabscontent.species-information,.page-template-page-trophy-analysis .chart .tabscontent.species-information,.page-template-page-rules-regulations .chart .tabscontent.species-information,.page-template-page-unit-analysis-demo .chart .tabscontent.species-information,.page-template-page-trophy-analysis-demo .chart .tabscontent.species-information,.page-template-page-rules-regulations-demo .chart .tabscontent.species-information,.page-template-page-unit-analysis .chart .tabscontent.unit-information,.page-template-page-trophy-analysis .chart .tabscontent.unit-information,.page-template-page-rules-regulations .chart .tabscontent.unit-information,.page-template-page-unit-analysis-demo .chart .tabscontent.unit-information,.page-template-page-trophy-analysis-demo .chart .tabscontent.unit-information,.page-template-page-rules-regulations-demo .chart .tabscontent.unit-information{margin-top:35px}
+.page-template-page-unit-analysis .chart .tabscontent.species-information h4,.page-template-page-trophy-analysis .chart .tabscontent.species-information h4,.page-template-page-rules-regulations .chart .tabscontent.species-information h4,.page-template-page-unit-analysis-demo .chart .tabscontent.species-information h4,.page-template-page-trophy-analysis-demo .chart .tabscontent.species-information h4,.page-template-page-rules-regulations-demo .chart .tabscontent.species-information h4,.page-template-page-unit-analysis .chart .tabscontent.unit-information h4,.page-template-page-trophy-analysis .chart .tabscontent.unit-information h4,.page-template-page-rules-regulations .chart .tabscontent.unit-information h4,.page-template-page-unit-analysis-demo .chart .tabscontent.unit-information h4,.page-template-page-trophy-analysis-demo .chart .tabscontent.unit-information h4,.page-template-page-rules-regulations-demo .chart .tabscontent.unit-information h4{margin-bottom:25px}
 .navvy.species .button-group,.navvy.unit-info .button-group{max-width:100%;width:86%}
 .tabscontent.species-information,.tabscontent.unit-information{margin-top:35px}
 .tabscontent.species-information h5,.tabscontent.unit-information h5{font-size:15px;margin-bottom:25px}
-.boxes{padding:5px 0}
+.boxes{margin-bottom:15px;padding:0}
 .boxes .animal,.boxes .date,.boxes .cost,.boxes .avail{display:block}
 .boxes .animal p,.boxes .date p,.boxes .cost p,.boxes .avail p{font-size:12px;line-height:15px}
-.boxes .animal p.header,.boxes .date p.header,.boxes .cost p.header,.boxes .avail p.header{height:35px;margin-bottom:10px}
-.boxes .animal p strong,.boxes .date p strong,.boxes .cost p strong,.boxes .avail p strong{font-size:11px}
-.boxes .animal p.item,.boxes .date p.item,.boxes .cost p.item,.boxes .avail p.item{height:65px;margin:0}
-.boxes .animal p.spacer-thing,.boxes .date p.spacer-thing,.boxes .cost p.spacer-thing,.boxes .avail p.spacer-thing{display:none;margin:0}
+.boxes .animal p.header,.boxes .date p.header,.boxes .cost p.header,.boxes .avail p.header{height:55px;margin-bottom:10px}
+.boxes .animal p strong,.boxes .date p strong,.boxes .cost p strong,.boxes .avail p strong{font-size:10px}
+.boxes .animal p.item,.boxes .date p.item,.boxes .cost p.item,.boxes .avail p.item{height:50px;margin:0}
+.boxes .animal p.item:first-child,.boxes .date p.item:first-child,.boxes .cost p.item:first-child,.boxes .avail p.item:first-child{font-size:10px;height:65px}
+.boxes .animal p.spacer-thing,.boxes .date p.spacer-thing,.boxes .cost p.spacer-thing,.boxes .avail p.spacer-thing{height:50px;margin:0}
+.tabscontent.species-information ul,.tabscontent.unit-information ul,.tabscontent.rules-regulations ul,.tabscontent.species-information ol,.tabscontent.unit-information ol,.tabscontent.rules-regulations ol{font-size:15px;margin-bottom:40px;padding:0 0 0 25px}
+.tabscontent.species-information ul li,.tabscontent.unit-information ul li,.tabscontent.rules-regulations ul li,.tabscontent.species-information ol li,.tabscontent.unit-information ol li,.tabscontent.rules-regulations ol li{line-height:22px}
+p.footnote{font-size:13px;text-align:center;width:90%}
+.app_deadline_info{margin-bottom:25px}
+.page-template-page-trophy-analysis .tabscontent.species-information .record h5,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record h5{font-size:10px}
+.page-template-page-trophy-analysis .tabscontent.species-information .record p,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record p{font-size:12px;line-height:15px}
+#loginform p label{width:100%}
+#loginform p input[type=text],#loginform p input[type=email],#loginform p input[type=password]{-webkit-box-flex:0;-webkit-flex:none;-ms-flex:none;flex:none;width:100%}
+#loginform .login-submit{margin-top:25px}
+#loginform .login-submit input[type=submit]{background:#b63f44;border:0;border-radius:2px}
+#loginform a{margin:25px 0 45px}
+.logged-in p.footnote{margin-bottom:15px}
+.page-template-page-admin .content{padding:20px 0}
+.page-template-page-admin .entry-content{margin:25px auto 0;padding:40px 20px 0;width:100%}
+.leaky-paywall-subscription-details-wrapper,.leaky-paywall-payment-form{float:none;margin-bottom:25px;padding:0;width:100%}
+.leaky-paywall-payment-form p label{width:35%}
+.leaky-paywall-payment-form p input[type=text],.leaky-paywall-payment-form p input[type=email],.leaky-paywall-payment-form p input[type=password]{width:65%}
+.leaky-paywall-subscription-total{border-bottom:1px solid rgba(187,188,189,0.4);padding-bottom:20px}
+#leaky-paywall-submit{width:100%}
+.leaky_paywall_message.error{border-radius:5px;display:block;margin-bottom:35px;padding:10px;position:relative;text-align:left}
+.leaky-paywall-profile-subscription-details thead tr th{font-size:10px}
+#leaky-paywall-profile,#leaky-paywall-update-credit-card{width:100%}
+#leaky-paywall-profile p label,#leaky-paywall-update-credit-card p label{width:35%}
+#leaky-paywall-profile p input[type=text],#leaky-paywall-update-credit-card p input[type=text],#leaky-paywall-profile p input[type=email],#leaky-paywall-update-credit-card p input[type=email],#leaky-paywall-profile p input[type=password],#leaky-paywall-update-credit-card p input[type=password]{width:65%}
 .page-template-page-state .chart{margin:0 auto 25px;min-width:100%}
 .page-template-page-state .chart .content{min-width:100%}
 .page-template-page-state .chart .analysis-type{max-width:100%;padding:10px 20px;width:100%}
@@ -349,6 +381,15 @@ header{height:45px;padding:0 10px}
 .internal-hero h1{font-size:38px}
 .internal_content{min-width:100%;padding:20px 10px}
 .logged-out{display:none}
+.table_container{padding-top:45px}
+.table_container th{font-size:10px;min-width:120px;padding:15px 10px}
+.table_container td{font-size:12px;min-width:120px;padding:8px}
+.close{font-size:10px;padding:5px;right:10px;top:12px}
+.table-head{height:45px}
+.table-active .navvy.species{display:none}
+.table_toggle.calculating{left:10px;top:-27px}
+.table_toggle.calculating label{display:none}
+.table_toggle.calculating input[type=text]{font-size:12px;padding:7px 8px 8px}
 .internal_content{margin:0 auto 20px;max-width:900px;min-width:100%}
 .centery{margin:15px auto 35px}
 .two_col.left .spacer,.two_col.right .spacer{display:none}
@@ -356,9 +397,11 @@ header{height:45px;padding:0 10px}
 .two_col.left p,.two_col.right p{margin-bottom:20px}
 .two_col.left img,.two_col.right img{margin-bottom:20px}
 .single_col p{margin-bottom:20px}
-}@media(min-width:320px) and (max-width:564px){.hero h1{font-size:38px;letter-spacing:-2px}
+}@media(min-width:320px) and (max-width:564px){.hero{height:260px;margin-top:45px}
+.hero h1{font-size:38px;letter-spacing:-2px}
 .hero h2{font-size:28px;letter-spacing:-1px}
-.first .content,.third .content{margin:40px auto;min-width:100%;padding:20px 10px}
-.second .content{padding:20px 10px}
+.first .content,.third .content{margin:40px auto;min-width:100%;padding:20px 10px;text-align:left}
+.second .content{margin:40px auto 35px;padding:20px 10px}
 .second .image-container,.second .content{float:none;width:100%}
+.first .content{margin:40px auto 0}
 }

@@ -264,11 +264,11 @@ p.footnote.showthisthing{display:block !important}
 .table-container{height:auto;margin:50px auto 100px;opacity:1;padding-top:20px;position:relative;visibility:visible;width:94%}
 .table-container table{border-left:1px solid rgba(187,188,189,0.35);border-top:1px solid rgba(187,188,189,0.35);opacity:1;width:100%}
 table .orange{color:#eb9a35}
-.tooltip{background:#eb9a35;border-radius:3px;box-shadow:0 3px 18px -4px rgba(0,0,0,0.35);color:#191e25;font-size:12px;max-width:240px;opacity:0;padding:10px;position:absolute;top:-17px;visibility:hidden;-webkit-transition:opacity 0ms,visibility 0ms;transition:opacity 0ms,visibility 0ms;z-index:10}
+.tooltip{background:#eb9a35;border-radius:3px;box-shadow:0 3px 18px -4px rgba(0,0,0,0.35);color:#191e25;font-size:12px;max-width:260px;min-width:220px;opacity:0;padding:10px;position:absolute;top:0;visibility:hidden;-webkit-transition:opacity 0ms,visibility 0ms;transition:opacity 0ms,visibility 0ms;z-index:10}
 .tooltip.left{left:-230px;-webkit-transform:translateX(10px);-ms-transform:translateX(10px);transform:translateX(10px)}
 .tooltip.right{right:45px;-webkit-transform:translateX(-10px);-ms-transform:translateX(-10px);transform:translateX(-10px)}
-.tooltip.bottom{left:0;-webkit-transform:translateY(40px);-ms-transform:translateY(40px);transform:translateY(40px)}
-.tooltip.top{left:0;-webkit-transform:translateY(-40px);-ms-transform:translateY(-40px);transform:translateY(-40px)}
+.tooltip.bottom{top:-10px;left:0;-webkit-transform:translateY(20px);-ms-transform:translateY(20px);transform:translateY(20px)}
+.tooltip.top{left:0;top:40px;-webkit-transform:translateY(-40px);-ms-transform:translateY(-40px);transform:translateY(-40px)}
 table .orange:hover .tooltip{opacity:1;visibility:visible;-webkit-transition:opacity 150ms 200ms,-webkit-transform 150ms 200ms;transition:opacity 150ms 200ms,-webkit-transform 150ms 200ms;transition:opacity 150ms 200ms,transform 150ms 200ms;transition:opacity 150ms 200ms,transform 150ms 200ms,-webkit-transform 150ms 200ms}
 table .orange:hover .tooltip.left{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0)}
 table .orange:hover .tooltip.right{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0)}

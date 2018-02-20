@@ -73,11 +73,12 @@ table .orange
 	box-shadow 0 3px 18px -4px rgba(0,0,0,.35)
 	color $dark-blue
 	font-size 12px
-	max-width 240px
+	max-width 260px
+	min-width 220px
 	opacity 0
 	padding 10px
 	position absolute
-	top -17px
+	top 0px
 	visibility hidden
 	transition opacity 0ms, visibility 0ms
 	z-index 10
@@ -91,11 +92,13 @@ table .orange
 		transform translateX(-10px)
 
 	&.bottom
+		top -10px
 		left 0
-		transform translateY(40px)
+		transform translateY(20px)
 
 	&.top
 		left 0
+		top 40px
 		transform translateY(-40px)
 
 table .orange:hover .tooltip

@@ -274,7 +274,7 @@ table .orange:hover .tooltip.left{-webkit-transform:translateX(0);-ms-transform:
 table .orange:hover .tooltip.right{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0)}
 table .orange:hover .tooltip.bottom{-webkit-transform:translateY(60px);-ms-transform:translateY(60px);transform:translateY(60px)}
 table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transform:translateY(-60px);transform:translateY(-60px)}
-.table-head{background:#191e25;box-shadow:0 2px 4px 0 rgba(0,0,0,0.32);height:70px;left:0;opacity:0;position:fixed;top:0;visibility:hidden;width:100vw;z-index:1;-webkit-transition:opacity 75ms,visibility 0ms 75ms;transition:opacity 75ms,visibility 0ms 75ms}
+.table-head{background:#191e25;box-shadow:0 2px 4px 0 rgba(0,0,0,0.32);height:70px;left:0;opacity:0;position:fixed;top:0;visibility:hidden;width:100vw;z-index:2;-webkit-transition:opacity 75ms,visibility 0ms 75ms;transition:opacity 75ms,visibility 0ms 75ms}
 .close{background:transparent;border:1px solid #b63f44;border-radius:2px;color:#fff;font-size:15px;font-weight:bold;padding:5px 10px;position:absolute;right:20px;text-decoration:none;text-transform:uppercase;top:21px}
 .close:hover{background:#b63f44;box-shadow:0 7px 24px -8px rgba(0,0,0,0.35);-webkit-transition:all 150ms;transition:all 150ms}
 .highlight{background:rgba(235,154,53,0.1)}

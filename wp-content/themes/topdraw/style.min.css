@@ -59,7 +59,7 @@ p{font-size:17px;line-height:25px;margin-bottom:40px}
 .button.solid.white:hover{background:#fff}
 .button.solid:hover{box-shadow:0 7px 24px 0 rgba(0,0,0,0.3)}
 .button:hover{-webkit-transition:all $one-fiftys;transition:all $one-fiftys}
-header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;padding:0 10px;position:fixed;top:0;width:100%;z-index:1;-webkit-transition:background 150ms 300ms;transition:background 150ms 300ms}
+header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;padding:0 10px;position:fixed;top:0;width:100%;z-index:2;-webkit-transition:background 150ms 300ms;transition:background 150ms 300ms}
 .nav{float:right}
 .logo-group{float:left;padding-top:14px;fill:$dark_blue;margin:0}
 .logo-group .logo svg{width:160px}

@@ -1,4 +1,5 @@
-.table_container
+.table_container,
+.table-container
 	background #fff
 	bottom 0
 	height 100vh
@@ -27,6 +28,14 @@
 		border-right 1px solid rgba($grey, .35)
 		position relative
 
+		a
+			color $red
+			text-decoration none
+
+			&:hover
+				background $red
+				color #fff
+
 	th
 		background #fff
 		font-size 12px
@@ -40,6 +49,21 @@
 		line-height 15px
 		padding 15px
 
+.table-container
+	height auto
+	margin 50px auto 100px
+	opacity 1
+	padding-top 20px
+	position relative
+	visibility visible
+	width 94%
+
+	table
+		border-left 1px solid rgba($grey, .35)
+		border-top 1px solid rgba($grey, .35)
+		opacity 1
+		width 100%
+
 table .orange
 	color $orange
 
@@ -49,11 +73,12 @@ table .orange
 	box-shadow 0 3px 18px -4px rgba(0,0,0,.35)
 	color $dark-blue
 	font-size 12px
-	max-width 240px
+	max-width 260px
+	min-width 220px
 	opacity 0
 	padding 10px
 	position absolute
-	top -17px
+	top 0px
 	visibility hidden
 	transition opacity 0ms, visibility 0ms
 	z-index 10
@@ -67,11 +92,13 @@ table .orange
 		transform translateX(-10px)
 
 	&.bottom
+		top -10px
 		left 0
-		transform translateY(40px)
+		transform translateY(20px)
 
 	&.top
 		left 0
+		top 40px
 		transform translateY(-40px)
 
 table .orange:hover .tooltip
@@ -143,6 +170,10 @@ table .orange:hover .tooltip
 		font-weight bold
 		padding 14px 16px 15px
 
+p.footnote.pushed
+	margin 40px auto 0
+	text-align center
+
 ////// Active TABLE styles
 
 .table-active
@@ -168,3 +199,5 @@ table .orange:hover .tooltip
 		top 11px
 		z-index 20
 		transition top 150ms
+
+@import 'tables-mobile'

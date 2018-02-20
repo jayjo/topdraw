@@ -2482,7 +2482,7 @@ table .orange:hover .tooltip.top {
   top: 0;
   visibility: hidden;
   width: 100vw;
-  z-index: 1;
+  z-index: 2;
   -webkit-transition: opacity 75ms, visibility 0ms 75ms;
   transition: opacity 75ms, visibility 0ms 75ms;
 }

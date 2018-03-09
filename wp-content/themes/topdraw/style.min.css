@@ -193,6 +193,7 @@ p.footnote.showthisthing{display:block !important}
 #loginform .login-submit{margin-top:35px}
 #loginform a{color:#b63f44;display:inline-block;font-size:12px;margin-top:45px;text-decoration:none}
 .logged-in p.footnote{margin-bottom:70px}
+.logged-in .tabscontent p.footnote{margin-bottom:25px}
 .logged-out{margin-top:175px}
 .logged-out h1{text-align:center}
 .logged-out+.third .content{margin-top:0}

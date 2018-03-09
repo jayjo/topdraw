@@ -7,7 +7,7 @@
 .page-template-page-deadlines .chart
 	margin 125px auto 0
 	min-width 720px
-	max-width 900px
+	max-width 1200px
 	text-align left
 	width 100%
 
@@ -15,6 +15,9 @@
 		float left
 
 	.top-info
+		max-width 900px
+		margin 0 auto
+		width 100%
 
 		&:after
 			border-bottom 3px dashed rgba($grey,.5)
@@ -344,6 +347,17 @@ p.footnote
 
 	&.showthisthing
 		display block !important
+
+.tabscontent
+	p.footnote, p
+		max-width 900px
+		width 100%
+
+	p
+		margin 0 auto 40px
+
+	p.footnote
+		margin-bottom 25px
 
 .footnote a
 	color $red

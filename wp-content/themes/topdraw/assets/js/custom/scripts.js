@@ -79,17 +79,6 @@
 			return false;
 		});
 
-		// TOOLTIP STUFF
-		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
-		// $('td.orange').hover(
-		// 	function(e){
-		// 		var tip = $(this).attr('tip-text');
-		// 		$(this).find('span.tooltip').text(tip);
-		// 	}, function(e){
-		// 		$(this).find('span.tooltip').text(tip);
-		// 	}
-		// );
-
 		// Animal Chooser Dropdown stuff
 		function DropDown(el) {
 			this.dd = el;
@@ -193,12 +182,40 @@
 		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon-link');
 		$(".animal-chooser a:contains('Coming Soon')").addClass('coming-soon-link');
 
+		$("p.footnote:empty").addClass("hidden");
+
+		// TOOLTIP STUFF
+		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
+
+		// function toolTip(e){
+
+		// 	$document.ready(function(e){
+		// 		var cellWithSpan	= "td.orange";
+
+		// 		$(cellWithSpan).each(function(e){
+		// 			var cellSpan	= $(cellWithSpan).children('span');
+		// 			cellSpan.parent
+		// 		});
+
+		// 	});
+
+		// 	$('td').each(function(e){
+		// 		if($(this).hasClass('orange')){
+		// 			$(this).clone().children().remove().end().text();
+		// 		}
+		// 	});
+
+		// }
+
+		// toolTip();
+
 		// Mobile Stuff
 		////
 		////
 		////
 		////
 		////
+
 		// Hamburger Menu
 		$('.nav').on('click', function(){
 			$('.menu-header-menu-container').toggleClass('active');

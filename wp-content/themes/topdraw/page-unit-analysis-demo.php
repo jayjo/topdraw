@@ -16,7 +16,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
 				<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
 			</div>
-			<div class="analysis-type">
+			<div class="analysis-type content">
 				<h5>More in <?php echo get_the_title($parent_id); ?></h5>
 				<?php
 				  if($post->post_parent)
@@ -116,6 +116,19 @@ $heroImage = get_field('heroImage', $parent_id);
 					</div>
 				</p>
 			</div>
+		</div>
+		<div class="analysis-type foot">
+			<h5>More in <?php echo get_the_title($parent_id); ?></h5>
+			<?php
+			  if($post->post_parent)
+			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
+			  else
+			  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
+			  if ($children) { ?>
+			  <ul>
+			  	<?php echo $children; ?>
+			  </ul>
+		  <?php } ?>
 		</div>
 	</div>
 </section>

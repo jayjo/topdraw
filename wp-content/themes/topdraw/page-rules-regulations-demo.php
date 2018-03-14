@@ -62,6 +62,19 @@ $heroImage = get_field('heroImage', $parent_id);
 			</div>
 			<?php endif; ?>
 		</div>
+		<div class="analysis-type foot">
+			<h5>More in <?php echo get_the_title($parent_id); ?></h5>
+			<?php
+			  if($post->post_parent)
+			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
+			  else
+			  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
+			  if ($children) { ?>
+			  <ul>
+			  	<?php echo $children; ?>
+			  </ul>
+		  <?php } ?>
+		</div>
 	</div>
 </section>
 

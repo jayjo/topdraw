@@ -134,6 +134,10 @@
 		top 100% + 2px
 		white-space nowrap
 
+		&.active
+			opacity 1
+			pointer-events auto
+
 		li
 			margin 0
 			line-height 20px
@@ -169,11 +173,6 @@
 					border none
 					color #fff
 					transition all $one-fifty
-
-	&.active .animal-chooser,
-	&.active .info-chooser
-		opacity 1
-		pointer-events auto
 
 .tabscontent.species-information,
 .tabscontent.unit-information

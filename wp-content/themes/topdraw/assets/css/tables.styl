@@ -1,4 +1,5 @@
-.table_container
+.table_container,
+.table-container
 	background #fff
 	bottom 0
 	height 100vh
@@ -27,18 +28,113 @@
 		border-right 1px solid rgba($grey, .35)
 		position relative
 
+		a
+			color $red
+			text-decoration none
+
+			&:hover
+				background $red
+				color #fff
+
 	th
 		background #fff
 		font-size 12px
 		line-height 15px
+		outline none
 		padding 25px 15px
 		text-transform uppercase
 		vertical-align middle
+
+		&:last-child,
+		&:nth-last-child(2)
+
+			.tooltip
+
+				&.bottom
+					left -180px
+
+		&:first-child,
+		&:nth-child(2)
+			.tooltip
+
+				&.bottom
+					left 100px
 
 	td
 		font-size 14px
 		line-height 15px
 		padding 15px
+
+		&:first-child
+
+			.tooltip
+
+				&.right
+					right -110px
+
+.table-container
+	height auto
+	margin 50px auto 100px
+	opacity 1
+	padding-top 20px
+	position relative
+	visibility visible
+	width 94%
+
+	table
+		border-left 1px solid rgba($grey, .35)
+		border-top 1px solid rgba($grey, .35)
+		opacity 1
+		width 100%
+
+.table_container.goat
+
+	table
+		padding-bottom 100px
+
+	.wrapper
+		padding 0
+
+	.goat-toggle
+		bottom 25px
+		left 50%
+		position fixed
+		transform translateX(-100px)
+		width 200px
+
+	h6
+		background none
+		background-color #fff
+		background-image none
+		border 1px solid $grey
+		border-radius 2px
+		box-shadow 0 7px 24px -8px rgba(0,0,0,0.35)
+		color $red
+		display inline-block
+		font-family $das
+		font-size 15px
+		font-weight 700
+		height auto
+		margin 0
+		min-height auto
+		min-width 95px
+		outline none
+		padding 1em 1.5em 1.05em
+		text-align center
+		text-decoration none
+		text-transform uppercase
+		transition all $one-fifty
+
+		&.current
+			border 3px solid $dark-blue
+			color $dark-blue
+
+		&:hover
+			color $dark-blue
+			transition all $one-fifty
+
+		&:active
+			box-shadow inset 0 1px 2px rgba(0,0,0,.25)
 
 table .orange
 	color $orange
@@ -49,11 +145,12 @@ table .orange
 	box-shadow 0 3px 18px -4px rgba(0,0,0,.35)
 	color $dark-blue
 	font-size 12px
-	max-width 240px
+	max-width 260px
+	min-width 220px
 	opacity 0
 	padding 10px
 	position absolute
-	top -17px
+	top 0px
 	visibility hidden
 	transition opacity 0ms, visibility 0ms
 	z-index 10
@@ -67,11 +164,13 @@ table .orange
 		transform translateX(-10px)
 
 	&.bottom
+		top -10px
 		left 0
-		transform translateY(40px)
+		transform translateY(20px)
 
 	&.top
 		left 0
+		top 40px
 		transform translateY(-40px)
 
 table .orange:hover .tooltip
@@ -101,7 +200,7 @@ table .orange:hover .tooltip
 	top 0
 	visibility hidden
 	width 100vw
-	z-index 1
+	z-index 2
 	transition opacity 75ms, visibility 0ms 75ms
 
 .close
@@ -133,7 +232,7 @@ table .orange:hover .tooltip
 	left 20px
 	position absolute
 	text-transform uppercase
-	top -29px
+	top -34px
 
 	label
 		margin 0 10px 0 0
@@ -143,6 +242,10 @@ table .orange:hover .tooltip
 		font-weight bold
 		padding 14px 16px 15px
 
+p.footnote.pushed
+	margin 40px auto 0
+	text-align center
+
 ////// Active TABLE styles
 
 .table-active
@@ -151,6 +254,14 @@ table .orange:hover .tooltip
 		opacity 1
 		visibility visible
 		transition visibility 0ms, opacity 150ms
+
+		&.goat
+
+			table
+				display none
+
+				&.current
+					display block
 
 		table
 			opacity 1
@@ -168,3 +279,5 @@ table .orange:hover .tooltip
 		top 11px
 		z-index 20
 		transition top 150ms
+
+@import 'tables-mobile'

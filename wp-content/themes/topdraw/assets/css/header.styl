@@ -6,7 +6,7 @@ header
 	position fixed
 	top 0
 	width 100%
-	z-index 1
+	z-index 2
 	transition background 150ms 300ms
 
 .nav
@@ -92,7 +92,8 @@ header
 	border-radius 0 0 4px 4px
 	box-shadow 0 0 3px rgba(0,0,0,0.30)
 	display none
-	left -17px
+	// left -17px // when there is no coming soon links to display
+	left -70px // when there are coming soon links to display
 	padding 5px
 	position absolute
 	top 10px
@@ -114,6 +115,11 @@ header
 			display block
 			padding 8px 11px
 
+			&.coming-soon-link
+				color $grey
+				pointer-events none
+				text-transform none
+
 			&:hover
 				background-color $red
 				box-shadow 0 2px 8px 0px rgba(0, 0, 0, 0.3)
@@ -126,3 +132,5 @@ header
 
 .nav ul li a.main-login
 	color $dark-blue
+
+@import 'header-mobile'

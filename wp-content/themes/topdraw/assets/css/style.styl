@@ -16,6 +16,9 @@
 	color #fff
 	text-shadow none
 
+.hidden
+	display none
+
 body
 	background-color #fff
 	font-family $das
@@ -47,6 +50,19 @@ body
 	right 50px
 	text-decoration none
 	text-transform uppercase
+
+@media (min-width: $bp-small) and (max-width: $bp-med)
+
+	body
+		letter-spacing -.5px
+
+	.wrapper
+		margin 0 auto
+		min-width 100%
+		padding 0 10px
+
+	.post-edit-link
+		z-index 100
 
 @import 'typography'
 @import 'admin-pages'

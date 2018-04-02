@@ -1,16 +1,23 @@
 .page-template-page-unit-analysis .chart,
 .page-template-page-trophy-analysis .chart,
-.page-template-page-rules-regulations .chart
+.page-template-page-rules-regulations .chart,
+.page-template-page-unit-analysis-demo .chart,
+.page-template-page-trophy-analysis-demo .chart,
+.page-template-page-rules-regulations-demo .chart,
+.page-template-page-deadlines .chart
 	margin 125px auto 0
 	min-width 720px
-	max-width 875px
+	max-width 1200px
 	text-align left
 	width 100%
 
-	.content, .analysis-type
+	.content, .analysis-type.content
 		float left
 
 	.top-info
+		max-width 900px
+		margin 0 auto
+		width 100%
 
 		&:after
 			border-bottom 3px dashed rgba($grey,.5)
@@ -25,7 +32,7 @@
 			max-width 630px
 			width 70%
 
-		.analysis-type
+		.analysis-type.content
 			box-sizing border-box
 			padding 25px 0 0 50px
 			max-width 270px
@@ -78,7 +85,8 @@
 						background rgba($grey, .15)
 						box-shadow inset 0 1px 2px rgba(0,0,0,.25)
 
-.navvy.species .button-group, .navvy.unit-info .button-group
+.navvy.species .button-group,
+.navvy.unit-info .button-group
 	background #fff
 	border 1px solid $grey
 	border-radius 2px
@@ -112,7 +120,8 @@
 		height 0
 		width 0
 
-	.animal-chooser, .info-chooser
+	.animal-chooser,
+	.info-chooser
 		background-color #fff
 		border-radius 0 0 4px 4px
 		box-shadow 0 0 3px rgba(0,0,0,0.30)
@@ -124,6 +133,10 @@
 		right 0
 		top 100% + 2px
 		white-space nowrap
+
+		&.active
+			opacity 1
+			pointer-events auto
 
 		li
 			margin 0
@@ -147,6 +160,12 @@
 				font-weight bold
 				padding 9px 11px
 				text-decoration none
+				white-space normal
+
+				&.coming-soon-link
+					color $grey
+					pointer-events none
+					text-transform none
 
 				&:hover
 					background-color $red
@@ -154,10 +173,6 @@
 					border none
 					color #fff
 					transition all $one-fifty
-
-	&.active .animal-chooser, &.active .info-chooser
-		opacity 1
-		pointer-events auto
 
 .tabscontent.species-information,
 .tabscontent.unit-information
@@ -178,7 +193,8 @@
 	h6
 		font-size 15px
 		font-weight bold
-		margin-bottom 40px
+		margin 0 auto 15px
+		max-width 900px
 		text-transform uppercase
 
 .tabscontent.unit-information
@@ -196,7 +212,8 @@
 			color #fff
 
 	ul
-		margin 0 0 50px 5px
+		margin 0 auto 50px
+		max-width 900px
 
 	li
 		line-height 25px
@@ -206,10 +223,13 @@
 .boxes
 	background rgba($grey, .15)
 	display flex
-	margin-bottom 65px
+	margin-bottom 35px
 	padding 25px 25px
 
-	.animal, .date, .cost, .avail
+	.animal,
+	.date,
+	.cost,
+	.avail
 		align-items flex-start
 		flex 1
 		text-align center
@@ -218,18 +238,28 @@
 			font-size 15px
 			padding 10px 5px
 
+			strong
+				font-size 12px
+				text-transform uppercase
+
 		p:nth-child(even)
 			background-color rgba($grey, .15)
 
-		p.item, p.spacer-thing
+		p.item,
+		p.spacer-thing
 			margin 10px 0
 
 			span
 				font-weight bold
 
+		p.item:first-child
+			font-size 12px
+			font-weight bold
+			text-transform uppercase
+
 		p.header
 			background none
-			font-size 13px
+			font-size 12px
 			height 60px
 			margin 0
 			text-transform uppercase
@@ -237,15 +267,18 @@
 		p:last-child
 			margin 10px 0 0
 
-.page-template-page-rules-regulations .tabscontent.unit-information
+.page-template-page-rules-regulations .tabscontent.unit-information,
+.page-template-page-rules-regulations-demo .tabscontent.unit-information
 	h4
 		margin-bottom 65px
 
-.page-template-page-rules-regulations .tabscontent.unit-information #Fees-and-Deadlines
+.page-template-page-rules-regulations .tabscontent.unit-information #Fees-and-Deadlines,
+.page-template-page-rules-regulations-demo .tabscontent.unit-information #Fees-and-Deadlines
 	h4
 		margin-bottom 10px
 
-.page-template-page-trophy-analysis .tabscontent.species-information
+.page-template-page-trophy-analysis .tabscontent.species-information,
+.page-template-page-trophy-analysis-demo .tabscontent.species-information
 	h4
 		margin-bottom 65px
 
@@ -285,25 +318,49 @@
 		&.full-width
 			p
 				border none
+				max-width 100%
 				width 100%
 
 .separator
 	color $red
 	font-weight normal
 
-.species-chart
+.species-chart,
+.deadline-chart
 	h6
 		font-size 15px
 		font-weight bold
-		margin-bottom 20px
+		margin 0 auto 20px
+		max-width 900px
 		text-transform uppercase
+
+.deadline-chart h6
+	text-align center
 
 button.expand
 	display table
 	margin 0 auto 50px
 
 p.footnote
-	margin-bottom 0
+	color $grey
+	font-size 15px
+	line-height 20px
+	margin 0 auto 0
+	width 80%
+
+	&.showthisthing
+		display block !important
+
+.tabscontent
+	p.footnote, p
+		max-width 900px
+		width 100%
+
+	p
+		margin 0 auto 40px
+
+	p.footnote
+		margin-bottom 25px
 
 .footnote a
 	color $red
@@ -312,6 +369,9 @@ p.footnote
 	&:hover
 		background $red
 		color #fff
+
+.tabscontent.species-chart p.footnote
+	width 100%
 
 .intro
 	font-size 17px
@@ -325,3 +385,74 @@ p.footnote
 		&:hover
 			background $red
 			color #fff
+
+.page-template-page-deadlines .chart
+
+	.top-info
+
+		&:after
+			border-bottom none
+			height 0
+			margin 0 auto 25px
+			padding 0
+			width 0
+
+.analysis-type.foot
+	box-sizing border-box
+	padding 25px 0 0 0
+	margin 0 auto
+	max-width 900px
+	width 100%
+
+	h5
+		font-size 16px
+		margin-bottom 25px
+		text-align center
+		text-transform uppercase
+
+	ul
+		display block
+		margin 0 0 75px 0
+		padding 0
+		width 100%
+
+		li
+			display inline-block
+			margin 0 .5%
+			width 32%
+
+		li.current_page_item a
+			border 3px solid $dark-blue
+			color $dark-blue
+
+		li a
+			background none
+			background-color #fff
+			background-image none
+			border 1px solid $grey
+			border-radius 2px
+			color $red
+			display block
+			font-family $das
+			font-size 15px
+			font-weight 700
+			height auto
+			margin 0 auto 10px
+			min-height auto
+			outline none
+			padding 1em 1.5em 1.05em
+			text-align center
+			text-decoration none
+			text-transform uppercase
+			transition all $one-fifty
+
+			&:hover
+				box-shadow 0 7px 24px -8px rgba(0,0,0,0.35)
+				color rgb(198,66,71)
+				transition all $one-fifty
+
+			&:active
+				background rgba($grey, .15)
+				box-shadow inset 0 1px 2px rgba(0,0,0,.25)
+
+@import 'inner-pages-mobile'

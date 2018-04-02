@@ -16,6 +16,7 @@
 			function getoriginalValues(){
 				var values = [];
 				odds.each(function(index){
+					$(this).attr('data-idx', index);
 					values[index] = $(this).text();
 				});
 				return values;
@@ -24,17 +25,18 @@
 			function setDrawOddValues(){
 				var curVal = calc.val();
 				$document.find('.drawOdds').each(function(index){
+					var index = parseInt($(this).attr('data-idx'));
 		      var oddsVal = (originalValues[index] / curVal).toFixed(0);
 		      var origVal = (originalValues[index] / 1);
 		      if(!calc.val() || calc.val() === "0" || calc.val() === "1") {
 						$(this).text(origVal);
-						// $('.draw').text(headVal);
 						$('.draw, .drawOdds').removeClass('highlight');
 		      } else {
 						$(this).text(oddsVal);
 						$('.drawOdds').addClass('highlight');
-						// $('.draw').text("True Draw Odds");
-						// $('.draw, .drawOdds').addClass('highlight');
+		      }
+		      if(oddsVal < 1){
+		      	$(this).text("1");
 		      }
 				});
 			}
@@ -43,11 +45,10 @@
 				setDrawOddValues();
 			});
 
-			$('.animal_chooser li a').on('click', function(){
+			$('.animal_chooser li a').on('click', function(e){
 				$('.calc').val("");
 				setDrawOddValues();
 			});
-
 		}
 
 		trueOddsCalc();
@@ -61,6 +62,7 @@
 			function getoriginalValues(){
 				var values = [];
 				odds.each(function(index){
+					$(this).attr('data-idx', index);
 					values[index] = $(this).text();
 				});
 				return values;
@@ -70,6 +72,7 @@
 				var curVal = calc.val();
 				$document.find('.drawOdds').each(function(index){
 
+					var index = parseInt($(this).attr('data-idx'));
 					var oddsVal		     = (originalValues[index] / curVal).toFixed(0);
 					var oneP			     = (originalValues[index] / 1).toFixed(0);
 					var twoP			     = (originalValues[index] / 2).toFixed(0);
@@ -99,7 +102,6 @@
 
 					if(!calc.val() || calc.val() === "0") {
 							$(this).text(origVal);
-							// $('.draw').text(headVal);
 							$('.draw, .drawOdds').removeClass('highlight');
 						}
 							else if(calc.val() === "1") {
@@ -181,8 +183,6 @@
 
 							$(this).text(origVal);
 							$('.drawOdds').addClass('highlight');
-							// $('.draw').text("True Draw Odds");
-							// $('.draw, .drawOdds').addClass('highlight');
 						}
 
 					if (document.location.pathname.indexOf("/nevada/") == "0") {
@@ -255,18 +255,16 @@
 			$document.on('click ready', function(e){
 				var calculating = $('.calculating'),
 						calc 				= $('#calc');
+
 				if($(calcValStr).hasClass('current')) {
 					calculating.hide();
 					calc.removeClass('');
-					// console.log('no calculator');
 				} else if($(calcValStrMulti).hasClass('current')) {
 					calculating.show();
 					calc.addClass('calcMulti').removeClass('calc');
-					// console.log('multi');
 				}	else {
 					calculating.show();
 					calc.addClass('calc').removeClass('calcMulti');
-					// console.log('reg');
 				}
 			});
 
@@ -299,7 +297,7 @@
 		});
 
 		$(".table").tablesorter({
-
+			sortInitialOrder: "desc"
 		});
 		// $(".table").DataTable();
 
@@ -358,17 +356,6 @@
 			return false;
 		});
 
-		// TOOLTIP STUFF
-		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
-		$('td.orange').hover(
-			function(e){
-				var tip = $(this).attr('tip-text');
-				$(this).find('span.tooltip').text(tip);
-			}, function(e){
-				$(this).find('span.tooltip').text('');
-			}
-		);
-
 		// Animal Chooser Dropdown stuff
 		function DropDown(el) {
 			this.dd = el;
@@ -386,8 +373,8 @@
 				var hash = window.location.hash.substring(1);
 
 				obj.dd.on('click', function(event){
-					$(this).toggleClass('active');
-					return false;
+					$(this).find('ul').toggleClass('active');
+					event.preventDefault();
 				});
 
 				obj.opts.on('click', function(){
@@ -433,7 +420,7 @@
 
 			var dd = new DropDown($('#dd'));
 
-			$document.click(function(){
+			$document.on('click', function(){
 				$('.button-group').removeClass('active');
 			});
 
@@ -466,6 +453,60 @@
 				$('.error-thing').addClass('visible');
 				console.log("this is an error yo");
 			}
+		});
+
+		// If a link has the words coming soon add a class that makes them inactive
+		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon-link');
+		$(".animal-chooser a:contains('Coming Soon')").addClass('coming-soon-link');
+
+		$("p.footnote:empty").addClass("hidden");
+
+		// Mountain Goat Table Stuff
+
+		$('.goat-toggle h6').on('click', function(e){
+			if($(this).hasClass('current')){
+			} else if(!$(this).hasClass('current')){
+				$(this).addClass('current').siblings().removeClass('current');
+				$(this).parent().siblings('table.current').removeClass('current').siblings('table').addClass('current');
+			}
+		});
+
+		// TOOLTIP STUFF
+		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
+
+		// function toolTip(e){
+
+		// 	$document.ready(function(e){
+		// 		var cellWithSpan	= "td.orange";
+
+		// 		$(cellWithSpan).each(function(e){
+		// 			var cellSpan	= $(cellWithSpan).children('span');
+		// 			cellSpan.parent
+		// 		});
+
+		// 	});
+
+		// 	$('td').each(function(e){
+		// 		if($(this).hasClass('orange')){
+		// 			$(this).clone().children().remove().end().text();
+		// 		}
+		// 	});
+
+		// }
+
+		// toolTip();
+
+		// Mobile Stuff
+		////
+		////
+		////
+		////
+		////
+
+		// Hamburger Menu
+		$('.nav').on('click', function(){
+			$('.menu-header-menu-container').toggleClass('active');
+			$('.login-stuff').toggleClass('active');
 		});
 
 	});

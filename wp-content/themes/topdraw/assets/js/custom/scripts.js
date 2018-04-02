@@ -20,7 +20,7 @@
 		});
 
 		$(".table").tablesorter({
-
+			sortInitialOrder: "desc"
 		});
 		// $(".table").DataTable();
 
@@ -79,17 +79,6 @@
 			return false;
 		});
 
-		// TOOLTIP STUFF
-		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
-		$('td.orange').hover(
-			function(e){
-				var tip = $(this).attr('tip-text');
-				$(this).find('span.tooltip').text(tip);
-			}, function(e){
-				$(this).find('span.tooltip').text('');
-			}
-		);
-
 		// Animal Chooser Dropdown stuff
 		function DropDown(el) {
 			this.dd = el;
@@ -107,8 +96,8 @@
 				var hash = window.location.hash.substring(1);
 
 				obj.dd.on('click', function(event){
-					$(this).toggleClass('active');
-					return false;
+					$(this).find('ul').toggleClass('active');
+					event.preventDefault();
 				});
 
 				obj.opts.on('click', function(){
@@ -154,7 +143,7 @@
 
 			var dd = new DropDown($('#dd'));
 
-			$document.click(function(){
+			$document.on('click', function(){
 				$('.button-group').removeClass('active');
 			});
 
@@ -187,6 +176,60 @@
 				$('.error-thing').addClass('visible');
 				console.log("this is an error yo");
 			}
+		});
+
+		// If a link has the words coming soon add a class that makes them inactive
+		$(".sub-menu a:contains('Coming Soon')").addClass('coming-soon-link');
+		$(".animal-chooser a:contains('Coming Soon')").addClass('coming-soon-link');
+
+		$("p.footnote:empty").addClass("hidden");
+
+		// Mountain Goat Table Stuff
+
+		$('.goat-toggle h6').on('click', function(e){
+			if($(this).hasClass('current')){
+			} else if(!$(this).hasClass('current')){
+				$(this).addClass('current').siblings().removeClass('current');
+				$(this).parent().siblings('table.current').removeClass('current').siblings('table').addClass('current');
+			}
+		});
+
+		// TOOLTIP STUFF
+		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
+
+		// function toolTip(e){
+
+		// 	$document.ready(function(e){
+		// 		var cellWithSpan	= "td.orange";
+
+		// 		$(cellWithSpan).each(function(e){
+		// 			var cellSpan	= $(cellWithSpan).children('span');
+		// 			cellSpan.parent
+		// 		});
+
+		// 	});
+
+		// 	$('td').each(function(e){
+		// 		if($(this).hasClass('orange')){
+		// 			$(this).clone().children().remove().end().text();
+		// 		}
+		// 	});
+
+		// }
+
+		// toolTip();
+
+		// Mobile Stuff
+		////
+		////
+		////
+		////
+		////
+
+		// Hamburger Menu
+		$('.nav').on('click', function(){
+			$('.menu-header-menu-container').toggleClass('active');
+			$('.login-stuff').toggleClass('active');
 		});
 
 	});

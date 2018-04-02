@@ -22,7 +22,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				<h1><?php echo get_the_title($parent_id); ?> <span class="separator">/</span> <?php the_title(); ?></h1>
 				<div class="intro"><?php echo apply_filters('the_content', $parentContent->post_content); ?></div>
 			</div>
-			<div class="analysis-type">
+			<div class="analysis-type content">
 				<h5>More in <?php echo get_the_title($parent_id); ?></h5>
 				<?php
 				  if($post->post_parent)
@@ -99,7 +99,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				<?php endwhile; ?>
 			</div>
 		</div>
-		<button class="button red outline large expand">Calculate your draw odds</button>
+		<button class="button red outline large expand calcDraw">Research Available Hunts & Calculate Draw Odds</button>
 		<div class="tabscontent species-chart cf">
 		<?php while(have_rows('unit_info')): the_row();
 			$unit_species_name = get_sub_field('unit_species_name');
@@ -123,6 +123,19 @@ $heroImage = get_field('heroImage', $parent_id);
 				</p>
 			</div>
 		</div>
+		<div class="analysis-type foot">
+			<h5>More in <?php echo get_the_title($parent_id); ?></h5>
+			<?php
+			  if($post->post_parent)
+			  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&sort_order=desc");
+			  else
+			  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&sort_order=desc");
+			  if ($children) { ?>
+			  <ul>
+			  	<?php echo $children; ?>
+			  </ul>
+		  <?php } ?>
+		</div>
 	</div>
 </section>
 
@@ -139,5 +152,30 @@ $heroImage = get_field('heroImage', $parent_id);
 <?php include 'inc/form.php'; ?>
 
 <?php } ?>
+
+<?php if(have_rows('unit_info')): ?>
+	<?php while(have_rows('unit_info')): the_row();
+		$unit_species_name = get_sub_field('unit_species_name');
+		$calculator = get_sub_field('calculator');
+		$drawType = get_sub_field('draw_odds_type');
+		$multi = "Multiplier";
+		$reg = "Regular";
+	?>
+	<?php if($drawType === "") { ?>
+
+		<span class="calculatorValues" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
+
+		<?php } elseif($drawType === $multi) { ?>
+
+		<span class="calculatorValuesMulti" style="opacity: 0; pointer-events: none;"><?php echo str_replace(' ', '-', '.' . $unit_species_name . ','); ?></span>
+
+		<?php } elseif($drawType === $reg) { ?>
+
+
+		<?php } ?>
+
+	<?php endwhile; ?>
+
+<?php endif; ?>
 
 <?php get_footer(); ?>

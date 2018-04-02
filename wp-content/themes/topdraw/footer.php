@@ -1,7 +1,3 @@
-		<div class="error-thing wpcf7-validation-errors">
-			That email address is already in use.
-		</div>
-
 		<footer>
 			<div class="toolbar"></div>
 			<div class="wrapper">

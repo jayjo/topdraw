@@ -96,8 +96,8 @@
 				var hash = window.location.hash.substring(1);
 
 				obj.dd.on('click', function(event){
-					$(this).toggleClass('active');
-					return false;
+					$(this).find('ul').toggleClass('active');
+					event.preventDefault();
 				});
 
 				obj.opts.on('click', function(){
@@ -143,7 +143,7 @@
 
 			var dd = new DropDown($('#dd'));
 
-			$document.click(function(){
+			$document.on('click', function(){
 				$('.button-group').removeClass('active');
 			});
 
@@ -188,10 +188,8 @@
 
 		$('.goat-toggle h6').on('click', function(e){
 			if($(this).hasClass('current')){
-				console.log('got it');
 			} else if(!$(this).hasClass('current')){
 				$(this).addClass('current').siblings().removeClass('current');
-				console.log('dont but now I got it');
 				$(this).parent().siblings('table.current').removeClass('current').siblings('table').addClass('current');
 			}
 		});

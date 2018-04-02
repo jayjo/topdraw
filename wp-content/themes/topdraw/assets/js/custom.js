@@ -297,7 +297,7 @@
 		});
 
 		$(".table").tablesorter({
-
+			sortInitialOrder: "desc"
 		});
 		// $(".table").DataTable();
 
@@ -460,6 +460,18 @@
 		$(".animal-chooser a:contains('Coming Soon')").addClass('coming-soon-link');
 
 		$("p.footnote:empty").addClass("hidden");
+
+		// Mountain Goat Table Stuff
+
+		$('.goat-toggle h6').on('click', function(e){
+			if($(this).hasClass('current')){
+				console.log('got it');
+			} else if(!$(this).hasClass('current')){
+				$(this).addClass('current').siblings().removeClass('current');
+				console.log('dont but now I got it');
+				$(this).parent().siblings('table.current').removeClass('current').siblings('table').addClass('current');
+			}
+		});
 
 		// TOOLTIP STUFF
 		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW

@@ -168,7 +168,7 @@ input[type=text]:disabled,input[type=email]:disabled,input[type=password]:disabl
 .page-template-page-trophy-analysis .tabscontent.species-information .record p,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record p{background:rgba(187,188,189,0.15);font-size:15px;float:left;margin:0 0 3px 0;padding:15px 5px;text-align:center;width:50%}
 .page-template-page-trophy-analysis .tabscontent.species-information .record p:last-child,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record p:last-child{border-left:3px solid #fff}
 .page-template-page-trophy-analysis .tabscontent.species-information .record p strong,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record p strong{display:block}
-.page-template-page-trophy-analysis .tabscontent.species-information .record.full-width p,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record.full-width p{border:0;width:100%}
+.page-template-page-trophy-analysis .tabscontent.species-information .record.full-width p,.page-template-page-trophy-analysis-demo .tabscontent.species-information .record.full-width p{border:0;max-width:100%;width:100%}
 .separator{color:#b63f44;font-weight:normal}
 .species-chart h6,.deadline-chart h6{font-size:15px;font-weight:bold;margin:0 auto 20px;max-width:900px;text-transform:uppercase}
 .deadline-chart h6{text-align:center}
@@ -274,10 +274,20 @@ p.footnote.showthisthing{display:block !important}
 .table_container td,.table-container td,.table_container th,.table-container th{border-bottom:1px solid rgba(187,188,189,0.35);border-right:1px solid rgba(187,188,189,0.35);position:relative}
 .table_container td a,.table-container td a,.table_container th a,.table-container th a{color:#b63f44;text-decoration:none}
 .table_container td a:hover,.table-container td a:hover,.table_container th a:hover,.table-container th a:hover{background:#b63f44;color:#fff}
-.table_container th,.table-container th{background:#fff;font-size:12px;line-height:15px;padding:25px 15px;text-transform:uppercase;vertical-align:middle}
+.table_container th,.table-container th{background:#fff;font-size:12px;line-height:15px;outline:0;padding:25px 15px;text-transform:uppercase;vertical-align:middle}
+.table_container th:last-child .tooltip.bottom,.table-container th:last-child .tooltip.bottom,.table_container th:nth-last-child(2) .tooltip.bottom,.table-container th:nth-last-child(2) .tooltip.bottom{left:-180px}
+.table_container th:first-child .tooltip.bottom,.table-container th:first-child .tooltip.bottom,.table_container th:nth-child(2) .tooltip.bottom,.table-container th:nth-child(2) .tooltip.bottom{left:100px}
 .table_container td,.table-container td{font-size:14px;line-height:15px;padding:15px}
+.table_container td:first-child .tooltip.right,.table-container td:first-child .tooltip.right{right:-110px}
 .table-container{height:auto;margin:50px auto 100px;opacity:1;padding-top:20px;position:relative;visibility:visible;width:94%}
 .table-container table{border-left:1px solid rgba(187,188,189,0.35);border-top:1px solid rgba(187,188,189,0.35);opacity:1;width:100%}
+.table_container.goat table{padding-bottom:100px}
+.table_container.goat .wrapper{padding:0}
+.table_container.goat .goat-toggle{bottom:25px;left:50%;position:fixed;-webkit-transform:translateX(-100px);-ms-transform:translateX(-100px);transform:translateX(-100px);width:200px}
+.table_container.goat h6{background:0;background-color:#fff;background-image:none;border:1px solid #bbbcbd;border-radius:2px;box-shadow:0 7px 24px -8px rgba(0,0,0,0.35);color:#b63f44;display:inline-block;font-family:'das',sans-serif;font-size:15px;font-weight:700;height:auto;margin:0;min-height:auto;min-width:95px;outline:0;padding:1em 1.5em 1.05em;text-align:center;text-decoration:none;text-transform:uppercase;-webkit-transition:all 150ms;transition:all 150ms}
+.table_container.goat h6.current{border:3px solid #191e25;color:#191e25}
+.table_container.goat h6:hover{color:#191e25;-webkit-transition:all 150ms;transition:all 150ms}
+.table_container.goat h6:active{box-shadow:inset 0 1px 2px rgba(0,0,0,0.25)}
 table .orange{color:#eb9a35}
 .tooltip{background:#eb9a35;border-radius:3px;box-shadow:0 3px 18px -4px rgba(0,0,0,0.35);color:#191e25;font-size:12px;max-width:260px;min-width:220px;opacity:0;padding:10px;position:absolute;top:0;visibility:hidden;-webkit-transition:opacity 0ms,visibility 0ms;transition:opacity 0ms,visibility 0ms;z-index:10}
 .tooltip.left{left:-230px;-webkit-transform:translateX(10px);-ms-transform:translateX(10px);transform:translateX(10px)}
@@ -298,6 +308,8 @@ table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transfo
 .table_toggle.calculating input[type=text]{font-size:15px;font-weight:bold;padding:14px 16px 15px}
 p.footnote.pushed{margin:40px auto 0;text-align:center}
 .table-active .table_container{opacity:1;visibility:visible;-webkit-transition:visibility 0ms,opacity 150ms;transition:visibility 0ms,opacity 150ms}
+.table-active .table_container.goat table{display:none}
+.table-active .table_container.goat table.current{display:block}
 .table-active .table_container table{opacity:1;-webkit-transition:opacity 75ms 150ms;transition:opacity 75ms 150ms}
 .table-active .table-head{opacity:1;visibility:visible;-webkit-transition:visibility 0ms,opacity 150ms;transition:visibility 0ms,opacity 150ms}
 .table-active .navvy.species{left:50%;margin-left:-200px;position:fixed;top:11px;z-index:20;-webkit-transition:top 150ms;transition:top 150ms}
@@ -363,7 +375,7 @@ header{height:50px;padding:0 10px}
 .page-template-page-unit-analysis .chart .analysis-type.content,.page-template-page-trophy-analysis .chart .analysis-type.content,.page-template-page-rules-regulations .chart .analysis-type.content,.page-template-page-unit-analysis-demo .chart .analysis-type.content,.page-template-page-trophy-analysis-demo .chart .analysis-type.content,.page-template-page-rules-regulations-demo .chart .analysis-type.content,.page-template-page-deadlines .chart .analysis-type.content{display:none}
 .page-template-page-unit-analysis .chart .tabscontent.species-information,.page-template-page-trophy-analysis .chart .tabscontent.species-information,.page-template-page-rules-regulations .chart .tabscontent.species-information,.page-template-page-unit-analysis-demo .chart .tabscontent.species-information,.page-template-page-trophy-analysis-demo .chart .tabscontent.species-information,.page-template-page-rules-regulations-demo .chart .tabscontent.species-information,.page-template-page-deadlines .chart .tabscontent.species-information,.page-template-page-unit-analysis .chart .tabscontent.unit-information,.page-template-page-trophy-analysis .chart .tabscontent.unit-information,.page-template-page-rules-regulations .chart .tabscontent.unit-information,.page-template-page-unit-analysis-demo .chart .tabscontent.unit-information,.page-template-page-trophy-analysis-demo .chart .tabscontent.unit-information,.page-template-page-rules-regulations-demo .chart .tabscontent.unit-information,.page-template-page-deadlines .chart .tabscontent.unit-information{margin-top:35px}
 .page-template-page-unit-analysis .chart .tabscontent.species-information h4,.page-template-page-trophy-analysis .chart .tabscontent.species-information h4,.page-template-page-rules-regulations .chart .tabscontent.species-information h4,.page-template-page-unit-analysis-demo .chart .tabscontent.species-information h4,.page-template-page-trophy-analysis-demo .chart .tabscontent.species-information h4,.page-template-page-rules-regulations-demo .chart .tabscontent.species-information h4,.page-template-page-deadlines .chart .tabscontent.species-information h4,.page-template-page-unit-analysis .chart .tabscontent.unit-information h4,.page-template-page-trophy-analysis .chart .tabscontent.unit-information h4,.page-template-page-rules-regulations .chart .tabscontent.unit-information h4,.page-template-page-unit-analysis-demo .chart .tabscontent.unit-information h4,.page-template-page-trophy-analysis-demo .chart .tabscontent.unit-information h4,.page-template-page-rules-regulations-demo .chart .tabscontent.unit-information h4,.page-template-page-deadlines .chart .tabscontent.unit-information h4{margin-bottom:25px}
-.navvy.species .button-group,.navvy.unit-info .button-group{max-width:100%;width:86%}
+.navvy.species .button-group,.navvy.unit-info .button-group{padding:1em 1em 1.05em;width:100%}
 .tabscontent.species-information,.tabscontent.unit-information{margin-top:35px}
 .tabscontent.species-information h5,.tabscontent.unit-information h5{font-size:15px;margin-bottom:25px}
 .boxes{margin-bottom:15px;padding:0}
@@ -412,6 +424,8 @@ p.footnote{font-size:13px;text-align:center;width:90%}
 .table_container{padding-top:45px}
 .table_container th{font-size:10px;min-width:120px;padding:15px 10px}
 .table_container td{font-size:12px;min-width:120px;padding:8px}
+.table_container.goat .goat-toggle{-webkit-transform:translateX(-77px);-ms-transform:translateX(-77px);transform:translateX(-77px);width:154px}
+.table_container.goat h6{font-size:12px;min-width:75px;padding:1em .75em 1.05em}
 .close{font-size:10px;padding:5px;right:10px;top:12px}
 .table-head{height:45px}
 .table-active .navvy.species{display:none}

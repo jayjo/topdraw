@@ -34,7 +34,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				  	<?php echo $children; ?>
 				  </ul>
 			  <?php } ?>
-			  <button class="button red outline large expand">Calculate draw odds</button>
+			  <button class="button red outline large expand calcDrawTop"></button>
 			</div>
 		</div>
 		<div class="sector species cf">
@@ -99,7 +99,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				<?php endwhile; ?>
 			</div>
 		</div>
-		<button class="button red outline large expand calcDraw">Research Available Hunts & Calculate Draw Odds</button>
+		<button class="button red outline large expand calcDraw"></button>
 		<div class="tabscontent species-chart cf">
 		<?php while(have_rows('unit_info')): the_row();
 			$unit_species_name = get_sub_field('unit_species_name');

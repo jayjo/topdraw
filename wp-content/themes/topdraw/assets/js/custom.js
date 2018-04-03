@@ -251,6 +251,8 @@
 					calcValuesMulti = $('.calculatorValuesMulti').text(),
 					calcValStr 			= calcValues.substring(0, calcValues.length-1),
 					calcValStrMulti = calcValuesMulti.substring(0, calcValuesMulti.length-1);
+					calcDrawBtnBot	= $('button.calcDraw');
+					calcDrawBtnTop	= $('button.calcDrawTop');
 
 			$document.on('click ready', function(e){
 				var calculating = $('.calculating'),
@@ -259,12 +261,27 @@
 				if($(calcValStr).hasClass('current')) {
 					calculating.hide();
 					calc.removeClass('');
+
+					calculating.addClass('nocalc');
+					calcDrawBtnBot.text('Research Available Hunts');
+					calcDrawBtnTop.text('Research Hunts');
+
 				} else if($(calcValStrMulti).hasClass('current')) {
 					calculating.show();
 					calc.addClass('calcMulti').removeClass('calc');
+
+					calculating.removeClass('nocalc');
+					calcDrawBtnBot.text('Research Available Hunts & Calculate Draw Odds');
+					calcDrawBtnTop.text('Calculate Draw Odds');
+
 				}	else {
 					calculating.show();
 					calc.addClass('calc').removeClass('calcMulti');
+
+					calculating.removeClass('nocalc');
+					calcDrawBtnBot.text('Research Available Hunts & Calculate Draw Odds');
+					calcDrawBtnTop.text('Calculate Draw Odds');
+
 				}
 			});
 

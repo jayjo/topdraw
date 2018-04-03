@@ -31,7 +31,7 @@
 		});
 
 		// Track animals viewed
-		$document.on('click', '.animal_chooser li a', function(e){
+		$document.on('click', '.animal-chooser li a', function(e){
 			var species = $(this).text();
 			mixpanel.track("Viewed Species", {
 				"Page": page,
@@ -40,7 +40,7 @@
 		});
 
 		// Track rules viewed
-		$document.on('click', '.info_chooser li a', function(e){
+		$document.on('click', '.info-chooser li a', function(e){
 			var rule = $(this).text();
 			mixpanel.track("Viewed Rule", {
 				"Page": page,

@@ -277,7 +277,7 @@ p.footnote.showthisthing{display:block !important}
 .table_container th,.table-container th{background:#fff;font-size:12px;line-height:15px;outline:0;padding:25px 15px;text-transform:uppercase;vertical-align:middle}
 .table_container th:last-child .tooltip.bottom,.table-container th:last-child .tooltip.bottom,.table_container th:nth-last-child(2) .tooltip.bottom,.table-container th:nth-last-child(2) .tooltip.bottom{left:-180px}
 .table_container th:first-child .tooltip.bottom,.table-container th:first-child .tooltip.bottom,.table_container th:nth-child(2) .tooltip.bottom,.table-container th:nth-child(2) .tooltip.bottom{left:100px}
-.table_container td,.table-container td{font-size:14px;line-height:15px;padding:15px}
+.table_container td,.table-container td{font-size:14px;line-height:15px;min-width:90px;padding:15px}
 .table_container td:first-child .tooltip.right,.table-container td:first-child .tooltip.right{right:-110px}
 .table-container{height:auto;margin:50px auto 100px;opacity:1;padding-top:20px;position:relative;visibility:visible;width:94%}
 .table-container table{border-left:1px solid rgba(187,188,189,0.35);border-top:1px solid rgba(187,188,189,0.35);opacity:1;width:100%}

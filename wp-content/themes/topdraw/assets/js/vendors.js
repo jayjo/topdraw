@@ -4029,6 +4029,7 @@ var LiquidMetal = (function() {
     });
     return this;
   };
+  re
 
   //Stick Header and Column for Tables
 

@@ -30,7 +30,10 @@
   <script src="<?php echo get_template_directory_uri(); ?>/assets/js/tracking.js" type="text/javascript"></script>
 
   <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5bfa4b2b0590b80d7aea5b561/68a59b57fdc40c201204c29ae.js");</script>
-  
+
+  <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+  <script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us7.list-manage.com","uuid":"5bfa4b2b0590b80d7aea5b561","lid":"b442ebcec9","uniqueMethods":true}) })</script>
+
 </head>
 <body <?php body_class(); ?>>
 

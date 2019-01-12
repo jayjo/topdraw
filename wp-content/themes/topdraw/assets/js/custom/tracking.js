@@ -11,17 +11,22 @@
     var page = window.location.pathname,
         hash = window.location.hash,
         animal = $('.animal_chooser li a'),
-        rule = $('.info_chooser li a');
+        rule = $('.info_chooser li a'),
+        user = $('#user_login').val(), 
+        firstName = $('input[first_name]').val(),
+        lastName = $('input[last_name]').val(),
+        emailAddress = $('input[email_address]').val(),
+        distinct_id = mixpanel.get_distinct_id();
         // urlPart = page.split('/'),
         // state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
-    // mixpanel.init('Your Token', {
-    //     loaded: function(mixpanel) {
-    //         distinct_id = mixpanel.get_distinct_id();
-    //     }
-    // });
-
-    // console.log(distinct_id)
+    mixpanel.people.set({
+      "Username": user,
+      "Email Address": emailAddress,
+      "First Name": firstName,
+      "Last Name": lastName
+    });
+    mixpanel.identify(distinct_id);
 
     // Track page views
     $(".nav ul li a").on('click', function(e){

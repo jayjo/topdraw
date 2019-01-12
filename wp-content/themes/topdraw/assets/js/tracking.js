@@ -5,8 +5,6 @@
     var $document     = $(document),
         $window       = $(window);
 
-    // MIXPANEL STUFF
-
     // Mixpanel Variables
     var page = window.location.pathname,
         hash = window.location.hash,
@@ -19,13 +17,29 @@
         // urlPart = page.split('/'),
         // state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
-    // mixpanel.people.set({
-    //   "Username": user,
-    //   "Email Address": emailAddress,
-    //   "First Name": firstName,
-    //   "Last Name": lastName
-    // });
-    // mixpanel.identify(distinct_id);
+    // MIXPANEL STUFF
+
+		// Assign a user to a profile
+    $document.ready(function(){
+
+      // Track animals viewed
+	    $('#loginform').submit(function(e){
+
+	    	var distinct_id = mixpanel.get_distinct_id();
+
+	      mixpanel.identify(distinct_id);
+	      
+	      mixpanel.people.set({
+	      	"$last_login": new Date(),
+		      "Username": $('#user_login').val(),
+		      "Email Address": emailAddress,
+		      "First Name": firstName,
+		      "Last Name": lastName
+		    });
+
+	    });
+      
+    });
 
     // Track page views
     $(".nav ul li a").on('click', function(e){
@@ -36,10 +50,7 @@
     });
 
     // Track pages viewed
-    $document.ready(function(){
-      mixpanel.track("Viewed Page",{"Page": page});
-      // console.log(distinctID);
-    });
+    mixpanel.track("Viewed Page",{"Page": page});
 
     // Track animals viewed
     $document.on('click', '.animal-chooser li a', function(e){

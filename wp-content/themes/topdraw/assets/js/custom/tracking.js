@@ -15,18 +15,17 @@
         user = $('#user_login').val(), 
         firstName = $('input[first_name]').val(),
         lastName = $('input[last_name]').val(),
-        emailAddress = $('input[email_address]').val(),
-        distinct_id = mixpanel.get_distinct_id();
+        emailAddress = $('input[email_address]').val();
         // urlPart = page.split('/'),
         // state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
-    mixpanel.people.set({
-      "Username": user,
-      "Email Address": emailAddress,
-      "First Name": firstName,
-      "Last Name": lastName
-    });
-    mixpanel.identify(distinct_id);
+    // mixpanel.people.set({
+    //   "Username": user,
+    //   "Email Address": emailAddress,
+    //   "First Name": firstName,
+    //   "Last Name": lastName
+    // });
+    // mixpanel.identify(distinct_id);
 
     // Track page views
     $(".nav ul li a").on('click', function(e){

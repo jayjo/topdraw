@@ -546,13 +546,13 @@
         // urlPart = page.split('/'),
         // state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
-    mixpanel.init('953dc2a7263cd74fc4bd71dad5c295cb', {
-        loaded: function(mixpanel) {
-            distinct_id = mixpanel.get_distinct_id();
-        }
-    });
+    // mixpanel.init('Your Token', {
+    //     loaded: function(mixpanel) {
+    //         distinct_id = mixpanel.get_distinct_id();
+    //     }
+    // });
 
-    console.log(distinct_id)
+    // console.log(distinct_id)
 
     // Track page views
     $(".nav ul li a").on('click', function(e){

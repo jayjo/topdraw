@@ -26,7 +26,6 @@
 	<?php wp_head(); ?>
 
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendors.js" type="text/javascript"></script>
-  <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/tracking.js" type="text/javascript"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/custom.js" type="text/javascript"></script>
 
   <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5bfa4b2b0590b80d7aea5b561/68a59b57fdc40c201204c29ae.js");</script>

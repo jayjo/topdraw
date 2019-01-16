@@ -23,6 +23,10 @@
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Top Draw Consulting - Hunt the Rockies./>
+
 	<?php wp_head(); ?>
 
 	<script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendors.js" type="text/javascript"></script>

@@ -329,6 +329,13 @@ p.footnote.pushed{margin:40px auto 0;text-align:center}
 .page-template-coming-soon .hero h2{font-size:32px;line-height:45px;margin:0 auto 40px;width:70%}
 .page-template-coming-soon .hero .logo{margin-bottom:10px}
 .page-template-coming-soon .hero .logo svg{fill:#b63f44;margin:0 auto;width:240px}
+.page-template-page-default-page{padding-top:140px}
+.page-template-page-default-page .ranger{margin-bottom:0;text-align:center}
+.page-template-page-default-page .internal_content,.page-template-page-default-page article{max-width:840px;width:100%}
+.page-template-page-default-page .internal_content img,.page-template-page-default-page article img{display:block;margin:0 auto;max-width:640px}
+.page-template-page-default-page .internal_content p,.page-template-page-default-page article p,.page-template-page-default-page .internal_content h4,.page-template-page-default-page article h4{margin:0 auto 25px;max-width:640px}
+.page-template-page-default-page .internal_content blockquote p,.page-template-page-default-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:800px;text-align:center}
+.page-template-page-default-page article{border-bottom:1px solid #e1e1e1;padding:25px 0}
 @media(min-width:20em) and (max-width:35.3em){body{letter-spacing:-0.5px}
 .wrapper{margin:0 auto;min-width:100%;padding:0 10px}
 .post-edit-link{z-index:100}

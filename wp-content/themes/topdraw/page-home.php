@@ -17,6 +17,7 @@ setup_postdata($post);
 	<div class="wrapper">
 		<div class="content">
 			<h1>Who we are</h1>
+			<h3>Nonresident archery hunting application information for DIY bowhunting the Rockies.</h3>
 			<p>Welcome to the site.  I’d like to introduce myself to those that don’t know me.  My name is Eric Bachofner and I founded Top Draw Consulting to help DIY bow hunters like yourself apply for and draw the best hunts available in the Rocky Mountain states.</p>
 			<a href="<?php echo get_permalink(7); ?>" class="button blue solid large">More about what we do<span class="arrow"><?php include 'inc/arrow.php'; ?></span></a>
 		</div>

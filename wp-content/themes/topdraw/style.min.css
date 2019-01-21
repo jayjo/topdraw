@@ -70,9 +70,9 @@ header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;p
 .logged-in .nav ul.login-stuff{margin:12px 0 0 20px;padding:8px 0 12px 25px}
 .nav ul{margin:20px 0 0 0}
 .nav ul li{display:inline-block;margin:0 0 0 20px;text-align:left}
-.nav ul li a{border-bottom:2px solid transparent;color:#b63f44;font-size:14px;font-weight:700;padding:21px 0;text-decoration:none;text-transform:uppercase}
+.nav ul li a{border-bottom:2px solid transparent;color:#191e25;font-size:14px;font-weight:700;padding:21px 0;text-decoration:none;text-transform:uppercase}
 .nav ul li a:hover{border-color:#b63f44;-webkit-transition:all 150ms;transition:all 150ms}
-.nav ul li.menu-item-262 a{padding-right:20px}
+.nav ul li.menu-item-262 a{color:#b63f44;padding-right:20px}
 .nav ul li.menu-item-has-children{position:relative}
 .nav ul li.menu-item-has-children>a:before,.nav ul li.menu-item-has-children>a:after{background-color:#b63f44;content:"";display:inline-block;float:right;height:3px;position:relative;width:7px}
 .nav ul li.menu-item-has-children>a:before{left:-5px;margin:7px 0 0 -3px;-webkit-transform:rotateZ(-45deg);-ms-transform:rotate(-45deg);transform:rotateZ(-45deg)}
@@ -336,6 +336,15 @@ p.footnote.pushed{margin:40px auto 0;text-align:center}
 .page-template-page-default-page .internal_content p,.page-template-page-default-page article p,.page-template-page-default-page .internal_content h4,.page-template-page-default-page article h4{margin:0 auto 25px;max-width:640px}
 .page-template-page-default-page .internal_content blockquote p,.page-template-page-default-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:800px;text-align:center}
 .page-template-page-default-page article{border-bottom:1px solid #e1e1e1;padding:25px 0}
+.page-template-page-landing-page{padding-top:140px}
+.page-template-page-landing-page .ranger{margin-bottom:25px;text-align:center}
+.page-template-page-landing-page .internal_content,.page-template-page-landing-page article{max-width:940px;width:100%}
+.page-template-page-landing-page .internal_content img,.page-template-page-landing-page article img{height:auto;width:500px}
+.page-template-page-landing-page .internal_content h4,.page-template-page-landing-page article h4{margin:0 auto 25px;max-width:940px}
+.page-template-page-landing-page .internal_content p,.page-template-page-landing-page article p{margin:0 auto 25px;max-width:800px}
+.page-template-page-landing-page .internal_content blockquote p,.page-template-page-landing-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:940px}
+.page-template-page-landing-page .alignleft{float:left;margin:50px}
+.page-template-page-landing-page .alignright{float:right;margin:50px}
 @media(min-width:20em) and (max-width:35.3em){body{letter-spacing:-0.5px}
 .wrapper{margin:0 auto;min-width:100%;padding:0 10px}
 .post-edit-link{z-index:100}

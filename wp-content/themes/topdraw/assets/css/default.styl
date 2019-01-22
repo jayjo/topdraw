@@ -12,8 +12,10 @@
     
     img
       display block
+      height auto
       margin 0 auto
       max-width 640px
+      width 100%
       
     p,
     h4
@@ -32,4 +34,13 @@
     border-bottom 1px solid #E1E1E1
     padding 25px 0
   
-  
+@media (min-width: $bp-small) and (max-width: $bp-med)
+
+  .page-template-page-default-page
+    padding-top 80px
+    
+    .internal_content blockquote p,
+    article blockquote p
+      color #B64247
+      font-size 18px
+      line-height 20px

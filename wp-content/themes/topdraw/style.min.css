@@ -332,19 +332,24 @@ p.footnote.pushed{margin:40px auto 0;text-align:center}
 .page-template-page-default-page{padding-top:140px}
 .page-template-page-default-page .ranger{margin-bottom:0;text-align:center}
 .page-template-page-default-page .internal_content,.page-template-page-default-page article{max-width:840px;width:100%}
-.page-template-page-default-page .internal_content img,.page-template-page-default-page article img{display:block;margin:0 auto;max-width:640px}
+.page-template-page-default-page .internal_content img,.page-template-page-default-page article img{display:block;height:auto;margin:0 auto;max-width:640px;width:100%}
 .page-template-page-default-page .internal_content p,.page-template-page-default-page article p,.page-template-page-default-page .internal_content h4,.page-template-page-default-page article h4{margin:0 auto 25px;max-width:640px}
 .page-template-page-default-page .internal_content blockquote p,.page-template-page-default-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:800px;text-align:center}
 .page-template-page-default-page article{border-bottom:1px solid #e1e1e1;padding:25px 0}
 .page-template-page-landing-page{padding-top:140px}
+.page-template-page-landing-page .nav .menu-item-2010,.page-template-page-landing-page .nav .menu-item-100,.page-template-page-landing-page .nav .menu-item-99,.page-template-page-landing-page .nav .menu-item-262,.page-template-page-landing-page .nav .menu-item-1998,.page-template-page-landing-page .nav .main-login{display:none}
+.page-template-page-landing-page .nav .right{margin:0}
 .page-template-page-landing-page .ranger{margin-bottom:25px;text-align:center}
 .page-template-page-landing-page .internal_content,.page-template-page-landing-page article{max-width:940px;width:100%}
-.page-template-page-landing-page .internal_content img,.page-template-page-landing-page article img{height:auto;width:500px}
+.page-template-page-landing-page .internal_content img,.page-template-page-landing-page article img{height:auto;max-width:500px;width:100%}
 .page-template-page-landing-page .internal_content h4,.page-template-page-landing-page article h4{margin:0 auto 25px;max-width:940px}
 .page-template-page-landing-page .internal_content p,.page-template-page-landing-page article p{margin:0 auto 25px;max-width:800px}
 .page-template-page-landing-page .internal_content blockquote p,.page-template-page-landing-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:940px}
-.page-template-page-landing-page .alignleft{float:left;margin:50px}
-.page-template-page-landing-page .alignright{float:right;margin:50px}
+.page-template-page-landing-page .internal_content blockquote.big p,.page-template-page-landing-page article blockquote.big p{font-size:32px;line-height:40px;text-align:center}
+.page-template-page-landing-page .alignleft{float:left;margin:0 50px 50px 0}
+.page-template-page-landing-page .alignright{float:right;margin:0 0 50px 50px}
+.page-template-page-landing-page .signup-today{background:#191e25;box-shadow:0 12px 31px -3px rgba(0,0,0,0.35);margin:80px auto 80px;padding:40px;text-align:center;width:80%}
+.page-template-page-landing-page .signup-today h3{color:#fff;line-height:40px}
 @media(min-width:20em) and (max-width:35.3em){body{letter-spacing:-0.5px}
 .wrapper{margin:0 auto;min-width:100%;padding:0 10px}
 .post-edit-link{z-index:100}
@@ -460,6 +465,16 @@ p.footnote.pushed{margin:25px auto 0}
 .two_col.left p,.two_col.right p{margin-bottom:20px}
 .two_col.left img,.two_col.right img{margin-bottom:20px}
 .single_col p{margin-bottom:20px}
+.page-template-page-default-page{padding-top:80px}
+.page-template-page-default-page .internal_content blockquote p,.page-template-page-default-page article blockquote p{color:#b64247;font-size:18px;line-height:20px}
+.page-template-page-landing-page{padding-top:80px}
+.page-template-page-landing-page .nav{display:none}
+.page-template-page-landing-page .internal_content blockquote p,.page-template-page-landing-page article blockquote p{font-size:16px;line-height:20px}
+.page-template-page-landing-page .internal_content blockquote.big p,.page-template-page-landing-page article blockquote.big p{font-size:18px;line-height:25px}
+.page-template-page-landing-page .alignleft{float:left;margin:0 25px 25px 0}
+.page-template-page-landing-page .alignright{float:right;margin:0 0 25px 25px}
+.page-template-page-landing-page .signup-today{margin:40px auto 40px;padding:40px 40px 20px;width:90%}
+.page-template-page-landing-page .signup-today h3{line-height:25px}
 }@media(min-width:320px) and (max-width:564px){.hero{height:260px;margin-top:45px}
 .hero h1{font-size:38px;letter-spacing:-2px}
 .hero h2{font-size:28px;letter-spacing:-1px}

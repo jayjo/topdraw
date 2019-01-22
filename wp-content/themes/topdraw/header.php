@@ -25,7 +25,7 @@
 
   <meta property="og:locale" content="en_US"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:title" content="Top Draw Consulting - Hunt the Rockies./>
+  <meta property="og:title" content="Top Draw Consulting - Hunt the Rockies." />
 
 	<?php wp_head(); ?>
 

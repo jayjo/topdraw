@@ -342,12 +342,6 @@
 			}
 		});
 
-		$('.hamburger').on('click', function(e){
-			$(this).toggleClass('active');
-			$('nav.nav').toggleClass('active');
-			e.preventDefault();
-		});
-
 		$('.join').on('click', function(){
 			$('.nav').removeClass('active');
 		});
@@ -523,9 +517,15 @@
 		////
 
 		// Hamburger Menu
-		$('.nav').on('click', function(){
+		// $('.nav').on('click', function(){
+		// 	$('.menu-header-menu-container').toggleClass('active');
+		// 	$('.login-stuff').toggleClass('active');
+		// });
+
+		$('.hamburger').on('click', function(e){
 			$('.menu-header-menu-container').toggleClass('active');
 			$('.login-stuff').toggleClass('active');
+			e.preventDefault();
 		});
 
 	});

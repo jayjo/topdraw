@@ -194,17 +194,19 @@
 			}
 		});
 
-		// TOOLTIP STUFF
-		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
+		// // TOOLTIP STUFF
+		// // NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
 
 		// function toolTip(e){
 
 		// 	$document.ready(function(e){
-		// 		var cellWithSpan	= "td.orange";
+		// 		var dataCell	= $('td.orange');
+		// 		var dataText 	= dataCell.data('tooltip');
 
-		// 		$(cellWithSpan).each(function(e){
-		// 			var cellSpan	= $(cellWithSpan).children('span');
-		// 			cellSpan.parent
+		// 		dataCell.on('mouseenter', function(){
+		// 			if(dataText !== '') {
+		// 				$(this).text($(this).data('tooltip'));
+		// 			}
 		// 		});
 
 		// 	});

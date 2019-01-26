@@ -1,5 +1,12 @@
 @media (min-width: $bp-small) and (max-width: $bp-med)
 
+	.hamburger
+		height 40px
+		position absolute
+		right 5px
+		top 5px
+		width 40px
+
 	.button
 		display block
 
@@ -16,12 +23,11 @@
 			width 120px
 
 	.nav
-		background #fff
 		height 20px
 		position absolute
-		right 10px
+		left 0px
 		top 15px
-		width 20px
+		width 100%
 
 		&:before
 			background linear-gradient(
@@ -36,7 +42,7 @@
 			display block
 			height 15px
 			position absolute
-			right 0
+			right 15px
 			top 2px
 			width 20px
 
@@ -44,15 +50,17 @@
 		background #fff
 		float none
 		height 100vh
-		left 110%
-		position fixed
-		top 51px
-		width 100%
+		left 110vw
+		position absolute
+		padding-bottom 120px
+		top 36px
+		width 100vw
 		transition left 150ms
-		z-index 100
+		z-index 500
+		overflow-y scroll
 
 		&.active
-			left 0%
+			left 0
 			transition left 150ms
 
 	.nav ul
@@ -109,6 +117,7 @@
 			right 0
 			width 100%
 			transition left 150ms
+			z-index 1000
 
 			&.active
 				left 0%
@@ -154,9 +163,6 @@
 
 		li a
 			color $dark-blue
-
-
-
 
 
 

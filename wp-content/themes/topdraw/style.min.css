@@ -359,13 +359,14 @@ h3{font-size:22px;letter-spacing:-1px}
 p{font-size:15px;line-height:22px;margin-bottom:40px}
 .page-template-page-admin .entry-content p a{display:inline-block;margin-bottom:45px}
 .third.form{padding-top:50px}
+.hamburger{height:40px;position:absolute;right:5px;top:5px;width:40px}
 .button{display:block}
 header{height:50px;padding:0 10px}
 .logo-group{left:-7px;padding-top:13px;position:relative}
 .logo-group .logo svg{width:120px}
-.nav{background:#fff;height:20px;position:absolute;right:10px;top:15px;width:20px}
-.nav:before{background:-webkit-linear-gradient(top,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);background:linear-gradient(to bottom,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);content:"";display:block;height:15px;position:absolute;right:0;top:2px;width:20px}
-.menu-header-menu-container{background:#fff;float:none;height:100vh;left:110%;position:fixed;top:51px;width:100%;-webkit-transition:left 150ms;transition:left 150ms;z-index:100}
+.nav{height:20px;position:absolute;left:0;top:15px;width:100%}
+.nav:before{background:-webkit-linear-gradient(top,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);background:linear-gradient(to bottom,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);content:"";display:block;height:15px;position:absolute;right:15px;top:2px;width:20px}
+.menu-header-menu-container{background:#fff;float:none;height:100vh;left:110vw;position:absolute;padding-bottom:120px;top:36px;width:100vw;-webkit-transition:left 150ms;transition:left 150ms;z-index:500;overflow-y:scroll}
 .menu-header-menu-container.active{left:0;-webkit-transition:left 150ms;transition:left 150ms}
 .nav ul{margin:0;padding:12px 10px}
 .nav ul li{display:block;margin:0;padding:0}
@@ -375,7 +376,7 @@ header{height:50px;padding:0 10px}
 .nav ul li.menu-item-has-children>ul.sub-menu li a:hover,.nav ul li.menu-item-has-children>ul.sub-menu li a:active{background:rgba(187,188,189,0.1);box-shadow:none;color:#b63f44}
 .nav ul li a{border:0;display:block;padding:10px;width:100%}
 .nav ul li a:hover,.nav ul li a:active{background:rgba(187,188,189,0.1);border-color:transparent}
-.nav ul.login-stuff{-webkit-box-align:stretch;-webkit-align-items:stretch;-ms-flex-align:stretch;align-items:stretch;background:#b63f44;bottom:0;border:0;color:#fff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:40px;left:110%;margin:0;padding:0;position:fixed;right:0;width:100%;-webkit-transition:left 150ms;transition:left 150ms}
+.nav ul.login-stuff{-webkit-box-align:stretch;-webkit-align-items:stretch;-ms-flex-align:stretch;align-items:stretch;background:#b63f44;bottom:0;border:0;color:#fff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:40px;left:110%;margin:0;padding:0;position:fixed;right:0;width:100%;-webkit-transition:left 150ms;transition:left 150ms;z-index:1000}
 .nav ul.login-stuff.active{left:0;-webkit-transition:left 150ms;transition:left 150ms}
 .nav ul.login-stuff li{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}
 .nav ul.login-stuff li.right{border-left:1px solid #fff}

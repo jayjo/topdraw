@@ -34,7 +34,7 @@ $heroImage = get_field('heroImage', $parent_id);
 				  	<?php echo $children; ?>
 				  </ul>
 			  <?php } ?>
-			  <button class="button red outline large expand">Calculate draw odds</button>
+			  <button class="button red outline large expand">Research Analyses</button>
 			</div>
 		</div>
 		<div class="sector species trophy cf">

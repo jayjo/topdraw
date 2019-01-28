@@ -53,5 +53,28 @@ input[type=text], input[type=email], input[type=password]
 
 input[type=text]:disabled, input[type=email]:disabled, input[type=password]:disabled
 	opacity .3
+	
+#mc_embed_signup
+	background #fff
+	box-shadow 0 12px 30px -6px rgba(0,0,0, .3)
+	margin 0 auto 30px
+	padding 50px 50px 15px 50px
+	width 100%
+	
+	h2
+		font-size 24px
+		line-height 25px
+	
+	.indicates-required
+		margin-bottom 15px
+		color $red
+
+	input
+		margin 5px 0 15px
+		width 100%
 
 @import 'forms-mobile'
+
+	#mc_embed_signup
+		padding 25px 25px 5px 25px
+		margin 0 auto

@@ -83,6 +83,26 @@
       
     });
 
+    // Assign a user to a profile when submitting mailchimp signup form
+    $document.ready(function(){
+
+      // Track animals viewed
+      $('#mc-embedded-subscribe-form').submit(function(e){
+
+        var distinct_id = mixpanel.get_distinct_id();
+
+        mixpanel.identify(distinct_id);
+        
+        mixpanel.people.set({
+          "$last_login": new Date(),
+          "First Name": $('input[FNAME]').val(),
+          "Email Address": emailAddress
+        });
+
+      });
+      
+    });
+
     // Track page views
     $(".nav ul li a").on('click', function(e){
       linkText = $(this).text();

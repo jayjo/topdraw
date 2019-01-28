@@ -32,9 +32,7 @@
 	      mixpanel.people.set({
 	      	"$last_login": new Date(),
 		      "Username": $('#user_login').val(),
-		      "Email Address": emailAddress,
-		      "First Name": firstName,
-		      "Last Name": lastName
+		      "Email Address": emailAddress
 		    });
 
 	    });

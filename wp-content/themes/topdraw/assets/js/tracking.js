@@ -14,28 +14,72 @@
         firstName = $('input[first_name]').val(),
         lastName = $('input[last_name]').val(),
         emailAddress = $('input[email_address]').val();
+        displayName = $('input[displayname]').val();
         // urlPart = page.split('/'),
         // state = urlPart.pop() === '' ? urlPart[urlPart.length - 1] : urlPart.pop();
 
     // MIXPANEL STUFF
 
-		// Assign a user to a profile
+		// Assign a user to a profile when signing up
     $document.ready(function(){
 
       // Track animals viewed
-	    $('#loginform').submit(function(e){
+	    $('#leaky-paywall-payment-form').submit(function(e){
 
 	    	var distinct_id = mixpanel.get_distinct_id();
 
 	      mixpanel.identify(distinct_id);
 	      
-	      mixpanel.people.set({
+	      mixpanel.people.set_once({
 	      	"$last_login": new Date(),
 		      "Username": $('#user_login').val(),
-		      "Email Address": emailAddress
+		      "Email Address": emailAddress,
+          "First Name": firstName,
+          "Last Name" : lastName,
 		    });
 
 	    });
+      
+    });
+
+    // Assign a user to a profile when logging in
+    $document.ready(function(){
+
+      // Track animals viewed
+      $('#loginform').submit(function(e){
+
+        var distinct_id = mixpanel.get_distinct_id();
+
+        mixpanel.identify(distinct_id);
+        
+        mixpanel.people.set({
+          "$last_login": new Date(),
+          "Username": $('#user_login').val(),
+          "Email Address": emailAddress
+        });
+
+      });
+      
+    });
+
+    // Assign a user to a profile when adjusting profile
+    $document.ready(function(){
+
+      // Track animals viewed
+      $('#leaky-paywall-profile').submit(function(e){
+
+        var distinct_id = mixpanel.get_distinct_id();
+
+        mixpanel.identify(distinct_id);
+        
+        mixpanel.people.set({
+          "$last_login": new Date(),
+          "Username": $('#user_login').val(),
+          "Email Address": emailAddress,
+          "Display Name": displayName
+        });
+
+      });
       
     });
 

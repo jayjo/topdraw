@@ -54,7 +54,10 @@
         <?php
           $loggedIn = get_body_class();
           if(in_array('logged-in', $loggedIn)) { ?>
-          <ul class="login-stuff"><li><a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="headerLogout">Logout</a></li></ul>
+          <ul class="login-stuff">
+            <li><a href="<?php echo home_url('/profile'); ?>">Profile</a></li>
+            <li><a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="headerLogout">Logout</a></li>
+          </ul>
           <?php } else { ?>
           <ul class="login-stuff">
             <li><a href="<?php echo home_url('/login'); ?>" class="main-login">Login</a></li>

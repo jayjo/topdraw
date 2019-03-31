@@ -342,12 +342,6 @@
 			}
 		});
 
-		$('.hamburger').on('click', function(e){
-			$(this).toggleClass('active');
-			$('nav.nav').toggleClass('active');
-			e.preventDefault();
-		});
-
 		$('.join').on('click', function(){
 			$('.nav').removeClass('active');
 		});
@@ -488,17 +482,19 @@
 			}
 		});
 
-		// TOOLTIP STUFF
-		// NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
+		// // TOOLTIP STUFF
+		// // NEED TO APPLY THIS TO ALL OF THE TOOLTIPS THROUGHOUT TOPDRAW
 
 		// function toolTip(e){
 
 		// 	$document.ready(function(e){
-		// 		var cellWithSpan	= "td.orange";
+		// 		var dataCell	= $('td.orange');
+		// 		var dataText 	= dataCell.data('tooltip');
 
-		// 		$(cellWithSpan).each(function(e){
-		// 			var cellSpan	= $(cellWithSpan).children('span');
-		// 			cellSpan.parent
+		// 		dataCell.on('mouseenter', function(){
+		// 			if(dataText !== '') {
+		// 				$(this).text($(this).data('tooltip'));
+		// 			}
 		// 		});
 
 		// 	});
@@ -521,9 +517,15 @@
 		////
 
 		// Hamburger Menu
-		$('.nav').on('click', function(){
+		// $('.nav').on('click', function(){
+		// 	$('.menu-header-menu-container').toggleClass('active');
+		// 	$('.login-stuff').toggleClass('active');
+		// });
+
+		$('.hamburger').on('click', function(e){
 			$('.menu-header-menu-container').toggleClass('active');
 			$('.login-stuff').toggleClass('active');
+			e.preventDefault();
 		});
 
 	});

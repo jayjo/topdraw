@@ -70,9 +70,9 @@ header{background-color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.18);height:60px;p
 .logged-in .nav ul.login-stuff{margin:12px 0 0 20px;padding:8px 0 12px 25px}
 .nav ul{margin:20px 0 0 0}
 .nav ul li{display:inline-block;margin:0 0 0 20px;text-align:left}
-.nav ul li a{border-bottom:2px solid transparent;color:#b63f44;font-size:14px;font-weight:700;padding:21px 0;text-decoration:none;text-transform:uppercase}
+.nav ul li a{border-bottom:2px solid transparent;color:#191e25;font-size:14px;font-weight:700;padding:21px 0;text-decoration:none;text-transform:uppercase}
 .nav ul li a:hover{border-color:#b63f44;-webkit-transition:all 150ms;transition:all 150ms}
-.nav ul li.menu-item-262 a{padding-right:20px}
+.nav ul li.menu-item-262 a{color:#b63f44;padding-right:20px}
 .nav ul li.menu-item-has-children{position:relative}
 .nav ul li.menu-item-has-children>a:before,.nav ul li.menu-item-has-children>a:after{background-color:#b63f44;content:"";display:inline-block;float:right;height:3px;position:relative;width:7px}
 .nav ul li.menu-item-has-children>a:before{left:-5px;margin:7px 0 0 -3px;-webkit-transform:rotateZ(-45deg);-ms-transform:rotate(-45deg);transform:rotateZ(-45deg)}
@@ -299,6 +299,7 @@ table .orange:hover .tooltip.left{-webkit-transform:translateX(0);-ms-transform:
 table .orange:hover .tooltip.right{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0)}
 table .orange:hover .tooltip.bottom{-webkit-transform:translateY(60px);-ms-transform:translateY(60px);transform:translateY(60px)}
 table .orange:hover .tooltip.top{-webkit-transform:translateY(-60px);-ms-transform:translateY(-60px);transform:translateY(-60px)}
+table td.red,table td.orange.red{color:#b63f44}
 .table-head{background:#191e25;box-shadow:0 2px 4px 0 rgba(0,0,0,0.32);height:70px;left:0;opacity:0;position:fixed;top:0;visibility:hidden;width:100vw;z-index:2;-webkit-transition:opacity 75ms,visibility 0ms 75ms;transition:opacity 75ms,visibility 0ms 75ms}
 .close{background:transparent;border:1px solid #b63f44;border-radius:2px;color:#fff;font-size:15px;font-weight:bold;padding:5px 10px;position:absolute;right:20px;text-decoration:none;text-transform:uppercase;top:21px}
 .close:hover{background:#b63f44;box-shadow:0 7px 24px -8px rgba(0,0,0,0.35);-webkit-transition:all 150ms;transition:all 150ms}
@@ -328,6 +329,28 @@ p.footnote.pushed{margin:40px auto 0;text-align:center}
 .page-template-coming-soon .hero h2{font-size:32px;line-height:45px;margin:0 auto 40px;width:70%}
 .page-template-coming-soon .hero .logo{margin-bottom:10px}
 .page-template-coming-soon .hero .logo svg{fill:#b63f44;margin:0 auto;width:240px}
+.page-template-page-default-page{padding-top:140px}
+.page-template-page-default-page .ranger{margin-bottom:0;text-align:center}
+.page-template-page-default-page .internal_content,.page-template-page-default-page article{max-width:840px;width:100%}
+.page-template-page-default-page .internal_content img,.page-template-page-default-page article img{display:block;height:auto;margin:0 auto;max-width:640px;width:100%}
+.page-template-page-default-page .internal_content p,.page-template-page-default-page article p,.page-template-page-default-page .internal_content h4,.page-template-page-default-page article h4{margin:0 auto 25px;max-width:640px}
+.page-template-page-default-page .internal_content blockquote p,.page-template-page-default-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:800px;text-align:center}
+.page-template-page-default-page article{border-bottom:1px solid #e1e1e1;padding:25px 0}
+.page-template-page-landing-page{padding-top:140px}
+.page-template-page-landing-page .nav .menu-item-2010,.page-template-page-landing-page .nav .menu-item-100,.page-template-page-landing-page .nav .menu-item-99,.page-template-page-landing-page .nav .menu-item-262,.page-template-page-landing-page .nav .menu-item-1998,.page-template-page-landing-page .nav .menu-item-2037,.page-template-page-landing-page .nav .menu-item-2041,.page-template-page-landing-page .nav .menu-item-1834,.page-template-page-landing-page .nav .main-login,.page-template-page-landing-page .nav .login-stuff{display:none}
+.page-template-page-landing-page .nav .right{margin:0}
+.page-template-page-landing-page .ranger{margin-bottom:25px;text-align:center}
+.page-template-page-landing-page .internal_content,.page-template-page-landing-page article{max-width:940px;width:100%}
+.page-template-page-landing-page .internal_content img,.page-template-page-landing-page article img{height:auto;max-width:500px;width:100%}
+.page-template-page-landing-page .internal_content h4,.page-template-page-landing-page article h4{margin:0 auto 25px;max-width:940px}
+.page-template-page-landing-page .internal_content p,.page-template-page-landing-page article p{margin:0 auto 25px;max-width:800px}
+.page-template-page-landing-page .internal_content blockquote p,.page-template-page-landing-page article blockquote p{color:#b64247;font-size:24px;font-weight:bold;line-height:30px;max-width:940px}
+.page-template-page-landing-page .internal_content blockquote.big p,.page-template-page-landing-page article blockquote.big p{font-size:32px;line-height:40px;text-align:center}
+.page-template-page-landing-page .alignleft{float:left;margin:0 50px 50px 0}
+.page-template-page-landing-page .alignright{float:right;margin:0 0 50px 50px}
+.page-template-page-landing-page .signup-today{background:#191e25;box-shadow:0 12px 31px -3px rgba(0,0,0,0.35);margin:80px auto 80px;padding:40px;text-align:center;width:80%}
+.page-template-page-landing-page .signup-today h3{color:#fff;line-height:40px}
+.page-template-page-landing-page .signup-today h1{color:#fff}
 @media(min-width:20em) and (max-width:35.3em){body{letter-spacing:-0.5px}
 .wrapper{margin:0 auto;min-width:100%;padding:0 10px}
 .post-edit-link{z-index:100}
@@ -337,13 +360,14 @@ h3{font-size:22px;letter-spacing:-1px}
 p{font-size:15px;line-height:22px;margin-bottom:40px}
 .page-template-page-admin .entry-content p a{display:inline-block;margin-bottom:45px}
 .third.form{padding-top:50px}
+.hamburger{height:40px;position:absolute;right:5px;top:5px;width:40px}
 .button{display:block}
 header{height:50px;padding:0 10px}
 .logo-group{left:-7px;padding-top:13px;position:relative}
 .logo-group .logo svg{width:120px}
-.nav{background:#fff;height:20px;position:absolute;right:10px;top:15px;width:20px}
-.nav:before{background:-webkit-linear-gradient(top,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);background:linear-gradient(to bottom,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);content:"";display:block;height:15px;position:absolute;right:0;top:2px;width:20px}
-.menu-header-menu-container{background:#fff;float:none;height:100vh;left:110%;position:fixed;top:51px;width:100%;-webkit-transition:left 150ms;transition:left 150ms;z-index:100}
+.nav{height:20px;position:absolute;left:0;top:15px;width:100%}
+.nav:before{background:-webkit-linear-gradient(top,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);background:linear-gradient(to bottom,#191e25,#191e25 20%,#fff 20%,#fff 40%,#191e25 40%,#191e25 60%,#fff 60%,#fff 80%,#191e25 80%,#191e25 100%);content:"";display:block;height:15px;position:absolute;right:15px;top:2px;width:20px}
+.menu-header-menu-container{background:#fff;float:none;height:100vh;left:110vw;position:absolute;padding-bottom:120px;top:36px;width:100vw;-webkit-transition:left 150ms;transition:left 150ms;z-index:500;overflow-y:scroll}
 .menu-header-menu-container.active{left:0;-webkit-transition:left 150ms;transition:left 150ms}
 .nav ul{margin:0;padding:12px 10px}
 .nav ul li{display:block;margin:0;padding:0}
@@ -353,7 +377,7 @@ header{height:50px;padding:0 10px}
 .nav ul li.menu-item-has-children>ul.sub-menu li a:hover,.nav ul li.menu-item-has-children>ul.sub-menu li a:active{background:rgba(187,188,189,0.1);box-shadow:none;color:#b63f44}
 .nav ul li a{border:0;display:block;padding:10px;width:100%}
 .nav ul li a:hover,.nav ul li a:active{background:rgba(187,188,189,0.1);border-color:transparent}
-.nav ul.login-stuff{-webkit-box-align:stretch;-webkit-align-items:stretch;-ms-flex-align:stretch;align-items:stretch;background:#b63f44;bottom:0;border:0;color:#fff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:40px;left:110%;margin:0;padding:0;position:fixed;right:0;width:100%;-webkit-transition:left 150ms;transition:left 150ms}
+.nav ul.login-stuff{-webkit-box-align:stretch;-webkit-align-items:stretch;-ms-flex-align:stretch;align-items:stretch;background:#b63f44;bottom:0;border:0;color:#fff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:40px;left:110%;margin:0;padding:0;position:fixed;right:0;width:100%;-webkit-transition:left 150ms;transition:left 150ms;z-index:1000}
 .nav ul.login-stuff.active{left:0;-webkit-transition:left 150ms;transition:left 150ms}
 .nav ul.login-stuff li{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}
 .nav ul.login-stuff li.right{border-left:1px solid #fff}
@@ -443,6 +467,16 @@ p.footnote.pushed{margin:25px auto 0}
 .two_col.left p,.two_col.right p{margin-bottom:20px}
 .two_col.left img,.two_col.right img{margin-bottom:20px}
 .single_col p{margin-bottom:20px}
+.page-template-page-default-page{padding-top:80px}
+.page-template-page-default-page .internal_content blockquote p,.page-template-page-default-page article blockquote p{color:#b64247;font-size:18px;line-height:20px}
+.page-template-page-landing-page{padding-top:80px}
+.page-template-page-landing-page .nav{display:none}
+.page-template-page-landing-page .internal_content blockquote p,.page-template-page-landing-page article blockquote p{font-size:16px;line-height:20px}
+.page-template-page-landing-page .internal_content blockquote.big p,.page-template-page-landing-page article blockquote.big p{font-size:18px;line-height:25px}
+.page-template-page-landing-page .alignleft{float:left;margin:0 25px 25px 0}
+.page-template-page-landing-page .alignright{float:right;margin:0 0 25px 25px}
+.page-template-page-landing-page .signup-today{margin:40px auto 40px;padding:40px 40px 20px;width:90%}
+.page-template-page-landing-page .signup-today h3{line-height:25px}
 }@media(min-width:320px) and (max-width:564px){.hero{height:260px;margin-top:45px}
 .hero h1{font-size:38px;letter-spacing:-2px}
 .hero h2{font-size:28px;letter-spacing:-1px}

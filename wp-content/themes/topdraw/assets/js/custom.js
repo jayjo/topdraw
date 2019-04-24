@@ -188,7 +188,7 @@
 							$('.drawOdds').addClass('highlight');
 						}
 
-					if (document.location.pathname.indexOf("/nevada/") == "0") || (document.location.pathname.indexOf("/montana/") == "0") {
+					if ((document.location.pathname.indexOf("/nevada/") == "0") || (document.location.pathname.indexOf("/montana/") == "0")) {
 
 						if(calc.val() === "16") {
 

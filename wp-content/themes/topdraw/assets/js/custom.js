@@ -98,6 +98,9 @@
 					var twentytwoP     = (originalValues[index] / 442).toFixed(0);
 					var twentythreeP	 = (originalValues[index] / 485).toFixed(0);
 					var twentyfourP	   = (originalValues[index] / 530).toFixed(0);
+					var twentyfiveP	   = (originalValues[index] / 577).toFixed(0);
+					var twentysixP	   = (originalValues[index] / 626).toFixed(0);
+					var twentysevenP	 = (originalValues[index] / 677).toFixed(0);
 					var origVal 	     = (originalValues[index] / 1).toFixed(0);
 
 					if(!calc.val() || calc.val() === "0") {
@@ -185,7 +188,7 @@
 							$('.drawOdds').addClass('highlight');
 						}
 
-					if ( (document.location.pathname.indexOf("/nevada/") == "0") || (document.location.pathname.indexOf("/montana/") == "0") ) {
+					if (document.location.pathname.indexOf("/nevada/") == "0") || (document.location.pathname.indexOf("/montana/") == "0") {
 
 						if(calc.val() === "16") {
 
@@ -230,6 +233,21 @@
 							else if(calc.val() === "24") {
 
 							$(this).text(twentyfourP);
+							$('.drawOdds').addClass('highlight');
+						}
+							else if(calc.val() === "25") {
+
+							$(this).text(twentyfiveP);
+							$('.drawOdds').addClass('highlight');
+						}
+							else if(calc.val() === "26") {
+
+							$(this).text(twentysixP);
+							$('.drawOdds').addClass('highlight');
+						}
+							else if(calc.val() === "27") {
+
+							$(this).text(twentysevenP);
 							$('.drawOdds').addClass('highlight');
 						}
 
